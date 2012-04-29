@@ -204,8 +204,8 @@
 <p>Developers like myself are inherently lazy. I don&#8217;t mean we&#8217;re workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
 
 <ol>
-<li><p>It&#8217;s inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That&#8217;s not good.</p></li>
-<li><p>It forces me to add extra code to cope with it&#8217;s specific requirements. Let me explain:</p></li>
+<li>It&#8217;s inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That&#8217;s not good.</li>
+<li>It forces me to add extra code to cope with it&#8217;s specific requirements. Let me explain:</li>
 </ol>
 
 
@@ -215,37 +215,68 @@
 
 <p>To avoid repeating a lot of code in a setup function that would also be present in the next/previous function I can write a single function to set the page of the carousel, setting up the images and their click events.</p>
 
-<pre><code>var picturesPerPage = 4,
-    pictures = $('#pictures img');
+<figure class='code'><figcaption><span>Carousel setup</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">picturesPerPage</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">pictures</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#pictures img&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">loadGalleryCarouselPage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">pagenumber</span><span class="p">){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">imageStart</span> <span class="o">=</span> <span class="nx">pagenumber</span><span class="o">*</span><span class="nx">picturesPerPage</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">pictures</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">){</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">picture</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">pictures</span><span class="p">[</span><span class="nx">i</span><span class="p">]),</span>
+</span><span class='line'>            <span class="nx">pictureContainer</span> <span class="o">=</span> <span class="nx">picture</span><span class="p">.</span><span class="nx">parent</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">picture</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="nx">carouseldata</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="nx">imageStart</span><span class="o">+</span><span class="nx">i</span><span class="p">]){</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>                <span class="nx">pictureContainer</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;loading&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">picture</span><span class="p">.</span><span class="nx">unbind</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">});</span>
+</span><span class='line'>            <span class="nx">pictureContainer</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;loading&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span><span class="nx">carouseldata</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="nx">imageStart</span><span class="o">+</span><span class="nx">i</span><span class="p">].</span><span class="nx">thumbnailurl</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">unbind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>                <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span><span class='line'>                <span class="nx">pictureLink</span><span class="p">.</span><span class="nx">fancybox</span><span class="p">({</span>
+</span><span class='line'>                    <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="nx">carouseldata</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="nx">imageStart</span><span class="o">+</span><span class="nx">i</span><span class="p">].</span><span class="nx">imageurl</span>
+</span><span class='line'>                <span class="p">});</span>
+</span><span class='line'>            <span class="p">});</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">loadGalleryCarouselPage</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
 
-var loadGalleryCarouselPage = function(pagenumber){
-    var imageStart = pagenumber*picturesPerPage;
-    pictures.each(function(i){
-        var picture = $(pictures[i]),
-            pictureContainer = picture.parent();
-        picture.hide();
-        if(carouseldata.images[imageStart+i]){
-            picture.show();
-            picture.bind('load',function(){
-                pictureContainer.removeClass('loading');
-                picture.unbind('load');
-            });
-            pictureContainer.addClass('loading');
-            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
-
-            picture.unbind('click');
-            picture.bind('click',function(e){
-                e.preventDefault();
-                pictureLink.fancybox({
-                    "href": carouseldata.images[imageStart+i].imageurl
-                });
-            });
-        }
-    });
-};
-
-loadGalleryCarouselPage(0);
-</code></pre>
 
 <p>I&#8217;m using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
 
@@ -258,11 +289,11 @@ loadGalleryCarouselPage(0);
 <p>When the page loads it&#8217;s a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here&#8217;s what happens:</p>
 
 <ol>
-<li><p>A <code>load</code> event listener is set</p></li>
-<li><p>The <code>loading</code> class is applied which shows a spinner and hides the image</p></li>
-<li><p>The <code>src</code> of the <code>img</code> is set</p></li>
-<li><p>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</p></li>
-<li><p>The picture remains hidden and the spinner keeps spinning even though the image is loaded</p></li>
+<li>A <code>load</code> event listener is set</li>
+<li>The <code>loading</code> class is applied which shows a spinner and hides the image</li>
+<li>The <code>src</code> of the <code>img</code> is set</li>
+<li>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</li>
+<li>The picture remains hidden and the spinner keeps spinning even though the image is loaded</li>
 </ol>
 
 
@@ -275,8 +306,8 @@ loadGalleryCarouselPage(0);
 <p>The total number of images in the carousel doesn&#8217;t divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
 
 <ol>
-<li><p>They act as spacers so that other elements flow around them correctly</p></li>
-<li><p>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</p></li>
+<li>They act as spacers so that other elements flow around them correctly</li>
+<li>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</li>
 </ol>
 
 
@@ -290,45 +321,84 @@ loadGalleryCarouselPage(0);
 
 <p>Here&#8217;s my solution:</p>
 
-<pre><code>var picturesPerPage = 4,
-    pictures = $('#pictures img');
+<figure class='code'><figcaption><span>Carousel setup improved</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">picturesPerPage</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">pictures</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#pictures img&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">loadGalleryCarouselPage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">pagenumber</span><span class="p">){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">imageStart</span> <span class="o">=</span> <span class="nx">pagenumber</span><span class="o">*</span><span class="nx">picturesPerPage</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">pictures</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">){</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">picture</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">pictures</span><span class="p">[</span><span class="nx">i</span><span class="p">]),</span>
+</span><span class='line'>            <span class="nx">pictureContainer</span> <span class="o">=</span> <span class="nx">picture</span><span class="p">.</span><span class="nx">parent</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">picture</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="nx">carouseldata</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="nx">imageStart</span><span class="o">+</span><span class="nx">i</span><span class="p">]){</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>                <span class="nx">pictureContainer</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;loading&#39;</span><span class="p">);</span>
+</span><span class='line'>                <span class="nx">picture</span><span class="p">.</span><span class="nx">unbind</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">});</span>
+</span><span class='line'>            <span class="nx">pictureContainer</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;loading&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span><span class="nx">carouseldata</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="nx">imageStart</span><span class="o">+</span><span class="nx">i</span><span class="p">].</span><span class="nx">thumbnailurl</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">unbind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>                <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span><span class='line'>                <span class="nx">pictureLink</span><span class="p">.</span><span class="nx">fancybox</span><span class="p">({</span>
+</span><span class='line'>                    <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="nx">carouseldata</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span><span class="nx">imageStart</span><span class="o">+</span><span class="nx">i</span><span class="p">].</span><span class="nx">imageurl</span>
+</span><span class='line'>                <span class="p">});</span>
+</span><span class='line'>            <span class="p">});</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">{</span>
+</span><span class='line'>            <span class="nx">picture</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">browser</span><span class="p">.</span><span class="nx">webkit</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#pictures img&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">loadGalleryCarouselPage</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
 
-var loadGalleryCarouselPage = function(pagenumber){
-    var imageStart = pagenumber*picturesPerPage;
-    pictures.each(function(i){
-        var picture = $(pictures[i]),
-            pictureContainer = picture.parent();
-        picture.hide();
-        if(carouseldata.images[imageStart+i]){
-            picture.show();
-            picture.bind('load',function(){
-                pictureContainer.removeClass('loading');
-                picture.unbind('load');
-            });
-            pictureContainer.addClass('loading');
-            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
-
-            picture.unbind('click');
-            picture.bind('click',function(e){
-                e.preventDefault();
-                pictureLink.fancybox({
-                    "href": carouseldata.images[imageStart+i].imageurl
-                });
-            });
-        }
-        else{
-            picture.attr('src','');
-        }
-    });
-};
-
-if($.browser.webkit){
-    $('#pictures img').each(function(i){
-        $(this).attr('src','');
-    });
-}
-loadGalleryCarouselPage(0);
-</code></pre>
 
 <p>I added an <code>else</code> so that if there aren&#8217;t enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
 

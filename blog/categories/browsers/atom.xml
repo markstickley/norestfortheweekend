@@ -4,7 +4,7 @@
   <title><![CDATA[Category: browsers | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/browsers/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-04-29T22:46:42+01:00</updated>
+  <updated>2012-04-29T23:12:11+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -92,8 +92,8 @@
 <p>Developers like myself are inherently lazy. I don't mean we're workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
 
 <ol>
-<li><p>It's inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That's not good.</p></li>
-<li><p>It forces me to add extra code to cope with it's specific requirements. Let me explain:</p></li>
+<li>It's inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That's not good.</li>
+<li>It forces me to add extra code to cope with it's specific requirements. Let me explain:</li>
 </ol>
 
 
@@ -103,37 +103,43 @@
 
 <p>To avoid repeating a lot of code in a setup function that would also be present in the next/previous function I can write a single function to set the page of the carousel, setting up the images and their click events.</p>
 
-<pre><code>var picturesPerPage = 4,
-    pictures = $('#pictures img');
+<p>``` javascript Carousel setup
+var picturesPerPage = 4,</p>
 
-var loadGalleryCarouselPage = function(pagenumber){
-    var imageStart = pagenumber*picturesPerPage;
-    pictures.each(function(i){
-        var picture = $(pictures[i]),
-            pictureContainer = picture.parent();
-        picture.hide();
-        if(carouseldata.images[imageStart+i]){
-            picture.show();
-            picture.bind('load',function(){
-                pictureContainer.removeClass('loading');
-                picture.unbind('load');
-            });
-            pictureContainer.addClass('loading');
-            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
-
-            picture.unbind('click');
-            picture.bind('click',function(e){
-                e.preventDefault();
-                pictureLink.fancybox({
-                    "href": carouseldata.images[imageStart+i].imageurl
-                });
-            });
-        }
-    });
-};
-
-loadGalleryCarouselPage(0);
+<pre><code>pictures = $('#pictures img');
 </code></pre>
+
+<p>var loadGalleryCarouselPage = function(pagenumber){</p>
+
+<pre><code>var imageStart = pagenumber*picturesPerPage;
+pictures.each(function(i){
+    var picture = $(pictures[i]),
+        pictureContainer = picture.parent();
+    picture.hide();
+    if(carouseldata.images[imageStart+i]){
+        picture.show();
+        picture.bind('load',function(){
+            pictureContainer.removeClass('loading');
+            picture.unbind('load');
+        });
+        pictureContainer.addClass('loading');
+        picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
+
+        picture.unbind('click');
+        picture.bind('click',function(e){
+            e.preventDefault();
+            pictureLink.fancybox({
+                "href": carouseldata.images[imageStart+i].imageurl
+            });
+        });
+    }
+});
+</code></pre>
+
+<p>};</p>
+
+<p>loadGalleryCarouselPage(0);
+```</p>
 
 <p>I'm using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
 
@@ -146,11 +152,11 @@ loadGalleryCarouselPage(0);
 <p>When the page loads it's a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here's what happens:</p>
 
 <ol>
-<li><p>A <code>load</code> event listener is set</p></li>
-<li><p>The <code>loading</code> class is applied which shows a spinner and hides the image</p></li>
-<li><p>The <code>src</code> of the <code>img</code> is set</p></li>
-<li><p>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</p></li>
-<li><p>The picture remains hidden and the spinner keeps spinning even though the image is loaded</p></li>
+<li>A <code>load</code> event listener is set</li>
+<li>The <code>loading</code> class is applied which shows a spinner and hides the image</li>
+<li>The <code>src</code> of the <code>img</code> is set</li>
+<li>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</li>
+<li>The picture remains hidden and the spinner keeps spinning even though the image is loaded</li>
 </ol>
 
 
@@ -163,8 +169,8 @@ loadGalleryCarouselPage(0);
 <p>The total number of images in the carousel doesn't divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
 
 <ol>
-<li><p>They act as spacers so that other elements flow around them correctly</p></li>
-<li><p>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</p></li>
+<li>They act as spacers so that other elements flow around them correctly</li>
+<li>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</li>
 </ol>
 
 
@@ -178,45 +184,54 @@ loadGalleryCarouselPage(0);
 
 <p>Here's my solution:</p>
 
-<pre><code>var picturesPerPage = 4,
-    pictures = $('#pictures img');
+<p>``` javascript Carousel setup improved
+var picturesPerPage = 4,</p>
 
-var loadGalleryCarouselPage = function(pagenumber){
-    var imageStart = pagenumber*picturesPerPage;
-    pictures.each(function(i){
-        var picture = $(pictures[i]),
-            pictureContainer = picture.parent();
-        picture.hide();
-        if(carouseldata.images[imageStart+i]){
-            picture.show();
-            picture.bind('load',function(){
-                pictureContainer.removeClass('loading');
-                picture.unbind('load');
-            });
-            pictureContainer.addClass('loading');
-            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
-
-            picture.unbind('click');
-            picture.bind('click',function(e){
-                e.preventDefault();
-                pictureLink.fancybox({
-                    "href": carouseldata.images[imageStart+i].imageurl
-                });
-            });
-        }
-        else{
-            picture.attr('src','');
-        }
-    });
-};
-
-if($.browser.webkit){
-    $('#pictures img').each(function(i){
-        $(this).attr('src','');
-    });
-}
-loadGalleryCarouselPage(0);
+<pre><code>pictures = $('#pictures img');
 </code></pre>
+
+<p>var loadGalleryCarouselPage = function(pagenumber){</p>
+
+<pre><code>var imageStart = pagenumber*picturesPerPage;
+pictures.each(function(i){
+    var picture = $(pictures[i]),
+        pictureContainer = picture.parent();
+    picture.hide();
+    if(carouseldata.images[imageStart+i]){
+        picture.show();
+        picture.bind('load',function(){
+            pictureContainer.removeClass('loading');
+            picture.unbind('load');
+        });
+        pictureContainer.addClass('loading');
+        picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
+
+        picture.unbind('click');
+        picture.bind('click',function(e){
+            e.preventDefault();
+            pictureLink.fancybox({
+                "href": carouseldata.images[imageStart+i].imageurl
+            });
+        });
+    }
+    else{
+        picture.attr('src','');
+    }
+});
+</code></pre>
+
+<p>};</p>
+
+<p>if($.browser.webkit){</p>
+
+<pre><code>$('#pictures img').each(function(i){
+    $(this).attr('src','');
+});
+</code></pre>
+
+<p>}
+loadGalleryCarouselPage(0);
+```</p>
 
 <p>I added an <code>else</code> so that if there aren't enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
 
