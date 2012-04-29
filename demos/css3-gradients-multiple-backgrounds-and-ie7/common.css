@@ -1,0 +1,20 @@
+body{
+	font-family: arial, verdana, sans-serif;
+	font-size: 0.95em;
+}
+
+.mybutton{
+	padding: 3px 5px; display: inline-block;
+	border: 1px solid #C9C9C9;
+	background-color: white;
+	color: #358EC7; text-decoration: none; white-space: nowrap; font-weight: bold;
+	
+	-webkit-border-radius: 3px; -moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.mybutton:hover,
+.mybutton:focus,
+.mybutton:active{
+	text-decoration: underline;
+}
