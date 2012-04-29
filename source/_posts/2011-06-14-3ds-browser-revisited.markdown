@@ -5,6 +5,7 @@ slug: 3ds-browser-revisited
 status: publish
 title: 3DS browser revisited
 wordpress_id: '211'
+comments: true
 categories:
 - 3ds
 - browsers
