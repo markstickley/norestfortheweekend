@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Always use www in your URLs - No Rest For The Weekend</title>
+  <meta name="author" content="Mark Stickley">
+
+  
+  <meta name="description" content="&#8230;unless you are specifically on another subdomain. I&#8217;m not kidding! You need to make sure that your sites all redirect from http:// &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-537105-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">No Rest For The Weekend</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.norestfortheweekend.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Always Use Www in Your URLs</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-16T19:13:03+00:00" pubdate data-updated="true">Jan 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>&#8230;unless you are specifically on another subdomain.</p>
+
+<p>I&#8217;m not kidding! You need to make sure that your sites all redirect from http://yoursite.org to http://www.yoursite.org. If you&#8217;re not sure whether your sites do this, try now. Go ahead, I&#8217;ll wait.</p>
+
+<p>You can score yourself against this list based on what you see:</p>
+
+<ul>
+<li><p>Error page: <strong>NO POINTS!</strong></p></li>
+<li><p>Redirected to www.yoursite.org but to the front page instead of the page you wanted: <strong>Half a point</strong></p></li>
+<li><p>Page served, URL still has no www: <strong>1 point</strong></p></li>
+<li><p>Redirected to www.yoursite.org and to the correct page: <strong>10 points!</strong></p></li>
+</ul>
+
+
+<p>On no account should a user see an error page if they don&#8217;t type www before your URL. That&#8217;s just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.</p>
+
+<p>It&#8217;s almost as bad if the user enters an address to a page within your site and then gets taken to the home page, even if the URL in the address bar says www. I mean at least the site doesn&#8217;t look broken but it&#8217;s still not a nice welcome. Having the www gets you half a point.</p>
+
+<p>If the page is served irrespective of whether there is a www in the URL thats&#8230; OK. But only OK. Aside from the fact that you&#8217;ve got the same pages in two locations (not good for Google-juice) it could lead to errors. As yoursite.org and www.yoursite.org are seen as two different domains, if you have any AJAX on your site that refers specifically to www.yoursite.org it&#8217;s going to <em>fail hard</em> if the URL in the address bar doesn&#8217;t have the www. This is thanks to the cross-domain security model browsers employ. You don&#8217;t want that happening.</p>
+
+<p>What you should be doing is simply redirecting all traffic to the root domain to the www subdomain and maintaining the rest of the URL to ensure a good experience. This is actually very easy to do:</p>
+
+<p>Open the <code>.htaccess</code> file in the root of your site&#8217;s file structure. If it doesn&#8217;t exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it&#8217;s open, add these lines to it:</p>
+
+<pre><code>RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
+RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
+</code></pre>
+
+<p>Note that on the first line when you change the domain you need to add a slash before each dot as it&#8217;s part of a regular expression.</p>
+
+<p>It&#8217;s that simple!</p>
+
+<p>You have no excuse now.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Stickley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-16T19:13:03+00:00" pubdate data-updated="true">Jan 16<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/apache/'>apache</a>, <a class='category' href='/blog/categories/coding/'>coding</a>, <a class='category' href='/blog/categories/howto/'>howto</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls/" data-via="norestftw" data-counturl="http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/13/regex-for-an-email-address/" title="Previous Post: Regex for an email address">&laquo; Regex for an email address</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/" title="Next Post: The Web in 3D - the Nintendo 3DS web browser">The Web in 3D - the Nintendo 3DS web browser &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/">Webkit doesn't fire the load event on images</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7/">CSS3 gradients, multiple backgrounds and IE7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("norestftw", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/norestftw" class="twitter-follow-button" data-show-count="false">Follow @norestftw</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Mark Stickley -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'norestfortheweekend';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

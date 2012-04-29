@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts Latest Tweets Status updating&#8230; $.domReady(function(){ getTwitterFeed("norestftw", 4, false); }); Follow @norestftw ">
+  <meta name="description" content="It&#8217;s been a few months since I made the post speculating about the 3DS&#8217; browser capabilities. Since the browser is now available and that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,7 +75,1289 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/14/3ds-browser-revisited/">3DS Browser Revisited</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-14T01:19:14+01:00" pubdate data-updated="true">Jun 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It&#8217;s been a few months since I made <a href="http://www.norestfortheweekend.com/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">the post speculating about the 3DS&#8217; browser capabilities</a>. Since the browser is now available and that post is easily the post that has drawn the most attention to my humble blog I thought it would be worth writing a quick follow-up.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/06/photo.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/06/photo.jpg" alt="3DS browser in action" /></a></p>
+
+<h3>Not letting you down easily</h3>
+
+<p>There&#8217;s no way of saying this easily: the browser kind of sucks.</p>
+
+<p>I&#8217;ve never found browsing on a console a particularly satisfying experience and I didn&#8217;t expect this to be any better. What excited me was the potential for extending the web into a new dimension. The browser doesn&#8217;t even do that. It&#8217;s nowhere near as awesome as I&#8217;d hoped. No 3D, no custom CSS extensions. It &#8216;does&#8217; 3D&#8230; sort of. You can link to .mpo 3D image files; it&#8217;ll display them in 3D and allow you to save them to the SD card. It does not display the images in 3D inline in the page, though, and the 3D capabilities doesn&#8217;t extend beyond image files to other page elements.</p>
+
+<p>Viewing 3D photos on the web is pretty cool though, I&#8217;ll admit. If you want to try out viewing 3D pictures on the web for yourself, head over to <a href="http://www.3dporch.com">3D Porch</a> where they have stacks of them waiting to be seen.</p>
+
+<p>Interestingly, because .mpo and .jpg are both encoded using the standard jpeg format it seems that you can use them both in the same way. If you visit <a href="http://norestfortheweekend.com/demos/3ds-browser-revisited/3ds-mpo.html">this little demo page I put together</a> you can see that most browsers are happy displaying .mpo files natively as well as .mpo files renamed as .jpgs. The 3DS browser will display both images on the page without a problem. Sadly they are in 2D, although if you click on them (they are linked to their original files) then the image is shown in 3D. This works for both the .mpo file and the .mpo renamed as a .jpg.</p>
+
+<p>The browser doesn&#8217;t have Flash. This is no great loss, however, and with the 3DS&#8217; weak battery life you can&#8217;t blame them for not wanting to include something that would drain it even more quickly than in most situations.</p>
+
+<h3>Getting technical</h3>
+
+<p>For some fairly technical details about the browser, <a href="http://www.3dsbuzz.com/nintendo-3ds-to-use-netfront-browser-supports-flash-and-html5/">3DS Buzz wrote it up at the bottom of this article</a>. I&#8217;ll attempt to filter some useful information out of that&#8230;</p>
+
+<p>It is claimed that the browser supports HTML5 and CSS3 (partially in both cases). As such it isn&#8217;t much of a surprise that it doesn&#8217;t pass the <a href="http://acid3.acidtests.org/">Acid 3 test</a>. It is more of a surprise, however, that the 3DS does not even pass the <a href="http://acid2.acidtests.org/">Acid 2 test</a>. Don&#8217;t expect your pages to render perfectly (I&#8217;ve already had reports of pages not looking as they should).</p>
+
+<p>The JavaScript engine is said to be &#8220;high speed&#8221; but it takes it&#8217;s sweet time to finish failing the Acid 3 test.</p>
+
+<p>Here is the 3DS&#8217; User Agent string:</p>
+
+<pre><code>Mozilla/5.0 (Nintendo 3DS; U; ; en) Version/1.7412.EU
+</code></pre>
+
+<p>This is interesting for several reasons.</p>
+
+<ol>
+<li><p>It doesn&#8217;t list the rendering engine or make any mention of NetFront</p></li>
+<li><p>It DOES list the device name (not really that interesting, it&#8217;s just cool to see it)</p></li>
+<li><p>It&#8217;s fairly concise (it doesn&#8217;t come loaded with all the cruft you normally find in a UA string)</p></li>
+<li><p>It has the version number, but only for what appears to be the browser and not the system software</p></li>
+</ol>
+
+
+<p>Compare that UA string with the one of the version of Chrome I&#8217;m using right now:</p>
+
+<pre><code>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_7) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.91 Safari/534.30
+</code></pre>
+
+<p>Chrome&#8217;s is much longer and more verbose. You can see it not only contains the hardware but the system software version. It has the rendering engine and it&#8217;s version, the browser and it&#8217;s version and for the life of me I can&#8217;t think why but it also has a reference to Safari.</p>
+
+<p>What&#8217;s odd to me about the 3DS&#8217; UA string is the inclusion of the <code>.EU</code> on the end of the version number, right at the end. Does this mean that there&#8217;s an EU version of the browser that&#8217;s different from the browser they get in Japan and America? Why would they want to have to maintain multiple versions of the software? Will they use that user agent information to serve different content on Nintendo sites based on region? Probably not (but they could&#8230;).</p>
+
+<h3>Utilitarian</h3>
+
+<p>While I&#8217;m sure it&#8217;ll be fine for jumping onto GameFAQs to figure out how to beat that boss you&#8217;re stuck on, the 3DS browser is not going to set the world on fire like I hoped it might. I hope that not too many people got their hopes up about it, but if you did (like me) and are now feeling a little disappointed I feel your pain. At least it&#8217;s never going to gain a significant enough market share that we&#8217;ll ever have to worry about fixing broken sites in it&#8230; (famous last words).</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/">Webkit Doesn&#8217;t Fire the Load Event on Images</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-30T18:47:19+01:00" pubdate data-updated="true">Apr 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well that&#8217;s not strictly true. The full headline reads something like this:</p>
+
+<p><strong>Webkit doesn&#8217;t fire the <code>load</code> event on images when you change the <code>src</code> attribute and the new <code>src</code> is the same as the old</strong></p>
+
+<h3>That seems reasonable</h3>
+
+<p>That seems like reasonable behaviour. I mean, the image is already loaded. Changing the <code>src</code> attribute to it&#8217;s <em>current value</em> isn&#8217;t really changing it at all. It&#8217;s staying the same. If the <code>src</code> is the same and the image is already loaded, why fire the <code>load</code> event? You would only want to do that if the image was reloaded but doing that would be pointless as it&#8217;s already loaded. Loading it again would be a waste of bandwidth and make the experience feel slower; not what browser manufacturers are aiming for.</p>
+
+<p>So what&#8217;s the big deal?</p>
+
+<h3>Inherently lazy</h3>
+
+<p>Developers like myself are inherently lazy. I don&#8217;t mean we&#8217;re workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
+
+<ol>
+<li><p>It&#8217;s inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That&#8217;s not good.</p></li>
+<li><p>It forces me to add extra code to cope with it&#8217;s specific requirements. Let me explain:</p></li>
+</ol>
+
+
+<p>If I was writing for a JS-guaranteed environment this wouldn&#8217;t be such a problem but I&#8217;m a conscientious sort of guy and realise that not everyone will have the benefits of a modern browser with all the options set to &#8216;awesome&#8217;. I want to cater for the JS-disadvantaged as well.</p>
+
+<p>Let&#8217;s assume I&#8217;m writing a carousel for a photo slideshow that shows 4 pictures at a time. I want to show the first 4 pictures by default so that at least some content appears even for the non-JS users. Then, using non-intrusive JS I augment the slideshow to add next / previous buttons and the ability to click the image to enlarge it in a lightbox.</p>
+
+<p>To avoid repeating a lot of code in a setup function that would also be present in the next/previous function I can write a single function to set the page of the carousel, setting up the images and their click events.</p>
+
+<pre><code>var picturesPerPage = 4,
+    pictures = $('#pictures img');
+
+var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind('load',function(){
+                pictureContainer.removeClass('loading');
+                picture.unbind('load');
+            });
+            pictureContainer.addClass('loading');
+            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
+
+            picture.unbind('click');
+            picture.bind('click',function(e){
+                e.preventDefault();
+                pictureLink.fancybox({
+                    "href": carouseldata.images[imageStart+i].imageurl
+                });
+            });
+        }
+    });
+};
+
+loadGalleryCarouselPage(0);
+</code></pre>
+
+<p>I&#8217;m using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
+
+<p>So what we have there is a function that loops over the four <code>img</code> tags, pulls information out of an array (<code>carouseldata</code>) based on the page offset passed as an argument, sets up click and load listeners and changes the image&#8217;s <code>src</code> attribute. This will work for any page at any time. In theory we could add a &#8216;jump to page&#8217; option where the user could choose the page number to skip to. But we won&#8217;t.</p>
+
+<p>This is especially handy as we can simply call <code>loadGalleryCarouselPage(0);</code> to set up the event listeners when the page first loads without having to duplicate most of the lines elsewhere. We even get a natty little loading spinner if we take advantage of the <code>loading</code> class that is set.</p>
+
+<h3>Making things difficult</h3>
+
+<p>When the page loads it&#8217;s a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here&#8217;s what happens:</p>
+
+<ol>
+<li><p>A <code>load</code> event listener is set</p></li>
+<li><p>The <code>loading</code> class is applied which shows a spinner and hides the image</p></li>
+<li><p>The <code>src</code> of the <code>img</code> is set</p></li>
+<li><p>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</p></li>
+<li><p>The picture remains hidden and the spinner keeps spinning even though the image is loaded</p></li>
+</ol>
+
+
+<p>And that is frustrating.</p>
+
+<p>It&#8217;s an intermittent problem though, only when loading race conditions fail. Here&#8217;s another situation where it happens every time.</p>
+
+<h3>The dead cert.</h3>
+
+<p>The total number of images in the carousel doesn&#8217;t divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
+
+<ol>
+<li><p>They act as spacers so that other elements flow around them correctly</p></li>
+<li><p>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</p></li>
+</ol>
+
+
+<p>So say we&#8217;re on page 9 of 10 and click &#8216;Next&#8217;. Images 1 &amp; 2 are updated to show the final two pictures and images 3 &amp; 4 are hidden. Importantly: the <code>src</code> attributes of images 3 &amp; 4 don&#8217;t change. When we click &#8216;Previous&#8217;, images 1 &amp; 2 are changed back but 3 &amp; 4 are stuck with the loading spinner. That&#8217;s because, like before, the <code>src</code> was already set and it was equal to the new value.</p>
+
+<h3>Working around it</h3>
+
+<p>We could set the hidden images to a transparent .gif or .png instead of hiding them which would solve the second problem but because we want the images showing for non-JS users when the page loads we can&#8217;t use that technique to fix this. Also, downloading that extra image means extra bandwidth and latency times that we&#8217;d rather not have to deal with.</p>
+
+<p>It turns out that setting the <code>src</code> to <code>''</code> (empty string) immediately before setting the image url will fix the problem. But! It causes the images (and consequently their container) to collapse to zero width and height in Firefox while the new images are loading which looks really bad if you&#8217;re trying to navigate a slideshow.</p>
+
+<p>Here&#8217;s my solution:</p>
+
+<pre><code>var picturesPerPage = 4,
+    pictures = $('#pictures img');
+
+var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind('load',function(){
+                pictureContainer.removeClass('loading');
+                picture.unbind('load');
+            });
+            pictureContainer.addClass('loading');
+            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
+
+            picture.unbind('click');
+            picture.bind('click',function(e){
+                e.preventDefault();
+                pictureLink.fancybox({
+                    "href": carouseldata.images[imageStart+i].imageurl
+                });
+            });
+        }
+        else{
+            picture.attr('src','');
+        }
+    });
+};
+
+if($.browser.webkit){
+    $('#pictures img').each(function(i){
+        $(this).attr('src','');
+    });
+}
+loadGalleryCarouselPage(0);
+</code></pre>
+
+<p>I added an <code>else</code> so that if there aren&#8217;t enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
+
+<p>I also added a little <code>if</code> block directly before initialising the carousel, at the bottom. If the browser is webkit-powered then it&#8217;ll loop over the <code>img</code> tags and prime them (set their <code>src</code> to empty) before initialisation. Because this is done using JS, non-JS users will still see the images.</p>
+
+<h3>Grumpy</h3>
+
+<p>I&#8217;m grumpy about having to put in that extra, browser specific code. Setting the <code>src</code> to an empty string seems hacky. But it works and the logic is still clean and minimal. So it&#8217;ll do.</p>
+
+<p>I hope that helps anyone having image loading javascript issues. And as usual I&#8217;d be interested to hear if you have any alternative / better solutions!</p>
+
+<p>Check out the carousel in action <a href="http://www.qkschool.org.uk">here</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7/">CSS3 Gradients, Multiple Backgrounds and IE7</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-26T17:58:02+00:00" pubdate data-updated="true">Feb 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>You know how, according to the W3C, <a href="http://www.w3.org/TR/CSS21/syndata.html#parsing-errors">CSS selectors that are not understood should be ignored, [with](http://cvsmailorderpharmacy.org/buy-kamagra-oral-jelly-usa.html)out error</a>? IE7 doesn&#8217;t do that 100% of the time.</p>
+
+<h3>How dare it</h3>
+
+<p>That&#8217;s right. Just when you thought you had a nice system in place IE comes along and stomps all over it. I&#8217;m sure more and more people will come up against this as they start using CSS gradients in earnest. I can see it being quite a common situation, too. I have two background images: one, a CSS generated gradient and two, an image to be laid over the top of it. A nice shiny button with an icon, for example.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/button.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/button.png" alt="A button that says Register now and has a gradient and a separate icon for the background" /></a></p>
+
+<p>We know that certain browsers can&#8217;t render gradients and so we define the background to initially be just a solid colour with the icon image (the users of the older browsers will never miss what they didn&#8217;t know was there). Then we go on to define the styles for the modern browsers. These styles use the same selector (<code>background-image</code>) so they will override the initial declaration but according to the rules, browsers that don&#8217;t understand the gradient instructions will just ignore the whole declaration leaving us with just the initial icon for the background.</p>
+
+<p>As we know, the backgrounds will appear top down from the order you specify them so we specify the icon first and then the gradient, otherwise the gradient would obscure the icon.</p>
+
+<p>We also define the background-position twice. This is so we can position the gradient+icon background differently from the icon on it&#8217;s own. Browsers that don&#8217;t support multiple backgrounds should not see this syntax as valid and should ignore it.</p>
+
+<p>Here&#8217;s the code:</p>
+
+<pre><code>&lt;a href="#" class="mybutton"&gt;Register now&lt;/a&gt;
+
+
+
+
+
+
+.mybutton{
+    background-image: url(icon.png);
+    background-image: url(icon.png),
+        -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(233, 233, 233)),
+            color-stop(0.5, rgb(249, 249, 249)),
+            color-stop(0.5, rgb(255, 255, 255)),
+            color-stop(1, rgb(255, 255, 255))
+        );
+    background-image: url(icon.png),
+        -moz-linear-gradient(
+            center bottom,
+            rgb(233, 233, 233) 0%,
+            rgb(249, 249, 249) 50%,
+            rgb(255,255,255) 50%,
+            rgb(255,255,255) 100%
+        );
+
+    background-position: 5px center;
+    background-position: 5px center, left top;
+
+    background-repeat: no-repeat;
+
+    padding-left: 30px;
+}
+</code></pre>
+
+<p>Here it is in Firefox:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ff.png" alt="Styles are working well in Firefox" /></a></p>
+
+<p>And in IE7:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie.png" alt="The icon on the button is missing in IE" /></a></p>
+
+<p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example1.html">see it for yourself in your browser</a>.</p>
+
+<p>It seems that IE is not behaving as we might expect. It&#8217;s not showing the gradient (expected) but it&#8217;s not failing back to just showing the icon either. A quick look at the IE developer toolbar (in IE9, IE7 mode; the IE7 dev toolbar would leave you stumped) shows us why:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie-inspector.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie-inspector.png" alt="Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can't understand" /></a></p>
+
+<p>It&#8217;s picked up the background image declaration that includes a gradient. In this case it&#8217;s the Mozilla-specific gradient and the reason it&#8217;s this one and not the Webkit one is that we are defining the Mozilla one last. If they were defined the other way around it would have picked up the Webkit one instead.</p>
+
+<h3>Why? Oh why??</h3>
+
+<p>I&#8217;m no expert on how IE parses CSS but I would presume it&#8217;s something like IE recognises the URL part just fine and when it reaches the closing parenthesis it figures that&#8217;s it and all&#8217;s well. Maybe not. Whatever, for some reason it thinks it&#8217;s a valid declaration, scoops up the whole lot gradient and all and tries to render it. And fails.</p>
+
+<h3>That&#8217;s annoying</h3>
+
+<p>Yes it is.</p>
+
+<h3>The fix</h3>
+
+<p>Importantly, IE correctly recognises the <code>background-image</code> declaration as invalid (for itself) if it starts with a gradient, even if it contains a regular image later on. So we just start the declaration with a gradient. The trouble is, we don&#8217;t want to put the gradient first as it&#8217;ll obscure the icon, so we define <em>another</em> gradient that is OK to put on top of the icon. That would be an empty or transparent gradient.</p>
+
+<p>We will use the minimum amount of code that is necessary to trigger a gradient in the rendering engine. For Webkit, it is <code>-webkit-gradient(linear, left bottom, left top)</code>. No <code>color-stop</code>s required. This is good because no colour means no visible gradient. For Mozilla, it requires some colour information, so we just give it completely transparent colours using <code>rgba</code>: <code>-moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%)</code>.</p>
+
+<p>Putting these gradients first mean that IE7 won&#8217;t incorrectly think it can render that style and so it&#8217;ll stick with just the icon.</p>
+
+<p><strong>Important: Because we now have 3 background images, we also need to declare a third value for background-position.</strong></p>
+
+<pre><code>.mybutton{
+    background-image: url(icon.png);
+    background-image: -webkit-gradient(linear, left bottom, left top),
+        url(icon.png),
+        -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(233, 233, 233)),
+            color-stop(0.5, rgb(249, 249, 249)),
+            color-stop(0.5, rgb(255, 255, 255)),
+            color-stop(1, rgb(255, 255, 255))
+        );
+    background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
+        url(icon.png),
+        -moz-linear-gradient(
+            center bottom,
+            rgb(233, 233, 233) 0%,
+            rgb(249, 249, 249) 50%,
+            rgb(255,255,255) 50%,
+            rgb(255,255,255) 100%
+        );
+
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    background-position: left top, 5px center, left top;
+
+    padding-left: 30px;
+}
+</code></pre>
+
+<p>Here it is in Firefox:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ff.png" alt="The styles are working well in Firefox" /></a></p>
+
+<p>And in IE7:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie.png" alt="The styles are working well in IE7" /></a></p>
+
+<p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example2.html">see it for yourself in your browser</a>.</p>
+
+<h3>But wait, there&#8217;s more!</h3>
+
+<p>You thought this was over? Of course it&#8217;s not! IE9 is a heck of a lot better than previous versions but it&#8217;s still not perfect. For example, it does support multiple backgrounds but it doesn&#8217;t support CSS gradients. This means that it&#8217;ll ignore the gradients but it&#8217;ll use the <code>background-position</code> multiple background declaration we made, resulting in the icon being positioned <code>left top</code> as opposed to <code>5px center</code>.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie9.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie9.png" alt="The styles have regressed in IE9 and the icon is incorrectly aligned" /></a></p>
+
+<p>I tried getting around this by inserting another <code>background-image</code> defining three images (two of them transparent spacers) directly after the first <code>background-image</code> and before the first gradient:</p>
+
+<pre><code>.mybutton{
+    background-image: url(icon.png);
+    background-image: url(spacer.gif),
+        url(icon.png),
+        url(spacer.gif);
+    background-image: -webkit-gradient(linear, left bottom, left top),
+        url(icon.png),
+        -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(233, 233, 233)),
+            color-stop(0.5, rgb(249, 249, 249)),
+            color-stop(0.5, rgb(255, 255, 255)),
+            color-stop(1, rgb(255, 255, 255))
+        );
+    background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
+        url(icon.png),
+        -moz-linear-gradient(
+            center bottom,
+            rgb(233, 233, 233) 0%,
+            rgb(249, 249, 249) 50%,
+            rgb(255,255,255) 50%,
+            rgb(255,255,255) 100%
+        );
+
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    background-position: left top, 5px center, left top;
+
+    padding-left: 30px;
+}
+</code></pre>
+
+<p>But that didn&#8217;t work as IE7 still parsed it (incorrectly) just as it did in the first instance and therefore didn&#8217;t show the icon at all. Back to square one.</p>
+
+<p>At this point I&#8217;m sure most people are thinking</p>
+
+<p>&#8220;Oh come on, why not just use <a href="http://www.modernizr.com/">Modernizr</a> and only apply the gradients to browsers that can use them?&#8221;</p>
+
+<p>That&#8217;s one way of doing it, although I would rather not use JavaScript if possible. This leaves one option&#8230; go back to the original CSS and add this conditional comment in the <code>&lt;head&gt;</code>:</p>
+
+<p>As no versions of IE yet support gradients, we just reset the background to be the plain ol&#8217; icon. Problem solved.</p>
+
+<p>Here it is in Firefox:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ff.png" alt="The styles are working well in Firefox" /></a></p>
+
+<p>And in Webkit (Chrome):</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ch.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ch.png" alt="The styles are working well in Chrome" /></a></p>
+
+<p>And in Opera:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-op.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-op.png" alt="The styles are working well in Opera" /></a></p>
+
+<p>And in IE6:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie6.png" alt="The styles are working well in IE6" /></a></p>
+
+<p>And in IE7:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie7.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie7.png" alt="The styles are working well in IE7" /></a></p>
+
+<p>And in IE8:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie8.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie8.png" alt="The styles are working well in IE8" /></a></p>
+
+<p>And in IE9:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie9.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie9.png" alt="The styles are working well in IE9" /></a></p>
+
+<p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example3.html">see it for yourself in your browser</a>.</p>
+
+<h3>A side serving of gradient</h3>
+
+<p>You may have noticed that two of the <code>color-stop</code>s have the same percentage/distance value. This effectively give us the ability to have more than one gradient on the same element. The end result is a gradient from the top to the middle, a sudden stop and change of colour and another gradient from the middle to the bottom. It&#8217;s useful to be able to change sharply from one colour to another as well as smoothly!</p>
+
+<ul>
+<li><p>If anyone has a better solution, please get in touch in the comments or on Twitter.</p></li>
+<li><p>The images I&#8217;ve used come directly from the project I&#8217;m working on in my day job. If my employer has any objection to their use here I will of course replace them with something else. But I&#8217;m sure they won&#8217;t.</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS Web Browser</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-14T01:45:49+00:00" pubdate data-updated="true">Feb 14<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The Web in 3D - the Nintendo 3DS web browser</p>
+
+<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png" alt="The Nintendo 3DS" /></a></p>
+
+<p>Let&#8217;s not beat around the bush: this is a very impressive device. It&#8217;s tricked out with all the latest technologies (or the latest applications of &#8216;old&#8217; technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I&#8217;m sure you have read about it - the top screen is a 3D display which importantly doesn&#8217;t require glasses. I can&#8217;t stress enough how good the 3D effect looked. It felt completely natural and I didn&#8217;t find myself getting any kind of a headache or nausea like some people are worried about.</p>
+
+<p>There were demos available of most of the functionality: Lots of games that&#8217;ll be available on launch or shortly thereafter, 3D photography, augmented reality (including the &#8216;reality&#8217; part shown in 3D due to the 3D cameras on the lid - the most impressive thing for me) and street pass (Nintendo&#8217;s social discovery system). But the thing that actually holds the <em>most</em> interest for me <em>wasn&#8217;t</em> shown and indeed is barely talked about. I&#8217;m hoping that will change.</p>
+
+<h3>A complex web</h3>
+
+<p>I&#8217;m talking, of course, about the web browser which will come built in to the device as part of the extensive suit of software bundled on-board.</p>
+
+<p><em>YAWN</em></p>
+
+<p>A web browser? What&#8217;s so great about that?</p>
+
+<p>I don&#8217;t know yet because no-one is talking about it, but I&#8217;m <em>hoping</em> it will inspire (even more) innovation and creativity on the web. I&#8217;m hoping it will have some semblance of 3D integration and capability. And if not, why not? Surely this is the way the web is going. More and more devices will be 3D enabled in the near future and you can bet that if the 3DS doesn&#8217;t kick-start the 3D web some other device will. You can buy a 3D TV to put in your living room for crying out loud - this is 2011! They reckon you&#8217;ll be able to buy a <a href="http://news.bbc.co.uk/1/hi/programmes/click_online/9393762.stm">HOLOGRAPHIC 3D TV</a> in 2012. I&#8217;m all over that. And I want the web to make sure it isn&#8217;t left behind. After all, a lot of modern TVs have integrated browsers. It&#8217;s the next logical step.</p>
+
+<h3>Least they could do</h3>
+
+<p>The least I could hope for is support for 3D images displayed in web pages. The <strong>LEAST</strong>. The standard open format is <a href="http://en.wikipedia.org/wiki/Image_file_formats#MPO">.mpo</a> and fortunately <a href="http://nintendo3dsblog.com/the-3d-camera-in-the-nintendo-3ds-saves-photos-in-the-open-mpo-file-format">the same format in which the 3DS saves it&#8217;s 3D photos</a>.</p>
+
+<p>That&#8217;s not to say you will be able to simply embed the 3D photos in your site and have them work in the 3DS&#8217; web browser though. Think how that would look in a desktop browser&#8230; Well it probably wouldn&#8217;t show up or show a broken image.</p>
+
+<p>No, no, no, don&#8217;t even think about making a separate site for 3D devices. I thought we were past all that. What are you going to have yet another separate site for 3D+Mobile? We want to serve one page that works on all devices.</p>
+
+<p>The trouble is, without images having a similar failover pattern to the one available to <a href="http://dev.opera.com/articles/view/everything-you-need-to-know-about-html5-video-and-audio/">video and audio in HTML5</a>, you simply couldn&#8217;t use the image inline in your page as non-3D-enabled browsers wouldn&#8217;t recognise the format. This just proves that there are always new image formats emerging; they are not all supported by all browsers as it&#8217;s easy to assume (if you forget about IE6 and .png&#8217;s) so why should we assume that that&#8217;s the case with the markup?</p>
+
+<p><a href="http://www.brucelawson.co.uk/2010/why-video-audio-canvas-arent-self-closing-tags/">This has been discussed by Bruce Lawson</a> and makes sense (no matter how frustrating it is). So until all browsers support the display of 3D images on 2D screens we will have to find another way.</p>
+
+<p>The other way to include images in the page is, of course, CSS background images. This one has legs. The 3DS browser could easily respond to an @media query, something like <code>@media screen and (-3ds-min-device-spatial-dimensions: 3) { ... }</code>. Then you could alter how the page looks on a device that has 3D capabilities. Once you have the 3D background image in place you can mark it up to include a 2D version for the rest of the world:</p>
+
+<p>HTML:</p>
+
+<pre><code>&lt;div class="forest-picture"&gt;
+    &lt;img src="/static/img/forest-2d.jpg" alt="Pretty forest scene" height="250" width="400"&gt;&lt;/img&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>CSS:</p>
+
+<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) {
+    .forest-picture{
+        background: transparent url(../img/forest-3d.mpo) no-repeat 0 0;
+        width: 400px;
+        height: 250px;
+    }
+    .forest-picture img{
+        display: none;
+    }
+}
+</code></pre>
+
+<p>The best of both worlds! We can dream&#8230;</p>
+
+<h3>Reality check</h3>
+
+<p>Before we go on, I just need to make it abundantly clear (if it isn&#8217;t already) that this article is pure speculation. I don&#8217;t know if the 3DS browser supports any of this kind of stuff, but imagining the possibilities and how they might work is an interesting exercise. Oh wait, it looks like <a href="http://www.google.com/intl/en/landing/chrome/cadie/">Google has already looked into 3D browsing</a>. My mistake ;)</p>
+
+<p>Let&#8217;s explore further down the rabbit hole&#8230;</p>
+
+<h3>Going the extra dimension</h3>
+
+<p>What if we wanted to move beyond just sticking 3D images in our pages? As awesome as a 3D gallery might be, there are so many more possibilities. Imagine if the whole page could be rendered in 3D; if each element on the page had it&#8217;s own depth setting. I think the most obvious thing to do would be to push the background actually into the background giving the site content more prominence, and if you start down that road you should just be able to let your imagination carry you forwards.</p>
+
+<p>I know what you&#8217;re thinking, and it&#8217;s what I thought at first too&#8230; why not use <code>z-index</code> for that? The reason why not is because <code>z-index</code> controls the stacking order of elements on a single plane. If you change the function of <code>z-index</code> to control depth on 3D devices, how would you re-order a group of elements sharing the same depth on a 3D page? It&#8217;s clear that we need a separate property to do that. I&#8217;m going to be bold and use <code>depth</code> in examples, for want of a better attribute name.</p>
+
+<p>So where are we? We&#8217;ve got 3D images and the ability to assign <code>depth</code> to elements. That&#8217;s a good start, but it seems a little restricted, doesn&#8217;t it? A bunch of flat panels sitting at different depths in a 3D space. We&#8217;re not really making the most of the technology. We need to add a little style in there&#8230; style that can bridge the gap between depth-levels. Fortunately, Webkit is one step ahead of this game with it&#8217;s <a href="http://webkit.org/blog/386/3d-transforms/">CSS 3D transforms</a>. These could easily be adapted to show in real 3D instead of 3D rendered in 2D.</p>
+
+<h4>Curves would be nice</h4>
+
+<p>Yes they would, and so would a mansion on the beach in Barbados. We don&#8217;t even have the ability to define curves in 2D CSS yet. But then in 2D we might not have wanted to do crazy things like making a callout or title bow inwards or outwards, which would work pretty well in 3D. But maybe just one step at a time&#8230;</p>
+
+<h3>What is 3D anyway</h3>
+
+<p>To develop in 3D you need to understand how it really works. Fortunately understanding it is a lot simpler than getting your head around designing and developing in it:</p>
+
+<p><strong>3D works by each of your eyes seeing a slightly different image.</strong></p>
+
+<p>Simple enough, and in real life this works pretty well. But when generating your own 3D content you have to be ever-mindful of it.</p>
+
+<h3>Mind the gaps</h3>
+
+<p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png" alt="3DS Screen showing plain background" /></a></p>
+
+<p>You then have a look at it and wonder why it doesn&#8217;t look like it&#8217;s way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you&#8217;re left feeling a little confused.</p>
+
+<p>The reason why this doesn&#8217;t appear to be in the background is because your eyes are seeing the exact same image. There needs to be some more detail in there before your eyes can be tricked into thinking that it&#8217;s way off in the distance. Here are some suggestions:</p>
+
+<ol>
+<li>You could give it a border that makes it look like you&#8217;re looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png" alt="3DS screen showing a background shaded to look like you are looking into a box" /></a></p>
+
+<ol>
+<li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it&#8217;s not at the depth you intended.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png" alt="3DS screen with a patterned background" /></a></p>
+
+<ol>
+<li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I&#8217;m going to go with this one.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png" alt="3DS screen with a plain background and a green tile overlayed" /></a></p>
+
+<p>But even laying something on top like this isn&#8217;t too easy for our brains to process. Have a look what each eye would be seeing.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png" alt="Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye" /></a></p>
+
+<p>There&#8217;s not a great deal to differentiate these two images and while your brain knows it&#8217;s seeing different things from each eye it is struggling because there are things missing that it&#8217;s used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don&#8217;t give people headaches we&#8217;ll have to sort this out.</p>
+
+<pre><code>.floating-box{
+    box-shadow: 5px 5px 5px #ccc;
+}
+</code></pre>
+
+<p>Now the panel has a nice drop shadow which should make it easier on the eyes and easier to see the 3D effect.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png" alt="3DS screen with plain background and a green panel overlaid with a drop shadow" /></a></p>
+
+<p>But how does it get rendered so that each eye sees the shadow differently?</p>
+
+<h3>Seeing the light</h3>
+
+<p>The way I see it there are two options:</p>
+
+<ol>
+<li><p>The browser provides a default (override-able) light source:</p>
+
+<p> body{</p>
+
+<pre><code> light-source: 25% 25% fixed;
+</code></pre>
+
+<p> }</p></li>
+</ol>
+
+
+<p><code>fixed</code> would position the light source relative to the browser viewport, and as an alternative <code>absolute</code> would position it relative to the document.</p>
+
+<ol>
+<li>You, the developer, get granular control over what each eye sees:</li>
+</ol>
+
+
+<p>If you had control over each eye the possibilities would be endless. Set the difference in box shadow offset, show a different background image to achieve a rippling effect. You would OWN all the dimensions.</p>
+
+<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: left-eye) {
+    .floating-box{
+        box-shadow: 3px 5px 5px #ccc;
+    }
+}
+@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: right-eye) {
+    .floating-box{
+        box-shadow: 7px 5px 5px #ccc;
+    }
+}
+</code></pre>
+
+<p>I think a combination of both would probably be in the interests of developer and user alike.</p>
+
+<h3>It&#8217;s not all giant blue humanoids and bio-luminescent flowers</h3>
+
+<p>This technology has it&#8217;s disadvantages, and you can be sure that there will be some nasty surprises out there when it comes along. As with most visual effects, subtlety is king. Of course there will always be the developers who are irresponsible with this great power and make some eye-bleeding creations, but that&#8217;s just inevitable. No, what I&#8217;m really worried about can be summed up in two words: Internet. Advertising. If you thought pop-over ads were intrusive now, you ain&#8217;t seen nothing yet.</p>
+
+<h3>The waiting game</h3>
+
+<p>Who knows what you&#8217;ll be able to do with the browser? Nintendo maybe? Or if it&#8217;s <a href="http://www.opera.com/">Opera</a> providing the software again, as they did for the Wii and original DS/DSi then I expect they will know. (Please do get in touch if you have insider knowledge!) But until that information is made available or the 3DS is in our hands we won&#8217;t know for sure. I hope it&#8217;s got at least a few fun 3D features to play with. I&#8217;m sure the full set will develop over time.</p>
+
+<p><strong>Update:</strong> Now that the browser is available, I had a little play with it and <a href="http://www.norestfortheweekend.com/2011/06/14/3ds-browser-revisited/">wrote down a few of my thoughts</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always Use Www in Your URLs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-16T19:13:03+00:00" pubdate data-updated="true">Jan 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&#8230;unless you are specifically on another subdomain.</p>
+
+<p>I&#8217;m not kidding! You need to make sure that your sites all redirect from http://yoursite.org to http://www.yoursite.org. If you&#8217;re not sure whether your sites do this, try now. Go ahead, I&#8217;ll wait.</p>
+
+<p>You can score yourself against this list based on what you see:</p>
+
+<ul>
+<li><p>Error page: <strong>NO POINTS!</strong></p></li>
+<li><p>Redirected to www.yoursite.org but to the front page instead of the page you wanted: <strong>Half a point</strong></p></li>
+<li><p>Page served, URL still has no www: <strong>1 point</strong></p></li>
+<li><p>Redirected to www.yoursite.org and to the correct page: <strong>10 points!</strong></p></li>
+</ul>
+
+
+<p>On no account should a user see an error page if they don&#8217;t type www before your URL. That&#8217;s just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.</p>
+
+<p>It&#8217;s almost as bad if the user enters an address to a page within your site and then gets taken to the home page, even if the URL in the address bar says www. I mean at least the site doesn&#8217;t look broken but it&#8217;s still not a nice welcome. Having the www gets you half a point.</p>
+
+<p>If the page is served irrespective of whether there is a www in the URL thats&#8230; OK. But only OK. Aside from the fact that you&#8217;ve got the same pages in two locations (not good for Google-juice) it could lead to errors. As yoursite.org and www.yoursite.org are seen as two different domains, if you have any AJAX on your site that refers specifically to www.yoursite.org it&#8217;s going to <em>fail hard</em> if the URL in the address bar doesn&#8217;t have the www. This is thanks to the cross-domain security model browsers employ. You don&#8217;t want that happening.</p>
+
+<p>What you should be doing is simply redirecting all traffic to the root domain to the www subdomain and maintaining the rest of the URL to ensure a good experience. This is actually very easy to do:</p>
+
+<p>Open the <code>.htaccess</code> file in the root of your site&#8217;s file structure. If it doesn&#8217;t exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it&#8217;s open, add these lines to it:</p>
+
+<pre><code>RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
+RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
+</code></pre>
+
+<p>Note that on the first line when you change the domain you need to add a slash before each dot as it&#8217;s part of a regular expression.</p>
+
+<p>It&#8217;s that simple!</p>
+
+<p>You have no excuse now.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/13/regex-for-an-email-address/">Regex for an Email Address</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-13T14:21:53+01:00" pubdate data-updated="true">Oct 13<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It&#8217;s something that I&#8217;ve come up against several times and each time I google for it I turn up a different result.</p>
+
+<p>How do you validate an email address?</p>
+
+<p>Obviously you want to use a <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>, but given the specification for <a href="http://en.wikipedia.org/wiki/Email_address">email address</a>es that&#8217;s going to be one really complicated line of code.</p>
+
+<p>Following a user&#8217;s complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today&#8217;s search yielded more success <a href="http://atlantic-drugs.net/products/viagra.htm">viagra</a> usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
+
+<pre><code>/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/
+</code></pre>
+
+<p>I won&#8217;t lie to you: I haven&#8217;t dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I&#8217;ve thrown at it. It also works in Javascript which, for me, is a massive win.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/03/21/why-do-we-need-conferences/">Why Do We Need Conferences?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-21T00:58:21+00:00" pubdate data-updated="true">Mar 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[caption id=&#8221;attachment_132&#8221; align=&#8221;alignright&#8221; width=&#8221;280&#8221; caption=&#8217;<a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards">Photo</a> by <a href="http://www.flickr.com/photos/rugbymadgirl/">Rugby Mad Girl</a>, from <a href="http://www.flickr.com/">Flickr</a>&#8217;]<a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/03/hBeer.jpg" alt="hBeer" /></a>[/caption]</p>
+
+<p>Seriously? Why do we need to spend hundreds of pounds, dollars, euros or whatever to attend these events? They are pretty pricey and more often that not they are nowhere near home so you have the added cost of transport and hotel bills and all those meals you&#8217;re going to consume out while you&#8217;re away. It&#8217;s not cheap, and even if you can afford it, why spend it?</p>
+
+<h3>The Talks&#8230; it&#8217;s all about the presentations &amp; sessions!</h3>
+
+<p>Is it really though? These people who get on the stage and talk: Yeah OK, they&#8217;re great. They do a fantastic presentation, insightful with great slides and funny too! But don&#8217;t they put articles on their blogs for free that cover that topic and a wealth of others besides, all year round? If hearing and seeing them actually say the words is so integral to getting their message across, they could very easily record themselves and publish it in a video or audio format right there on their blogs.</p>
+
+<p>In fact, recently some conferences have taken to publishing all the talks that are given right there on the web for all to see. Everyone can watch, even people who didn&#8217;t pay to go to the conference itself! I was watching <a href="http://vimeo.com/build">the videos</a> from a conference that I didn&#8217;t go to - <a href="http://buildconference.com">Build</a> - which was held in Belfast at the end of last year. How nice of them to go to all the effort of filming it, editing it and putting it online, I thought. And the talks are great, I&#8217;d encourage you to go and watch them. But I was thinking&#8230; how would I feel about this if I actually PAID to go to the conference?</p>
+
+<h3>Money talks</h3>
+
+<p>If I&#8217;d laid down cold hard cash to see the talks, wouldn&#8217;t I be unhappy that others who hadn&#8217;t could then just browse to a page and see all the content&#8230; for free? Maybe a little. But then again I&#8217;m all for sharing information and content, especially when it&#8217;s of benefit to the community so maybe I&#8217;d be a little conflicted about that.</p>
+
+<p>Most people I ask, however, seem not to mind this sort of behaviour. They seem to think that conferences go beyond the talks, and I&#8217;d be inclined to agree.</p>
+
+<h3>It&#8217;s not about what you know</h3>
+
+<p>I think that while the talks are nice and all, what most people value the most from conferences is the opportunity to meet other like-minded people. Or to put it in business-speak: networking. Between the talks and in the evening(s), you get to mingle with people who all have their own goals, ideas, methods, questions and accomplishments in the same field as you and are quite willing to share them with you. The more people you talk to and the more conferences you go to (where you&#8217;re likely to see these people again) the more contacts and even friends you are likely to make.</p>
+
+<p>Nothing drives this home more clearly than the general chatter I picked up from this years <a href="http://sxsw.com">SXSW</a> which I was sadly unable to attend. Essentially, the vast majority of talk I picked up from SXSW was not about the panels and talks (which no doubt were excellent) but they were about the parties, BBQs and the socialising. The Networking.</p>
+
+<p>But this brings me back to my original point. Why do we need conferences? If all we need to make contacts is to get people who are in similar lines of work to talk to each other why don&#8217;t we do it all the time? The talks are nice but completely unnecessary to get what people seem to value the most from conferences.</p>
+
+<h3>Pub Standards</h3>
+
+<p><a href="http://www.pubstandards.co.uk">Pub Standards</a> is something that happens in London on a monthly basis. It also happens in <a href="http://pubstandards.org">Melbourne</a>, I believe (<a href="http://en.wikipedia.org/wiki/User:Aliasd/Pub_Standards">Wikipedia confirms this</a> so it must be true). What it is is this: a whole bunch of web folk get together and take over a pub for an evening. They sit and drink and talk about whatever they please which may or may not include topics such as:</p>
+
+<ul>
+<li><p>What they are doing at work</p></li>
+<li><p>What they are watching on TV</p></li>
+<li><p>The contents of that controversial blog post that&#8217;s been doing the rounds on Twitter</p></li>
+<li><p>The latest CSS tricks that they&#8217;ve learned or seen in action</p></li>
+<li><p>Why anyone who uses a Palm Pre should be hugged / pitied / unfollowed / shot on sight</p></li>
+<li><p>Anything and everything else</p></li>
+</ul>
+
+
+<p>&#8230;you get the idea. It sounds pretty much like the after party at a conference then.</p>
+
+<p>The other night it was in fact my first Pub Standards (for shame) but it certainly won&#8217;t be my last. I just can&#8217;t imagine why this hasn&#8217;t caught on more places than just London and Melbourne!</p>
+
+<h3>The reality</h3>
+
+<p>While it would be awesome to think that we could all get our conference fix by reading blogs, watching online video and going to Pub Standards the reality is that it&#8217;s just not logistically possible.</p>
+
+<p>There are actually people outside of London (and indeed outside of any large city) who are involved in the web industry who just couldn&#8217;t make it in to the city on a regular basis. They could start their own group but you really need a large city environment to get a decent sized and varied bunch of people together each month. In addition to that, conferences can provide the chance for people to meet developers from other parts of the country or from the other side of the world which local meet-ups just can&#8217;t.</p>
+
+<p>It would be nice to think that we might be able to organise some kind of International Pub Standards where people fly in and join the fun for a few times every year, but that wouldn&#8217;t work for so many reasons:</p>
+
+<ol>
+<li><p>Spouses and significant others often remain unconvinced of the value of developers drinking beer together.</p></li>
+<li><p>No one&#8217;s going to fly in from Amsterdam just for a night out at the pub - it has to be for longer to make it worth it.</p></li>
+<li><p>Any longer than an evening and you start having to take things like food breaks and accommodation into account&#8230; and the conversation could start to need a catalyst of some sort.</p></li>
+<li><p>No company is going to pay your transatlantic flights for what can only be described as a night down the pub with a bunch of geeks.</p></li>
+</ol>
+
+
+<p>The talks that you get at a conference and the information you glean from them, or the questions that arise from them seem to solve all these problems quite neatly. And let&#8217;s face it they generally are quite good, otherwise they wouldn&#8217;t bother making them available for everyone else on the internet.</p>
+
+<h3>Is that your final answer?</h3>
+
+<p>Why do we need conferences? It&#8217;s so we can meet people and gel as a community on a global level in a way that you can&#8217;t do by just using Twitter, Facebook and all of their social contemporaries.</p>
+
+<p>But let&#8217;s not underestimate the value of local groups either. I find it astounding that Pub Standards is only happening in London and Melbourne. There must be so many places, large cities, where there are plenty enough web developers interested in Standards and beer to get a regular meet-up going. If you live or work in one of them, why not start one up? I&#8217;m sure it would be very rewarding on many levels.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/24/a-fold-by-any-other-name/">A Fold by Any Other Name</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-24T14:53:33+00:00" pubdate data-updated="true">Feb 24<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&#8230;would be a more accurate analogy.</p>
+
+<p>We&#8217;ve all heard the arguments about the so-called fold, that mysterious, imaginary line beneath which no content shall be seen. There are still plenty of clients, designers and other folk who should know better who will request something be placed &#8216;above the fold&#8217;. Whether or not they ask for it using the term &#8216;fold&#8217; is immaterial because at the end of the day that&#8217;s what they mean and it&#8217;s something they want.</p>
+
+<h3>A fold through time</h3>
+
+<p>The history of the Fold dates back to an era where news was distributed in a physical format. It was printed on large sheets of paper, largely in black and white and arranged into what resembled an oversized book. To aid distribution and storage these items were folded in half leaving visible only the title of the publication and one or two other pieces of information that were on the top half of the front page.</p>
+
+<p>When on display to potential buyers, each publication was competing with other similar publications. The information visible was important because it would catch people&#8217;s eyes and was often what governed which publication was chosen for purchase. Because of this, the editors had to carefully decide which pictures and headlines were to be put on display in the top half of the front page. What was &#8216;above the fold&#8217; was very important – it could dramatically affect sales.</p>
+
+<h3>From dots to pixels</h3>
+
+<p>Now that we are consuming masses of content on screens rather than pages (whether it&#8217;s news, opinion pieces, novels, comics or anything else that print once ruled) wise people will tell us that <a href="http://www.thereisnopagefold.com/">there is no page fold</a>, not any more. It disappeared when the content left the medium of paper. If there is no paper there is no fold.</p>
+
+<p>Other (slightly more old-fashioned) people would argue otherwise; they would argue that not all people are used to scrolling. A lot of the more computer savvy or technically orientated among us find this hard to believe. Back when the concept of the digital fold was first introduced in the early days of the internet this may well have been the case. Now, however, it is the age of the <a href="http://en.wiktionary.org/wiki/silver_surfer">silver surfer</a> and a time where if you can&#8217;t perform fundamental functions on a computer it is becoming increasingly difficult to get along.</p>
+
+<p>Scrolling is a pretty fundamental function and I would support the hypothesis that there are incredibly few people who use computers that do not know how to scroll.</p>
+
+<h3>Folding it back on itself</h3>
+
+<p>For most people that&#8217;s where the argument ends. I hold a slightly different opinion, perhaps controversially. Although I don&#8217;t  believe they have said it directly, it would seem Google are also disinclined to agree based on their <a href="http://browsersize.googlelabs.com/">recent work capturing various screen sizes</a> and mapping the visible area of a page without scrolling.</p>
+
+<p>What I believe it comes down to is this:</p>
+
+<p><strong>People will scroll if they can&#8217;t find what they are looking for.</strong></p>
+
+<p>If they are searching for something and can&#8217;t see it but <em>expect</em> it to be there, scrolling is pretty much second nature. If they have found it, however, why scroll? Unless there is something else visible that catches their interest, maybe half obscured by the bottom of the window then there is little incentive to reach for the scroll-wheel.</p>
+
+<p>It doesn&#8217;t end there either. If someone is reading a piece of content – say, an email – that appears to reach it&#8217;s logical end within the visible area then they are less likely to scroll down, <em>even if there is more relevant content beneath</em>. Even seasoned computer users make this mistake (trust me, I&#8217;ve done it).</p>
+
+<h3>The fold in action</h3>
+
+<p>So, you are visiting a page. You know exactly what you want from the page and are interested in nothing else. You visit the page and there it is sitting waiting for you. You don&#8217;t even need to scroll to see it all. When you&#8217;ve finished reading or looking at it, what do you do? I know what I&#8217;d do: close the tab, type a new URL, Google something&#8230; in short, navigate away from that page.</p>
+
+<p>But what about all the content below this so-called &#8216;fold&#8217;? It might well have been really interesting and relevant to me but I didn&#8217;t see it because I didn&#8217;t scroll. I didn&#8217;t scroll because I had already found what I came to that page to see.</p>
+
+<p>I think it&#8217;s time for some examples. I&#8217;m going to use what got me thinking about this again in the first place: WebComics.</p>
+
+<p>For those unfamiliar, the WebComics model is based around free content. The comic is given away for free and the revenue is generated from adverts and merchandise. It&#8217;s fair to say that for a full-time WebComic artist there is one goal: to generate revenue. The fact that they all seem to enjoy their work is a pleasant side-effect. There is a secondary goal which is to cultivate fans and a community which in turn leads to repeat visits which lead to advert revenue and merchandise sales.</p>
+
+<p>Look at this page:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/ellieconnelly.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/ellieconnelly-628x402.jpg" alt="Screen grab from the WebComic &quot;Ellie Connelly&quot;" /></a></p>
+
+<p>I have a pretty big screen. With that page from <a href="http://www.ellieconnelly.com/">Ellie Connelly</a> I hit the site and the comic is all there, no need to scroll. When I&#8217;ve finished reading the most likely thing I&#8217;ll do is close the tab because what I came for was the comic. There&#8217;s nothing else visible that makes me encourages to look any further. There are ads on that page but to see them I&#8217;d have to scroll&#8230; so I won&#8217;t see them. There&#8217;s also a blog which I&#8217;d sadly also miss.</p>
+
+<p>Now have a look at this front page from another WebComic, <a href="http://www.evil-comic.com">Evil, Inc.</a>:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/evilinc.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/evilinc-628x404.jpg" alt="Screen grab from the WebComic &quot;Evil, Inc.&quot;" /></a></p>
+
+<p>There is an advert right at the top of the page! The logo is shrunk and placed in line with the advert. This lets the content that the user is after move higher up the page. This is good for the reader and good for the author as they have a better chance of enticing the reader to scroll down with extra content.</p>
+
+<p>As well as the advert, right above the comic there is a link in bright red telling us what the latest blog post is about. Clicking on this will jump the reader straight to the blog in the same page. Within the visual boundary of the white box I count 5 links to explore the archives, 2 links with which the artist can make money and 9 ways for the reader to spread the word to their friends about the comic, hopefully generating new readership. All of this without having to scroll.</p>
+
+<p>Which comic do you think does the best in terms of revenue based on these interface choices? <em>Evil, Inc.</em> would be my guess.</p>
+
+<p>Let&#8217;s look at another, <a href="http://www.sheldoncomics.com/">Sheldon</a>:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/sheldon.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/sheldon-628x402.jpg" alt="Screen grab from the WebComic &quot;Sheldon&quot;" /></a></p>
+
+<p>Again, the strip fits nicely on my screen without scrolling but there&#8217;s so much else to catch my attention after I&#8217;ve read it. There are 3 adverts (4 if you count the peel back flash advert in the top right) and plenty of ways to maintain the reader&#8217;s engagement with the strip. One of the adverts is butted right up to the bottom of the strip which means so long as the top of the advert is interesting the user is much more likely to scroll down to see the rest.</p>
+
+<h3>To sum up&#8230;</h3>
+
+<p><em>Please</em> don&#8217;t think I&#8217;m advocating cramming as much clutter into the upper regions of pages as possible. I&#8217;m absolutely not - it would make for scruffy and crowded-looking sites and the content would be lost amongst everything else vying for attention.</p>
+
+<p>Likewise, <em>please</em> don&#8217;t think I&#8217;m suggesting that people should push the content users want below the fold so they have to scroll for it - that would just be a terrible user experience. If a site actually did that they would haemorrhage users at a massive rate.</p>
+
+<p>It doesn&#8217;t take a black belt in origami to tell that &#8216;the fold&#8217; is a concept that doesn&#8217;t port from print to web because unlike a newspaper, the web is fluid. Nothing is fixed: the browser window size, the text size, the position and type of content&#8230; This doesn&#8217;t mean we can dismiss the analogy in it&#8217;s entirety, however, because there are some cases where users really won&#8217;t scroll, regardless of their technical expertise.</p>
+
+<p>Like so many other things, it comes down to the fact that careful consideration of layout based upon content, expected user behaviour and desired user behaviour is essential in any good design.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/02/02/a-little-something-while-you-wait/">A Little Something While You Wait</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-02T00:46:59+00:00" pubdate data-updated="true">Feb 2<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I know, I know it&#8217;s been a while since I posted. There&#8217;s one on the way, I promise!</p>
+
+<p>While you wait for it to brew, however, why don&#8217;t you check out my inaugural post on the BBC Web Developer blog: <a href="http://www.bbc.co.uk/blogs/webdeveloper/2010/02/css-for-widgets-friends-dont-break-friends-styles.shtml">CSS for Widgets</a>.</p>
+
+<p>Have you ever written some CSS on a page which contains other people&#8217;s stylesheets? And have you noticed that either your CSS broke their stuff or theirs messed about with yours? If you have then this post is right down your street. If you haven&#8217;t&#8230; well have a read just to make sure it never happens.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/12/12/console-log-for-all/">Console.log for All!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-12T20:47:01+00:00" pubdate data-updated="true">Dec 12<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/console.jpg" alt="Firebug console" /></p>
+
+<p>If you&#8217;re like me then you probably use <code>console.log</code> a lot. It&#8217;s such a useful debugging tool! It&#8217;s better that alert in so many ways I won&#8217;t bother mentioning them all because- oh what the hell, this is my blog I&#8217;ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
+
+<ul>
+<li><p>It hides away when you don&#8217;t need it and doesn&#8217;t bother you unless you are interested in it.</p></li>
+<li><p>It lets you log more than one variable at a time simply by passing more than one argument.</p></li>
+<li><p>It doesn&#8217;t interrupt the flow of the script until you click OK.*</p></li>
+<li><p>If you are testing a loop or quick interval you don&#8217;t have to force quit Firefox just to get to the reload button.</p></li>
+<li><p>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</p></li>
+<li><p>If you log an <code>Element</code> that&#8217;s on the page when you mouse over it in the log it highlights on the page.</p></li>
+</ul>
+
+
+<p>What&#8217;s my point? Well, if you&#8217;re like me then you probably use it so much that sometimes after a hard debugging session it&#8217;s easy to accidentally leave it in the code in a few places.</p>
+
+<h4>The piece of grit that stopped the clock</h4>
+
+<p>What harm can it do? Most normal users don&#8217;t have Firebug installed anyway so they won&#8217;t see anything, right?</p>
+
+<p>Wrong. Or at least wrong attitude. Developers <a href="http://cvsonlinepharmacystore.com/products/kamasutra-ribbed-condoms.htm">will</a> see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
+
+<p>Without Firebug installed the <code>console</code> object doesn&#8217;t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It&#8217;s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
+
+<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/erroronpage.gif" alt="IE's 'error on page' icon" /></p>
+
+<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn&#8217;t inspire confidence in a site or product.</p>
+
+<h4>Undesirable</h4>
+
+<p>It&#8217;s fair to say that you don&#8217;t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug&#8217;s console. Have a look at the code:</p>
+
+<pre><code>if(!('console' in window) || !('log' in window.console)){
+    window.console = function(){
+        var r = {},
+        glow,
+        $,
+        logpanel,
+        enabled=false;
+
+        r.enable = function(){
+            enabled=true;
+        };
+
+        r.disable = function(){
+            enabled=false;
+            if(logpanel){
+                logpanel.destroy();
+            }
+        };
+
+        r.clear = function(){
+            logpanel.empty();
+        };
+
+        r.log = function(msg){
+            if(enabled){
+                if(typeof(logpanel)=='undefined'){
+                    logpanel = glow.dom.create('
+&lt;p style="position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;" id="console-log"&gt;
+
+');
+                    $('body').append(logpanel);
+                    $('body').css('padding-bottom','100px');
+                    if(glow.env.ie &amp;&amp; glow.env.ie&lt;=6){ //little hack to keep it at the bottom of the IE window
+                        $('#console-log').css('position','absolute');
+                        setInterval(function(){
+                            logpanel.css('height','99px');
+                            logpanel.css('height','100px');
+                        },250);
+                    }
+                }
+                logpanel.append([msg,""].join(''));
+                logpanel[0].scrollTop = logpanel[0].scrollHeight;
+            }
+        };
+
+        r.init = function(g){
+            glow = g;
+            $ = glow.dom.get;
+        };
+
+        return r;
+    }();
+
+    console.init(glow);
+}
+</code></pre>
+
+<p>I&#8217;m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it&#8217;s really very good!</p>
+
+<p>So basically what we&#8217;re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don&#8217;t need to bother. Let&#8217;s presume that it <em>doesn&#8217;t</em> exist.</p>
+
+<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let&#8217;s strip it back to make it easier to look at:</p>
+
+<pre><code>window.console = function(){
+    return {};
+}();
+</code></pre>
+
+<p>I&#8217;m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it&#8217;s called.</p>
+
+<p>It looks initially like I&#8217;m defining <code>console</code> to be a function but straight after the closing brace of the function you&#8217;ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
+
+<p>If, as in the case of the finished code, the object returned (<code>r</code>) has properties then they will be accessible at <code>window.console.property</code>. And of course, the property can also be a function, like <code>log</code>.</p>
+
+<h4>Fully functional</h4>
+
+<p>The functions that are defined here are:</p>
+
+<ul>
+<li><p><code>enable</code></p></li>
+<li><p><code>disable</code></p></li>
+<li><p><code>clear</code></p></li>
+<li><p><code>log</code></p></li>
+<li><p><code>init</code></p></li>
+</ul>
+
+
+<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn&#8217;t mean it&#8217;s completely ineffective when disabled, though. The function still exists meaning you won&#8217;t see any script errors or terminated JavaScript.</p>
+
+<p>To enable it, simple call <code>console.enable();</code>. You don&#8217;t have to do this in the code (I&#8217;d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I&#8217;d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
+
+<p>Likewise to disable the console, just type <code>javascript:console.disable();</code>, or to clear it type <code>javascript:console.clear();</code>.</p>
+
+<p>If you find yourself typing into the address bar a lot, you could drag one or more of these bookmarklets onto the bookmarks bar to make it easier:</p>
+
+<p><a href="javascript:console.enable(">Enable console</a>;) <a href="javascript:console.disable(">Disable console</a>;) <a href="javascript:console.clear(">Clear console</a>;)</p>
+
+<p>The reason I&#8217;ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it&#8217;s useful to be able to pass a specific version of the library to <code>console</code> to use. If you&#8217;re not worried about that sort of thing then you don&#8217;t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
+
+<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn&#8217;t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
+
+<p>There&#8217;s really not a lot to it!</p>
+
+<h4>Got console?</h4>
+
+<p>Since getting it&#8217;s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It&#8217;s accessible on Chrome and Safari under the developer menus. Of course this script won&#8217;t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
+
+<ul>
+<li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don&#8217;t get me wrong!</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -86,6 +1368,26 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/">Webkit doesn&#8217;t fire the load event on images</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7/">CSS3 gradients, multiple backgrounds and IE7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
+      </li>
     
   </ul>
 </section>

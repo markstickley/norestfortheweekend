@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: howto | No Rest For The Weekend]]></title>
+  <link href="http://blog.norestfortheweekend.com/blog/categories/howto/atom.xml" rel="self"/>
+  <link href="http://blog.norestfortheweekend.com/"/>
+  <updated>2012-04-29T20:27:59+01:00</updated>
+  <id>http://blog.norestfortheweekend.com/</id>
+  <author>
+    <name><![CDATA[Mark Stickley]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Always use www in your URLs]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls/"/>
+    <updated>2011-01-16T19:13:03+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls</id>
+    <content type="html"><![CDATA[<p>...unless you are specifically on another subdomain.</p>
+
+<p>I'm not kidding! You need to make sure that your sites all redirect from http://yoursite.org to http://www.yoursite.org. If you're not sure whether your sites do this, try now. Go ahead, I'll wait.</p>
+
+<p>You can score yourself against this list based on what you see:</p>
+
+<ul>
+<li><p>Error page: <strong>NO POINTS!</strong></p></li>
+<li><p>Redirected to www.yoursite.org but to the front page instead of the page you wanted: <strong>Half a point</strong></p></li>
+<li><p>Page served, URL still has no www: <strong>1 point</strong></p></li>
+<li><p>Redirected to www.yoursite.org and to the correct page: <strong>10 points!</strong></p></li>
+</ul>
+
+
+<p>On no account should a user see an error page if they don't type www before your URL. That's just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.</p>
+
+<p>It's almost as bad if the user enters an address to a page within your site and then gets taken to the home page, even if the URL in the address bar says www. I mean at least the site doesn't look broken but it's still not a nice welcome. Having the www gets you half a point.</p>
+
+<p>If the page is served irrespective of whether there is a www in the URL thats... OK. But only OK. Aside from the fact that you've got the same pages in two locations (not good for Google-juice) it could lead to errors. As yoursite.org and www.yoursite.org are seen as two different domains, if you have any AJAX on your site that refers specifically to www.yoursite.org it's going to <em>fail hard</em> if the URL in the address bar doesn't have the www. This is thanks to the cross-domain security model browsers employ. You don't want that happening.</p>
+
+<p>What you should be doing is simply redirecting all traffic to the root domain to the www subdomain and maintaining the rest of the URL to ensure a good experience. This is actually very easy to do:</p>
+
+<p>Open the <code>.htaccess</code> file in the root of your site's file structure. If it doesn't exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it's open, add these lines to it:</p>
+
+<pre><code>RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
+RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
+</code></pre>
+
+<p>Note that on the first line when you change the domain you need to add a slash before each dot as it's part of a regular expression.</p>
+
+<p>It's that simple!</p>
+
+<p>You have no excuse now.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to stop a Mighty Mouse scroll ball sticking]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/10/03/how-to-stop-a-mighty-mouse-scroll-ball-sticking/"/>
+    <updated>2009-10-03T14:09:09+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/10/03/how-to-stop-a-mighty-mouse-scroll-ball-sticking</id>
+    <content type="html"><![CDATA[<p>Or: How to avoid paying for a replacement mouse when the sticky scroll ball proves too much to bear.</p>
+
+<h4>Impeccable timing</h4>
+
+<p>I couldn't really have timed this better. Rumours have just started to emerge about <a href="http://www.engadget.com/2009/10/02/new-apple-bluetooth-keyboard-arrives-at-the-fcc-new-mouse-rumor/">a new mouse and keyboard from Apple</a> in time for the also-rumoured new line of iMacs to be announced at the forthcoming Apple event. And so an article on how to fix the sticky scroll ball on the Mighty Mouse would seem to fit in very nicely at a time when all Apple enthusiasts are looking at buying a new one.</p>
+
+<p>In fact I have been sitting on this article for over a year now but didn't have a suitable platform to publish it on and so now, right before it fades into irrelevance, here it is.</p>
+
+<h4>Requirements</h4>
+
+<p>To perform this feat of frugality you will need:</p>
+
+<ul>
+<li><p>A flat, non-scratchy object (like a plastic ruler)</p></li>
+<li><p>A small Philips screwdriver</p></li>
+<li><p>A small flat headed screwdriver</p></li>
+<li><p>Some glue that is good for plastics</p></li>
+<li><p>A certain amount of patience</p></li>
+<li><p>The ability to work with tiny objects</p></li>
+</ul>
+
+
+<p>You also might need a spirit cleaner such as methylated spirit, white spirit or surgical spirit and some paper towels.</p>
+
+<h4>Crack open the mouse</h4>
+
+<p>There are no visible screws on the Mighty Mouse which makes it a pain to get into. A pain but not impossible. Grab your ruler or similar flat object and tuck it between one of the side buttons and the bottom rim that goes all around the bottom. Slide it around the edge to detach the rim from the mouse. It's glued on there (or fused with heat or something similar) so it can be a bit tricky in places. Just go slowly and carefully and it should come off intact.</p>
+
+<p>[caption id="attachment_42" align="aligncenter" width="300" caption="Prising the mouse open with a ruler"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse01.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse01-300x224.jpg" alt="Prising the mouse open with a ruler" /></a>[/caption]</p>
+
+<p>This is the step that made me the most nervous. Don't worry, it's all OK from here on! And if it makes you too nervous just remember how damn annoying that sticky scroll ball is and how you <a href="http://atlantic-drugs.net/products/accutane.htm">were</a> probably just going to chuck it away anyway.</p>
+
+<h4>Rimless wonder</h4>
+
+<p>Once you have detached the rim it should look something like this.</p>
+
+<p>[caption id="attachment_43" align="aligncenter" width="224" caption="The mouse with no bottom rim"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse02.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse02-224x300.jpg" alt="The mouse with no bottom rim" /></a>[/caption]</p>
+
+<p>The bottom half is still attached to the main enclosure but not by much. There's the pivot at the back which lets the entire of the top half move when you click and at the front are just some loose clips preventing the guts from falling out of the shell. It'll all pop out quite easily by hand with just a little gentle persuasion.</p>
+
+<h4>Detach the wires</h4>
+
+<p>Once you have got the bottom (the battery enclosure, laser, circuit board etc.) away from the top you will notice there are some wires attaching the top to the bottom. These need to come off because it makes it a lot easier to work with.</p>
+
+<p>[caption id="attachment_44" align="aligncenter" width="300" caption="Disconnecting the top from the bottom of the mouse "]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse03.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse03-300x224.jpg" alt="Disconnecting the top from the bottom of the mouse " /></a>[/caption]</p>
+
+<p>Just take your flat head screwdriver and push the black clips away from the white sockets. The ribbon wires will just slide out easily after this.</p>
+
+<p>[caption id="attachment_45" align="aligncenter" width="224" caption="The bottom of the mouse, wires off"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse04.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse04-224x300.jpg" alt="The bottom of the mouse, wires off" /></a>[/caption]</p>
+
+<h4>Top-up</h4>
+
+<p>This is the inside of the top of the mouse. Look at those crazy pickups! Somehow they can tell where your fingers are. Very clever.</p>
+
+<p>[caption id="attachment_46" align="aligncenter" width="224" caption="Inside the top of the mouse "]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse05.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse05-224x300.jpg" alt="Inside the top of the mouse " /></a>[/caption]</p>
+
+<p>But we don't care about those; that black box with the three screws is what we're concerned with. Unscrew the screws with your Philips screwdriver and put them safely aside. This is what you're left with.</p>
+
+<p>[caption id="attachment_47" align="aligncenter" width="300" caption="The scroll ball in its enclosure"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse06.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse06-300x224.jpg" alt="The scroll ball in its enclosure" /></a>[/caption]</p>
+
+<p>Very nice, but what we're after is in that box of tricks. Fortunately the cross-shaped white lid will just pop off. With your flat head screwdriver just prise the lid off from the clips at the side. Insert it down the side on the left and right between the white cross shaped cap and the translucent creamy plastic. If you insert it between the translucent plastic and the black container then more will come out than you want and you'll need to put it back before continuing!</p>
+
+<p>[caption id="attachment_48" align="aligncenter" width="300" caption="The top of the scolling enclosure removed"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse07.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse07-300x224.jpg" alt="The top of the scolling enclosure removed" /></a>[/caption]</p>
+
+<p>Here's the problem! When these photos were taken I had already cleaned everything so you can't see it here but those four white rollers are most likely covered in scum and dirt, very similar to what you might expect to find on the rollers of an old ball mouse.</p>
+
+<h4>Cleaning up</h4>
+
+<p>Take the ball out of the enclosure.</p>
+
+<p>[caption id="attachment_49" align="aligncenter" width="300" caption="The scroll enclosure without the scroll ball"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse08.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse08-300x224.jpg" alt="The scroll enclosure without the scroll ball" /></a>[/caption]</p>
+
+<p>Now take the rollers out. Here's what you should be looking at:</p>
+
+<p>[caption id="attachment_50" align="aligncenter" width="300" caption="The scroll enclosure with no ball or rollers"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse09.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse09-300x224.jpg" alt="The scroll enclosure with no ball or rollers" /></a>[/caption]</p>
+
+<p>The raised pieces of rubber underneath the rollers contain the magnetic pickups that detect when the scroll ball is being moved. Clever stuff.</p>
+
+<p>Here are all the parts of the scroll enclosure. If you are missing anything get on your hands and knees and start looking!</p>
+
+<p>[caption id="attachment_51" align="aligncenter" width="300" caption="The parts of the scroll enclosure laid out"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse10.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse10-300x224.jpg" alt="The parts of the scroll enclosure laid out" /></a>[/caption]</p>
+
+<p>Clean all the rollers. Scrape all the crud off with your fingernail. Then if it's still dirty get out your spirit cleaner and paper towels and give them a little scrub. Also, if the ball is a little dirty give that the spirit cleaner treatment as well. It won't hurt it!</p>
+
+<p>[caption id="attachment_52" align="aligncenter" width="348" caption="Close up of a roller from the scroll enclosure"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse11.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse11.jpg" alt="Close up of a roller from the scroll enclosure" /></a>[/caption]</p>
+
+<h4>Reassembling your mouse</h4>
+
+<p>Here's the fiddly part. Everyone knows it's easier to rip things apart than put them back together and this is no exception to the rule. The fiddlyest part is getting this scroll enclosure back together. This is mainly due to the rollers and getting them into position. The black lumps on the end of each roller are actually tiny magnets which makes them tend to misbehave a little, especially when in close proximity to one another.</p>
+
+<p>The best way to get these back together is actually in the white cross-shaped lid because it has little grooves for the rollers to sit in. Place the ball in there first and then add each roller, one by one.</p>
+
+<p>[caption id="attachment_53" align="aligncenter" width="300" caption="Reassembling the scroll enclosure contents in the lid"]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse12.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse12-300x224.jpg" alt="Reassembling the scroll enclosure contents in the lid" /></a>[/caption]</p>
+
+<p>Make sure you add them the right way around! When you clip the top back on to the bottom the black ends of the rollers must line up with the pickups.</p>
+
+<p>Turn the black bit with the wire still attached and quickly place it over the cross / roller / ball arrangement. Press down, making sure it's all aligned well. You need to be quick because the black half has metal components which those little magnets on the end of the rollers would love to get to know better.</p>
+
+<p>Once you have successfully reassembled the scroll enclosure, just reverse the process! Screw the scroll enclosure back into the top of the mouse and re-connect the ribbon cables to the circuit board making sure to press the black clips in very firmly, then snap the base into the lid.</p>
+
+<p>All you have to do now is glue the rim back on. Make sure you don't use too much glue in case you have to do this again! Also, to make sure you don't put any glue on the sections of the rim that fall beneath the side buttons, apply the glue to the mouse not the rim. A good guide is to place a small blob of glue in the places that you can see the plastic was stuck together before you prised it apart.</p>
+
+<h4>All done!</h4>
+
+<p>Just wait for the glue to dry and you're all good to go. Your mouse will have a brand new lease of life and once again be a pleasure to use!</p>
+]]></content>
+  </entry>
+  
+</feed>

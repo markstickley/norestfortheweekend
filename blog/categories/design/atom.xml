@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: design | No Rest For The Weekend]]></title>
+  <link href="http://blog.norestfortheweekend.com/blog/categories/design/atom.xml" rel="self"/>
+  <link href="http://blog.norestfortheweekend.com/"/>
+  <updated>2012-04-29T20:27:59+01:00</updated>
+  <id>http://blog.norestfortheweekend.com/</id>
+  <author>
+    <name><![CDATA[Mark Stickley]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The Web in 3D - the Nintendo 3DS web browser]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/"/>
+    <updated>2011-02-14T01:45:49+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser</id>
+    <content type="html"><![CDATA[<p>The Web in 3D - the Nintendo 3DS web browser</p>
+
+<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png" alt="The Nintendo 3DS" /></a></p>
+
+<p>Let's not beat around the bush: this is a very impressive device. It's tricked out with all the latest technologies (or the latest applications of 'old' technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I'm sure you have read about it - the top screen is a 3D display which importantly doesn't require glasses. I can't stress enough how good the 3D effect looked. It felt completely natural and I didn't find myself getting any kind of a headache or nausea like some people are worried about.</p>
+
+<p>There were demos available of most of the functionality: Lots of games that'll be available on launch or shortly thereafter, 3D photography, augmented reality (including the 'reality' part shown in 3D due to the 3D cameras on the lid - the most impressive thing for me) and street pass (Nintendo's social discovery system). But the thing that actually holds the <em>most</em> interest for me <em>wasn't</em> shown and indeed is barely talked about. I'm hoping that will change.</p>
+
+<h3>A complex web</h3>
+
+<p>I'm talking, of course, about the web browser which will come built in to the device as part of the extensive suit of software bundled on-board.</p>
+
+<p><em>YAWN</em></p>
+
+<p>A web browser? What's so great about that?</p>
+
+<p>I don't know yet because no-one is talking about it, but I'm <em>hoping</em> it will inspire (even more) innovation and creativity on the web. I'm hoping it will have some semblance of 3D integration and capability. And if not, why not? Surely this is the way the web is going. More and more devices will be 3D enabled in the near future and you can bet that if the 3DS doesn't kick-start the 3D web some other device will. You can buy a 3D TV to put in your living room for crying out loud - this is 2011! They reckon you'll be able to buy a <a href="http://news.bbc.co.uk/1/hi/programmes/click_online/9393762.stm">HOLOGRAPHIC 3D TV</a> in 2012. I'm all over that. And I want the web to make sure it isn't left behind. After all, a lot of modern TVs have integrated browsers. It's the next logical step.</p>
+
+<h3>Least they could do</h3>
+
+<p>The least I could hope for is support for 3D images displayed in web pages. The <strong>LEAST</strong>. The standard open format is <a href="http://en.wikipedia.org/wiki/Image_file_formats#MPO">.mpo</a> and fortunately <a href="http://nintendo3dsblog.com/the-3d-camera-in-the-nintendo-3ds-saves-photos-in-the-open-mpo-file-format">the same format in which the 3DS saves it's 3D photos</a>.</p>
+
+<p>That's not to say you will be able to simply embed the 3D photos in your site and have them work in the 3DS' web browser though. Think how that would look in a desktop browser... Well it probably wouldn't show up or show a broken image.</p>
+
+<p>No, no, no, don't even think about making a separate site for 3D devices. I thought we were past all that. What are you going to have yet another separate site for 3D+Mobile? We want to serve one page that works on all devices.</p>
+
+<p>The trouble is, without images having a similar failover pattern to the one available to <a href="http://dev.opera.com/articles/view/everything-you-need-to-know-about-html5-video-and-audio/">video and audio in HTML5</a>, you simply couldn't use the image inline in your page as non-3D-enabled browsers wouldn't recognise the format. This just proves that there are always new image formats emerging; they are not all supported by all browsers as it's easy to assume (if you forget about IE6 and .png's) so why should we assume that that's the case with the markup?</p>
+
+<p><a href="http://www.brucelawson.co.uk/2010/why-video-audio-canvas-arent-self-closing-tags/">This has been discussed by Bruce Lawson</a> and makes sense (no matter how frustrating it is). So until all browsers support the display of 3D images on 2D screens we will have to find another way.</p>
+
+<p>The other way to include images in the page is, of course, CSS background images. This one has legs. The 3DS browser could easily respond to an @media query, something like <code>@media screen and (-3ds-min-device-spatial-dimensions: 3) { ... }</code>. Then you could alter how the page looks on a device that has 3D capabilities. Once you have the 3D background image in place you can mark it up to include a 2D version for the rest of the world:</p>
+
+<p>HTML:</p>
+
+<pre><code>&lt;div class="forest-picture"&gt;
+    &lt;img src="http://blog.norestfortheweekend.com/static/img/forest-2d.jpg" alt="Pretty forest scene" height="250" width="400"&gt;&lt;/img&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>CSS:</p>
+
+<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) {
+    .forest-picture{
+        background: transparent url(../img/forest-3d.mpo) no-repeat 0 0;
+        width: 400px;
+        height: 250px;
+    }
+    .forest-picture img{
+        display: none;
+    }
+}
+</code></pre>
+
+<p>The best of both worlds! We can dream...</p>
+
+<h3>Reality check</h3>
+
+<p>Before we go on, I just need to make it abundantly clear (if it isn't already) that this article is pure speculation. I don't know if the 3DS browser supports any of this kind of stuff, but imagining the possibilities and how they might work is an interesting exercise. Oh wait, it looks like <a href="http://www.google.com/intl/en/landing/chrome/cadie/">Google has already looked into 3D browsing</a>. My mistake ;)</p>
+
+<p>Let's explore further down the rabbit hole...</p>
+
+<h3>Going the extra dimension</h3>
+
+<p>What if we wanted to move beyond just sticking 3D images in our pages? As awesome as a 3D gallery might be, there are so many more possibilities. Imagine if the whole page could be rendered in 3D; if each element on the page had it's own depth setting. I think the most obvious thing to do would be to push the background actually into the background giving the site content more prominence, and if you start down that road you should just be able to let your imagination carry you forwards.</p>
+
+<p>I know what you're thinking, and it's what I thought at first too... why not use <code>z-index</code> for that? The reason why not is because <code>z-index</code> controls the stacking order of elements on a single plane. If you change the function of <code>z-index</code> to control depth on 3D devices, how would you re-order a group of elements sharing the same depth on a 3D page? It's clear that we need a separate property to do that. I'm going to be bold and use <code>depth</code> in examples, for want of a better attribute name.</p>
+
+<p>So where are we? We've got 3D images and the ability to assign <code>depth</code> to elements. That's a good start, but it seems a little restricted, doesn't it? A bunch of flat panels sitting at different depths in a 3D space. We're not really making the most of the technology. We need to add a little style in there... style that can bridge the gap between depth-levels. Fortunately, Webkit is one step ahead of this game with it's <a href="http://webkit.org/blog/386/3d-transforms/">CSS 3D transforms</a>. These could easily be adapted to show in real 3D instead of 3D rendered in 2D.</p>
+
+<h4>Curves would be nice</h4>
+
+<p>Yes they would, and so would a mansion on the beach in Barbados. We don't even have the ability to define curves in 2D CSS yet. But then in 2D we might not have wanted to do crazy things like making a callout or title bow inwards or outwards, which would work pretty well in 3D. But maybe just one step at a time...</p>
+
+<h3>What is 3D anyway</h3>
+
+<p>To develop in 3D you need to understand how it really works. Fortunately understanding it is a lot simpler than getting your head around designing and developing in it:</p>
+
+<p><strong>3D works by each of your eyes seeing a slightly different image.</strong></p>
+
+<p>Simple enough, and in real life this works pretty well. But when generating your own 3D content you have to be ever-mindful of it.</p>
+
+<h3>Mind the gaps</h3>
+
+<p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png" alt="3DS Screen showing plain background" /></a></p>
+
+<p>You then have a look at it and wonder why it doesn't look like it's way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you're left feeling a little confused.</p>
+
+<p>The reason why this doesn't appear to be in the background is because your eyes are seeing the exact same image. There needs to be some more detail in there before your eyes can be tricked into thinking that it's way off in the distance. Here are some suggestions:</p>
+
+<ol>
+<li>You could give it a border that makes it look like you're looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png" alt="3DS screen showing a background shaded to look like you are looking into a box" /></a></p>
+
+<ol>
+<li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it's not at the depth you intended.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png" alt="3DS screen with a patterned background" /></a></p>
+
+<ol>
+<li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I'm going to go with this one.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png" alt="3DS screen with a plain background and a green tile overlayed" /></a></p>
+
+<p>But even laying something on top like this isn't too easy for our brains to process. Have a look what each eye would be seeing.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png" alt="Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye" /></a></p>
+
+<p>There's not a great deal to differentiate these two images and while your brain knows it's seeing different things from each eye it is struggling because there are things missing that it's used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don't give people headaches we'll have to sort this out.</p>
+
+<pre><code>.floating-box{
+    box-shadow: 5px 5px 5px #ccc;
+}
+</code></pre>
+
+<p>Now the panel has a nice drop shadow which should make it easier on the eyes and easier to see the 3D effect.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png" alt="3DS screen with plain background and a green panel overlaid with a drop shadow" /></a></p>
+
+<p>But how does it get rendered so that each eye sees the shadow differently?</p>
+
+<h3>Seeing the light</h3>
+
+<p>The way I see it there are two options:</p>
+
+<ol>
+<li><p>The browser provides a default (override-able) light source:</p>
+
+<p> body{</p>
+
+<pre><code> light-source: 25% 25% fixed;
+</code></pre>
+
+<p> }</p></li>
+</ol>
+
+
+<p><code>fixed</code> would position the light source relative to the browser viewport, and as an alternative <code>absolute</code> would position it relative to the document.</p>
+
+<ol>
+<li>You, the developer, get granular control over what each eye sees:</li>
+</ol>
+
+
+<p>If you had control over each eye the possibilities would be endless. Set the difference in box shadow offset, show a different background image to achieve a rippling effect. You would OWN all the dimensions.</p>
+
+<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: left-eye) {
+    .floating-box{
+        box-shadow: 3px 5px 5px #ccc;
+    }
+}
+@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: right-eye) {
+    .floating-box{
+        box-shadow: 7px 5px 5px #ccc;
+    }
+}
+</code></pre>
+
+<p>I think a combination of both would probably be in the interests of developer and user alike.</p>
+
+<h3>It's not all giant blue humanoids and bio-luminescent flowers</h3>
+
+<p>This technology has it's disadvantages, and you can be sure that there will be some nasty surprises out there when it comes along. As with most visual effects, subtlety is king. Of course there will always be the developers who are irresponsible with this great power and make some eye-bleeding creations, but that's just inevitable. No, what I'm really worried about can be summed up in two words: Internet. Advertising. If you thought pop-over ads were intrusive now, you ain't seen nothing yet.</p>
+
+<h3>The waiting game</h3>
+
+<p>Who knows what you'll be able to do with the browser? Nintendo maybe? Or if it's <a href="http://www.opera.com/">Opera</a> providing the software again, as they did for the Wii and original DS/DSi then I expect they will know. (Please do get in touch if you have insider knowledge!) But until that information is made available or the 3DS is in our hands we won't know for sure. I hope it's got at least a few fun 3D features to play with. I'm sure the full set will develop over time.</p>
+
+<p><strong>Update:</strong> Now that the browser is available, I had a little play with it and <a href="http://www.norestfortheweekend.com/2011/06/14/3ds-browser-revisited/">wrote down a few of my thoughts</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A fold by any other name]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2010/02/24/a-fold-by-any-other-name/"/>
+    <updated>2010-02-24T14:53:33+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2010/02/24/a-fold-by-any-other-name</id>
+    <content type="html"><![CDATA[<p>...would be a more accurate analogy.</p>
+
+<p>We've all heard the arguments about the so-called fold, that mysterious, imaginary line beneath which no content shall be seen. There are still plenty of clients, designers and other folk who should know better who will request something be placed 'above the fold'. Whether or not they ask for it using the term 'fold' is immaterial because at the end of the day that's what they mean and it's something they want.</p>
+
+<h3>A fold through time</h3>
+
+<p>The history of the Fold dates back to an era where news was distributed in a physical format. It was printed on large sheets of paper, largely in black and white and arranged into what resembled an oversized book. To aid distribution and storage these items were folded in half leaving visible only the title of the publication and one or two other pieces of information that were on the top half of the front page.</p>
+
+<p>When on display to potential buyers, each publication was competing with other similar publications. The information visible was important because it would catch people's eyes and was often what governed which publication was chosen for purchase. Because of this, the editors had to carefully decide which pictures and headlines were to be put on display in the top half of the front page. What was 'above the fold' was very important – it could dramatically affect sales.</p>
+
+<h3>From dots to pixels</h3>
+
+<p>Now that we are consuming masses of content on screens rather than pages (whether it's news, opinion pieces, novels, comics or anything else that print once ruled) wise people will tell us that <a href="http://www.thereisnopagefold.com/">there is no page fold</a>, not any more. It disappeared when the content left the medium of paper. If there is no paper there is no fold.</p>
+
+<p>Other (slightly more old-fashioned) people would argue otherwise; they would argue that not all people are used to scrolling. A lot of the more computer savvy or technically orientated among us find this hard to believe. Back when the concept of the digital fold was first introduced in the early days of the internet this may well have been the case. Now, however, it is the age of the <a href="http://en.wiktionary.org/wiki/silver_surfer">silver surfer</a> and a time where if you can't perform fundamental functions on a computer it is becoming increasingly difficult to get along.</p>
+
+<p>Scrolling is a pretty fundamental function and I would support the hypothesis that there are incredibly few people who use computers that do not know how to scroll.</p>
+
+<h3>Folding it back on itself</h3>
+
+<p>For most people that's where the argument ends. I hold a slightly different opinion, perhaps controversially. Although I don't  believe they have said it directly, it would seem Google are also disinclined to agree based on their <a href="http://browsersize.googlelabs.com/">recent work capturing various screen sizes</a> and mapping the visible area of a page without scrolling.</p>
+
+<p>What I believe it comes down to is this:</p>
+
+<p><strong>People will scroll if they can't find what they are looking for.</strong></p>
+
+<p>If they are searching for something and can't see it but <em>expect</em> it to be there, scrolling is pretty much second nature. If they have found it, however, why scroll? Unless there is something else visible that catches their interest, maybe half obscured by the bottom of the window then there is little incentive to reach for the scroll-wheel.</p>
+
+<p>It doesn't end there either. If someone is reading a piece of content – say, an email – that appears to reach it's logical end within the visible area then they are less likely to scroll down, <em>even if there is more relevant content beneath</em>. Even seasoned computer users make this mistake (trust me, I've done it).</p>
+
+<h3>The fold in action</h3>
+
+<p>So, you are visiting a page. You know exactly what you want from the page and are interested in nothing else. You visit the page and there it is sitting waiting for you. You don't even need to scroll to see it all. When you've finished reading or looking at it, what do you do? I know what I'd do: close the tab, type a new URL, Google something... in short, navigate away from that page.</p>
+
+<p>But what about all the content below this so-called 'fold'? It might well have been really interesting and relevant to me but I didn't see it because I didn't scroll. I didn't scroll because I had already found what I came to that page to see.</p>
+
+<p>I think it's time for some examples. I'm going to use what got me thinking about this again in the first place: WebComics.</p>
+
+<p>For those unfamiliar, the WebComics model is based around free content. The comic is given away for free and the revenue is generated from adverts and merchandise. It's fair to say that for a full-time WebComic artist there is one goal: to generate revenue. The fact that they all seem to enjoy their work is a pleasant side-effect. There is a secondary goal which is to cultivate fans and a community which in turn leads to repeat visits which lead to advert revenue and merchandise sales.</p>
+
+<p>Look at this page:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/ellieconnelly.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/ellieconnelly-628x402.jpg" alt="Screen grab from the WebComic &quot;Ellie Connelly&quot;" /></a></p>
+
+<p>I have a pretty big screen. With that page from <a href="http://www.ellieconnelly.com/">Ellie Connelly</a> I hit the site and the comic is all there, no need to scroll. When I've finished reading the most likely thing I'll do is close the tab because what I came for was the comic. There's nothing else visible that makes me encourages to look any further. There are ads on that page but to see them I'd have to scroll... so I won't see them. There's also a blog which I'd sadly also miss.</p>
+
+<p>Now have a look at this front page from another WebComic, <a href="http://www.evil-comic.com">Evil, Inc.</a>:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/evilinc.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/evilinc-628x404.jpg" alt="Screen grab from the WebComic &quot;Evil, Inc.&quot;" /></a></p>
+
+<p>There is an advert right at the top of the page! The logo is shrunk and placed in line with the advert. This lets the content that the user is after move higher up the page. This is good for the reader and good for the author as they have a better chance of enticing the reader to scroll down with extra content.</p>
+
+<p>As well as the advert, right above the comic there is a link in bright red telling us what the latest blog post is about. Clicking on this will jump the reader straight to the blog in the same page. Within the visual boundary of the white box I count 5 links to explore the archives, 2 links with which the artist can make money and 9 ways for the reader to spread the word to their friends about the comic, hopefully generating new readership. All of this without having to scroll.</p>
+
+<p>Which comic do you think does the best in terms of revenue based on these interface choices? <em>Evil, Inc.</em> would be my guess.</p>
+
+<p>Let's look at another, <a href="http://www.sheldoncomics.com/">Sheldon</a>:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/sheldon.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/sheldon-628x402.jpg" alt="Screen grab from the WebComic &quot;Sheldon&quot;" /></a></p>
+
+<p>Again, the strip fits nicely on my screen without scrolling but there's so much else to catch my attention after I've read it. There are 3 adverts (4 if you count the peel back flash advert in the top right) and plenty of ways to maintain the reader's engagement with the strip. One of the adverts is butted right up to the bottom of the strip which means so long as the top of the advert is interesting the user is much more likely to scroll down to see the rest.</p>
+
+<h3>To sum up...</h3>
+
+<p><em>Please</em> don't think I'm advocating cramming as much clutter into the upper regions of pages as possible. I'm absolutely not - it would make for scruffy and crowded-looking sites and the content would be lost amongst everything else vying for attention.</p>
+
+<p>Likewise, <em>please</em> don't think I'm suggesting that people should push the content users want below the fold so they have to scroll for it - that would just be a terrible user experience. If a site actually did that they would haemorrhage users at a massive rate.</p>
+
+<p>It doesn't take a black belt in origami to tell that 'the fold' is a concept that doesn't port from print to web because unlike a newspaper, the web is fluid. Nothing is fixed: the browser window size, the text size, the position and type of content... This doesn't mean we can dismiss the analogy in it's entirety, however, because there are some cases where users really won't scroll, regardless of their technical expertise.</p>
+
+<p>Like so many other things, it comes down to the fact that careful consideration of layout based upon content, expected user behaviour and desired user behaviour is essential in any good design.</p>
+]]></content>
+  </entry>
+  
+</feed>

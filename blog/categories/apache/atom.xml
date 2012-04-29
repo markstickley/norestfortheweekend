@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: apache | No Rest For The Weekend]]></title>
+  <link href="http://blog.norestfortheweekend.com/blog/categories/apache/atom.xml" rel="self"/>
+  <link href="http://blog.norestfortheweekend.com/"/>
+  <updated>2012-04-29T20:27:59+01:00</updated>
+  <id>http://blog.norestfortheweekend.com/</id>
+  <author>
+    <name><![CDATA[Mark Stickley]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Always use www in your URLs]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls/"/>
+    <updated>2011-01-16T19:13:03+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls</id>
+    <content type="html"><![CDATA[<p>...unless you are specifically on another subdomain.</p>
+
+<p>I'm not kidding! You need to make sure that your sites all redirect from http://yoursite.org to http://www.yoursite.org. If you're not sure whether your sites do this, try now. Go ahead, I'll wait.</p>
+
+<p>You can score yourself against this list based on what you see:</p>
+
+<ul>
+<li><p>Error page: <strong>NO POINTS!</strong></p></li>
+<li><p>Redirected to www.yoursite.org but to the front page instead of the page you wanted: <strong>Half a point</strong></p></li>
+<li><p>Page served, URL still has no www: <strong>1 point</strong></p></li>
+<li><p>Redirected to www.yoursite.org and to the correct page: <strong>10 points!</strong></p></li>
+</ul>
+
+
+<p>On no account should a user see an error page if they don't type www before your URL. That's just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.</p>
+
+<p>It's almost as bad if the user enters an address to a page within your site and then gets taken to the home page, even if the URL in the address bar says www. I mean at least the site doesn't look broken but it's still not a nice welcome. Having the www gets you half a point.</p>
+
+<p>If the page is served irrespective of whether there is a www in the URL thats... OK. But only OK. Aside from the fact that you've got the same pages in two locations (not good for Google-juice) it could lead to errors. As yoursite.org and www.yoursite.org are seen as two different domains, if you have any AJAX on your site that refers specifically to www.yoursite.org it's going to <em>fail hard</em> if the URL in the address bar doesn't have the www. This is thanks to the cross-domain security model browsers employ. You don't want that happening.</p>
+
+<p>What you should be doing is simply redirecting all traffic to the root domain to the www subdomain and maintaining the rest of the URL to ensure a good experience. This is actually very easy to do:</p>
+
+<p>Open the <code>.htaccess</code> file in the root of your site's file structure. If it doesn't exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it's open, add these lines to it:</p>
+
+<pre><code>RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
+RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
+</code></pre>
+
+<p>Note that on the first line when you change the domain you need to add a slash before each dot as it's part of a regular expression.</p>
+
+<p>It's that simple!</p>
+
+<p>You have no excuse now.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-04-29T19:13:23+01:00</updated>
+  <updated>2012-04-29T20:27:59+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -12,5 +12,1743 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[3DS browser revisited]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/06/14/3ds-browser-revisited/"/>
+    <updated>2011-06-14T01:19:14+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/06/14/3ds-browser-revisited</id>
+    <content type="html"><![CDATA[<p>It&#8217;s been a few months since I made <a href="http://www.norestfortheweekend.com/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">the post speculating about the 3DS&#8217; browser capabilities</a>. Since the browser is now available and that post is easily the post that has drawn the most attention to my humble blog I thought it would be worth writing a quick follow-up.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/06/photo.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/06/photo.jpg" alt="3DS browser in action" /></a></p>
+
+<h3>Not letting you down easily</h3>
+
+<p>There&#8217;s no way of saying this easily: the browser kind of sucks.</p>
+
+<p>I&#8217;ve never found browsing on a console a particularly satisfying experience and I didn&#8217;t expect this to be any better. What excited me was the potential for extending the web into a new dimension. The browser doesn&#8217;t even do that. It&#8217;s nowhere near as awesome as I&#8217;d hoped. No 3D, no custom CSS extensions. It &#8216;does&#8217; 3D&#8230; sort of. You can link to .mpo 3D image files; it&#8217;ll display them in 3D and allow you to save them to the SD card. It does not display the images in 3D inline in the page, though, and the 3D capabilities doesn&#8217;t extend beyond image files to other page elements.</p>
+
+<p>Viewing 3D photos on the web is pretty cool though, I&#8217;ll admit. If you want to try out viewing 3D pictures on the web for yourself, head over to <a href="http://www.3dporch.com">3D Porch</a> where they have stacks of them waiting to be seen.</p>
+
+<p>Interestingly, because .mpo and .jpg are both encoded using the standard jpeg format it seems that you can use them both in the same way. If you visit <a href="http://norestfortheweekend.com/demos/3ds-browser-revisited/3ds-mpo.html">this little demo page I put together</a> you can see that most browsers are happy displaying .mpo files natively as well as .mpo files renamed as .jpgs. The 3DS browser will display both images on the page without a problem. Sadly they are in 2D, although if you click on them (they are linked to their original files) then the image is shown in 3D. This works for both the .mpo file and the .mpo renamed as a .jpg.</p>
+
+<p>The browser doesn&#8217;t have Flash. This is no great loss, however, and with the 3DS&#8217; weak battery life you can&#8217;t blame them for not wanting to include something that would drain it even more quickly than in most situations.</p>
+
+<h3>Getting technical</h3>
+
+<p>For some fairly technical details about the browser, <a href="http://www.3dsbuzz.com/nintendo-3ds-to-use-netfront-browser-supports-flash-and-html5/">3DS Buzz wrote it up at the bottom of this article</a>. I&#8217;ll attempt to filter some useful information out of that&#8230;</p>
+
+<p>It is claimed that the browser supports HTML5 and CSS3 (partially in both cases). As such it isn&#8217;t much of a surprise that it doesn&#8217;t pass the <a href="http://acid3.acidtests.org/">Acid 3 test</a>. It is more of a surprise, however, that the 3DS does not even pass the <a href="http://acid2.acidtests.org/">Acid 2 test</a>. Don&#8217;t expect your pages to render perfectly (I&#8217;ve already had reports of pages not looking as they should).</p>
+
+<p>The JavaScript engine is said to be &#8220;high speed&#8221; but it takes it&#8217;s sweet time to finish failing the Acid 3 test.</p>
+
+<p>Here is the 3DS&#8217; User Agent string:</p>
+
+<pre><code>Mozilla/5.0 (Nintendo 3DS; U; ; en) Version/1.7412.EU
+</code></pre>
+
+<p>This is interesting for several reasons.</p>
+
+<ol>
+<li><p>It doesn&#8217;t list the rendering engine or make any mention of NetFront</p></li>
+<li><p>It DOES list the device name (not really that interesting, it&#8217;s just cool to see it)</p></li>
+<li><p>It&#8217;s fairly concise (it doesn&#8217;t come loaded with all the cruft you normally find in a UA string)</p></li>
+<li><p>It has the version number, but only for what appears to be the browser and not the system software</p></li>
+</ol>
+
+
+<p>Compare that UA string with the one of the version of Chrome I&#8217;m using right now:</p>
+
+<pre><code>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_7) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.91 Safari/534.30
+</code></pre>
+
+<p>Chrome&#8217;s is much longer and more verbose. You can see it not only contains the hardware but the system software version. It has the rendering engine and it&#8217;s version, the browser and it&#8217;s version and for the life of me I can&#8217;t think why but it also has a reference to Safari.</p>
+
+<p>What&#8217;s odd to me about the 3DS&#8217; UA string is the inclusion of the <code>.EU</code> on the end of the version number, right at the end. Does this mean that there&#8217;s an EU version of the browser that&#8217;s different from the browser they get in Japan and America? Why would they want to have to maintain multiple versions of the software? Will they use that user agent information to serve different content on Nintendo sites based on region? Probably not (but they could&#8230;).</p>
+
+<h3>Utilitarian</h3>
+
+<p>While I&#8217;m sure it&#8217;ll be fine for jumping onto GameFAQs to figure out how to beat that boss you&#8217;re stuck on, the 3DS browser is not going to set the world on fire like I hoped it might. I hope that not too many people got their hopes up about it, but if you did (like me) and are now feeling a little disappointed I feel your pain. At least it&#8217;s never going to gain a significant enough market share that we&#8217;ll ever have to worry about fixing broken sites in it&#8230; (famous last words).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Webkit doesn't fire the load event on images]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/"/>
+    <updated>2011-04-30T18:47:19+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images</id>
+    <content type="html"><![CDATA[<p>Well that&#8217;s not strictly true. The full headline reads something like this:</p>
+
+<p><strong>Webkit doesn&#8217;t fire the <code>load</code> event on images when you change the <code>src</code> attribute and the new <code>src</code> is the same as the old</strong></p>
+
+<h3>That seems reasonable</h3>
+
+<p>That seems like reasonable behaviour. I mean, the image is already loaded. Changing the <code>src</code> attribute to it&#8217;s <em>current value</em> isn&#8217;t really changing it at all. It&#8217;s staying the same. If the <code>src</code> is the same and the image is already loaded, why fire the <code>load</code> event? You would only want to do that if the image was reloaded but doing that would be pointless as it&#8217;s already loaded. Loading it again would be a waste of bandwidth and make the experience feel slower; not what browser manufacturers are aiming for.</p>
+
+<p>So what&#8217;s the big deal?</p>
+
+<h3>Inherently lazy</h3>
+
+<p>Developers like myself are inherently lazy. I don&#8217;t mean we&#8217;re workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
+
+<ol>
+<li><p>It&#8217;s inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That&#8217;s not good.</p></li>
+<li><p>It forces me to add extra code to cope with it&#8217;s specific requirements. Let me explain:</p></li>
+</ol>
+
+
+<p>If I was writing for a JS-guaranteed environment this wouldn&#8217;t be such a problem but I&#8217;m a conscientious sort of guy and realise that not everyone will have the benefits of a modern browser with all the options set to &#8216;awesome&#8217;. I want to cater for the JS-disadvantaged as well.</p>
+
+<p>Let&#8217;s assume I&#8217;m writing a carousel for a photo slideshow that shows 4 pictures at a time. I want to show the first 4 pictures by default so that at least some content appears even for the non-JS users. Then, using non-intrusive JS I augment the slideshow to add next / previous buttons and the ability to click the image to enlarge it in a lightbox.</p>
+
+<p>To avoid repeating a lot of code in a setup function that would also be present in the next/previous function I can write a single function to set the page of the carousel, setting up the images and their click events.</p>
+
+<pre><code>var picturesPerPage = 4,
+    pictures = $('#pictures img');
+
+var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind('load',function(){
+                pictureContainer.removeClass('loading');
+                picture.unbind('load');
+            });
+            pictureContainer.addClass('loading');
+            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
+
+            picture.unbind('click');
+            picture.bind('click',function(e){
+                e.preventDefault();
+                pictureLink.fancybox({
+                    "href": carouseldata.images[imageStart+i].imageurl
+                });
+            });
+        }
+    });
+};
+
+loadGalleryCarouselPage(0);
+</code></pre>
+
+<p>I&#8217;m using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
+
+<p>So what we have there is a function that loops over the four <code>img</code> tags, pulls information out of an array (<code>carouseldata</code>) based on the page offset passed as an argument, sets up click and load listeners and changes the image&#8217;s <code>src</code> attribute. This will work for any page at any time. In theory we could add a &#8216;jump to page&#8217; option where the user could choose the page number to skip to. But we won&#8217;t.</p>
+
+<p>This is especially handy as we can simply call <code>loadGalleryCarouselPage(0);</code> to set up the event listeners when the page first loads without having to duplicate most of the lines elsewhere. We even get a natty little loading spinner if we take advantage of the <code>loading</code> class that is set.</p>
+
+<h3>Making things difficult</h3>
+
+<p>When the page loads it&#8217;s a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here&#8217;s what happens:</p>
+
+<ol>
+<li><p>A <code>load</code> event listener is set</p></li>
+<li><p>The <code>loading</code> class is applied which shows a spinner and hides the image</p></li>
+<li><p>The <code>src</code> of the <code>img</code> is set</p></li>
+<li><p>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</p></li>
+<li><p>The picture remains hidden and the spinner keeps spinning even though the image is loaded</p></li>
+</ol>
+
+
+<p>And that is frustrating.</p>
+
+<p>It&#8217;s an intermittent problem though, only when loading race conditions fail. Here&#8217;s another situation where it happens every time.</p>
+
+<h3>The dead cert.</h3>
+
+<p>The total number of images in the carousel doesn&#8217;t divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
+
+<ol>
+<li><p>They act as spacers so that other elements flow around them correctly</p></li>
+<li><p>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</p></li>
+</ol>
+
+
+<p>So say we&#8217;re on page 9 of 10 and click &#8216;Next&#8217;. Images 1 &amp; 2 are updated to show the final two pictures and images 3 &amp; 4 are hidden. Importantly: the <code>src</code> attributes of images 3 &amp; 4 don&#8217;t change. When we click &#8216;Previous&#8217;, images 1 &amp; 2 are changed back but 3 &amp; 4 are stuck with the loading spinner. That&#8217;s because, like before, the <code>src</code> was already set and it was equal to the new value.</p>
+
+<h3>Working around it</h3>
+
+<p>We could set the hidden images to a transparent .gif or .png instead of hiding them which would solve the second problem but because we want the images showing for non-JS users when the page loads we can&#8217;t use that technique to fix this. Also, downloading that extra image means extra bandwidth and latency times that we&#8217;d rather not have to deal with.</p>
+
+<p>It turns out that setting the <code>src</code> to <code>''</code> (empty string) immediately before setting the image url will fix the problem. But! It causes the images (and consequently their container) to collapse to zero width and height in Firefox while the new images are loading which looks really bad if you&#8217;re trying to navigate a slideshow.</p>
+
+<p>Here&#8217;s my solution:</p>
+
+<pre><code>var picturesPerPage = 4,
+    pictures = $('#pictures img');
+
+var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind('load',function(){
+                pictureContainer.removeClass('loading');
+                picture.unbind('load');
+            });
+            pictureContainer.addClass('loading');
+            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
+
+            picture.unbind('click');
+            picture.bind('click',function(e){
+                e.preventDefault();
+                pictureLink.fancybox({
+                    "href": carouseldata.images[imageStart+i].imageurl
+                });
+            });
+        }
+        else{
+            picture.attr('src','');
+        }
+    });
+};
+
+if($.browser.webkit){
+    $('#pictures img').each(function(i){
+        $(this).attr('src','');
+    });
+}
+loadGalleryCarouselPage(0);
+</code></pre>
+
+<p>I added an <code>else</code> so that if there aren&#8217;t enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
+
+<p>I also added a little <code>if</code> block directly before initialising the carousel, at the bottom. If the browser is webkit-powered then it&#8217;ll loop over the <code>img</code> tags and prime them (set their <code>src</code> to empty) before initialisation. Because this is done using JS, non-JS users will still see the images.</p>
+
+<h3>Grumpy</h3>
+
+<p>I&#8217;m grumpy about having to put in that extra, browser specific code. Setting the <code>src</code> to an empty string seems hacky. But it works and the logic is still clean and minimal. So it&#8217;ll do.</p>
+
+<p>I hope that helps anyone having image loading javascript issues. And as usual I&#8217;d be interested to hear if you have any alternative / better solutions!</p>
+
+<p>Check out the carousel in action <a href="http://www.qkschool.org.uk">here</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CSS3 gradients, multiple backgrounds and IE7]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7/"/>
+    <updated>2011-02-26T17:58:02+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7</id>
+    <content type="html"><![CDATA[<p>You know how, according to the W3C, <a href="http://www.w3.org/TR/CSS21/syndata.html#parsing-errors">CSS selectors that are not understood should be ignored, [with](http://cvsmailorderpharmacy.org/buy-kamagra-oral-jelly-usa.html)out error</a>? IE7 doesn&#8217;t do that 100% of the time.</p>
+
+<h3>How dare it</h3>
+
+<p>That&#8217;s right. Just when you thought you had a nice system in place IE comes along and stomps all over it. I&#8217;m sure more and more people will come up against this as they start using CSS gradients in earnest. I can see it being quite a common situation, too. I have two background images: one, a CSS generated gradient and two, an image to be laid over the top of it. A nice shiny button with an icon, for example.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/button.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/button.png" alt="A button that says Register now and has a gradient and a separate icon for the background" /></a></p>
+
+<p>We know that certain browsers can&#8217;t render gradients and so we define the background to initially be just a solid colour with the icon image (the users of the older browsers will never miss what they didn&#8217;t know was there). Then we go on to define the styles for the modern browsers. These styles use the same selector (<code>background-image</code>) so they will override the initial declaration but according to the rules, browsers that don&#8217;t understand the gradient instructions will just ignore the whole declaration leaving us with just the initial icon for the background.</p>
+
+<p>As we know, the backgrounds will appear top down from the order you specify them so we specify the icon first and then the gradient, otherwise the gradient would obscure the icon.</p>
+
+<p>We also define the background-position twice. This is so we can position the gradient+icon background differently from the icon on it&#8217;s own. Browsers that don&#8217;t support multiple backgrounds should not see this syntax as valid and should ignore it.</p>
+
+<p>Here&#8217;s the code:</p>
+
+<pre><code>&lt;a href="#" class="mybutton"&gt;Register now&lt;/a&gt;
+
+
+
+
+
+
+.mybutton{
+    background-image: url(icon.png);
+    background-image: url(icon.png),
+        -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(233, 233, 233)),
+            color-stop(0.5, rgb(249, 249, 249)),
+            color-stop(0.5, rgb(255, 255, 255)),
+            color-stop(1, rgb(255, 255, 255))
+        );
+    background-image: url(icon.png),
+        -moz-linear-gradient(
+            center bottom,
+            rgb(233, 233, 233) 0%,
+            rgb(249, 249, 249) 50%,
+            rgb(255,255,255) 50%,
+            rgb(255,255,255) 100%
+        );
+
+    background-position: 5px center;
+    background-position: 5px center, left top;
+
+    background-repeat: no-repeat;
+
+    padding-left: 30px;
+}
+</code></pre>
+
+<p>Here it is in Firefox:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ff.png" alt="Styles are working well in Firefox" /></a></p>
+
+<p>And in IE7:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie.png" alt="The icon on the button is missing in IE" /></a></p>
+
+<p>Or you can <a href="http://blog.norestfortheweekend.com/demos/css3-gradients-multiple-backgrounds-and-ie7/example1.html">see it for yourself in your browser</a>.</p>
+
+<p>It seems that IE is not behaving as we might expect. It&#8217;s not showing the gradient (expected) but it&#8217;s not failing back to just showing the icon either. A quick look at the IE developer toolbar (in IE9, IE7 mode; the IE7 dev toolbar would leave you stumped) shows us why:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie-inspector.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie-inspector.png" alt="Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can't understand" /></a></p>
+
+<p>It&#8217;s picked up the background image declaration that includes a gradient. In this case it&#8217;s the Mozilla-specific gradient and the reason it&#8217;s this one and not the Webkit one is that we are defining the Mozilla one last. If they were defined the other way around it would have picked up the Webkit one instead.</p>
+
+<h3>Why? Oh why??</h3>
+
+<p>I&#8217;m no expert on how IE parses CSS but I would presume it&#8217;s something like IE recognises the URL part just fine and when it reaches the closing parenthesis it figures that&#8217;s it and all&#8217;s well. Maybe not. Whatever, for some reason it thinks it&#8217;s a valid declaration, scoops up the whole lot gradient and all and tries to render it. And fails.</p>
+
+<h3>That&#8217;s annoying</h3>
+
+<p>Yes it is.</p>
+
+<h3>The fix</h3>
+
+<p>Importantly, IE correctly recognises the <code>background-image</code> declaration as invalid (for itself) if it starts with a gradient, even if it contains a regular image later on. So we just start the declaration with a gradient. The trouble is, we don&#8217;t want to put the gradient first as it&#8217;ll obscure the icon, so we define <em>another</em> gradient that is OK to put on top of the icon. That would be an empty or transparent gradient.</p>
+
+<p>We will use the minimum amount of code that is necessary to trigger a gradient in the rendering engine. For Webkit, it is <code>-webkit-gradient(linear, left bottom, left top)</code>. No <code>color-stop</code>s required. This is good because no colour means no visible gradient. For Mozilla, it requires some colour information, so we just give it completely transparent colours using <code>rgba</code>: <code>-moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%)</code>.</p>
+
+<p>Putting these gradients first mean that IE7 won&#8217;t incorrectly think it can render that style and so it&#8217;ll stick with just the icon.</p>
+
+<p><strong>Important: Because we now have 3 background images, we also need to declare a third value for background-position.</strong></p>
+
+<pre><code>.mybutton{
+    background-image: url(icon.png);
+    background-image: -webkit-gradient(linear, left bottom, left top),
+        url(icon.png),
+        -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(233, 233, 233)),
+            color-stop(0.5, rgb(249, 249, 249)),
+            color-stop(0.5, rgb(255, 255, 255)),
+            color-stop(1, rgb(255, 255, 255))
+        );
+    background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
+        url(icon.png),
+        -moz-linear-gradient(
+            center bottom,
+            rgb(233, 233, 233) 0%,
+            rgb(249, 249, 249) 50%,
+            rgb(255,255,255) 50%,
+            rgb(255,255,255) 100%
+        );
+
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    background-position: left top, 5px center, left top;
+
+    padding-left: 30px;
+}
+</code></pre>
+
+<p>Here it is in Firefox:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ff.png" alt="The styles are working well in Firefox" /></a></p>
+
+<p>And in IE7:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie.png" alt="The styles are working well in IE7" /></a></p>
+
+<p>Or you can <a href="http://blog.norestfortheweekend.com/demos/css3-gradients-multiple-backgrounds-and-ie7/example2.html">see it for yourself in your browser</a>.</p>
+
+<h3>But wait, there&#8217;s more!</h3>
+
+<p>You thought this was over? Of course it&#8217;s not! IE9 is a heck of a lot better than previous versions but it&#8217;s still not perfect. For example, it does support multiple backgrounds but it doesn&#8217;t support CSS gradients. This means that it&#8217;ll ignore the gradients but it&#8217;ll use the <code>background-position</code> multiple background declaration we made, resulting in the icon being positioned <code>left top</code> as opposed to <code>5px center</code>.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie9.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie9.png" alt="The styles have regressed in IE9 and the icon is incorrectly aligned" /></a></p>
+
+<p>I tried getting around this by inserting another <code>background-image</code> defining three images (two of them transparent spacers) directly after the first <code>background-image</code> and before the first gradient:</p>
+
+<pre><code>.mybutton{
+    background-image: url(icon.png);
+    background-image: url(spacer.gif),
+        url(icon.png),
+        url(spacer.gif);
+    background-image: -webkit-gradient(linear, left bottom, left top),
+        url(icon.png),
+        -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(233, 233, 233)),
+            color-stop(0.5, rgb(249, 249, 249)),
+            color-stop(0.5, rgb(255, 255, 255)),
+            color-stop(1, rgb(255, 255, 255))
+        );
+    background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
+        url(icon.png),
+        -moz-linear-gradient(
+            center bottom,
+            rgb(233, 233, 233) 0%,
+            rgb(249, 249, 249) 50%,
+            rgb(255,255,255) 50%,
+            rgb(255,255,255) 100%
+        );
+
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    background-position: left top, 5px center, left top;
+
+    padding-left: 30px;
+}
+</code></pre>
+
+<p>But that didn&#8217;t work as IE7 still parsed it (incorrectly) just as it did in the first instance and therefore didn&#8217;t show the icon at all. Back to square one.</p>
+
+<p>At this point I&#8217;m sure most people are thinking</p>
+
+<p>&#8220;Oh come on, why not just use <a href="http://www.modernizr.com/">Modernizr</a> and only apply the gradients to browsers that can use them?&#8221;</p>
+
+<p>That&#8217;s one way of doing it, although I would rather not use JavaScript if possible. This leaves one option&#8230; go back to the original CSS and add this conditional comment in the <code>&lt;head&gt;</code>:</p>
+
+<p>As no versions of IE yet support gradients, we just reset the background to be the plain ol&#8217; icon. Problem solved.</p>
+
+<p>Here it is in Firefox:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ff.png" alt="The styles are working well in Firefox" /></a></p>
+
+<p>And in Webkit (Chrome):</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ch.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ch.png" alt="The styles are working well in Chrome" /></a></p>
+
+<p>And in Opera:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-op.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-op.png" alt="The styles are working well in Opera" /></a></p>
+
+<p>And in IE6:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie6.png" alt="The styles are working well in IE6" /></a></p>
+
+<p>And in IE7:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie7.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie7.png" alt="The styles are working well in IE7" /></a></p>
+
+<p>And in IE8:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie8.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie8.png" alt="The styles are working well in IE8" /></a></p>
+
+<p>And in IE9:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie9.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie9.png" alt="The styles are working well in IE9" /></a></p>
+
+<p>Or you can <a href="http://blog.norestfortheweekend.com/demos/css3-gradients-multiple-backgrounds-and-ie7/example3.html">see it for yourself in your browser</a>.</p>
+
+<h3>A side serving of gradient</h3>
+
+<p>You may have noticed that two of the <code>color-stop</code>s have the same percentage/distance value. This effectively give us the ability to have more than one gradient on the same element. The end result is a gradient from the top to the middle, a sudden stop and change of colour and another gradient from the middle to the bottom. It&#8217;s useful to be able to change sharply from one colour to another as well as smoothly!</p>
+
+<ul>
+<li><p>If anyone has a better solution, please get in touch in the comments or on Twitter.</p></li>
+<li><p>The images I&#8217;ve used come directly from the project I&#8217;m working on in my day job. If my employer has any objection to their use here I will of course replace them with something else. But I&#8217;m sure they won&#8217;t.</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Web in 3D - the Nintendo 3DS web browser]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/"/>
+    <updated>2011-02-14T01:45:49+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser</id>
+    <content type="html"><![CDATA[<p>The Web in 3D - the Nintendo 3DS web browser</p>
+
+<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png" alt="The Nintendo 3DS" /></a></p>
+
+<p>Let&#8217;s not beat around the bush: this is a very impressive device. It&#8217;s tricked out with all the latest technologies (or the latest applications of &#8216;old&#8217; technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I&#8217;m sure you have read about it - the top screen is a 3D display which importantly doesn&#8217;t require glasses. I can&#8217;t stress enough how good the 3D effect looked. It felt completely natural and I didn&#8217;t find myself getting any kind of a headache or nausea like some people are worried about.</p>
+
+<p>There were demos available of most of the functionality: Lots of games that&#8217;ll be available on launch or shortly thereafter, 3D photography, augmented reality (including the &#8216;reality&#8217; part shown in 3D due to the 3D cameras on the lid - the most impressive thing for me) and street pass (Nintendo&#8217;s social discovery system). But the thing that actually holds the <em>most</em> interest for me <em>wasn&#8217;t</em> shown and indeed is barely talked about. I&#8217;m hoping that will change.</p>
+
+<h3>A complex web</h3>
+
+<p>I&#8217;m talking, of course, about the web browser which will come built in to the device as part of the extensive suit of software bundled on-board.</p>
+
+<p><em>YAWN</em></p>
+
+<p>A web browser? What&#8217;s so great about that?</p>
+
+<p>I don&#8217;t know yet because no-one is talking about it, but I&#8217;m <em>hoping</em> it will inspire (even more) innovation and creativity on the web. I&#8217;m hoping it will have some semblance of 3D integration and capability. And if not, why not? Surely this is the way the web is going. More and more devices will be 3D enabled in the near future and you can bet that if the 3DS doesn&#8217;t kick-start the 3D web some other device will. You can buy a 3D TV to put in your living room for crying out loud - this is 2011! They reckon you&#8217;ll be able to buy a <a href="http://news.bbc.co.uk/1/hi/programmes/click_online/9393762.stm">HOLOGRAPHIC 3D TV</a> in 2012. I&#8217;m all over that. And I want the web to make sure it isn&#8217;t left behind. After all, a lot of modern TVs have integrated browsers. It&#8217;s the next logical step.</p>
+
+<h3>Least they could do</h3>
+
+<p>The least I could hope for is support for 3D images displayed in web pages. The <strong>LEAST</strong>. The standard open format is <a href="http://en.wikipedia.org/wiki/Image_file_formats#MPO">.mpo</a> and fortunately <a href="http://nintendo3dsblog.com/the-3d-camera-in-the-nintendo-3ds-saves-photos-in-the-open-mpo-file-format">the same format in which the 3DS saves it&#8217;s 3D photos</a>.</p>
+
+<p>That&#8217;s not to say you will be able to simply embed the 3D photos in your site and have them work in the 3DS&#8217; web browser though. Think how that would look in a desktop browser&#8230; Well it probably wouldn&#8217;t show up or show a broken image.</p>
+
+<p>No, no, no, don&#8217;t even think about making a separate site for 3D devices. I thought we were past all that. What are you going to have yet another separate site for 3D+Mobile? We want to serve one page that works on all devices.</p>
+
+<p>The trouble is, without images having a similar failover pattern to the one available to <a href="http://dev.opera.com/articles/view/everything-you-need-to-know-about-html5-video-and-audio/">video and audio in HTML5</a>, you simply couldn&#8217;t use the image inline in your page as non-3D-enabled browsers wouldn&#8217;t recognise the format. This just proves that there are always new image formats emerging; they are not all supported by all browsers as it&#8217;s easy to assume (if you forget about IE6 and .png&#8217;s) so why should we assume that that&#8217;s the case with the markup?</p>
+
+<p><a href="http://www.brucelawson.co.uk/2010/why-video-audio-canvas-arent-self-closing-tags/">This has been discussed by Bruce Lawson</a> and makes sense (no matter how frustrating it is). So until all browsers support the display of 3D images on 2D screens we will have to find another way.</p>
+
+<p>The other way to include images in the page is, of course, CSS background images. This one has legs. The 3DS browser could easily respond to an @media query, something like <code>@media screen and (-3ds-min-device-spatial-dimensions: 3) { ... }</code>. Then you could alter how the page looks on a device that has 3D capabilities. Once you have the 3D background image in place you can mark it up to include a 2D version for the rest of the world:</p>
+
+<p>HTML:</p>
+
+<pre><code>&lt;div class="forest-picture"&gt;
+    &lt;img src="http://blog.norestfortheweekend.com/static/img/forest-2d.jpg" alt="Pretty forest scene" height="250" width="400"&gt;&lt;/img&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>CSS:</p>
+
+<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) {
+    .forest-picture{
+        background: transparent url(../img/forest-3d.mpo) no-repeat 0 0;
+        width: 400px;
+        height: 250px;
+    }
+    .forest-picture img{
+        display: none;
+    }
+}
+</code></pre>
+
+<p>The best of both worlds! We can dream&#8230;</p>
+
+<h3>Reality check</h3>
+
+<p>Before we go on, I just need to make it abundantly clear (if it isn&#8217;t already) that this article is pure speculation. I don&#8217;t know if the 3DS browser supports any of this kind of stuff, but imagining the possibilities and how they might work is an interesting exercise. Oh wait, it looks like <a href="http://www.google.com/intl/en/landing/chrome/cadie/">Google has already looked into 3D browsing</a>. My mistake ;)</p>
+
+<p>Let&#8217;s explore further down the rabbit hole&#8230;</p>
+
+<h3>Going the extra dimension</h3>
+
+<p>What if we wanted to move beyond just sticking 3D images in our pages? As awesome as a 3D gallery might be, there are so many more possibilities. Imagine if the whole page could be rendered in 3D; if each element on the page had it&#8217;s own depth setting. I think the most obvious thing to do would be to push the background actually into the background giving the site content more prominence, and if you start down that road you should just be able to let your imagination carry you forwards.</p>
+
+<p>I know what you&#8217;re thinking, and it&#8217;s what I thought at first too&#8230; why not use <code>z-index</code> for that? The reason why not is because <code>z-index</code> controls the stacking order of elements on a single plane. If you change the function of <code>z-index</code> to control depth on 3D devices, how would you re-order a group of elements sharing the same depth on a 3D page? It&#8217;s clear that we need a separate property to do that. I&#8217;m going to be bold and use <code>depth</code> in examples, for want of a better attribute name.</p>
+
+<p>So where are we? We&#8217;ve got 3D images and the ability to assign <code>depth</code> to elements. That&#8217;s a good start, but it seems a little restricted, doesn&#8217;t it? A bunch of flat panels sitting at different depths in a 3D space. We&#8217;re not really making the most of the technology. We need to add a little style in there&#8230; style that can bridge the gap between depth-levels. Fortunately, Webkit is one step ahead of this game with it&#8217;s <a href="http://webkit.org/blog/386/3d-transforms/">CSS 3D transforms</a>. These could easily be adapted to show in real 3D instead of 3D rendered in 2D.</p>
+
+<h4>Curves would be nice</h4>
+
+<p>Yes they would, and so would a mansion on the beach in Barbados. We don&#8217;t even have the ability to define curves in 2D CSS yet. But then in 2D we might not have wanted to do crazy things like making a callout or title bow inwards or outwards, which would work pretty well in 3D. But maybe just one step at a time&#8230;</p>
+
+<h3>What is 3D anyway</h3>
+
+<p>To develop in 3D you need to understand how it really works. Fortunately understanding it is a lot simpler than getting your head around designing and developing in it:</p>
+
+<p><strong>3D works by each of your eyes seeing a slightly different image.</strong></p>
+
+<p>Simple enough, and in real life this works pretty well. But when generating your own 3D content you have to be ever-mindful of it.</p>
+
+<h3>Mind the gaps</h3>
+
+<p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png" alt="3DS Screen showing plain background" /></a></p>
+
+<p>You then have a look at it and wonder why it doesn&#8217;t look like it&#8217;s way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you&#8217;re left feeling a little confused.</p>
+
+<p>The reason why this doesn&#8217;t appear to be in the background is because your eyes are seeing the exact same image. There needs to be some more detail in there before your eyes can be tricked into thinking that it&#8217;s way off in the distance. Here are some suggestions:</p>
+
+<ol>
+<li>You could give it a border that makes it look like you&#8217;re looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png" alt="3DS screen showing a background shaded to look like you are looking into a box" /></a></p>
+
+<ol>
+<li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it&#8217;s not at the depth you intended.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png" alt="3DS screen with a patterned background" /></a></p>
+
+<ol>
+<li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I&#8217;m going to go with this one.</li>
+</ol>
+
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png" alt="3DS screen with a plain background and a green tile overlayed" /></a></p>
+
+<p>But even laying something on top like this isn&#8217;t too easy for our brains to process. Have a look what each eye would be seeing.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png" alt="Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye" /></a></p>
+
+<p>There&#8217;s not a great deal to differentiate these two images and while your brain knows it&#8217;s seeing different things from each eye it is struggling because there are things missing that it&#8217;s used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don&#8217;t give people headaches we&#8217;ll have to sort this out.</p>
+
+<pre><code>.floating-box{
+    box-shadow: 5px 5px 5px #ccc;
+}
+</code></pre>
+
+<p>Now the panel has a nice drop shadow which should make it easier on the eyes and easier to see the 3D effect.</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png" alt="3DS screen with plain background and a green panel overlaid with a drop shadow" /></a></p>
+
+<p>But how does it get rendered so that each eye sees the shadow differently?</p>
+
+<h3>Seeing the light</h3>
+
+<p>The way I see it there are two options:</p>
+
+<ol>
+<li><p>The browser provides a default (override-able) light source:</p>
+
+<p> body{</p>
+
+<pre><code> light-source: 25% 25% fixed;
+</code></pre>
+
+<p> }</p></li>
+</ol>
+
+
+<p><code>fixed</code> would position the light source relative to the browser viewport, and as an alternative <code>absolute</code> would position it relative to the document.</p>
+
+<ol>
+<li>You, the developer, get granular control over what each eye sees:</li>
+</ol>
+
+
+<p>If you had control over each eye the possibilities would be endless. Set the difference in box shadow offset, show a different background image to achieve a rippling effect. You would OWN all the dimensions.</p>
+
+<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: left-eye) {
+    .floating-box{
+        box-shadow: 3px 5px 5px #ccc;
+    }
+}
+@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: right-eye) {
+    .floating-box{
+        box-shadow: 7px 5px 5px #ccc;
+    }
+}
+</code></pre>
+
+<p>I think a combination of both would probably be in the interests of developer and user alike.</p>
+
+<h3>It&#8217;s not all giant blue humanoids and bio-luminescent flowers</h3>
+
+<p>This technology has it&#8217;s disadvantages, and you can be sure that there will be some nasty surprises out there when it comes along. As with most visual effects, subtlety is king. Of course there will always be the developers who are irresponsible with this great power and make some eye-bleeding creations, but that&#8217;s just inevitable. No, what I&#8217;m really worried about can be summed up in two words: Internet. Advertising. If you thought pop-over ads were intrusive now, you ain&#8217;t seen nothing yet.</p>
+
+<h3>The waiting game</h3>
+
+<p>Who knows what you&#8217;ll be able to do with the browser? Nintendo maybe? Or if it&#8217;s <a href="http://www.opera.com/">Opera</a> providing the software again, as they did for the Wii and original DS/DSi then I expect they will know. (Please do get in touch if you have insider knowledge!) But until that information is made available or the 3DS is in our hands we won&#8217;t know for sure. I hope it&#8217;s got at least a few fun 3D features to play with. I&#8217;m sure the full set will develop over time.</p>
+
+<p><strong>Update:</strong> Now that the browser is available, I had a little play with it and <a href="http://www.norestfortheweekend.com/2011/06/14/3ds-browser-revisited/">wrote down a few of my thoughts</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Always use www in your URLs]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls/"/>
+    <updated>2011-01-16T19:13:03+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls</id>
+    <content type="html"><![CDATA[<p>&#8230;unless you are specifically on another subdomain.</p>
+
+<p>I&#8217;m not kidding! You need to make sure that your sites all redirect from http://yoursite.org to http://www.yoursite.org. If you&#8217;re not sure whether your sites do this, try now. Go ahead, I&#8217;ll wait.</p>
+
+<p>You can score yourself against this list based on what you see:</p>
+
+<ul>
+<li><p>Error page: <strong>NO POINTS!</strong></p></li>
+<li><p>Redirected to www.yoursite.org but to the front page instead of the page you wanted: <strong>Half a point</strong></p></li>
+<li><p>Page served, URL still has no www: <strong>1 point</strong></p></li>
+<li><p>Redirected to www.yoursite.org and to the correct page: <strong>10 points!</strong></p></li>
+</ul>
+
+
+<p>On no account should a user see an error page if they don&#8217;t type www before your URL. That&#8217;s just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.</p>
+
+<p>It&#8217;s almost as bad if the user enters an address to a page within your site and then gets taken to the home page, even if the URL in the address bar says www. I mean at least the site doesn&#8217;t look broken but it&#8217;s still not a nice welcome. Having the www gets you half a point.</p>
+
+<p>If the page is served irrespective of whether there is a www in the URL thats&#8230; OK. But only OK. Aside from the fact that you&#8217;ve got the same pages in two locations (not good for Google-juice) it could lead to errors. As yoursite.org and www.yoursite.org are seen as two different domains, if you have any AJAX on your site that refers specifically to www.yoursite.org it&#8217;s going to <em>fail hard</em> if the URL in the address bar doesn&#8217;t have the www. This is thanks to the cross-domain security model browsers employ. You don&#8217;t want that happening.</p>
+
+<p>What you should be doing is simply redirecting all traffic to the root domain to the www subdomain and maintaining the rest of the URL to ensure a good experience. This is actually very easy to do:</p>
+
+<p>Open the <code>.htaccess</code> file in the root of your site&#8217;s file structure. If it doesn&#8217;t exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it&#8217;s open, add these lines to it:</p>
+
+<pre><code>RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
+RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
+</code></pre>
+
+<p>Note that on the first line when you change the domain you need to add a slash before each dot as it&#8217;s part of a regular expression.</p>
+
+<p>It&#8217;s that simple!</p>
+
+<p>You have no excuse now.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Regex for an email address]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2010/10/13/regex-for-an-email-address/"/>
+    <updated>2010-10-13T14:21:53+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2010/10/13/regex-for-an-email-address</id>
+    <content type="html"><![CDATA[<p>It&#8217;s something that I&#8217;ve come up against several times and each time I google for it I turn up a different result.</p>
+
+<p>How do you validate an email address?</p>
+
+<p>Obviously you want to use a <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>, but given the specification for <a href="http://en.wikipedia.org/wiki/Email_address">email address</a>es that&#8217;s going to be one really complicated line of code.</p>
+
+<p>Following a user&#8217;s complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today&#8217;s search yielded more success <a href="http://atlantic-drugs.net/products/viagra.htm">viagra</a> usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
+
+<pre><code>/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/
+</code></pre>
+
+<p>I won&#8217;t lie to you: I haven&#8217;t dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I&#8217;ve thrown at it. It also works in Javascript which, for me, is a massive win.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why do we need conferences?]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2010/03/21/why-do-we-need-conferences/"/>
+    <updated>2010-03-21T00:58:21+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2010/03/21/why-do-we-need-conferences</id>
+    <content type="html"><![CDATA[<p>[caption id=&#8221;attachment_132&#8221; align=&#8221;alignright&#8221; width=&#8221;280&#8221; caption=&#8217;<a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards">Photo</a> by <a href="http://www.flickr.com/photos/rugbymadgirl/">Rugby Mad Girl</a>, from <a href="http://www.flickr.com/">Flickr</a>&#8217;]<a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/03/hBeer.jpg" alt="hBeer" /></a>[/caption]</p>
+
+<p>Seriously? Why do we need to spend hundreds of pounds, dollars, euros or whatever to attend these events? They are pretty pricey and more often that not they are nowhere near home so you have the added cost of transport and hotel bills and all those meals you&#8217;re going to consume out while you&#8217;re away. It&#8217;s not cheap, and even if you can afford it, why spend it?</p>
+
+<h3>The Talks&#8230; it&#8217;s all about the presentations &amp; sessions!</h3>
+
+<p>Is it really though? These people who get on the stage and talk: Yeah OK, they&#8217;re great. They do a fantastic presentation, insightful with great slides and funny too! But don&#8217;t they put articles on their blogs for free that cover that topic and a wealth of others besides, all year round? If hearing and seeing them actually say the words is so integral to getting their message across, they could very easily record themselves and publish it in a video or audio format right there on their blogs.</p>
+
+<p>In fact, recently some conferences have taken to publishing all the talks that are given right there on the web for all to see. Everyone can watch, even people who didn&#8217;t pay to go to the conference itself! I was watching <a href="http://vimeo.com/build">the videos</a> from a conference that I didn&#8217;t go to - <a href="http://buildconference.com">Build</a> - which was held in Belfast at the end of last year. How nice of them to go to all the effort of filming it, editing it and putting it online, I thought. And the talks are great, I&#8217;d encourage you to go and watch them. But I was thinking&#8230; how would I feel about this if I actually PAID to go to the conference?</p>
+
+<h3>Money talks</h3>
+
+<p>If I&#8217;d laid down cold hard cash to see the talks, wouldn&#8217;t I be unhappy that others who hadn&#8217;t could then just browse to a page and see all the content&#8230; for free? Maybe a little. But then again I&#8217;m all for sharing information and content, especially when it&#8217;s of benefit to the community so maybe I&#8217;d be a little conflicted about that.</p>
+
+<p>Most people I ask, however, seem not to mind this sort of behaviour. They seem to think that conferences go beyond the talks, and I&#8217;d be inclined to agree.</p>
+
+<h3>It&#8217;s not about what you know</h3>
+
+<p>I think that while the talks are nice and all, what most people value the most from conferences is the opportunity to meet other like-minded people. Or to put it in business-speak: networking. Between the talks and in the evening(s), you get to mingle with people who all have their own goals, ideas, methods, questions and accomplishments in the same field as you and are quite willing to share them with you. The more people you talk to and the more conferences you go to (where you&#8217;re likely to see these people again) the more contacts and even friends you are likely to make.</p>
+
+<p>Nothing drives this home more clearly than the general chatter I picked up from this years <a href="http://sxsw.com">SXSW</a> which I was sadly unable to attend. Essentially, the vast majority of talk I picked up from SXSW was not about the panels and talks (which no doubt were excellent) but they were about the parties, BBQs and the socialising. The Networking.</p>
+
+<p>But this brings me back to my original point. Why do we need conferences? If all we need to make contacts is to get people who are in similar lines of work to talk to each other why don&#8217;t we do it all the time? The talks are nice but completely unnecessary to get what people seem to value the most from conferences.</p>
+
+<h3>Pub Standards</h3>
+
+<p><a href="http://www.pubstandards.co.uk">Pub Standards</a> is something that happens in London on a monthly basis. It also happens in <a href="http://pubstandards.org">Melbourne</a>, I believe (<a href="http://en.wikipedia.org/wiki/User:Aliasd/Pub_Standards">Wikipedia confirms this</a> so it must be true). What it is is this: a whole bunch of web folk get together and take over a pub for an evening. They sit and drink and talk about whatever they please which may or may not include topics such as:</p>
+
+<ul>
+<li><p>What they are doing at work</p></li>
+<li><p>What they are watching on TV</p></li>
+<li><p>The contents of that controversial blog post that&#8217;s been doing the rounds on Twitter</p></li>
+<li><p>The latest CSS tricks that they&#8217;ve learned or seen in action</p></li>
+<li><p>Why anyone who uses a Palm Pre should be hugged / pitied / unfollowed / shot on sight</p></li>
+<li><p>Anything and everything else</p></li>
+</ul>
+
+
+<p>&#8230;you get the idea. It sounds pretty much like the after party at a conference then.</p>
+
+<p>The other night it was in fact my first Pub Standards (for shame) but it certainly won&#8217;t be my last. I just can&#8217;t imagine why this hasn&#8217;t caught on more places than just London and Melbourne!</p>
+
+<h3>The reality</h3>
+
+<p>While it would be awesome to think that we could all get our conference fix by reading blogs, watching online video and going to Pub Standards the reality is that it&#8217;s just not logistically possible.</p>
+
+<p>There are actually people outside of London (and indeed outside of any large city) who are involved in the web industry who just couldn&#8217;t make it in to the city on a regular basis. They could start their own group but you really need a large city environment to get a decent sized and varied bunch of people together each month. In addition to that, conferences can provide the chance for people to meet developers from other parts of the country or from the other side of the world which local meet-ups just can&#8217;t.</p>
+
+<p>It would be nice to think that we might be able to organise some kind of International Pub Standards where people fly in and join the fun for a few times every year, but that wouldn&#8217;t work for so many reasons:</p>
+
+<ol>
+<li><p>Spouses and significant others often remain unconvinced of the value of developers drinking beer together.</p></li>
+<li><p>No one&#8217;s going to fly in from Amsterdam just for a night out at the pub - it has to be for longer to make it worth it.</p></li>
+<li><p>Any longer than an evening and you start having to take things like food breaks and accommodation into account&#8230; and the conversation could start to need a catalyst of some sort.</p></li>
+<li><p>No company is going to pay your transatlantic flights for what can only be described as a night down the pub with a bunch of geeks.</p></li>
+</ol>
+
+
+<p>The talks that you get at a conference and the information you glean from them, or the questions that arise from them seem to solve all these problems quite neatly. And let&#8217;s face it they generally are quite good, otherwise they wouldn&#8217;t bother making them available for everyone else on the internet.</p>
+
+<h3>Is that your final answer?</h3>
+
+<p>Why do we need conferences? It&#8217;s so we can meet people and gel as a community on a global level in a way that you can&#8217;t do by just using Twitter, Facebook and all of their social contemporaries.</p>
+
+<p>But let&#8217;s not underestimate the value of local groups either. I find it astounding that Pub Standards is only happening in London and Melbourne. There must be so many places, large cities, where there are plenty enough web developers interested in Standards and beer to get a regular meet-up going. If you live or work in one of them, why not start one up? I&#8217;m sure it would be very rewarding on many levels.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A fold by any other name]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2010/02/24/a-fold-by-any-other-name/"/>
+    <updated>2010-02-24T14:53:33+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2010/02/24/a-fold-by-any-other-name</id>
+    <content type="html"><![CDATA[<p>&#8230;would be a more accurate analogy.</p>
+
+<p>We&#8217;ve all heard the arguments about the so-called fold, that mysterious, imaginary line beneath which no content shall be seen. There are still plenty of clients, designers and other folk who should know better who will request something be placed &#8216;above the fold&#8217;. Whether or not they ask for it using the term &#8216;fold&#8217; is immaterial because at the end of the day that&#8217;s what they mean and it&#8217;s something they want.</p>
+
+<h3>A fold through time</h3>
+
+<p>The history of the Fold dates back to an era where news was distributed in a physical format. It was printed on large sheets of paper, largely in black and white and arranged into what resembled an oversized book. To aid distribution and storage these items were folded in half leaving visible only the title of the publication and one or two other pieces of information that were on the top half of the front page.</p>
+
+<p>When on display to potential buyers, each publication was competing with other similar publications. The information visible was important because it would catch people&#8217;s eyes and was often what governed which publication was chosen for purchase. Because of this, the editors had to carefully decide which pictures and headlines were to be put on display in the top half of the front page. What was &#8216;above the fold&#8217; was very important – it could dramatically affect sales.</p>
+
+<h3>From dots to pixels</h3>
+
+<p>Now that we are consuming masses of content on screens rather than pages (whether it&#8217;s news, opinion pieces, novels, comics or anything else that print once ruled) wise people will tell us that <a href="http://www.thereisnopagefold.com/">there is no page fold</a>, not any more. It disappeared when the content left the medium of paper. If there is no paper there is no fold.</p>
+
+<p>Other (slightly more old-fashioned) people would argue otherwise; they would argue that not all people are used to scrolling. A lot of the more computer savvy or technically orientated among us find this hard to believe. Back when the concept of the digital fold was first introduced in the early days of the internet this may well have been the case. Now, however, it is the age of the <a href="http://en.wiktionary.org/wiki/silver_surfer">silver surfer</a> and a time where if you can&#8217;t perform fundamental functions on a computer it is becoming increasingly difficult to get along.</p>
+
+<p>Scrolling is a pretty fundamental function and I would support the hypothesis that there are incredibly few people who use computers that do not know how to scroll.</p>
+
+<h3>Folding it back on itself</h3>
+
+<p>For most people that&#8217;s where the argument ends. I hold a slightly different opinion, perhaps controversially. Although I don&#8217;t  believe they have said it directly, it would seem Google are also disinclined to agree based on their <a href="http://browsersize.googlelabs.com/">recent work capturing various screen sizes</a> and mapping the visible area of a page without scrolling.</p>
+
+<p>What I believe it comes down to is this:</p>
+
+<p><strong>People will scroll if they can&#8217;t find what they are looking for.</strong></p>
+
+<p>If they are searching for something and can&#8217;t see it but <em>expect</em> it to be there, scrolling is pretty much second nature. If they have found it, however, why scroll? Unless there is something else visible that catches their interest, maybe half obscured by the bottom of the window then there is little incentive to reach for the scroll-wheel.</p>
+
+<p>It doesn&#8217;t end there either. If someone is reading a piece of content – say, an email – that appears to reach it&#8217;s logical end within the visible area then they are less likely to scroll down, <em>even if there is more relevant content beneath</em>. Even seasoned computer users make this mistake (trust me, I&#8217;ve done it).</p>
+
+<h3>The fold in action</h3>
+
+<p>So, you are visiting a page. You know exactly what you want from the page and are interested in nothing else. You visit the page and there it is sitting waiting for you. You don&#8217;t even need to scroll to see it all. When you&#8217;ve finished reading or looking at it, what do you do? I know what I&#8217;d do: close the tab, type a new URL, Google something&#8230; in short, navigate away from that page.</p>
+
+<p>But what about all the content below this so-called &#8216;fold&#8217;? It might well have been really interesting and relevant to me but I didn&#8217;t see it because I didn&#8217;t scroll. I didn&#8217;t scroll because I had already found what I came to that page to see.</p>
+
+<p>I think it&#8217;s time for some examples. I&#8217;m going to use what got me thinking about this again in the first place: WebComics.</p>
+
+<p>For those unfamiliar, the WebComics model is based around free content. The comic is given away for free and the revenue is generated from adverts and merchandise. It&#8217;s fair to say that for a full-time WebComic artist there is one goal: to generate revenue. The fact that they all seem to enjoy their work is a pleasant side-effect. There is a secondary goal which is to cultivate fans and a community which in turn leads to repeat visits which lead to advert revenue and merchandise sales.</p>
+
+<p>Look at this page:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/ellieconnelly.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/ellieconnelly-628x402.jpg" alt="Screen grab from the WebComic &quot;Ellie Connelly&quot;" /></a></p>
+
+<p>I have a pretty big screen. With that page from <a href="http://www.ellieconnelly.com/">Ellie Connelly</a> I hit the site and the comic is all there, no need to scroll. When I&#8217;ve finished reading the most likely thing I&#8217;ll do is close the tab because what I came for was the comic. There&#8217;s nothing else visible that makes me encourages to look any further. There are ads on that page but to see them I&#8217;d have to scroll&#8230; so I won&#8217;t see them. There&#8217;s also a blog which I&#8217;d sadly also miss.</p>
+
+<p>Now have a look at this front page from another WebComic, <a href="http://www.evil-comic.com">Evil, Inc.</a>:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/evilinc.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/evilinc-628x404.jpg" alt="Screen grab from the WebComic &quot;Evil, Inc.&quot;" /></a></p>
+
+<p>There is an advert right at the top of the page! The logo is shrunk and placed in line with the advert. This lets the content that the user is after move higher up the page. This is good for the reader and good for the author as they have a better chance of enticing the reader to scroll down with extra content.</p>
+
+<p>As well as the advert, right above the comic there is a link in bright red telling us what the latest blog post is about. Clicking on this will jump the reader straight to the blog in the same page. Within the visual boundary of the white box I count 5 links to explore the archives, 2 links with which the artist can make money and 9 ways for the reader to spread the word to their friends about the comic, hopefully generating new readership. All of this without having to scroll.</p>
+
+<p>Which comic do you think does the best in terms of revenue based on these interface choices? <em>Evil, Inc.</em> would be my guess.</p>
+
+<p>Let&#8217;s look at another, <a href="http://www.sheldoncomics.com/">Sheldon</a>:</p>
+
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/sheldon.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2010/02/sheldon-628x402.jpg" alt="Screen grab from the WebComic &quot;Sheldon&quot;" /></a></p>
+
+<p>Again, the strip fits nicely on my screen without scrolling but there&#8217;s so much else to catch my attention after I&#8217;ve read it. There are 3 adverts (4 if you count the peel back flash advert in the top right) and plenty of ways to maintain the reader&#8217;s engagement with the strip. One of the adverts is butted right up to the bottom of the strip which means so long as the top of the advert is interesting the user is much more likely to scroll down to see the rest.</p>
+
+<h3>To sum up&#8230;</h3>
+
+<p><em>Please</em> don&#8217;t think I&#8217;m advocating cramming as much clutter into the upper regions of pages as possible. I&#8217;m absolutely not - it would make for scruffy and crowded-looking sites and the content would be lost amongst everything else vying for attention.</p>
+
+<p>Likewise, <em>please</em> don&#8217;t think I&#8217;m suggesting that people should push the content users want below the fold so they have to scroll for it - that would just be a terrible user experience. If a site actually did that they would haemorrhage users at a massive rate.</p>
+
+<p>It doesn&#8217;t take a black belt in origami to tell that &#8216;the fold&#8217; is a concept that doesn&#8217;t port from print to web because unlike a newspaper, the web is fluid. Nothing is fixed: the browser window size, the text size, the position and type of content&#8230; This doesn&#8217;t mean we can dismiss the analogy in it&#8217;s entirety, however, because there are some cases where users really won&#8217;t scroll, regardless of their technical expertise.</p>
+
+<p>Like so many other things, it comes down to the fact that careful consideration of layout based upon content, expected user behaviour and desired user behaviour is essential in any good design.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A little something while you wait]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2010/02/02/a-little-something-while-you-wait/"/>
+    <updated>2010-02-02T00:46:59+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2010/02/02/a-little-something-while-you-wait</id>
+    <content type="html"><![CDATA[<p>I know, I know it&#8217;s been a while since I posted. There&#8217;s one on the way, I promise!</p>
+
+<p>While you wait for it to brew, however, why don&#8217;t you check out my inaugural post on the BBC Web Developer blog: <a href="http://www.bbc.co.uk/blogs/webdeveloper/2010/02/css-for-widgets-friends-dont-break-friends-styles.shtml">CSS for Widgets</a>.</p>
+
+<p>Have you ever written some CSS on a page which contains other people&#8217;s stylesheets? And have you noticed that either your CSS broke their stuff or theirs messed about with yours? If you have then this post is right down your street. If you haven&#8217;t&#8230; well have a read just to make sure it never happens.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Console.log for all!]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all/"/>
+    <updated>2009-12-12T20:47:01+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all</id>
+    <content type="html"><![CDATA[<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/console.jpg" alt="Firebug console" /></p>
+
+<p>If you&#8217;re like me then you probably use <code>console.log</code> a lot. It&#8217;s such a useful debugging tool! It&#8217;s better that alert in so many ways I won&#8217;t bother mentioning them all because- oh what the hell, this is my blog I&#8217;ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
+
+<ul>
+<li><p>It hides away when you don&#8217;t need it and doesn&#8217;t bother you unless you are interested in it.</p></li>
+<li><p>It lets you log more than one variable at a time simply by passing more than one argument.</p></li>
+<li><p>It doesn&#8217;t interrupt the flow of the script until you click OK.*</p></li>
+<li><p>If you are testing a loop or quick interval you don&#8217;t have to force quit Firefox just to get to the reload button.</p></li>
+<li><p>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</p></li>
+<li><p>If you log an <code>Element</code> that&#8217;s on the page when you mouse over it in the log it highlights on the page.</p></li>
+</ul>
+
+
+<p>What&#8217;s my point? Well, if you&#8217;re like me then you probably use it so much that sometimes after a hard debugging session it&#8217;s easy to accidentally leave it in the code in a few places.</p>
+
+<h4>The piece of grit that stopped the clock</h4>
+
+<p>What harm can it do? Most normal users don&#8217;t have Firebug installed anyway so they won&#8217;t see anything, right?</p>
+
+<p>Wrong. Or at least wrong attitude. Developers <a href="http://cvsonlinepharmacystore.com/products/kamasutra-ribbed-condoms.htm">will</a> see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
+
+<p>Without Firebug installed the <code>console</code> object doesn&#8217;t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It&#8217;s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
+
+<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/erroronpage.gif" alt="IE's 'error on page' icon" /></p>
+
+<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn&#8217;t inspire confidence in a site or product.</p>
+
+<h4>Undesirable</h4>
+
+<p>It&#8217;s fair to say that you don&#8217;t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug&#8217;s console. Have a look at the code:</p>
+
+<pre><code>if(!('console' in window) || !('log' in window.console)){
+    window.console = function(){
+        var r = {},
+        glow,
+        $,
+        logpanel,
+        enabled=false;
+
+        r.enable = function(){
+            enabled=true;
+        };
+
+        r.disable = function(){
+            enabled=false;
+            if(logpanel){
+                logpanel.destroy();
+            }
+        };
+
+        r.clear = function(){
+            logpanel.empty();
+        };
+
+        r.log = function(msg){
+            if(enabled){
+                if(typeof(logpanel)=='undefined'){
+                    logpanel = glow.dom.create('
+&lt;p style="position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;" id="console-log"&gt;
+
+');
+                    $('body').append(logpanel);
+                    $('body').css('padding-bottom','100px');
+                    if(glow.env.ie &amp;&amp; glow.env.ie&lt;=6){ //little hack to keep it at the bottom of the IE window
+                        $('#console-log').css('position','absolute');
+                        setInterval(function(){
+                            logpanel.css('height','99px');
+                            logpanel.css('height','100px');
+                        },250);
+                    }
+                }
+                logpanel.append([msg,""].join(''));
+                logpanel[0].scrollTop = logpanel[0].scrollHeight;
+            }
+        };
+
+        r.init = function(g){
+            glow = g;
+            $ = glow.dom.get;
+        };
+
+        return r;
+    }();
+
+    console.init(glow);
+}
+</code></pre>
+
+<p>I&#8217;m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it&#8217;s really very good!</p>
+
+<p>So basically what we&#8217;re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don&#8217;t need to bother. Let&#8217;s presume that it <em>doesn&#8217;t</em> exist.</p>
+
+<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let&#8217;s strip it back to make it easier to look at:</p>
+
+<pre><code>window.console = function(){
+    return {};
+}();
+</code></pre>
+
+<p>I&#8217;m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it&#8217;s called.</p>
+
+<p>It looks initially like I&#8217;m defining <code>console</code> to be a function but straight after the closing brace of the function you&#8217;ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
+
+<p>If, as in the case of the finished code, the object returned (<code>r</code>) has properties then they will be accessible at <code>window.console.property</code>. And of course, the property can also be a function, like <code>log</code>.</p>
+
+<h4>Fully functional</h4>
+
+<p>The functions that are defined here are:</p>
+
+<ul>
+<li><p><code>enable</code></p></li>
+<li><p><code>disable</code></p></li>
+<li><p><code>clear</code></p></li>
+<li><p><code>log</code></p></li>
+<li><p><code>init</code></p></li>
+</ul>
+
+
+<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn&#8217;t mean it&#8217;s completely ineffective when disabled, though. The function still exists meaning you won&#8217;t see any script errors or terminated JavaScript.</p>
+
+<p>To enable it, simple call <code>console.enable();</code>. You don&#8217;t have to do this in the code (I&#8217;d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I&#8217;d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
+
+<p>Likewise to disable the console, just type <code>javascript:console.disable();</code>, or to clear it type <code>javascript:console.clear();</code>.</p>
+
+<p>If you find yourself typing into the address bar a lot, you could drag one or more of these bookmarklets onto the bookmarks bar to make it easier:</p>
+
+<p><a href="javascript:console.enable(">Enable console</a>;) <a href="javascript:console.disable(">Disable console</a>;) <a href="javascript:console.clear(">Clear console</a>;)</p>
+
+<p>The reason I&#8217;ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it&#8217;s useful to be able to pass a specific version of the library to <code>console</code> to use. If you&#8217;re not worried about that sort of thing then you don&#8217;t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
+
+<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn&#8217;t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
+
+<p>There&#8217;s really not a lot to it!</p>
+
+<h4>Got console?</h4>
+
+<p>Since getting it&#8217;s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It&#8217;s accessible on Chrome and Safari under the developer menus. Of course this script won&#8217;t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
+
+<ul>
+<li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don&#8217;t get me wrong!</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PayPal, for shame]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/11/28/paypal-for-shame/"/>
+    <updated>2009-11-28T12:12:14+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/11/28/paypal-for-shame</id>
+    <content type="html"><![CDATA[<p>[caption id=&#8221;attachment_100&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221;]<img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/shameless.jpg" alt="Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess" />[/caption]</p>
+
+<p><a href="http://www.paypal.com">PayPal</a> is, as I&#8217;m sure you know, a long-standing staple of online payment technologies. They are now merged with eBay and you pretty much can&#8217;t use eBay without a PayPal account which works nicely for eBay as they are now reaping the benefit of not just the eBay selling fees but also the PayPal fees.</p>
+
+<p>But this is not a post to lament how much money eBay/PayPal are raking in from punters.</p>
+
+<h4>Nice and easy</h4>
+
+<p>As well as a payment service for eBay, PayPal also offer shopping basket and checkout services for small online merchants who don&#8217;t want to buy and maintain e-commerce products. It works nicely and provided you don&#8217;t mind PayPal taking their cut it provides a really simple way of being able to take credit cards securely.</p>
+
+<h4>Prepare yourself</h4>
+
+<p>I was recently asked to add some shopping functions to a site using PayPal. Here is one of the nine code snippets PayPal provided me with to insert a button into my page:</p>
+
+<pre><code>&lt;form action="https://www.paypal.com/cgi-bin/webscr" target="paypal" method="post"&gt;
+&lt;input type="hidden" name="cmd" value="_s-xclick"&gt;
+&lt;input type="hidden" name="hosted_button_id" value="xxxxxxx"&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;&lt;input type="hidden" name="on0" value="Sizes"&gt;Sizes&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;select name="os0"&gt;
+    &lt;option value="XXSmall"&gt;XXSmall £20.00&lt;/option&gt;
+    &lt;option value="XSmall"&gt;XSmall £20.00&lt;/option&gt;
+    &lt;option value="Small"&gt;Small £20.00&lt;/option&gt;
+    &lt;option value="Medium"&gt;Medium £20.00&lt;/option&gt;
+    &lt;option value="Large"&gt;Large £20.00&lt;/option&gt;
+    &lt;option value="XLarge"&gt;XLarge £20.00&lt;/option&gt;
+&lt;/select&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;input type="hidden" name="currency_code" value="GBP"&gt;
+&lt;input src="https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif" border="0" type="image" name="submit" alt="PayPal - The safer, easier way to pay online."&gt;
+&lt;img src="https://www.paypal.com/en_GB/i/scr/pixel.gif" alt="" height="1" border="0" width="1"&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>Oh PayPal, how do you sadden me? Let me count the ways&#8230;</p>
+
+<h4>Spot the nastiness</h4>
+
+<p>Well being generous, there are 7 horrible things about that above code snippet. If I count each problem every time it appears I reach a grand total of 12. Bleugh.</p>
+
+<p>Let me run through exactly what I take issue with, because I really don&#8217;t think I&#8217;m being unreasonable.</p>
+
+<h5>Inputs</h5>
+
+<p>There are a lot of hidden <code>input</code>s. No, I understand - they need to be there to make it work. That makes sense. What doesn&#8217;t make sense is that they don&#8217;t bother to close off the <code>input</code>s, XHTML style.</p>
+
+<pre><code>&lt;input type="hidden" name="name" value="value"&gt;&lt;/input&gt;
+</code></pre>
+
+<p>Simple.</p>
+
+<h5>Tables</h5>
+
+<p>Really? Tables? But look at it. What does it actually do? Absolutely nothing, apart from put the text and the select side by side, which is a choice for the designer to make. No <code>tbody</code>, no <code>th</code>&#8217;s, and so there&#8217;s no chance in hell of any <code>scope=</code>&#8217;s.</p>
+
+<p>Pointless.</p>
+
+<h5>Select with no id and no label</h5>
+
+<p>I don&#8217;t think I need to say a lot about this - the title says it all. They&#8217;ve put the text that should be in the label in plain text instead. They could have used the table (if they insisted on having one) to help with this by putting the label text in a th, but they didn&#8217;t even do that.</p>
+
+<h5>Input type: image</h5>
+
+<p>Again, no problem in using an input of type image. But wait&#8230; they didn&#8217;t specify the width and height! If they are going to go for a consistent look, as they appear to be doing with their tables mentioned earlier, then this is essential. Otherwise, rogue styles applied to all <code>input</code>s will seriously mess up the look of the button.</p>
+
+<h5>Alt text</h5>
+
+<p>Possibly the worst offender of all.</p>
+
+<p>Check it out, aren&#8217;t PayPal good? They added alt text and everything. Except the alt text is on the image input element -  the submit button -  and it isn&#8217;t at all descriptive. It&#8217;s basically an advert for PayPal.</p>
+
+<p>What good is that to AT users? They would have <strong>no clue</strong> as to what that control does.</p>
+
+<h5>Spacer gif</h5>
+
+<p>Yes, for no apparent reason there is a spacer gif at the bottom of it all. And yes, it has no XHTML closing slash.</p>
+
+<h5>No enclosing element</h5>
+
+<p>Oh yes, one last one. <code>input</code> elements can&#8217;t reside directly inside the <code>form</code> element. They need to be contained within any one of a variety of other elements (Eg. <code>p</code>, <code>div</code>, etc.). Sadly, there is nothing protecting our <code>input</code>s from the harsh reality of their <code>form</code> overlord.</p>
+
+<h4>The way it <em>should</em> be</h4>
+
+<pre><code>&lt;form action="https://www.paypal.com/cgi-bin/webscr" target="paypal" method="post"&gt;
+    &lt;div&gt;
+        &lt;input type="hidden" name="cmd" value="_s-xclick"&gt;&lt;/input&gt;
+        &lt;input type="hidden" name="hosted_button_id" value="xxxxxxx"&gt;&lt;/input&gt;
+        &lt;input type="hidden" name="on0" value="Sizes"&gt;&lt;/input&gt;
+        &lt;label for="sizes-polo"&gt;Sizes&lt;/label&gt;
+        &lt;select name="os0" id="sizes-polo"&gt;
+            &lt;option value="XXSmall"&gt;XXSmall £20.00&lt;/option&gt;
+            &lt;option value="XSmall"&gt;XSmall £20.00&lt;/option&gt;
+            &lt;option value="Small"&gt;Small £20.00&lt;/option&gt;
+            &lt;option value="Medium"&gt;Medium £20.00&lt;/option&gt;
+            &lt;option value="Large"&gt;Large £20.00&lt;/option&gt;
+            &lt;option value="XLarge"&gt;XLarge £20.00&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;input type="hidden" name="currency_code" value="GBP"&gt;&lt;/input&gt;
+        &lt;div class="controls"&gt;
+            &lt;input src="https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif" name="submit" height="26" width="120" alt="Add a polo shirt in the selected size to your cart" type="image" class="image"&gt;&lt;/input&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>Much better. Notice that for the alt text I mentioned which item was being added and referenced the size select box in case they AT user might have missed that, or not made a selection yet.</p>
+
+<h4>Why am I picking on PayPal?</h4>
+
+<p>Well, I&#8217;m sure that many other large companies are equally guilty of this sort of thing. And as I come across them, if they enrage me enough I&#8217;m sure I&#8217;ll rant about them as well. But really, PayPal should know better. They event have people coming to (and sponsor) events (like <a href="http://www.barcamp.org/">BarCamp</a>) where the attendees have a low tolerance for this sort of thing.</p>
+
+<p>Hopefully if enough people make a fuss, these things will change. Don&#8217;t tolerate it! And most of all, never blindly cut and paste markup from another site. It&#8217;ll only make you look bad.
+  *[AT]: Assistive Technology</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BarCamp London 7]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/11/09/barcamp-london-7/"/>
+    <updated>2009-11-09T15:06:47+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/11/09/barcamp-london-7</id>
+    <content type="html"><![CDATA[<p>[caption id=&#8221;attachment_88&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/adewale_oshineye/3405080707/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-lego.jpg" alt="BarCamp" /></a>[/caption]</p>
+
+<p>Well I didn&#8217;t quite know what to expect having never attended a BarCamp or indeed an &#8220;un-conference&#8221; before. What I found was one of the best geek-xperiences that I have come across, something that I would recommend to anyone into what they do and who enjoys the company of other people also into what they do.</p>
+
+<h4>Un-conference</h4>
+
+<p>So the premise behind an un-conference is that there are talks, but there is nothing scheduled when the event starts. Instead, right at the start all the attendees fill out the gaps in the schedule with sessions, presentations and talks that they have prepared (or will prepare over the course of the event). Everyone is encouraged to participate, especially those for whom it is their first BarCamp, which meant I was going to be doing one.</p>
+
+<p>[caption id=&#8221;attachment_91&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/yaili/4062052486/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-saturdaysessions.jpg" alt="The grid for the sessions on Saturday" /></a>[/caption]</p>
+
+<p>Public speaking isn&#8217;t one of my stronger qualities, but one thing I do know about it is that the more you do it the better (and the more confident) you get. This is a fact, and it&#8217;s also helped by the fact that all the attendees are lovely. The thing about this kind of event is that no-one is going to want to pick a fight with you or want to make you feel small. If they attended your presentation in preference to someone else&#8217;s then they genuinely want to hear what you have to say on the topic you have chosen. Also, most people will be in the same boat - all having their own sessions to run - and so they will treat you in the way they hope to be treated themselves. Finally, as it&#8217;s a free event, no-one will feel cheated if your talk doesn&#8217;t live up to the high expectations that might surround a conference which costs, say, £300. It&#8217;s the perfect incubator for talent!</p>
+
+<h4>Variety is the spice of life, and BarCamps</h4>
+
+<p>The sessions can be on anything, and when I say anything I mean <em>anything</em>. There were sessions on topics varying from CSS to Erotic Writing, the alcohol ban parties on the Tube to multi touch programming on Snow Leopard and from Autism to LOST. Whatever your interest or topic of expertise, there will always be people interested in what you have to say!</p>
+
+<p>I&#8217;d say my main complaint about the event is that you can&#8217;t attend all the sessions! Obviously with so many sessions happening all at once, filming them all would be tricky and so it&#8217;s very much a case of if you miss it you miss it, so don&#8217;t miss it!</p>
+
+<h4>Free is my favourite price</h4>
+
+<p>BarCamp is free. I say that; it must have taken some serious clout to pull it all together but to the attendees it&#8217;s free. It&#8217;s all done through sponsorship and the generously donated time of the wonderful team that organise it all. The sponsors are many which means they all only need to donate a little to add up to a decent pot of cash. That said, the prominence of the sponsors was minimal which I think added to the general feel of the event. It was all about sharing ideas and information and not wanting anything back for it - a fine and noble idea, and one I can get behind.</p>
+
+<p>Of course staff from the sponsors are free to come along and give presentations (which the did, at least in some cases) but these are usually pretty interesting, at least to some people. And hey, if you don&#8217;t find it interesting you don&#8217;t have to go - there are probably 7-8 other talks happening at the same time&#8230; take your pick!</p>
+
+<h4>My experiences</h4>
+
+<p>[caption id=&#8221;attachment_85&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/andypiper/4040452848/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-css.jpg" alt="My talk on CSS widgets" /></a>[/caption]</p>
+
+<p>I had already decided to do a CSS-related presentation (a blog version of which is forthcoming) but sadly this meant I had to miss a chunk of sessions during the first day just in the name of finishing off. I wish I had started to prepare earlier but it&#8217;s that always the case? It had to be done though&#8230; imagine turning up to do a talk with a half-finished set of slides. Not too impressive.</p>
+
+<p>So what follows is a list of the sessions I attended (or would have attended if I hadn&#8217;t been preparing my own):</p>
+
+<h5>Saturday</h5>
+
+<ul>
+<li><p>BarCamp Bootstrap: 1st Timers Panel</p></li>
+<li><p>How we broke the tube with Facebook (Steve Emslie)</p></li>
+<li><p>Google Street View + Virtual Reality Goggles (Tom Scott) (Regrettably missed)</p></li>
+<li><p>CSS Nuggets - Some snippets of CSS that will help you make better sites and stuff (<a href="http://www.twitter.com/anna_debenham">Anna Debenham</a>) (Regrettably missed)</p></li>
+<li><p>Split fares aka Hack yourself a cheaper train ticket (<a href="http://www.twitter.com/@sammachin">Sam Machin</a>) (Regrettably missed)</p></li>
+<li><p>Mobile Stats 2008-2009 (<a href="http://www.twitter.com/adamcohenrose">Adam Cohen-Rose</a>)</p></li>
+<li><p>Design in Lost (yes, the TV show) (<a href="http://www.twitter.com/yaili">Inayaili de Leon</a>)</p></li>
+<li><p>Don&#8217;t break my stuff! A guide to writing CSS for widgets and pages with widgets (<a href="http://www.twitter.com/markstickley">Mark Stickley</a>) (My session!)</p></li>
+<li><p>Want to write a tech book? (Gavin Bell)</p></li>
+<li><p>Sex and other things we don&#8217;t talk about (<a href="http://www.twitter.com/cubicgarden">Ian Forrester</a>)</p></li>
+<li><p>Why I give web clients no control over their project (and why they love it) (<a href="http://www.twitter.com/xigme">Alex Teugels</a>)</p></li>
+<li><p>Web Scale Identifiers (Use and Abuse) (Ade)</p></li>
+</ul>
+
+
+<h5>Sunday</h5>
+
+<ul>
+<li><p>Linked Data and the Semantic Web for Dummies (<a href="http://www.twitter.com/dfflanders">David F. Flanders</a>)</p></li>
+<li><p>Designing for the teenage generation - what they &#8216;dig&#8217; (<a href="http://www.twitter.com/Jack_Franklin">Jack Franklin</a>)</p></li>
+<li><p>Multitouch: on Snow Leopard + Quartz Composer &amp; Chuck (<a href="http://www.twitter.com/gernot">@gernot</a>)</p></li>
+<li><p>10 Fucking Awesome Bands You Should Be Listening To (<a href="http://www.twitter.com/maryrosecook">Mary Rose Cook</a>)</p></li>
+<li><p>Putting telly on the Internet (<a href="http://www.twitter.com/dfflanders">David F. Flanders</a>)</p></li>
+<li><p>Photography is not a crime (know your rights as a photographer) (<a href="http://www.twitter.com/martin88">Martin C</a>)</p></li>
+<li><p>Lightning Talks</p></li>
+<li><p>Teach Me How To Run A New BarCamp - Cultures, Languages (BSL) (<a href="http://www.twitter.com/bjfletcher">@bjfletcher</a>)</p></li>
+<li><p>Autism, Internet and Antelope: Cognitive Accessibility and how people with autism use the web (Jamie + Lion)</p></li>
+</ul>
+
+
+<p>If you&#8217;re interested in the full list of available talks, here&#8217;s the <a href="http://tommorris.org/files/barcamp_saturday.html">Saturday talks</a> and the <a href="http://tommorris.org/files/barcamp_sunday.html">Sunday talks</a>.</p>
+
+<p>I&#8217;ll just run over the panels that I actually went to and remember enough of to talk about extremely briefly to give some idea as to how they went.</p>
+
+<h5>BarCamp Bootstrap</h5>
+
+<p>A brief introduction to BarCamps for first-timers. I figured I&#8217;d only be a first-timer once so why not pop along. We were told to enjoy it and given brief tactical instructions on the inevitable games of Werewolf that would take place overnight. Then we took part in an exercise which was supposed to both help us get over our fear of public speaking and put us more about saying something stupid by actually standing up and saying something stupid (we were fed a line) in front of everyone else. Good introduction!</p>
+
+<h5>How we broke the tube</h5>
+
+<p>Brief account of a couple of guys who innocently created a Facebook group encouraging people to go and have a &#8220;last drink&#8221; on the tube the night before the alcohol ban came into force and thought nothing more of it. Until it started to gain massive traction ultimately shutting down large parts of the tube on the night in question! They also asked if anyone knew how to mine the Facebook data to try and find who was responsible for the tipping point which caused such a huge uptake.</p>
+
+<h5>Mobile stats</h5>
+
+<p>Basically going through a bunch of stats on mobile device usage which showed the screen resolution of devices is quite rapidly on the up and how Apple crept up from 6th place to 5th in the device manufacturers sales charts in just one year.</p>
+
+<h5>Design in LOST</h5>
+
+<p>[caption id=&#8221;attachment_89&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/yaili/4061297865/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-lost.jpg" alt="Card for @yaili's session on LOST" /></a>[/caption]</p>
+
+<p>Going over some of the finer points of the hit TV show and showing how the plot and prop design goes so in depth that you wouldn&#8217;t really notice some of the more elaborate details unless you were paying meticulous attention. Also covered some of the cross promotion with other brands and Easter Eggs that don&#8217;t add anything but are a real treat to those who spot them. Fascinating!</p>
+
+<h5>Want to write a tech book</h5>
+
+<p>[caption id=&#8221;attachment_82&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/37996583811@N01/4039838641/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-adewale.jpg" alt="Adewale &amp; Gavin doing their book writing talk" /></a>[/caption]</p>
+
+<p>Tips mainly on how not to write a tech book actually! Don&#8217;t drag it out and don&#8217;t try and do it as well as a full-time job were the main ones I took away from that.</p>
+
+<h5>Sex and other things</h5>
+
+<p>[caption id=&#8221;attachment_86&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/adewale_oshineye/3405087239/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-cubicgarden.jpg" alt="Ian Forrester" /></a>[/caption]</p>
+
+<p>What was essentially a hosted discussion about geeks, sexuality, how comfortable we are with it and why. It was interesting to listen to but I wasn&#8217;t compelled to get involved&#8230;</p>
+
+<h5>Why I give my clients no control</h5>
+
+<p>[caption id=&#8221;attachment_83&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/bfirsh/4047990809/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-alex.jpg" alt="Alex Teugels and some guy I don't know the name of" /></a>[/caption]</p>
+
+<p>Alex took us through how he runs his business which is basically to take complete control of his clients&#8217; sites, charge them an ongoing fee and make sure conversions keep moving skywards. A very different and interesting approach which I haven&#8217;t seen before. Strangely enough this talk was given by an old school friend of mine who I hadn&#8217;t seen since all those years ago which was an unexpected bonus!</p>
+
+<h5>Web Scale Identifiers</h5>
+
+<p>An interesting talk that gave way to an interesting discussion that went on for almost an hour! It&#8217;s basically an idea that&#8217;s floating around that &#8220;wouldn&#8217;t it be nice if people would stop making their own ids for objects and start using standard ones.&#8221; For example, books have ISBNs. But what about things that don&#8217;t have a centralised authority? How do you identify the id to use? Very interesting.</p>
+
+<h5>Designing for teenagers</h5>
+
+<p>As a teenager himself, Jack gave us an insight into what they like and what they are indifferent to. Turns out that the average teenager doesn&#8217;t give two hoots about fancy CSS3 rounded corners, gradients and the like - they are mostly interested in the content. Especially flash games. I still can&#8217;t help thinking, though, that if there was some excellent content or games available but the design was terrible they wouldn&#8217;t really be so interested&#8230;</p>
+
+<h5>Multi touch on Snow Leopard</h5>
+
+<p>This was an interesting talk on programming with Quartz and the presenter demoed his own test app in which he showed how the trackpads on modern MacBooks can detect up to 11 simultaneous touches. Pretty incredible!</p>
+
+<h5>10 Fucking Awesome Bands</h5>
+
+<p>[caption id=&#8221;attachment_90&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/adewale_oshineye/4041691950/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-mary.jpg" alt="Mary Rose Cook" /></a>[/caption]</p>
+
+<p>Mary took us through 10 bands which in her opinion no-one should be without. Most of them were not so much to my taste but you can&#8217;t please them all, eh? Afterwards she took suggestions of other bands that should be added to the list.</p>
+
+<h5>Putting telly on the internet</h5>
+
+<p>Some of the more technical challenges the iPlayer team have experienced. Very interesting stuff.</p>
+
+<h5>Photography is not a crime</h5>
+
+<p>Fascinating talk on photographers rights and how little law enforcement actually seems to understand them on the whole. Basically, anything you can see while standing in a public place is legal and fair game, although snapping people&#8217;s kids and other such intrusions are usually misunderstood and it pays to ask first. It&#8217;s just polite!</p>
+
+<h5>Lightning talks</h5>
+
+<p>The lightning talks session is actually a series of 5 minute talks by whoever wants to do them. The trouble with these is they aren&#8217;t really long enough to be that memorable&#8230; I do remember one about a collaborative art project which was quite interesting.</p>
+
+<h5>Teach me how to run a BarCamp</h5>
+
+<p>This was kind of a &#8216;reverse&#8217; session where the guy running it basically asked the audience their advice on how to set up, publicise, fund, organise and run a BarCamp&#8230; for deaf people! The responses were interesting, especially when discussing the advantages of a deaf-only event.</p>
+
+<h5>Autism</h5>
+
+<p>[caption id=&#8221;attachment_87&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/rugbymadgirl/4047724494/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-jamie.jpg" alt="Jamie &amp; Lion" /></a>[/caption]</p>
+
+<p>Jamie (and his friend <a href="http://www.imetlion.com">Lion</a>) gave an interesting talk on how cognitive diversity affects internet use and taught us all a little about autism and how it affects people. Very useful indeed!</p>
+
+<h4>Recommended</h4>
+
+<p>BarCamp was not only a lot of fun but it was valuable, interesting and a good opportunity to meet nice people. It was also very exhausting, but the lack of sleep was my own fault! I hope to be attending many more in the future.</p>
+
+<p>[caption id=&#8221;attachment_84&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/timblair/4040914375/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-asleep.jpg" alt="Yours truly failing to stay awake" /></a>[/caption]</p>
+
+<p>Check out the <a href="http://barcamp.org/">BarCamp wiki</a> for more information on BarCamps and to find your next local event. Alternatively you can go to the <a href="http://www.barcamplondon.org/">BarCamp London site</a> which was the fine event this article is written about!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[On forms, submit buttons and browsers]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/10/20/on-forms-submit-buttons-and-browsers/"/>
+    <updated>2009-10-20T10:10:52+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/10/20/on-forms-submit-buttons-and-browsers</id>
+    <content type="html"><![CDATA[<p>Aah, ambiguity! What a tricky devil you are. The <a href="http://www.w3.org">W3C</a> Recommendations are normally very specific and not at all ambiguous, but when things are left open to interpretation you can be fairly sure of varying results.</p>
+
+<h4>Bad form, old chap</h4>
+
+<p>Have a look at this form:</p>
+
+<pre><code>&lt;form action="wherever.html" method="post"&gt;
+    &lt;label for="firstname"&gt;First name&lt;/label&gt;
+&lt;input type="text" name="firstname" id="firstname"&gt;&lt;/input&gt;
+&lt;input type="submit" name="proceed" value="Proceed"&gt;&lt;/input&gt;
+&lt;input type="submit" name="back" value="Back"&gt;&lt;/input&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>What gets submitted when you hit Proceed? Well yes, <code>firstname</code> is included as is <code>proceed</code>, but is <code>back</code>? What gets submitted when you hit Back, as <a href="http://atlantic-drugs.net/products/accutane.htm">the</a> second submit button in the form?</p>
+
+<p>Well the <a href="http://www.w3.org/TR/html401/interact/forms.html#submit-format">W3C Guidelines on form submission</a> say that for forms with more than one submit button, only the submit button that was pressed should be submitted. This seems fair enough.</p>
+
+<p><strong>But what gets submitted when you press enter from within the text field?</strong></p>
+
+<p>The W3C has no recommendation for this! The precise wording used to qualify whether a submit button gets sent along with the other form data is:</p>
+
+<blockquote><p>If a form contains more than one submit button, only the activated submit button is successful.</p></blockquote>
+
+<p>&#8230;where &#8216;activated&#8217; means having been clicked on to submit the form and being &#8216;successful&#8217; refers to the selection process for including form elements in the request.</p>
+
+<h4>Pressing the right buttons (or not, as the case may be)</h4>
+
+<p>What actually happens varies between browsers, which I suppose is no surprise really. The surprise is which browsers do what.</p>
+
+<p>We see two behaviors here:</p>
+
+<ul>
+<li><p>IE (I tested 6, 7 &amp; 8) works on the basis that you only submit an <em>activated</em> form element and the only way to activate a submit button is to <em>click on it</em>. Therefore if you click on a submit button, IE will submit it&#8217;s value along with the rest of the form, but if you press <em>Enter</em> to submit it doesn&#8217;t submit the value of <em>any</em> submit buttons.</p></li>
+<li><p>All other browsers (tested: Firefox, Safari, Chrome, Opera) submit a value for a submit button, <em>whether or not you click it</em>. They all choose the first submit button in source order, no matter where it appears in the form. Thank goodness that&#8217;s consistent!</p></li>
+</ul>
+
+
+<p>I guess that the other browsers think it&#8217;s fair to assume that pressing enter while entering data into a form is the same as clicking on the submit button, which in most cases it is. But what happens when you&#8217;ve got two or more submit buttons? How do you know which button the user wanted to click? How can the developer predict that, supposing they <a href="http://atlantic-drugs.net/products/bystolic.htm">even</a> know about this peculiarity? Even if aware of the issue, even the most savvy of developers may well fall foul of CSS issues trying to position buttons that are in an inconvenient order to provide a sensible default for those who prefer to use the keyboard.</p>
+
+<p>Yes, this time <em>I think IE got it right</em>!</p>
+
+<h4>How to fix the problem</h4>
+
+<p>I think anyone that works with browsers will admit that we all dream of a world where they all have consistent and good behavior. But failing that, consistent behavior would be nice.</p>
+
+<p>I&#8217;m not convinced that all the other browsers will change their behavior any time soon (even if they could be convinced that what they are doing isn&#8217;t the right option) as there are probably hundreds of thousands of sites out there that will break if it changes. So the best thing to do is to &#8216;fix&#8217; IE to behave the same.</p>
+
+<p>Here&#8217;s the code:</p>
+
+<pre><code>&lt;form action="wherever.html" method="post"&gt;
+    &lt;label for="firstname"&gt;First name&lt;/label&gt;
+&lt;input type="text" name="firstname" id="firstname"&gt;&lt;/input&gt;
+&lt;input type="&lt;a href='http://atlantic-drugs.net/products/accutane.htm'&gt;hidden&lt;/a&gt;" name="submit_button" value="Proceed"&gt;&lt;/input&gt;
+&lt;input type="submit" name="submit_button" value="Proceed"&gt;&lt;/input&gt;
+&lt;input type="submit" name="submit_button" value="Back"&gt;&lt;/input&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>You&#8217;ll notice I changed a few things around! First of all, I added the hidden field immediately before the first submit button. The first button is the one which acts as the default button in FF, Safari <em>et al.</em> and so we are making it do the same in IE. By adding a hidden field with the same name and value as the first button <strong>immediately before</strong> the button itself, it effectively acts as a default. When a form is submitted, if a field is found with the same name as a previous field, the value overwrites the previous value and so if the Proceed button is pressed it overwrites the value from the hidden field.</p>
+
+<p>In IE if the user presses Enter to submit the form, neither button is pressed and the hidden field gets submitted. But as it has the same name and value as the Proceed button, it&#8217;s as if the Proceed button was pressed. In the other browsers the value of the Proceed button overwrites the value of the hidden field and so it&#8217;s like it&#8217;s not even there.</p>
+
+<p>That&#8217;s all fine but if the Back button is clicked the hidden field will be submitted as well giving an impossible value for both the submit buttons in the same request! That&#8217;s why I&#8217;ve also changed the name of the Back button to be the same as the name of the Proceed button - that way there will always be a value submitted for <code>submit_button</code>: either &#8220;Back&#8221; or the default &#8220;Proceed&#8221;.</p>
+
+<p><em>Notice I didn&#8217;t call any of the fields &#8221;<code>submit</code>&#8221;. That was intentional, and it&#8217;s because if we ever want to submit the form via Javascript having a field named <code>submit</code> would make that impossible.</em></p>
+
+<h4>But is it really a problem?</h4>
+
+<p>That solution is a bit clunky to be honest. Having the extra field is a bit of a hack and the fact that you have to call the hidden field and both submit buttons by the same name make it a little restrictive, especially when it doesn&#8217;t even need to be a problem.</p>
+
+<p>Armed with the knowledge in this article we know that we can&#8217;t rely on the values of the submit buttons to be broadcast. If we don&#8217;t know which button has been clicked, we simply choose a default action and perform that unless we detect the alternative action. In PHP and for the first form it would go something like this:</p>
+
+<pre><code>if($_SERVER['REQUEST_METHOD']=='POST'){ // if a form was submitted
+    if(array_key_exists('back', $_POST)){ // if the back button was clicked
+        // Perform back action
+    }
+    else{
+        // Perform default action
+    }
+}
+</code></pre>
+
+<p>So long as you don&#8217;t assume the button to be clicked in order to perform the default action, life will be good!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to stop a Mighty Mouse scroll ball sticking]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/10/03/how-to-stop-a-mighty-mouse-scroll-ball-sticking/"/>
+    <updated>2009-10-03T14:09:09+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/10/03/how-to-stop-a-mighty-mouse-scroll-ball-sticking</id>
+    <content type="html"><![CDATA[<p>Or: How to avoid paying for a replacement mouse when the sticky scroll ball proves too much to bear.</p>
+
+<h4>Impeccable timing</h4>
+
+<p>I couldn&#8217;t really have timed this better. Rumours have just started to emerge about <a href="http://www.engadget.com/2009/10/02/new-apple-bluetooth-keyboard-arrives-at-the-fcc-new-mouse-rumor/">a new mouse and keyboard from Apple</a> in time for the also-rumoured new line of iMacs to be announced at the forthcoming Apple event. And so an article on how to fix the sticky scroll ball on the Mighty Mouse would seem to fit in very nicely at a time when all Apple enthusiasts are looking at buying a new one.</p>
+
+<p>In fact I have been sitting on this article for over a year now but didn&#8217;t have a suitable platform to publish it on and so now, right before it fades into irrelevance, here it is.</p>
+
+<h4>Requirements</h4>
+
+<p>To perform this feat of frugality you will need:</p>
+
+<ul>
+<li><p>A flat, non-scratchy object (like a plastic ruler)</p></li>
+<li><p>A small Philips screwdriver</p></li>
+<li><p>A small flat headed screwdriver</p></li>
+<li><p>Some glue that is good for plastics</p></li>
+<li><p>A certain amount of patience</p></li>
+<li><p>The ability to work with tiny objects</p></li>
+</ul>
+
+
+<p>You also might need a spirit cleaner such as methylated spirit, white spirit or surgical spirit and some paper towels.</p>
+
+<h4>Crack open the mouse</h4>
+
+<p>There are no visible screws on the Mighty Mouse which makes it a pain to get into. A pain but not impossible. Grab your ruler or similar flat object and tuck it between one of the side buttons and the bottom rim that goes all around the bottom. Slide it around the edge to detach the rim from the mouse. It&#8217;s glued on there (or fused with heat or something similar) so it can be a bit tricky in places. Just go slowly and carefully and it should come off intact.</p>
+
+<p>[caption id=&#8221;attachment_42&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;Prising the mouse open with a ruler&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse01.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse01-300x224.jpg" alt="Prising the mouse open with a ruler" /></a>[/caption]</p>
+
+<p>This is the step that made me the most nervous. Don&#8217;t worry, it&#8217;s all OK from here on! And if it makes you too nervous just remember how damn annoying that sticky scroll ball is and how you <a href="http://atlantic-drugs.net/products/accutane.htm">were</a> probably just going to chuck it away anyway.</p>
+
+<h4>Rimless wonder</h4>
+
+<p>Once you have detached the rim it should look something like this.</p>
+
+<p>[caption id=&#8221;attachment_43&#8221; align=&#8221;aligncenter&#8221; width=&#8221;224&#8221; caption=&#8221;The mouse with no bottom rim&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse02.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse02-224x300.jpg" alt="The mouse with no bottom rim" /></a>[/caption]</p>
+
+<p>The bottom half is still attached to the main enclosure but not by much. There&#8217;s the pivot at the back which lets the entire of the top half move when you click and at the front are just some loose clips preventing the guts from falling out of the shell. It&#8217;ll all pop out quite easily by hand with just a little gentle persuasion.</p>
+
+<h4>Detach the wires</h4>
+
+<p>Once you have got the bottom (the battery enclosure, laser, circuit board etc.) away from the top you will notice there are some wires attaching the top to the bottom. These need to come off because it makes it a lot easier to work with.</p>
+
+<p>[caption id=&#8221;attachment_44&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;Disconnecting the top from the bottom of the mouse &#8220;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse03.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse03-300x224.jpg" alt="Disconnecting the top from the bottom of the mouse " /></a>[/caption]</p>
+
+<p>Just take your flat head screwdriver and push the black clips away from the white sockets. The ribbon wires will just slide out easily after this.</p>
+
+<p>[caption id=&#8221;attachment_45&#8221; align=&#8221;aligncenter&#8221; width=&#8221;224&#8221; caption=&#8221;The bottom of the mouse, wires off&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse04.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse04-224x300.jpg" alt="The bottom of the mouse, wires off" /></a>[/caption]</p>
+
+<h4>Top-up</h4>
+
+<p>This is the inside of the top of the mouse. Look at those crazy pickups! Somehow they can tell where your fingers are. Very clever.</p>
+
+<p>[caption id=&#8221;attachment_46&#8221; align=&#8221;aligncenter&#8221; width=&#8221;224&#8221; caption=&#8221;Inside the top of the mouse &#8220;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse05.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse05-224x300.jpg" alt="Inside the top of the mouse " /></a>[/caption]</p>
+
+<p>But we don&#8217;t care about those; that black box with the three screws is what we&#8217;re concerned with. Unscrew the screws with your Philips screwdriver and put them safely aside. This is what you&#8217;re left with.</p>
+
+<p>[caption id=&#8221;attachment_47&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The scroll ball in its enclosure&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse06.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse06-300x224.jpg" alt="The scroll ball in its enclosure" /></a>[/caption]</p>
+
+<p>Very nice, but what we&#8217;re after is in that box of tricks. Fortunately the cross-shaped white lid will just pop off. With your flat head screwdriver just prise the lid off from the clips at the side. Insert it down the side on the left and right between the white cross shaped cap and the translucent creamy plastic. If you insert it between the translucent plastic and the black container then more will come out than you want and you&#8217;ll need to put it back before continuing!</p>
+
+<p>[caption id=&#8221;attachment_48&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The top of the scolling enclosure removed&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse07.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse07-300x224.jpg" alt="The top of the scolling enclosure removed" /></a>[/caption]</p>
+
+<p>Here&#8217;s the problem! When these photos were taken I had already cleaned everything so you can&#8217;t see it here but those four white rollers are most likely covered in scum and dirt, very similar to what you might expect to find on the rollers of an old ball mouse.</p>
+
+<h4>Cleaning up</h4>
+
+<p>Take the ball out of the enclosure.</p>
+
+<p>[caption id=&#8221;attachment_49&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The scroll enclosure without the scroll ball&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse08.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse08-300x224.jpg" alt="The scroll enclosure without the scroll ball" /></a>[/caption]</p>
+
+<p>Now take the rollers out. Here&#8217;s what you should be looking at:</p>
+
+<p>[caption id=&#8221;attachment_50&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The scroll enclosure with no ball or rollers&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse09.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse09-300x224.jpg" alt="The scroll enclosure with no ball or rollers" /></a>[/caption]</p>
+
+<p>The raised pieces of rubber underneath the rollers contain the magnetic pickups that detect when the scroll ball is being moved. Clever stuff.</p>
+
+<p>Here are all the parts of the scroll enclosure. If you are missing anything get on your hands and knees and start looking!</p>
+
+<p>[caption id=&#8221;attachment_51&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The parts of the scroll enclosure laid out&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse10.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse10-300x224.jpg" alt="The parts of the scroll enclosure laid out" /></a>[/caption]</p>
+
+<p>Clean all the rollers. Scrape all the crud off with your fingernail. Then if it&#8217;s still dirty get out your spirit cleaner and paper towels and give them a little scrub. Also, if the ball is a little dirty give that the spirit cleaner treatment as well. It won&#8217;t hurt it!</p>
+
+<p>[caption id=&#8221;attachment_52&#8221; align=&#8221;aligncenter&#8221; width=&#8221;348&#8221; caption=&#8221;Close up of a roller from the scroll enclosure&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse11.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse11.jpg" alt="Close up of a roller from the scroll enclosure" /></a>[/caption]</p>
+
+<h4>Reassembling your mouse</h4>
+
+<p>Here&#8217;s the fiddly part. Everyone knows it&#8217;s easier to rip things apart than put them back together and this is no exception to the rule. The fiddlyest part is getting this scroll enclosure back together. This is mainly due to the rollers and getting them into position. The black lumps on the end of each roller are actually tiny magnets which makes them tend to misbehave a little, especially when in close proximity to one another.</p>
+
+<p>The best way to get these back together is actually in the white cross-shaped lid because it has little grooves for the rollers to sit in. Place the ball in there first and then add each roller, one by one.</p>
+
+<p>[caption id=&#8221;attachment_53&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;Reassembling the scroll enclosure contents in the lid&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse12.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse12-300x224.jpg" alt="Reassembling the scroll enclosure contents in the lid" /></a>[/caption]</p>
+
+<p>Make sure you add them the right way around! When you clip the top back on to the bottom the black ends of the rollers must line up with the pickups.</p>
+
+<p>Turn the black bit with the wire still attached and quickly place it over the cross / roller / ball arrangement. Press down, making sure it&#8217;s all aligned well. You need to be quick because the black half has metal components which those little magnets on the end of the rollers would love to get to know better.</p>
+
+<p>Once you have successfully reassembled the scroll enclosure, just reverse the process! Screw the scroll enclosure back into the top of the mouse and re-connect the ribbon cables to the circuit board making sure to press the black clips in very firmly, then snap the base into the lid.</p>
+
+<p>All you have to do now is glue the rim back on. Make sure you don&#8217;t use too much glue in case you have to do this again! Also, to make sure you don&#8217;t put any glue on the sections of the rim that fall beneath the side buttons, apply the glue to the mouse not the rim. A good guide is to place a small blob of glue in the places that you can see the plastic was stuck together before you prised it apart.</p>
+
+<h4>All done!</h4>
+
+<p>Just wait for the glue to dry and you&#8217;re all good to go. Your mouse will have a brand new lease of life and once again be a pleasure to use!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[What's the difference between URL and URI?]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/09/13/whats-the-difference-between-url-and-uri/"/>
+    <updated>2009-09-13T15:02:53+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/09/13/whats-the-difference-between-url-and-uri</id>
+    <content type="html"><![CDATA[<p>Good question, and something I&#8217;ve often wondered. You hear people using both terms the whole time so let&#8217;s lay this one to rest.</p>
+
+<p>So I&#8217;m sitting in this café writing some code and probably looking like a bit of a geek. Fair enough, th<a href="http://atlantic-drugs.net/products/viagra.htm">viagra</a> happens. For various reasons I want to <a href="http://cvsmailorderpharmacy.org/buy-kamagra-usa.html">have</a> a variable in my webapp&#8217;s registry that stores the URL of the current page. Or is it URI? I&#8217;m at a bit of a loss on what to call it.</p>
+
+<h4>What is a URL?</h4>
+
+<p>URL stands for <em>Uniform Resource Locator</em> which means it&#8217;s a reference to a specific <em>location</em>. Importantly the location must be on the web, although this isn&#8217;t indicated within it&#8217;s name. More</p>
+
+<h4>What is a URI?</h4>
+
+<p>In relation to a URL<strong>a URI is like a superclass</strong>. It stands for <em>Uniform Resource Identifier</em> which means it&#8217;s a reference to a specific <em>thing</em>. This thing could be just about anything addressable. For example a location on the web!</p>
+
+<h4>What&#8217;s the difference really? Why don&#8217;t we just use URL?</h4>
+
+<p>We should do if we are talking about web addresses! The distinction is that a URL provides information on how to get to the resource (Eg. http, https, ftp, mailto, etc). A URI can be relative (Eg. /path/to/file.jpg) or missing the protocol (Eg. //www.norestfortheweekend.com/2009/). These are both valid URIs but not URLs.</p>
+
+<h4>Hidden Extras</h4>
+
+<p>A URL <em>is a _ URI but a URI </em>is not necessarily_ a URL. We see this kind of relationship in programming with classes. Another &#8216;subclass&#8217; of URI which not as many people have heard of is the URN.</p>
+
+<p>URNs (Uniform Resource Name) start with <code>urn:</code> followed by a string identifying something. They are used for identification purposes rather than as a way of finding (locating) things as URLs are. Something that has some kind of universal identifier can be formatted as a URN. A good example of this is books. The majority of books at retail have an ISBN. The ISBN is their universal identifier; it doesn&#8217;t point to where you can find the book, or contain any of the books subject matter. It just identifies it in a way that there is no confusion as to what you&#8217;re talking about.</p>
+
+<p>An ISBN can be expressed as a URN: <code>urn:isbn:1582408181</code>.</p>
+
+<p>For more wordy explanations, check out the wikipedia articles on <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URIs</a>, <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Locator">URLs</a> and <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Name">URNs</a>!</p>
+
+<p>  *[ISBN]: International Standard Book Number</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Who to follow on Twitter]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/09/07/who-to-follow-on-twitter/"/>
+    <updated>2009-09-07T17:11:46+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/09/07/who-to-follow-on-twitter</id>
+    <content type="html"><![CDATA[<p>I was asked recently who (in a Web Development context) is good to follow on Twitter. While this is in no way an exhaustive list, this is who I am following and recommend for good quality or interesting tweets.</p>
+
+<p>In no particular order:</p>
+
+<p>@<a href="http://twitter.com/mattb">mattb</a> (Matt Biddulph)
+@<a href="http://twitter.com/drewm">drewm</a> (Drew McLellan)
+@<a href="http://twitter.com/zeldman">zeldman</a> (Jeffrey Zeldman)
+@<a href="http://twitter.com/boagworld">boagworld</a> (Paul Boag)
+@<a href="http://twitter.com/plasticbaguk">plasticbaguk</a> (Tom Coates)
+@<a href="http://twitter.com/gruber">gruber</a> (John Gruber)
+@<a href="http://twitter.com/simplebits">simplebits</a> (Dan Cederholm)
+@<a href="http://twitter.com/shauninman">shauninman</a> (Shaun Inman)
+@<a href="http://twitter.com/adactio">adactio</a> (Jeremy Keith)</p>
+
+<p>I should mention that (apparently unlike most people) I read all the tweets that come in on my stream. This means that I am less likely to be following people who, while very relevant are also a wee bit too verbose (for my tastes - your mileage may vary) on topics that I didn&#8217;t follow them for! I&#8217;m looking at you, @<a href="http://twitter.com/codepo8">codepo8</a> (Christian Heilmann)!</p>
+
+<p>Please comment and let me know who I missed&#8230;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[REST For The Weekend]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/08/25/rest-for-the-weekend/"/>
+    <updated>2009-08-25T16:05:20+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/08/25/rest-for-the-weekend</id>
+    <content type="html"><![CDATA[<p>Oh well, the weekend&#8217;s over again. What did you do? I got an impressive sunburn, bought some delicious fruit and veg at the market and looked into RESTful architectures, among other things. Although I would love to tell you about my culinary adventures, what I&#8217;m going to write about now is REST. It should be noted that in this case REST is not sitting in front of the TV and has nothing to do with the title of this blog, despite what you may think!</p>
+
+<h4>What REST is not</h4>
+
+<p>There seems to be some confusion over exactly what a RESTful architecture is. Some people think it is pretty URLs:</p>
+
+<pre><code>http://www.mysite.com/portfolio/design/someclient
+</code></pre>
+
+<p>as opposed to:</p>
+
+<pre><code>http://www.mysite.com/index.php?section=portfolio »
+    &amp;subsection;=design&amp;client;=someclient
+</code></pre>
+
+<p>This is not RESTful.</p>
+
+<p>Some people think REST is a bunch of actions triggered by visiting URLs:</p>
+
+<pre><code>http://www.mysite.com/contact/email/send
+</code></pre>
+
+<p>This isn&#8217;t RESTful either.</p>
+
+<h4>Being resourceful</h4>
+
+<p>REST stands for <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer and it&#8217;s all about resources. That is to say, data presented in a formatted way and made available at specific, addressable points of entry. Most of the time when people talk about a REST interface they will be talking about the web and URLs, but REST is not limited to this technology. So long as each resource on a system can be identified uniquely, manipulated, each request for resources includes enough information that the client knows how to process it and has the ability to contain references to other resources then it can be called RESTful.</p>
+
+<p>A RESTful system is a stateless system; each resource request in a RESTful system should be completely independent of any other. It should not rely on cookies, session variables or any other state maintaining solutions. This is because a REST request is intended to be performed on the current state of the specified resource and the resource should be able to be encapsulated in a single response.</p>
+
+<h4>Strict instructions</h4>
+
+<p>It might have slipped under the radar but a couple of paragraphs above I mentioned that a REST response should include information for the client on how to process the data. In the case of a web service (and it should be assumed from here on out I&#8217;ll be talking about web services) the <a href="http://en.wikipedia.org/wiki/MIME_type">MIME type</a> should be sufficient. For example, if you are serving your response up as JSON you&#8217;d want to use the <strong>MIME type</strong>: <code>application/json</code>. The <strong>MIME type</strong> is contained within the header of the response.</p>
+
+<p>In a similar manner, the client needs to tell the server what it wants to do with the specific resource. We can do this by specifying the correct <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP Method</a> as part of the request.</p>
+
+<h4>Method in madness</h4>
+
+<p>So the HTTP methods most people are used to are: <code>GET</code> (the default method, what you get when you hit enter after typing a URL) and <code>POST</code> (the method used for submitting most forms). The others we are interested in are <code>PUT</code> and <code>DELETE</code>. Using these four methods we can instruct a RESTful interface to perform the basic CRUD operations:</p>
+
+<ul>
+<li><p><strong>C</strong>reate = <code>POST</code></p></li>
+<li><p><strong>R</strong>ead = <code>GET</code></p></li>
+<li><p><strong>U</strong>pdate = <code>PUT</code></p></li>
+<li><p><strong>D</strong>elete = <code>DELETE</code> (rather unsurprisingly)</p></li>
+</ul>
+
+
+<p>Using these methods you can manipulate a resource in any way you like from that single addressable entry point. If you have the URL for the resource, in a RESTful architecture you know you won&#8217;t have to append strings to the URL to make it do things (Eg <code>?action=delete</code>) - you just change the method used to request the resource in the request header.</p>
+
+<p>Obviously if your system is externally accessible you will probably want to limit access to the &#8216;unsafe&#8217; <code>POST</code>, <code>PUT</code> and <code>DELETE</code> methods.</p>
+
+<h4>Not for everyone</h4>
+
+<p>So as you can tell, REST isn&#8217;t something you should strive to include just for the sake of it. I can&#8217;t stress this enough: <em>there&#8217;s no point in shoehorning REST into a site or project when it is not really needed</em>. The main use for it it most likely to be for Web Service APIs and anything that is highly resource driven. Think of it as a series of defined views on a database or other resource and you can&#8217;t go too far wrong.</p>
+
+<p>I am currently working on a web based file system for storing assets as part of a CMS. It has an API so that you can add, edit, read and delete assets from external locations, providing that you present the right credentials. This almost seems like the perfect application for REST as each entry - be it a file or a folder - needs to have the basic CRUD operations performed on it. The whole URL structure is basically the directory tree and every point in that tree is addressable and will accept all the different methods.</p>
+
+<h4>Testing, testing</h4>
+
+<p>This is all very well, but how do you go about testing these crazy HTTP methods, practically? You can&#8217;t have a page full of links to click because a link is a <code>GET</code> request. There&#8217;s no way of changing that.</p>
+
+<p>Forms offer a little flexibility - you can specify the method you want to use with the method attribute. Unfortunately this is restricted to <code>GET</code> and <code>POST</code>. If you try anything other than that it will default to <code>GET</code>.</p>
+
+<p>To test these request methods, you have to hand craft an HTTP request. You can do this in the server-side scripting language of your choice (Eg PHP, Ruby, Python etc) <em>OR</em> you can download one of the handy Firefox extensions that kindly developers have made available for nothing for this very purpose! My personal favourite is <a href="https://addons.mozilla.org/en-US/firefox/addon/9780">RESTClient</a> by <a href="http://www.porphyry.org/">Chao ZHOU</a> but there are plenty of others for you to choose from. Here are a few:</p>
+
+<ul>
+<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/2691">Poster</a> by <a href="http://www.milowski.com/">Alex Milowski</a></p></li>
+<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/5946">RESTTest</a> by <a href="http://www.xucia.com/">kriszyp</a></p></li>
+<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/967">Modify Headers</a> by <a href="http://www.garethhunt.com/">Gareth Hunt</a></p></li>
+</ul>
+
+
+<h4>Using RESTClient</h4>
+
+<p>It&#8217;s pretty simple really. The basic interface looks like this:</p>
+
+<p>[caption id=&#8221;attachment_25&#8221; align=&#8221;aligncenter&#8221; width=&#8221;618&#8221; caption=&#8221;The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things.&#8221;]<img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/08/restclient.gif" alt="The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things." />[/caption]</p>
+
+<ol>
+<li><p>Choose your request method</p></li>
+<li><p>Type the resource location</p></li>
+<li><p>Add any request headers you need (this is like items from form fields)</p></li>
+<li><p>Type the request body you want to transmit (this can be left blank most of the time)</p></li>
+<li><p>Hit send</p></li>
+</ol>
+
+
+<p>What you will get back is the response as the server sends it. You can inspect the header and the body to make sure it&#8217;s coming back as you&#8217;d expect and so your application that will consume the response won&#8217;t get any nasty surprises!</p>
+
+<p>Hopefully you are interested in RESTful architectures now, and are feeling inspired to go off and write one of your own!</p>
+
+<p>For more information on this topic, check out the <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Wikipedia article on REST</a>
+  *[CRUD]: Create, Read, Update, Delete</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Location, Location, Location]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location/"/>
+    <updated>2009-08-17T14:37:34+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location</id>
+    <content type="html"><![CDATA[<p>All this time, I&#8217;ve been happily using <code>window.location</code> in my code, but I never knew it&#8217;s dark secret!</p>
+
+<h4>When is a string not a string?</h4>
+
+<p>This may come as a surprise to some, but <code>window.location</code> is not a string. The reason this isn&#8217;t immediately obvious is that if you do this:</p>
+
+<pre><code>alert(window.location);
+</code></pre>
+
+<p>&#8230;you will see the address of the current page.</p>
+
+<p>However, say you wanted to extract the protocol of the current page. You might try something like this:</p>
+
+<pre><code>var loc = window.location;
+alert(loc.substring(0,loc.indexOf(':')));
+</code></pre>
+
+<p>But this will fail! Firebug will tell you that loc.indexOf is not a function&#8230; but if it&#8217;s a string it should inherit that function automatically!</p>
+
+<p>In actual fact, <code>window.location</code> is an object of type <code>Location</code>. It has several properties:</p>
+
+<ul>
+<li><p><code>hash</code> - the bit of the URL including and following the # symbol</p></li>
+<li><p><code>host</code> - the host name and port number</p></li>
+<li><p><code>hostname</code> - the host name without the port</p></li>
+<li><p><code>href</code> - the whole URL, unmodified</p></li>
+<li><p><code>pathname</code> - the path, that comes after the host including the first /</p></li>
+<li><p><code>port</code> - the port</p></li>
+<li><p><code>protocol</code> - the protocol</p></li>
+<li><p><code>search</code> - the URL parameters, including the ?</p></li>
+</ul>
+
+
+<p>So actually if I wanted to get the protocol, there&#8217;s no need at all for string manipulation because it&#8217;s all there separated out rather handily:</p>
+
+<pre><code>alert(window.location.protocol);
+</code></pre>
+
+<p>The question is: how and why does <code>window.location</code> produce a string when you should have to type <code>window.location.href</code>? The answer: <code>toString</code>.</p>
+
+<h4>toString or not toString?</h4>
+
+<p><code>toString</code> is a &#8216;magic&#8217; function which you can add to an object to make it behave a bit more gracefully. If you run this code then you will simply get <code>[object Object]</code> back in the alert box:</p>
+
+<pre><code>var myObj = {
+    'var1': 'foo',
+    'var2': 'bar'
+};
+alert(myObj);
+</code></pre>
+
+<p>If you modify it slightly to include a function called <code>toString</code> you will see a lot nicer results.</p>
+
+<pre><code>var myObj = {
+    'var1': 'foo',
+    'var2': 'bar',
+    'toString': function(){
+        return this.var1+' '+this.var2;
+    }
+};
+alert(myObj);
+</code></pre>
+
+<p>This code alerts &#8216;foo bar&#8217; as you might expect. In the case of <code>window.location</code>, I would imagine the <code>toString</code> function would look something like this:</p>
+
+<pre><code>window.location.toString = function(){
+    return this.href;
+}
+</code></pre>
+
+<p><code>toString</code> functions are particularly useful if the object represents an actual thing, rather than simply a collection of data (Eg. a location, a user, a tweet, etc.).</p>
+
+<p>For more information on the <code>Location</code> object, have a look at this <a href="https://developer.mozilla.org/en/DOM/window.location">Mozilla developer document on <code>window.location</code></a>.</p>
+]]></content>
+  </entry>
   
 </feed>

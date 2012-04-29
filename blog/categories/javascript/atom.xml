@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: javascript | No Rest For The Weekend]]></title>
+  <link href="http://blog.norestfortheweekend.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://blog.norestfortheweekend.com/"/>
+  <updated>2012-04-29T20:27:59+01:00</updated>
+  <id>http://blog.norestfortheweekend.com/</id>
+  <author>
+    <name><![CDATA[Mark Stickley]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Webkit doesn't fire the load event on images]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/"/>
+    <updated>2011-04-30T18:47:19+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images</id>
+    <content type="html"><![CDATA[<p>Well that's not strictly true. The full headline reads something like this:</p>
+
+<p><strong>Webkit doesn't fire the <code>load</code> event on images when you change the <code>src</code> attribute and the new <code>src</code> is the same as the old</strong></p>
+
+<h3>That seems reasonable</h3>
+
+<p>That seems like reasonable behaviour. I mean, the image is already loaded. Changing the <code>src</code> attribute to it's <em>current value</em> isn't really changing it at all. It's staying the same. If the <code>src</code> is the same and the image is already loaded, why fire the <code>load</code> event? You would only want to do that if the image was reloaded but doing that would be pointless as it's already loaded. Loading it again would be a waste of bandwidth and make the experience feel slower; not what browser manufacturers are aiming for.</p>
+
+<p>So what's the big deal?</p>
+
+<h3>Inherently lazy</h3>
+
+<p>Developers like myself are inherently lazy. I don't mean we're workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
+
+<ol>
+<li><p>It's inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That's not good.</p></li>
+<li><p>It forces me to add extra code to cope with it's specific requirements. Let me explain:</p></li>
+</ol>
+
+
+<p>If I was writing for a JS-guaranteed environment this wouldn't be such a problem but I'm a conscientious sort of guy and realise that not everyone will have the benefits of a modern browser with all the options set to 'awesome'. I want to cater for the JS-disadvantaged as well.</p>
+
+<p>Let's assume I'm writing a carousel for a photo slideshow that shows 4 pictures at a time. I want to show the first 4 pictures by default so that at least some content appears even for the non-JS users. Then, using non-intrusive JS I augment the slideshow to add next / previous buttons and the ability to click the image to enlarge it in a lightbox.</p>
+
+<p>To avoid repeating a lot of code in a setup function that would also be present in the next/previous function I can write a single function to set the page of the carousel, setting up the images and their click events.</p>
+
+<pre><code>var picturesPerPage = 4,
+    pictures = $('#pictures img');
+
+var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind('load',function(){
+                pictureContainer.removeClass('loading');
+                picture.unbind('load');
+            });
+            pictureContainer.addClass('loading');
+            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
+
+            picture.unbind('click');
+            picture.bind('click',function(e){
+                e.preventDefault();
+                pictureLink.fancybox({
+                    "href": carouseldata.images[imageStart+i].imageurl
+                });
+            });
+        }
+    });
+};
+
+loadGalleryCarouselPage(0);
+</code></pre>
+
+<p>I'm using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
+
+<p>So what we have there is a function that loops over the four <code>img</code> tags, pulls information out of an array (<code>carouseldata</code>) based on the page offset passed as an argument, sets up click and load listeners and changes the image's <code>src</code> attribute. This will work for any page at any time. In theory we could add a 'jump to page' option where the user could choose the page number to skip to. But we won't.</p>
+
+<p>This is especially handy as we can simply call <code>loadGalleryCarouselPage(0);</code> to set up the event listeners when the page first loads without having to duplicate most of the lines elsewhere. We even get a natty little loading spinner if we take advantage of the <code>loading</code> class that is set.</p>
+
+<h3>Making things difficult</h3>
+
+<p>When the page loads it's a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here's what happens:</p>
+
+<ol>
+<li><p>A <code>load</code> event listener is set</p></li>
+<li><p>The <code>loading</code> class is applied which shows a spinner and hides the image</p></li>
+<li><p>The <code>src</code> of the <code>img</code> is set</p></li>
+<li><p>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</p></li>
+<li><p>The picture remains hidden and the spinner keeps spinning even though the image is loaded</p></li>
+</ol>
+
+
+<p>And that is frustrating.</p>
+
+<p>It's an intermittent problem though, only when loading race conditions fail. Here's another situation where it happens every time.</p>
+
+<h3>The dead cert.</h3>
+
+<p>The total number of images in the carousel doesn't divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
+
+<ol>
+<li><p>They act as spacers so that other elements flow around them correctly</p></li>
+<li><p>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</p></li>
+</ol>
+
+
+<p>So say we're on page 9 of 10 and click 'Next'. Images 1 &amp; 2 are updated to show the final two pictures and images 3 &amp; 4 are hidden. Importantly: the <code>src</code> attributes of images 3 &amp; 4 don't change. When we click 'Previous', images 1 &amp; 2 are changed back but 3 &amp; 4 are stuck with the loading spinner. That's because, like before, the <code>src</code> was already set and it was equal to the new value.</p>
+
+<h3>Working around it</h3>
+
+<p>We could set the hidden images to a transparent .gif or .png instead of hiding them which would solve the second problem but because we want the images showing for non-JS users when the page loads we can't use that technique to fix this. Also, downloading that extra image means extra bandwidth and latency times that we'd rather not have to deal with.</p>
+
+<p>It turns out that setting the <code>src</code> to <code>''</code> (empty string) immediately before setting the image url will fix the problem. But! It causes the images (and consequently their container) to collapse to zero width and height in Firefox while the new images are loading which looks really bad if you're trying to navigate a slideshow.</p>
+
+<p>Here's my solution:</p>
+
+<pre><code>var picturesPerPage = 4,
+    pictures = $('#pictures img');
+
+var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind('load',function(){
+                pictureContainer.removeClass('loading');
+                picture.unbind('load');
+            });
+            pictureContainer.addClass('loading');
+            picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
+
+            picture.unbind('click');
+            picture.bind('click',function(e){
+                e.preventDefault();
+                pictureLink.fancybox({
+                    "href": carouseldata.images[imageStart+i].imageurl
+                });
+            });
+        }
+        else{
+            picture.attr('src','');
+        }
+    });
+};
+
+if($.browser.webkit){
+    $('#pictures img').each(function(i){
+        $(this).attr('src','');
+    });
+}
+loadGalleryCarouselPage(0);
+</code></pre>
+
+<p>I added an <code>else</code> so that if there aren't enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
+
+<p>I also added a little <code>if</code> block directly before initialising the carousel, at the bottom. If the browser is webkit-powered then it'll loop over the <code>img</code> tags and prime them (set their <code>src</code> to empty) before initialisation. Because this is done using JS, non-JS users will still see the images.</p>
+
+<h3>Grumpy</h3>
+
+<p>I'm grumpy about having to put in that extra, browser specific code. Setting the <code>src</code> to an empty string seems hacky. But it works and the logic is still clean and minimal. So it'll do.</p>
+
+<p>I hope that helps anyone having image loading javascript issues. And as usual I'd be interested to hear if you have any alternative / better solutions!</p>
+
+<p>Check out the carousel in action <a href="http://www.qkschool.org.uk">here</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Regex for an email address]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2010/10/13/regex-for-an-email-address/"/>
+    <updated>2010-10-13T14:21:53+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2010/10/13/regex-for-an-email-address</id>
+    <content type="html"><![CDATA[<p>It's something that I've come up against several times and each time I google for it I turn up a different result.</p>
+
+<p>How do you validate an email address?</p>
+
+<p>Obviously you want to use a <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>, but given the specification for <a href="http://en.wikipedia.org/wiki/Email_address">email address</a>es that's going to be one really complicated line of code.</p>
+
+<p>Following a user's complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today's search yielded more success <a href="http://atlantic-drugs.net/products/viagra.htm">viagra</a> usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
+
+<pre><code>/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/
+</code></pre>
+
+<p>I won't lie to you: I haven't dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I've thrown at it. It also works in Javascript which, for me, is a massive win.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Console.log for all!]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all/"/>
+    <updated>2009-12-12T20:47:01+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all</id>
+    <content type="html"><![CDATA[<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/console.jpg" alt="Firebug console" /></p>
+
+<p>If you're like me then you probably use <code>console.log</code> a lot. It's such a useful debugging tool! It's better that alert in so many ways I won't bother mentioning them all because- oh what the hell, this is my blog I'll do what I want. Here is why <code>console.log</code> is better than alert:</p>
+
+<ul>
+<li><p>It hides away when you don't need it and doesn't bother you unless you are interested in it.</p></li>
+<li><p>It lets you log more than one variable at a time simply by passing more than one argument.</p></li>
+<li><p>It doesn't interrupt the flow of the script until you click OK.*</p></li>
+<li><p>If you are testing a loop or quick interval you don't have to force quit Firefox just to get to the reload button.</p></li>
+<li><p>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</p></li>
+<li><p>If you log an <code>Element</code> that's on the page when you mouse over it in the log it highlights on the page.</p></li>
+</ul>
+
+
+<p>What's my point? Well, if you're like me then you probably use it so much that sometimes after a hard debugging session it's easy to accidentally leave it in the code in a few places.</p>
+
+<h4>The piece of grit that stopped the clock</h4>
+
+<p>What harm can it do? Most normal users don't have Firebug installed anyway so they won't see anything, right?</p>
+
+<p>Wrong. Or at least wrong attitude. Developers <a href="http://cvsonlinepharmacystore.com/products/kamasutra-ribbed-condoms.htm">will</a> see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
+
+<p>Without Firebug installed the <code>console</code> object doesn't exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It's little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
+
+<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/erroronpage.gif" alt="IE's 'error on page' icon" /></p>
+
+<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn't inspire confidence in a site or product.</p>
+
+<h4>Undesirable</h4>
+
+<p>It's fair to say that you don't want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug's console. Have a look at the code:</p>
+
+<pre><code>if(!('console' in window) || !('log' in window.console)){
+    window.console = function(){
+        var r = {},
+        glow,
+        $,
+        logpanel,
+        enabled=false;
+
+        r.enable = function(){
+            enabled=true;
+        };
+
+        r.disable = function(){
+            enabled=false;
+            if(logpanel){
+                logpanel.destroy();
+            }
+        };
+
+        r.clear = function(){
+            logpanel.empty();
+        };
+
+        r.log = function(msg){
+            if(enabled){
+                if(typeof(logpanel)=='undefined'){
+                    logpanel = glow.dom.create('
+&lt;p style="position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;" id="console-log"&gt;
+
+');
+                    $('body').append(logpanel);
+                    $('body').css('padding-bottom','100px');
+                    if(glow.env.ie &amp;&amp; glow.env.ie&lt;=6){ //little hack to keep it at the bottom of the IE window
+                        $('#console-log').css('position','absolute');
+                        setInterval(function(){
+                            logpanel.css('height','99px');
+                            logpanel.css('height','100px');
+                        },250);
+                    }
+                }
+                logpanel.append([msg,""].join(''));
+                logpanel[0].scrollTop = logpanel[0].scrollHeight;
+            }
+        };
+
+        r.init = function(g){
+            glow = g;
+            $ = glow.dom.get;
+        };
+
+        return r;
+    }();
+
+    console.init(glow);
+}
+</code></pre>
+
+<p>I'm using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it's really very good!</p>
+
+<p>So basically what we're doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don't need to bother. Let's presume that it <em>doesn't</em> exist.</p>
+
+<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let's strip it back to make it easier to look at:</p>
+
+<pre><code>window.console = function(){
+    return {};
+}();
+</code></pre>
+
+<p>I'm setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it's called.</p>
+
+<p>It looks initially like I'm defining <code>console</code> to be a function but straight after the closing brace of the function you've got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
+
+<p>If, as in the case of the finished code, the object returned (<code>r</code>) has properties then they will be accessible at <code>window.console.property</code>. And of course, the property can also be a function, like <code>log</code>.</p>
+
+<h4>Fully functional</h4>
+
+<p>The functions that are defined here are:</p>
+
+<ul>
+<li><p><code>enable</code></p></li>
+<li><p><code>disable</code></p></li>
+<li><p><code>clear</code></p></li>
+<li><p><code>log</code></p></li>
+<li><p><code>init</code></p></li>
+</ul>
+
+
+<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn't mean it's completely ineffective when disabled, though. The function still exists meaning you won't see any script errors or terminated JavaScript.</p>
+
+<p>To enable it, simple call <code>console.enable();</code>. You don't have to do this in the code (I'd advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I'd recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
+
+<p>Likewise to disable the console, just type <code>javascript:console.disable();</code>, or to clear it type <code>javascript:console.clear();</code>.</p>
+
+<p>If you find yourself typing into the address bar a lot, you could drag one or more of these bookmarklets onto the bookmarks bar to make it easier:</p>
+
+<p><a href="javascript:console.enable(">Enable console</a>;) <a href="javascript:console.disable(">Disable console</a>;) <a href="javascript:console.clear(">Clear console</a>;)</p>
+
+<p>The reason I've included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it's useful to be able to pass a specific version of the library to <code>console</code> to use. If you're not worried about that sort of thing then you don't need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
+
+<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn't exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
+
+<p>There's really not a lot to it!</p>
+
+<h4>Got console?</h4>
+
+<p>Since getting it's rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It's accessible on Chrome and Safari under the developer menus. Of course this script won't affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
+
+<ul>
+<li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don't get me wrong!</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Location, Location, Location]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location/"/>
+    <updated>2009-08-17T14:37:34+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location</id>
+    <content type="html"><![CDATA[<p>All this time, I've been happily using <code>window.location</code> in my code, but I never knew it's dark secret!</p>
+
+<h4>When is a string not a string?</h4>
+
+<p>This may come as a surprise to some, but <code>window.location</code> is not a string. The reason this isn't immediately obvious is that if you do this:</p>
+
+<pre><code>alert(window.location);
+</code></pre>
+
+<p>...you will see the address of the current page.</p>
+
+<p>However, say you wanted to extract the protocol of the current page. You might try something like this:</p>
+
+<pre><code>var loc = window.location;
+alert(loc.substring(0,loc.indexOf(':')));
+</code></pre>
+
+<p>But this will fail! Firebug will tell you that loc.indexOf is not a function... but if it's a string it should inherit that function automatically!</p>
+
+<p>In actual fact, <code>window.location</code> is an object of type <code>Location</code>. It has several properties:</p>
+
+<ul>
+<li><p><code>hash</code> - the bit of the URL including and following the # symbol</p></li>
+<li><p><code>host</code> - the host name and port number</p></li>
+<li><p><code>hostname</code> - the host name without the port</p></li>
+<li><p><code>href</code> - the whole URL, unmodified</p></li>
+<li><p><code>pathname</code> - the path, that comes after the host including the first /</p></li>
+<li><p><code>port</code> - the port</p></li>
+<li><p><code>protocol</code> - the protocol</p></li>
+<li><p><code>search</code> - the URL parameters, including the ?</p></li>
+</ul>
+
+
+<p>So actually if I wanted to get the protocol, there's no need at all for string manipulation because it's all there separated out rather handily:</p>
+
+<pre><code>alert(window.location.protocol);
+</code></pre>
+
+<p>The question is: how and why does <code>window.location</code> produce a string when you should have to type <code>window.location.href</code>? The answer: <code>toString</code>.</p>
+
+<h4>toString or not toString?</h4>
+
+<p><code>toString</code> is a 'magic' function which you can add to an object to make it behave a bit more gracefully. If you run this code then you will simply get <code>[object Object]</code> back in the alert box:</p>
+
+<pre><code>var myObj = {
+    'var1': 'foo',
+    'var2': 'bar'
+};
+alert(myObj);
+</code></pre>
+
+<p>If you modify it slightly to include a function called <code>toString</code> you will see a lot nicer results.</p>
+
+<pre><code>var myObj = {
+    'var1': 'foo',
+    'var2': 'bar',
+    'toString': function(){
+        return this.var1+' '+this.var2;
+    }
+};
+alert(myObj);
+</code></pre>
+
+<p>This code alerts 'foo bar' as you might expect. In the case of <code>window.location</code>, I would imagine the <code>toString</code> function would look something like this:</p>
+
+<pre><code>window.location.toString = function(){
+    return this.href;
+}
+</code></pre>
+
+<p><code>toString</code> functions are particularly useful if the object represents an actual thing, rather than simply a collection of data (Eg. a location, a user, a tweet, etc.).</p>
+
+<p>For more information on the <code>Location</code> object, have a look at this <a href="https://developer.mozilla.org/en/DOM/window.location">Mozilla developer document on <code>window.location</code></a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>REST For The Weekend - No Rest For The Weekend</title>
+  <meta name="author" content="Mark Stickley">
+
+  
+  <meta name="description" content="Oh well, the weekend&#8217;s over again. What did you do? I got an impressive sunburn, bought some delicious fruit and veg at the market and looked &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2009/08/25/rest-for-the-weekend">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-537105-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">No Rest For The Weekend</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.norestfortheweekend.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">REST for the Weekend</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-25T16:05:20+01:00" pubdate data-updated="true">Aug 25<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Oh well, the weekend&#8217;s over again. What did you do? I got an impressive sunburn, bought some delicious fruit and veg at the market and looked into RESTful architectures, among other things. Although I would love to tell you about my culinary adventures, what I&#8217;m going to write about now is REST. It should be noted that in this case REST is not sitting in front of the TV and has nothing to do with the title of this blog, despite what you may think!</p>
+
+<h4>What REST is not</h4>
+
+<p>There seems to be some confusion over exactly what a RESTful architecture is. Some people think it is pretty URLs:</p>
+
+<pre><code>http://www.mysite.com/portfolio/design/someclient
+</code></pre>
+
+<p>as opposed to:</p>
+
+<pre><code>http://www.mysite.com/index.php?section=portfolio »
+    &amp;subsection;=design&amp;client;=someclient
+</code></pre>
+
+<p>This is not RESTful.</p>
+
+<p>Some people think REST is a bunch of actions triggered by visiting URLs:</p>
+
+<pre><code>http://www.mysite.com/contact/email/send
+</code></pre>
+
+<p>This isn&#8217;t RESTful either.</p>
+
+<h4>Being resourceful</h4>
+
+<p>REST stands for <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer and it&#8217;s all about resources. That is to say, data presented in a formatted way and made available at specific, addressable points of entry. Most of the time when people talk about a REST interface they will be talking about the web and URLs, but REST is not limited to this technology. So long as each resource on a system can be identified uniquely, manipulated, each request for resources includes enough information that the client knows how to process it and has the ability to contain references to other resources then it can be called RESTful.</p>
+
+<p>A RESTful system is a stateless system; each resource request in a RESTful system should be completely independent of any other. It should not rely on cookies, session variables or any other state maintaining solutions. This is because a REST request is intended to be performed on the current state of the specified resource and the resource should be able to be encapsulated in a single response.</p>
+
+<h4>Strict instructions</h4>
+
+<p>It might have slipped under the radar but a couple of paragraphs above I mentioned that a REST response should include information for the client on how to process the data. In the case of a web service (and it should be assumed from here on out I&#8217;ll be talking about web services) the <a href="http://en.wikipedia.org/wiki/MIME_type">MIME type</a> should be sufficient. For example, if you are serving your response up as JSON you&#8217;d want to use the <strong>MIME type</strong>: <code>application/json</code>. The <strong>MIME type</strong> is contained within the header of the response.</p>
+
+<p>In a similar manner, the client needs to tell the server what it wants to do with the specific resource. We can do this by specifying the correct <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP Method</a> as part of the request.</p>
+
+<h4>Method in madness</h4>
+
+<p>So the HTTP methods most people are used to are: <code>GET</code> (the default method, what you get when you hit enter after typing a URL) and <code>POST</code> (the method used for submitting most forms). The others we are interested in are <code>PUT</code> and <code>DELETE</code>. Using these four methods we can instruct a RESTful interface to perform the basic CRUD operations:</p>
+
+<ul>
+<li><p><strong>C</strong>reate = <code>POST</code></p></li>
+<li><p><strong>R</strong>ead = <code>GET</code></p></li>
+<li><p><strong>U</strong>pdate = <code>PUT</code></p></li>
+<li><p><strong>D</strong>elete = <code>DELETE</code> (rather unsurprisingly)</p></li>
+</ul>
+
+
+<p>Using these methods you can manipulate a resource in any way you like from that single addressable entry point. If you have the URL for the resource, in a RESTful architecture you know you won&#8217;t have to append strings to the URL to make it do things (Eg <code>?action=delete</code>) - you just change the method used to request the resource in the request header.</p>
+
+<p>Obviously if your system is externally accessible you will probably want to limit access to the &#8216;unsafe&#8217; <code>POST</code>, <code>PUT</code> and <code>DELETE</code> methods.</p>
+
+<h4>Not for everyone</h4>
+
+<p>So as you can tell, REST isn&#8217;t something you should strive to include just for the sake of it. I can&#8217;t stress this enough: <em>there&#8217;s no point in shoehorning REST into a site or project when it is not really needed</em>. The main use for it it most likely to be for Web Service APIs and anything that is highly resource driven. Think of it as a series of defined views on a database or other resource and you can&#8217;t go too far wrong.</p>
+
+<p>I am currently working on a web based file system for storing assets as part of a CMS. It has an API so that you can add, edit, read and delete assets from external locations, providing that you present the right credentials. This almost seems like the perfect application for REST as each entry - be it a file or a folder - needs to have the basic CRUD operations performed on it. The whole URL structure is basically the directory tree and every point in that tree is addressable and will accept all the different methods.</p>
+
+<h4>Testing, testing</h4>
+
+<p>This is all very well, but how do you go about testing these crazy HTTP methods, practically? You can&#8217;t have a page full of links to click because a link is a <code>GET</code> request. There&#8217;s no way of changing that.</p>
+
+<p>Forms offer a little flexibility - you can specify the method you want to use with the method attribute. Unfortunately this is restricted to <code>GET</code> and <code>POST</code>. If you try anything other than that it will default to <code>GET</code>.</p>
+
+<p>To test these request methods, you have to hand craft an HTTP request. You can do this in the server-side scripting language of your choice (Eg PHP, Ruby, Python etc) <em>OR</em> you can download one of the handy Firefox extensions that kindly developers have made available for nothing for this very purpose! My personal favourite is <a href="https://addons.mozilla.org/en-US/firefox/addon/9780">RESTClient</a> by <a href="http://www.porphyry.org/">Chao ZHOU</a> but there are plenty of others for you to choose from. Here are a few:</p>
+
+<ul>
+<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/2691">Poster</a> by <a href="http://www.milowski.com/">Alex Milowski</a></p></li>
+<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/5946">RESTTest</a> by <a href="http://www.xucia.com/">kriszyp</a></p></li>
+<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/967">Modify Headers</a> by <a href="http://www.garethhunt.com/">Gareth Hunt</a></p></li>
+</ul>
+
+
+<h4>Using RESTClient</h4>
+
+<p>It&#8217;s pretty simple really. The basic interface looks like this:</p>
+
+<p>[caption id=&#8221;attachment_25&#8221; align=&#8221;aligncenter&#8221; width=&#8221;618&#8221; caption=&#8221;The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things.&#8221;]<img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/08/restclient.gif" alt="The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things." />[/caption]</p>
+
+<ol>
+<li><p>Choose your request method</p></li>
+<li><p>Type the resource location</p></li>
+<li><p>Add any request headers you need (this is like items from form fields)</p></li>
+<li><p>Type the request body you want to transmit (this can be left blank most of the time)</p></li>
+<li><p>Hit send</p></li>
+</ol>
+
+
+<p>What you will get back is the response as the server sends it. You can inspect the header and the body to make sure it&#8217;s coming back as you&#8217;d expect and so your application that will consume the response won&#8217;t get any nasty surprises!</p>
+
+<p>Hopefully you are interested in RESTful architectures now, and are feeling inspired to go off and write one of your own!</p>
+
+<p>For more information on this topic, check out the <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Wikipedia article on REST</a>
+  *[CRUD]: Create, Read, Update, Delete</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Stickley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-25T16:05:20+01:00" pubdate data-updated="true">Aug 25<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coding/'>coding</a>, <a class='category' href='/blog/categories/html/'>html</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.norestfortheweekend.com/blog/2009/08/25/rest-for-the-weekend/" data-via="norestftw" data-counturl="http://blog.norestfortheweekend.com/blog/2009/08/25/rest-for-the-weekend/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/08/17/location-location-location/" title="Previous Post: Location, Location, Location">&laquo; Location, Location, Location</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/09/07/who-to-follow-on-twitter/" title="Next Post: Who to follow on Twitter">Who to follow on Twitter &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/">Webkit doesn't fire the load event on images</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7/">CSS3 gradients, multiple backgrounds and IE7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("norestftw", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/norestftw" class="twitter-follow-button" data-show-count="false">Follow @norestftw</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Mark Stickley -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'norestfortheweekend';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
