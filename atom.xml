@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://markstickley.github.com/norestfortheweekend/atom.xml" rel="self"/>
-  <link href="http://markstickley.github.com/norestfortheweekend/"/>
-  <updated>2012-04-29T18:42:57+01:00</updated>
-  <id>http://markstickley.github.com/norestfortheweekend/</id>
+  <title><![CDATA[No Rest For The Weekend]]></title>
+  <link href="http://blog.norestfortheweekend.com/atom.xml" rel="self"/>
+  <link href="http://blog.norestfortheweekend.com/"/>
+  <updated>2012-04-29T19:13:23+01:00</updated>
+  <id>http://blog.norestfortheweekend.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Mark Stickley]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
