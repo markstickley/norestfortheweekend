@@ -1,0 +1,29 @@
+.mybutton{
+	background-image: url(icon.png);
+	background-image: -webkit-gradient(linear, left bottom, left top),
+		url(icon.png),
+		-webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0, rgb(233, 233, 233)),
+			color-stop(0.5, rgb(249, 249, 249)),
+			color-stop(0.5, rgb(255, 255, 255)),
+			color-stop(1, rgb(255, 255, 255))
+		);
+	background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
+		url(icon.png),
+		-moz-linear-gradient(
+			center bottom,
+			rgb(233, 233, 233) 0%,
+			rgb(249, 249, 249) 50%,
+			rgb(255,255,255) 50%,
+			rgb(255,255,255) 100%
+		);
+	
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	background-position: left top, 5px center, left top;
+	
+	padding-left: 30px;
+}
