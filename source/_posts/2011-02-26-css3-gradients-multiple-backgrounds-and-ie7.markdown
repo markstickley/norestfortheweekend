@@ -5,6 +5,7 @@ slug: css3-gradients-multiple-backgrounds-and-ie7
 status: publish
 title: CSS3 gradients, multiple backgrounds and IE7
 wordpress_id: '169'
+comments: true
 categories:
 - browsers
 - css

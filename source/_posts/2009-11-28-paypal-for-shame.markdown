@@ -5,6 +5,7 @@ slug: paypal-for-shame
 status: publish
 title: PayPal, for shame
 wordpress_id: '101'
+comments: true
 categories:
 - html
 - rants

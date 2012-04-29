@@ -5,6 +5,7 @@ slug: the-web-in-3d-the-nintendo-3ds-web-browser
 status: publish
 title: The Web in 3D - the Nintendo 3DS web browser
 wordpress_id: '156'
+comments: true
 categories:
 - browsers
 - coding

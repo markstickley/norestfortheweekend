@@ -5,6 +5,7 @@ slug: rest-for-the-weekend
 status: publish
 title: REST For The Weekend
 wordpress_id: '24'
+comments: true
 categories:
 - coding
 - html

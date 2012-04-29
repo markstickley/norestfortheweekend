@@ -5,6 +5,7 @@ slug: how-to-stop-a-mighty-mouse-scroll-ball-sticking
 status: publish
 title: How to stop a Mighty Mouse scroll ball sticking
 wordpress_id: '54'
+comments: true
 categories:
 - apple
 - howto

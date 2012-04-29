@@ -5,6 +5,7 @@ slug: barcamp-london-7
 status: publish
 title: BarCamp London 7
 wordpress_id: '81'
+comments: true
 categories:
 - events
 tags:

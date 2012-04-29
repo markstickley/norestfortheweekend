@@ -5,6 +5,7 @@ slug: a-little-something-while-you-wait
 status: publish
 title: A little something while you wait
 wordpress_id: '120'
+comments: true
 categories:
 - css
 - trackbacks

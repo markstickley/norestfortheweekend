@@ -5,6 +5,7 @@ slug: whats-the-difference-between-url-and-uri
 status: publish
 title: What's the difference between URL and URI?
 wordpress_id: '38'
+comments: true
 categories:
 - internet
 tags:

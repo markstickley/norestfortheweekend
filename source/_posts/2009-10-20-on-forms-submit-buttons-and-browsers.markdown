@@ -5,6 +5,7 @@ slug: on-forms-submit-buttons-and-browsers
 status: publish
 title: On forms, submit buttons and browsers
 wordpress_id: '59'
+comments: true
 categories:
 - coding
 - html

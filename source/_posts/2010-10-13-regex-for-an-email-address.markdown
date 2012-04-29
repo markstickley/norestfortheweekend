@@ -5,6 +5,7 @@ slug: regex-for-an-email-address
 status: publish
 title: Regex for an email address
 wordpress_id: '138'
+comments: true
 categories:
 - coding
 - javascript

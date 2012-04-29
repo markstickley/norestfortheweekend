@@ -5,6 +5,7 @@ slug: console-log-for-all
 status: publish
 title: Console.log for all!
 wordpress_id: '110'
+comments: true
 categories:
 - browsers
 - coding

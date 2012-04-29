@@ -5,6 +5,7 @@ slug: a-fold-by-any-other-name
 status: publish
 title: A fold by any other name
 wordpress_id: '123'
+comments: true
 categories:
 - design
 - layout

@@ -5,6 +5,7 @@ slug: why-do-we-need-conferences
 status: publish
 title: Why do we need conferences?
 wordpress_id: '131'
+comments: true
 categories:
 - conferences
 - events

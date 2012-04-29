@@ -5,6 +5,7 @@ slug: who-to-follow-on-twitter
 status: publish
 title: Who to follow on Twitter
 wordpress_id: '33'
+comments: true
 categories:
 - twitter
 ---

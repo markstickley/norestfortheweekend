@@ -5,6 +5,7 @@ slug: always-use-www-in-your-urls
 status: publish
 title: Always use www in your URLs
 wordpress_id: '147'
+comments: true
 categories:
 - apache
 - coding

@@ -5,6 +5,7 @@ slug: location-location-location
 status: publish
 title: Location, Location, Location
 wordpress_id: '10'
+comments: true
 categories:
 - coding
 - javascript
