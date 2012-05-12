@@ -49,6 +49,8 @@ It is claimed that the browser supports HTML5 and CSS3 (partially in both cases)
 The JavaScript engine is said to be "high speed" but it takes it's sweet time to finish failing the Acid 3 test.
 
 
+<iframe width="628" height="628" src="http://www.youtube.com/embed/Ijv5TSGy1wY" frameborder="0" allowfullscreen></iframe>
+
 
 Here is the 3DS' User Agent string:
     
