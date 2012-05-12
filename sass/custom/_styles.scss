@@ -1,2 +1,121 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
+
+$page-bg: rgb(168,100,169) !default;
+$page-bg-grad-light: rgb(168,100,169) !default;
+$page-bg-grad-dark: rgb(114,46,115) !default;
+$page-bg-check-light: hsla(0,0%,0%,0) !default;
+$page-bg-check-dark: hsla(0,0%,0%,0.1) !default;
+
+$desktop-min-width: 992px;
+$tablets-min-width: 768px;
+$phones-min-width: 480px;
+
+@mixin respondTo($media) {
+	@if $media == phones {
+		@media only screen and (min-width: 480px) { @content }
+	}
+	@else if $media == tablets {
+		@media only screen and (min-width: 768px) { @content }
+	}
+	@else if $media == desktops {
+		@media only screen and (min-width: 992px) { @content }
+	}
+//	@else{
+//		@media only screen and (min-width: $media) { @content }
+//	}
+}
+
+@mixin backgroundWithRetina($file, $ext, $width: auto, $height: auto){
+	$path: $file + '.' + $ext;
+	$path2x: $file + '@2x.' + $ext;
+
+	background-image: url($path);
+	background-size: $width $height;
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+		background-image: url($path2x);
+	}
+}
+
+
+html {
+	background: linear-gradient(45deg, $page-bg-check-dark 25%, $page-bg-check-light 25%, $page-bg-check-light 75%, $page-bg-check-dark 75%, $page-bg-check-dark) 0 0,
+		linear-gradient(45deg, $page-bg-check-dark 25%, $page-bg-check-light 25%, $page-bg-check-light 75%, $page-bg-check-dark 75%, $page-bg-check-dark) 16px 16px,
+		linear-gradient(0deg, $page-bg-grad-light 0, $page-bg-grad-dark 50%, $page-bg-grad-light 100%) center top;
+	background-size: 32px 32px, 32px 32px, 1440px 100px;
+	background-repeat: repeat-both, repeat-both, repeat-y;
+	background-color: $page-bg;
+	background-attachment: fixed;
+}
+
+body {
+	> header {
+		background-color: rgb(166,213,240);
+		background-repeat: no-repeat;
+		background-position: right 0;
+		height: 37px;
+		padding: 0;
+		position: relative;
+
+		&.spring {
+			@include backgroundWithRetina('../images/header-bg-spring', 'gif', 1200px, 37px);
+		}
+		&.summer {
+			@include backgroundWithRetina('../images/header-bg-summer', 'gif', 1200px, 37px);
+		}
+		&.autumn {
+			@include backgroundWithRetina('../images/header-bg-autumn', 'gif', 1200px, 37px);
+		}
+		&.winter {
+			@include backgroundWithRetina('../images/header-bg-winter', 'gif', 1200px, 37px);
+		}
+
+		h1 a {
+			@include backgroundWithRetina('../images/nrftw-logo-abbr', 'png', 97px, 17px);
+			width: 97px;
+			height: 17px;
+			right: 50px;
+			top: 3px;
+			text-indent: -99999px;
+			overflow: hidden;
+			overflow: hidden;
+			position: absolute;
+
+			@media only screen and (min-width: 705px) {
+				@include backgroundWithRetina('../images/nrftw-logo-small', 'png', 405px, 17px);
+				width: 405px;
+				height: 17px;
+				right: inherit;
+				left: 5px;
+				top: 3px;
+			}
+
+			@media only screen and (min-width: 992px) {
+				@include backgroundWithRetina('../images/nrftw-logo', 'png', 519px, 23px);
+				width: 519px;
+				height: 23px;
+				left: 13px;
+			}
+		}
+	}
+}
+
+article {
+	footer {
+		.rssCta {
+			text-align: center;
+
+			a {
+				display: inline-block;
+				width: 72px;
+				height: 117px;
+				background-image: url(../images/rss-flower.gif);
+				background-repeat: no-repeat;
+				background-position: 0 0;
+				text-indent: -99999px;
+				overflow: hidden;
+			}
+		}
+	}
+}

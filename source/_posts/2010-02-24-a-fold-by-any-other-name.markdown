@@ -25,8 +25,6 @@ We've all heard the arguments about the so-called fold, that mysterious, imagina
 
 ### A fold through time
 
-
-
 The history of the Fold dates back to an era where news was distributed in a physical format. It was printed on large sheets of paper, largely in black and white and arranged into what resembled an oversized book. To aid distribution and storage these items were folded in half leaving visible only the title of the publication and one or two other pieces of information that were on the top half of the front page.
 
 When on display to potential buyers, each publication was competing with other similar publications. The information visible was important because it would catch people's eyes and was often what governed which publication was chosen for purchase. Because of this, the editors had to carefully decide which pictures and headlines were to be put on display in the top half of the front page. What was 'above the fold' was very important – it could dramatically affect sales.
@@ -34,8 +32,6 @@ When on display to potential buyers, each publication was competing with other s
 
 
 ### From dots to pixels
-
-
 
 Now that we are consuming masses of content on screens rather than pages (whether it's news, opinion pieces, novels, comics or anything else that print once ruled) wise people will tell us that [there is no page fold](http://www.thereisnopagefold.com/), not any more. It disappeared when the content left the medium of paper. If there is no paper there is no fold.
 
@@ -46,8 +42,6 @@ Scrolling is a pretty fundamental function and I would support the hypothesis th
 
 
 ### Folding it back on itself
-
-
 
 For most people that's where the argument ends. I hold a slightly different opinion, perhaps controversially. Although I don't  believe they have said it directly, it would seem Google are also disinclined to agree based on their [recent work capturing various screen sizes](http://browsersize.googlelabs.com/) and mapping the visible area of a page without scrolling.
 
@@ -63,8 +57,6 @@ It doesn't end there either. If someone is reading a piece of content – say, a
 
 ### The fold in action
 
-
-
 So, you are visiting a page. You know exactly what you want from the page and are interested in nothing else. You visit the page and there it is sitting waiting for you. You don't even need to scroll to see it all. When you've finished reading or looking at it, what do you do? I know what I'd do: close the tab, type a new URL, Google something... in short, navigate away from that page.
 
 But what about all the content below this so-called 'fold'? It might well have been really interesting and relevant to me but I didn't see it because I didn't scroll. I didn't scroll because I had already found what I came to that page to see.
@@ -75,31 +67,32 @@ For those unfamiliar, the WebComics model is based around free content. The comi
 
 Look at this page:
 
-[![Screen grab from the WebComic "Ellie Connelly"](http://www.norestfortheweekend.com/wp-content/uploads/2010/02/ellieconnelly-628x402.jpg)](http://www.norestfortheweekend.com/wp-content/uploads/2010/02/ellieconnelly.jpg)
+[{% img center /images/wp-uploads/2010/02/ellieconnelly-628x402.jpg 628 402 'Screen grab from the WebComic "Ellie Connelly"' %}](/images/wp-uploads/2010/02/ellieconnelly.jpg)
+
 
 I have a pretty big screen. With that page from [Ellie Connelly](http://www.ellieconnelly.com/) I hit the site and the comic is all there, no need to scroll. When I've finished reading the most likely thing I'll do is close the tab because what I came for was the comic. There's nothing else visible that makes me encourages to look any further. There are ads on that page but to see them I'd have to scroll... so I won't see them. There's also a blog which I'd sadly also miss.
 
 Now have a look at this front page from another WebComic, [Evil, Inc.](http://www.evil-comic.com):
 
-[![Screen grab from the WebComic "Evil, Inc."](http://www.norestfortheweekend.com/wp-content/uploads/2010/02/evilinc-628x404.jpg)](http://www.norestfortheweekend.com/wp-content/uploads/2010/02/evilinc.jpg)
+[{% img center /images/wp-uploads/2010/02/evilinc-628x404.jpg 628 404 'Screen grab from the WebComic "Evil, Inc."' %}](/images/wp-uploads/2010/02/evilinc.jpg)
+
 
 There is an advert right at the top of the page! The logo is shrunk and placed in line with the advert. This lets the content that the user is after move higher up the page. This is good for the reader and good for the author as they have a better chance of enticing the reader to scroll down with extra content.
 
 As well as the advert, right above the comic there is a link in bright red telling us what the latest blog post is about. Clicking on this will jump the reader straight to the blog in the same page. Within the visual boundary of the white box I count 5 links to explore the archives, 2 links with which the artist can make money and 9 ways for the reader to spread the word to their friends about the comic, hopefully generating new readership. All of this without having to scroll.
 
-Which comic do you think does the best in terms of revenue based on these interface choices? _Evil, Inc._ would be my guess.
+Which comic do you think does the best in terms of revenue based purely on these interface choices? _Evil, Inc._ would be my guess.
 
 Let's look at another, [Sheldon](http://www.sheldoncomics.com/):
 
-[![Screen grab from the WebComic "Sheldon"](http://www.norestfortheweekend.com/wp-content/uploads/2010/02/sheldon-628x402.jpg)](http://www.norestfortheweekend.com/wp-content/uploads/2010/02/sheldon.jpg)
+[{% img center /images/wp-uploads/2010/02/sheldon-628x402.jpg 628 402 'Screen grab from the WebComic "Sheldon"' %}](/images/wp-uploads/2010/02/sheldon.jpg)
+
 
 Again, the strip fits nicely on my screen without scrolling but there's so much else to catch my attention after I've read it. There are 3 adverts (4 if you count the peel back flash advert in the top right) and plenty of ways to maintain the reader's engagement with the strip. One of the adverts is butted right up to the bottom of the strip which means so long as the top of the advert is interesting the user is much more likely to scroll down to see the rest.
 
 
 
 ### To sum up...
-
-
 
 _Please_ don't think I'm advocating cramming as much clutter into the upper regions of pages as possible. I'm absolutely not - it would make for scruffy and crowded-looking sites and the content would be lost amongst everything else vying for attention.
 

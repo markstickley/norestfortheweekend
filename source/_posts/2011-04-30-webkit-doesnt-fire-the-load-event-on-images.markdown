@@ -184,5 +184,8 @@ I'm grumpy about having to put in that extra, browser specific code. Setting the
 I hope that helps anyone having image loading javascript issues. And as usual I'd be interested to hear if you have any alternative / better solutions!
 
 
+
+### Footnotes
+
 Check out the carousel in action [here](http://www.qkschool.org.uk).
 

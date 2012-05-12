@@ -7,8 +7,11 @@ title: About
 wordpress_id: '2'
 ---
 
-No Rest For The Weekend is a blog containing musings and thoughts on web development and any other topics that may seem vaguely related at the time of writing. 
+No Rest For The Weekend is a blog containing musings and thoughts on web development and other (probably technical and/or very geeky) topics that seem vaguely interesting.
 
-It is written and maintained by [Mark Stickley](http://www.markstickley.co.uk) who, for a large chunk of his waking life, works at the BBC in London. (The views expressed in this blog do not necessarily reflect the views of the BBC, other blogs are available, etc.)
+It is written and maintained by me, [Mark Stickley](http://www.markstickley.co.uk). For a large chunk of my waking life I earn my crust as a Web Developer in London. 
 
-If you would like to berate him, or contact him for another less predictable reason, please feel free to email. My name is mark and I have an email account at this domain. I'll leave the rest up to you!
+* If you would like to praise me, hire me, send me money or just talk to me, please email my name (all one word, no spaces) AT [theyakshack.co.uk](http://www.theyakshack.co.uk).
+* If you would like to berate me, bill me, serve me with legal notices or sell me discount pharmacuticals please feel free to email fakefakefake@fakestdomainever.com.
+
+Thanks for reading!

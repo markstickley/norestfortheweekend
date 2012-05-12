@@ -24,6 +24,6 @@ In no particular order:
 @[shauninman](http://twitter.com/shauninman) (Shaun Inman)
 @[adactio](http://twitter.com/adactio) (Jeremy Keith)
 
-I should mention that (apparently unlike most people) I read all the tweets that come in on my stream. This means that I am less likely to be following people who, while very relevant are also a wee bit too verbose (for my tastes - your mileage may vary) on topics that I didn't follow them for! I'm looking at you, @[codepo8](http://twitter.com/codepo8) (Christian Heilmann)!
+I should mention that (apparently unlike most people) I read all the tweets that come in on my stream. This means that I am less likely to be following people who, while very relevant are also a wee bit too verbose (for my tastes - your mileage may vary) on topics that I didn't follow them for! I won't name names as I don't want to upset anyone.
 
 Please comment and let me know who I missed...

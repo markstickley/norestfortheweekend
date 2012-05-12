@@ -25,20 +25,10 @@ I'm not kidding! You need to make sure that your sites all redirect from http://
 You can score yourself against this list based on what you see:
 
 
-
-
-	
-  * Error page: **NO POINTS!**
-
-	
-  * Redirected to www.yoursite.org but to the front page instead of the page you wanted: **Half a point**
-
-	
-  * Page served, URL still has no www: **1 point**
-
-	
-  * Redirected to www.yoursite.org and to the correct page: **10 points!**
-
+* Error page: **NO POINTS!**
+* Redirected to www.yoursite.org but to the front page instead of the page you wanted: **Half a point**
+* Page served, URL still has no www: **1 point**
+* Redirected to www.yoursite.org and to the correct page: **10 points!**
 
 
 On no account should a user see an error page if they don't type www before your URL. That's just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.
@@ -52,13 +42,10 @@ What you should be doing is simply redirecting all traffic to the root domain to
 Open the `.htaccess` file in the root of your site's file structure. If it doesn't exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it's open, add these lines to it:
 
 
-    
-    
-    RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
-    RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
-    
-
-
+``` apache
+RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
+RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
+``` 
 
 Note that on the first line when you change the domain you need to add a slash before each dot as it's part of a regular expression.
 
