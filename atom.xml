@@ -4,7 +4,7 @@
   <title><![CDATA[No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-05-12T23:47:43+01:00</updated>
+  <updated>2012-05-13T00:25:51+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -84,6 +84,8 @@
 <p>It is claimed that the browser supports HTML5 and CSS3 (partially in both cases). As such it isn’t much of a surprise that it doesn’t pass the <a href="http://acid3.acidtests.org/">Acid 3 test</a>. It is more of a surprise, however, that the 3DS does not even pass the <a href="http://acid2.acidtests.org/">Acid 2 test</a>. Don’t expect your pages to render perfectly (I’ve already had reports of pages not looking as they should).</p>
 
 <p>The JavaScript engine is said to be “high speed” but it takes it’s sweet time to finish failing the Acid 3 test.</p>
+
+<iframe width="628" height="628" src="http://www.youtube.com/embed/Ijv5TSGy1wY" frameborder="0" allowfullscreen=""></iframe>
 
 <p>Here is the 3DS’ User Agent string:</p>
 
