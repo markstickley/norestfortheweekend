@@ -4,7 +4,7 @@
   <title><![CDATA[No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-05-12T23:36:36+01:00</updated>
+  <updated>2012-05-12T23:47:43+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -22,19 +22,19 @@
 
 <p>When <a href="a colleage">http://www.twitter.com/elduderion78</a> mentioned Wordpress recently, in particular how they would never use it in a million years, I asked what he would use instead thinking perhaps something like <a href="Tumblr">http://www.tumblr.com</a>, <a href="Blogger">http://www.blogger.com</a>, <a href="Posterous">http://www.posterous.com</a> or something similar. Instead, he suggested something decidedly more… <em>fishy</em>.</p>
 
-<h1 id="octopress">Octopress</h1>
+<h2 id="octopress">Octopress</h2>
 
 <p><a href="Octopress">http://octopress.org/</a> is a very neat little blogging environment. You write your posts in <a href="markdown">http://daringfireball.net/projects/markdown/</a> and then run a little rake script to generate your blog. The files generated are static HTML files which is great for performance and caching.</p>
 
 <p>The blog’s structure is generated from templates and the CSS is generated using <a href="SASS">http://sass-lang.com/</a> so you get all the benefits of a dynamically generated site but none of the overheads. As if that wasn’t awesome enough, it’s virtually seamlessly integrated with GitHub and <a href="GitHub Pages">http://pages.github.com/</a>, so you write locally, generate and then deploy with another rake script.</p>
 
-<h1 id="migrating-from-wordpress">Migrating from Wordpress</h1>
+<h2 id="migrating-from-wordpress">Migrating from Wordpress</h2>
 
 <p>To get all my stuff out of Wordpress I used Wordpress’ own export function to generate an XML document of all the posts and metadata. Then I used <a href="exitwp">https://github.com/thomasf/exitwp</a> to convert the XML to markdown, which worked OK. That converted everything except comments. Generating static files means that comments are not really possible natively but Octopress has built in support for <a href="Disqus">http://disqus.com/</a> which works seamlessly. This does mean that the old comments are lost but you know what they say: you can’t make a seafood paella without chopping up a few octopi.</p>
 
 <p>It wasn’t all plain sailing though.</p>
 
-<h1 id="this-almost-seems-like-work">This almost seems like work</h1>
+<h2 id="this-almost-seems-like-work">This almost seems like work</h2>
 
 <p>I noticed as I clicked through some of the generated markdown files that some scamp had been at my articles and inserted spam links directly into the articles! Honestly, I was getting more and more glad to be moving from Wordpress by the minute. This did mean I had to read each of them through to make sure there wasn’t anything in there I didn’t want. </p>
 
@@ -46,11 +46,11 @@
 
 <p>The last thing that needed doing was to give it more of the look and feel of the old site. The default theme, <em>classic</em>, is very nice but I’m rather fond of that little pixel dude in the header. Plus I got to try out a friend’s clever <a href="CSS Patterns Workbench">http://glan.github.com/CSS-Patterns-Workbench/</a> to create the background in pure CSS instead of images.</p>
 
-<h1 id="cname-cname-run">CNAME. CNAME RUN.</h1>
+<h2 id="cname-cname-run">CNAME. CNAME RUN.</h2>
 
 <p>One last awesome thing: GitHub Pages support domains. By setting your CNAME to point at the page (or the A tag if it’s the whole domain, not just a subdomain) you can point your site to GitHub Pages and have the whole thing hosted for free, no bandwidth charges or anything. I love you GitHub.</p>
 
-<h1 id="verdict">Verdict</h1>
+<h2 id="verdict">Verdict</h2>
 
 <p>I’m so glad I’m not using WordPress anymore. Wordpress blogs are such a target for hackers and spammers and I was hit several times over. I tended to keep fairly on to of the updates as well, so you can image how bad it might be for people who don’t bother. If anyone wants to hack this blog now they have to hack my GitHub account. Of course having <a href="the whole blog on GitHub">https://github.com/markstickley/norestfortheweekend</a> has it’s advantages too… if you like you can correct any mistakes or typos by submitting a pull request!</p>
 ]]></content>
