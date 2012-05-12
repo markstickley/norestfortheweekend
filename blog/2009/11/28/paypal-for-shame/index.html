@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="[caption id=&#8221;attachment_100&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221;][/caption] PayPal is, as I&#8217;m sure you know, a &hellip;">
+  <meta name="description" content="PayPal is, as I’m sure you know, a long-standing staple of online payment technologies. They are now merged with eBay and you pretty much can’t use &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,10 +21,13 @@
   <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2009/11/28/paypal-for-shame">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
   <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/prefixfree.min.js" type="text/javascript"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -46,14 +49,14 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
+  <header role="banner" id="banner"><hgroup>
   <h1><a href="/">No Rest For The Weekend</a></h1>
   
 </hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
   
@@ -67,6 +70,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 
 </nav>
@@ -100,118 +104,156 @@
   </header>
 
 
-<div class="entry-content"><p>[caption id=&#8221;attachment_100&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221;]<img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/shameless.jpg" alt="Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess" />[/caption]</p>
+<div class="entry-content"><p><img class="center" src="/images/wp-uploads/2009/11/shameless.jpg" width="628" height="150" title="'Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess'" /></p>
 
-<p><a href="http://www.paypal.com">PayPal</a> is, as I&#8217;m sure you know, a long-standing staple of online payment technologies. They are now merged with eBay and you pretty much can&#8217;t use eBay without a PayPal account which works nicely for eBay as they are now reaping the benefit of not just the eBay selling fees but also the PayPal fees.</p>
+<p><a href="http://www.paypal.com">PayPal</a> is, as I’m sure you know, a long-standing staple of online payment technologies. They are now merged with eBay and you pretty much can’t use eBay without a PayPal account which works nicely for eBay as they are now reaping the benefit of not just the eBay selling fees but also the PayPal fees.</p>
 
 <p>But this is not a post to lament how much money eBay/PayPal are raking in from punters.</p>
 
-<h4>Nice and easy</h4>
+<h2 id="nice-and-easy">Nice and easy</h2>
 
-<p>As well as a payment service for eBay, PayPal also offer shopping basket and checkout services for small online merchants who don&#8217;t want to buy and maintain e-commerce products. It works nicely and provided you don&#8217;t mind PayPal taking their cut it provides a really simple way of being able to take credit cards securely.</p>
+<p>As well as a payment service for eBay, PayPal also offer shopping basket and checkout services for small online merchants who don’t want to buy and maintain e-commerce products. It works nicely and provided you don’t mind PayPal taking their cut it provides a really simple way of being able to take credit cards securely.</p>
 
-<h4>Prepare yourself</h4>
+<h2 id="prepare-yourself">Prepare yourself</h2>
 
 <p>I was recently asked to add some shopping functions to a site using PayPal. Here is one of the nine code snippets PayPal provided me with to insert a button into my page:</p>
 
-<pre><code>&lt;form action="https://www.paypal.com/cgi-bin/webscr" target="paypal" method="post"&gt;
-&lt;input type="hidden" name="cmd" value="_s-xclick"&gt;
-&lt;input type="hidden" name="hosted_button_id" value="xxxxxxx"&gt;
-&lt;table&gt;
-&lt;tr&gt;&lt;td&gt;&lt;input type="hidden" name="on0" value="Sizes"&gt;Sizes&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;select name="os0"&gt;
-    &lt;option value="XXSmall"&gt;XXSmall £20.00&lt;/option&gt;
-    &lt;option value="XSmall"&gt;XSmall £20.00&lt;/option&gt;
-    &lt;option value="Small"&gt;Small £20.00&lt;/option&gt;
-    &lt;option value="Medium"&gt;Medium £20.00&lt;/option&gt;
-    &lt;option value="Large"&gt;Large £20.00&lt;/option&gt;
-    &lt;option value="XLarge"&gt;XLarge £20.00&lt;/option&gt;
-&lt;/select&gt; &lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;input type="hidden" name="currency_code" value="GBP"&gt;
-&lt;input src="https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif" border="0" type="image" name="submit" alt="PayPal - The safer, easier way to pay online."&gt;
-&lt;img src="https://www.paypal.com/en_GB/i/scr/pixel.gif" alt="" height="1" border="0" width="1"&gt;
-&lt;/form&gt;
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Paypal&#8217;s Button Code    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;https://www.paypal.com/cgi-bin/webscr&quot;</span> <span class="na">target=</span><span class="s">&quot;paypal&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;cmd&quot;</span> <span class="na">value=</span><span class="s">&quot;_s-xclick&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;hosted_button_id&quot;</span> <span class="na">value=</span><span class="s">&quot;xxxxxxx&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;table&gt;</span>
+</span><span class="line"><span class="nt">&lt;tr&gt;&lt;td&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;on0&quot;</span> <span class="na">value=</span><span class="s">&quot;Sizes&quot;</span><span class="nt">&gt;</span>Sizes<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;select</span> <span class="na">name=</span><span class="s">&quot;os0&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XXSmall&quot;</span><span class="nt">&gt;</span>XXSmall £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XSmall&quot;</span><span class="nt">&gt;</span>XSmall £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Small&quot;</span><span class="nt">&gt;</span>Small £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Medium&quot;</span><span class="nt">&gt;</span>Medium £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Large&quot;</span><span class="nt">&gt;</span>Large £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XLarge&quot;</span><span class="nt">&gt;</span>XLarge £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line"><span class="nt">&lt;/select&gt;</span> <span class="nt">&lt;/td&gt;&lt;/tr&gt;</span>
+</span><span class="line"><span class="nt">&lt;/table&gt;</span>
+</span><span class="line"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;currency_code&quot;</span> <span class="na">value=</span><span class="s">&quot;GBP&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;input</span> <span class="na">src=</span><span class="s">&quot;https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif&quot;</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">type=</span><span class="s">&quot;image&quot;</span> <span class="na">name=</span><span class="s">&quot;submit&quot;</span> <span class="na">alt=</span><span class="s">&quot;PayPal - The safer, easier way to pay online.&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;https://www.paypal.com/en_GB/i/scr/pixel.gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="na">height=</span><span class="s">&quot;1&quot;</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">width=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>Oh PayPal, how do you sadden me? Let me count the ways&#8230;</p>
+<p>Oh PayPal, how do you sadden me? Let me count the ways…</p>
 
-<h4>Spot the nastiness</h4>
+<h2 id="spot-the-nastiness">Spot the nastiness</h2>
 
 <p>Well being generous, there are 7 horrible things about that above code snippet. If I count each problem every time it appears I reach a grand total of 12. Bleugh.</p>
 
-<p>Let me run through exactly what I take issue with, because I really don&#8217;t think I&#8217;m being unreasonable.</p>
+<p>Let me run through exactly what I take issue with, because I really don’t think I’m being unreasonable.</p>
 
-<h5>Inputs</h5>
+<h3 id="inputs">Inputs</h3>
 
-<p>There are a lot of hidden <code>input</code>s. No, I understand - they need to be there to make it work. That makes sense. What doesn&#8217;t make sense is that they don&#8217;t bother to close off the <code>input</code>s, XHTML style.</p>
+<p>There are a lot of hidden <code>input</code>s. No, I understand - they need to be there to make it work. That makes sense. What doesn’t make sense is that they don’t bother to close off the <code>input</code>s, XHTML style.</p>
 
-<pre><code>&lt;input type="hidden" name="name" value="value"&gt;&lt;/input&gt;
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Input, done correctly</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;value&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Simple.</p>
 
-<h5>Tables</h5>
+<h3 id="tables">Tables</h3>
 
-<p>Really? Tables? But look at it. What does it actually do? Absolutely nothing, apart from put the text and the select side by side, which is a choice for the designer to make. No <code>tbody</code>, no <code>th</code>&#8217;s, and so there&#8217;s no chance in hell of any <code>scope=</code>&#8217;s.</p>
+<p>Really? Tables? But look at it. What does it actually do? Absolutely nothing, apart from put the text and the select side by side, which is a choice for the designer to make. No <code>tbody</code>, no <code>th</code>’s, and so there’s no chance in hell of any <code>scope=</code>’s.</p>
 
 <p>Pointless.</p>
 
-<h5>Select with no id and no label</h5>
+<h3 id="select-with-no-id-and-no-label">Select with no id and no label</h3>
 
-<p>I don&#8217;t think I need to say a lot about this - the title says it all. They&#8217;ve put the text that should be in the label in plain text instead. They could have used the table (if they insisted on having one) to help with this by putting the label text in a th, but they didn&#8217;t even do that.</p>
+<p>I don’t think I need to say a lot about this - the title says it all. They’ve put the text that should be in the label in plain text instead. They could have used the table (if they insisted on having one) to help with this by putting the label text in a th, but they didn’t even do that.</p>
 
-<h5>Input type: image</h5>
+<h3 id="input-type-image">Input type: image</h3>
 
-<p>Again, no problem in using an input of type image. But wait&#8230; they didn&#8217;t specify the width and height! If they are going to go for a consistent look, as they appear to be doing with their tables mentioned earlier, then this is essential. Otherwise, rogue styles applied to all <code>input</code>s will seriously mess up the look of the button.</p>
+<p>Again, no problem in using an input of type image. But wait… they didn’t specify the width and height! If they are going to go for a consistent look, as they appear to be doing with their tables mentioned earlier, then this is essential. Otherwise, rogue styles applied to all <code>input</code>s will seriously mess up the look of the button.</p>
 
-<h5>Alt text</h5>
+<h3 id="alt-text">Alt text</h3>
 
 <p>Possibly the worst offender of all.</p>
 
-<p>Check it out, aren&#8217;t PayPal good? They added alt text and everything. Except the alt text is on the image input element -  the submit button -  and it isn&#8217;t at all descriptive. It&#8217;s basically an advert for PayPal.</p>
+<p>Check it out, aren’t PayPal good? They added alt text and everything. Except the alt text is on the image input element - the submit button - and it isn’t at all descriptive. It’s basically an advert for PayPal. </p>
 
-<p>What good is that to AT users? They would have <strong>no clue</strong> as to what that control does.</p>
+<p>What good is that to <abbr title="Assistive Technology">AT</abbr> users? They would have <strong>no clue</strong> as to what that control does.</p>
 
-<h5>Spacer gif</h5>
+<h3 id="spacer-gif">Spacer gif</h3>
 
 <p>Yes, for no apparent reason there is a spacer gif at the bottom of it all. And yes, it has no XHTML closing slash.</p>
 
-<h5>No enclosing element</h5>
+<h3 id="no-enclosing-element">No enclosing element</h3>
 
-<p>Oh yes, one last one. <code>input</code> elements can&#8217;t reside directly inside the <code>form</code> element. They need to be contained within any one of a variety of other elements (Eg. <code>p</code>, <code>div</code>, etc.). Sadly, there is nothing protecting our <code>input</code>s from the harsh reality of their <code>form</code> overlord.</p>
+<p>Oh yes, one last one. <code>input</code> elements can’t reside directly inside the <code>form</code> element. They need to be contained within any one of a variety of other elements (Eg. <code>p</code>, <code>div</code>, etc.). Sadly, there is nothing protecting our <code>input</code>s from the harsh reality of their <code>form</code> overlord.</p>
 
-<h4>The way it <em>should</em> be</h4>
+<h2 id="the-way-it-should-be">The way it <em>should</em> be</h2>
 
-<pre><code>&lt;form action="https://www.paypal.com/cgi-bin/webscr" target="paypal" method="post"&gt;
-    &lt;div&gt;
-        &lt;input type="hidden" name="cmd" value="_s-xclick"&gt;&lt;/input&gt;
-        &lt;input type="hidden" name="hosted_button_id" value="xxxxxxx"&gt;&lt;/input&gt;
-        &lt;input type="hidden" name="on0" value="Sizes"&gt;&lt;/input&gt;
-        &lt;label for="sizes-polo"&gt;Sizes&lt;/label&gt;
-        &lt;select name="os0" id="sizes-polo"&gt;
-            &lt;option value="XXSmall"&gt;XXSmall £20.00&lt;/option&gt;
-            &lt;option value="XSmall"&gt;XSmall £20.00&lt;/option&gt;
-            &lt;option value="Small"&gt;Small £20.00&lt;/option&gt;
-            &lt;option value="Medium"&gt;Medium £20.00&lt;/option&gt;
-            &lt;option value="Large"&gt;Large £20.00&lt;/option&gt;
-            &lt;option value="XLarge"&gt;XLarge £20.00&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;input type="hidden" name="currency_code" value="GBP"&gt;&lt;/input&gt;
-        &lt;div class="controls"&gt;
-            &lt;input src="https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif" name="submit" height="26" width="120" alt="Add a polo shirt in the selected size to your cart" type="image" class="image"&gt;&lt;/input&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/form&gt;
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Paypal&#8217;s Button Code - Fixed    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;https://www.paypal.com/cgi-bin/webscr&quot;</span> <span class="na">target=</span><span class="s">&quot;paypal&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">	<span class="nt">&lt;div&gt;</span>
+</span><span class="line">		<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;cmd&quot;</span> <span class="na">value=</span><span class="s">&quot;_s-xclick&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;hosted_button_id&quot;</span> <span class="na">value=</span><span class="s">&quot;xxxxxxx&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;on0&quot;</span> <span class="na">value=</span><span class="s">&quot;Sizes&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;sizes-polo&quot;</span><span class="nt">&gt;</span>Sizes<span class="nt">&lt;/label&gt;</span>
+</span><span class="line">		<span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">&quot;os0&quot;</span> <span class="na">id=</span><span class="s">&quot;sizes-polo&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XXSmall&quot;</span><span class="nt">&gt;</span>XXSmall £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XSmall&quot;</span><span class="nt">&gt;</span>XSmall £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Small&quot;</span><span class="nt">&gt;</span>Small £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Medium&quot;</span><span class="nt">&gt;</span>Medium £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Large&quot;</span><span class="nt">&gt;</span>Large £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XLarge&quot;</span><span class="nt">&gt;</span>XLarge £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">		<span class="nt">&lt;/select&gt;</span>
+</span><span class="line">		<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;currency_code&quot;</span> <span class="na">value=</span><span class="s">&quot;GBP&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">			<span class="nt">&lt;input</span> <span class="na">src=</span><span class="s">&quot;https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif&quot;</span> <span class="na">name=</span><span class="s">&quot;submit&quot;</span> <span class="na">height=</span><span class="s">&quot;26&quot;</span> <span class="na">width=</span><span class="s">&quot;120&quot;</span> <span class="na">alt=</span><span class="s">&quot;Add a polo shirt in the selected size to your cart&quot;</span> <span class="na">type=</span><span class="s">&quot;image&quot;</span> <span class="na">class=</span><span class="s">&quot;image&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;/div&gt;</span>
+</span><span class="line">	<span class="nt">&lt;/div&gt;</span>
+</span><span class="line"><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>Much better. Notice that for the alt text I mentioned which item was being added and referenced the size select box in case they AT user might have missed that, or not made a selection yet.</p>
+<p>Much better. Notice that for the alt text I mentioned which item was being added and referenced the size select box in case they <abbr title="Assistive Technology">AT</abbr> user might have missed that, or not made a selection yet.</p>
 
-<h4>Why am I picking on PayPal?</h4>
+<h2 id="why-am-i-picking-on-paypal">Why am I picking on PayPal?</h2>
 
-<p>Well, I&#8217;m sure that many other large companies are equally guilty of this sort of thing. And as I come across them, if they enrage me enough I&#8217;m sure I&#8217;ll rant about them as well. But really, PayPal should know better. They event have people coming to (and sponsor) events (like <a href="http://www.barcamp.org/">BarCamp</a>) where the attendees have a low tolerance for this sort of thing.</p>
+<p>Well, I’m sure that many other large companies are equally guilty of this sort of thing. And as I come across them, if they enrage me enough I’m sure I’ll rant about them as well. But really, PayPal should know better. They even have people coming to (and sponsor) events (like <a href="http://www.barcamp.org/">BarCamp</a>) where the attendees know exactly how bad this sort of this is.</p>
 
-<p>Hopefully if enough people make a fuss, these things will change. Don&#8217;t tolerate it! And most of all, never blindly cut and paste markup from another site. It&#8217;ll only make you look bad.
-  *[AT]: Assistive Technology</p>
+<p>Hopefully if enough people make a fuss, these things will change. Don’t tolerate it! And most of all, never blindly cut and paste markup from another site. It’ll only make you look bad.</p>
+
 </div>
 
 
@@ -245,6 +287,7 @@
 
 
     </p>
+    <p class="rssCta"><a href="http://feeds.feedburner.com/NoRestForTheWeekend" title="Subscribe to the RSS feed now!">Subscribe to the RSS feed now!</a></p>
     
       <div class="sharing">
   
@@ -281,6 +324,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
       </li>
     
@@ -294,10 +341,6 @@
     
       <li class="post">
         <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
       </li>
     
   </ul>
@@ -372,6 +415,8 @@
 
 
 
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
 
 
 </body>

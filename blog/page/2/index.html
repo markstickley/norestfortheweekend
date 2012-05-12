@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="[caption id=&#8221;attachment_100&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221;][/caption] PayPal is, as I&#8217;m sure you know, a &hellip;">
+  <meta name="description" content="If you&rsquo;re like me then you probably use console.log a lot. It&rsquo;s such a useful debugging tool! It&rsquo;s better that alert in so many &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,10 +21,13 @@
   <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/page/2">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
   <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/prefixfree.min.js" type="text/javascript"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -46,14 +49,14 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
+  <header role="banner" id="banner"><hgroup>
   <h1><a href="/">No Rest For The Weekend</a></h1>
   
 </hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
   
@@ -67,6 +70,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 
 </nav>
@@ -74,6 +78,234 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/12/12/console-log-for-all/">Console.log for All!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-12T20:47:01+00:00" pubdate data-updated="true">Dec 12<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/wp-uploads/2009/12/console.jpg" width="628" height="187" title="'Firebug console'" /></p>
+
+<p>If you&rsquo;re like me then you probably use <code>console.log</code> a lot. It&rsquo;s such a useful debugging tool! It&rsquo;s better that alert in so many ways I won&rsquo;t bother mentioning them all because - oh what the hell, this is my blog I&rsquo;ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
+
+<ul>
+  <li>It hides away when you don&rsquo;t need it and doesn&rsquo;t bother you unless you are interested in it.</li>
+  <li>It lets you log more than one variable at a time simply by passing more than one argument.</li>
+  <li>It doesn&rsquo;t interrupt the flow of the script until you click OK.
+    <ul>
+      <li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don&rsquo;t get me wrong!</li>
+    </ul>
+  </li>
+  <li>If you are testing a loop or quick interval you don&rsquo;t have to force quit Firefox just to get to the reload button.</li>
+  <li>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</li>
+  <li>If you log an <code>Element</code> that&rsquo;s on the page when you mouse over it in the log it highlights on the page.</li>
+</ul>
+
+<p>What&rsquo;s my point? Well, if you&rsquo;re like me then you probably use it so much that sometimes after a hard debugging session it&rsquo;s easy to accidentally leave it in the code in a few places.</p>
+
+<h2 id="the-piece-of-grit-that-stopped-the-clock">The piece of grit that stopped the clock</h2>
+
+<p>What harm can it do? Most normal users don&rsquo;t have Firebug installed anyway so they won&rsquo;t see anything, right?</p>
+
+<p>Wrong. Or at least wrong attitude. Developers will see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
+
+<p>Without Firebug installed the <code>console</code> object doesn&rsquo;t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It&rsquo;s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
+
+<p><img class="center" src="/images/wp-uploads/2009/12/erroronpage.gif" width="109" height="21" title="'IE's 'error on page' icon'" /></p>
+
+<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn&rsquo;t inspire confidence in a site or product.</p>
+
+<h2 id="undesirable">Undesirable</h2>
+
+<p>It&rsquo;s fair to say that you don&rsquo;t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug&rsquo;s console. Have a look at the code:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (console.log.js)</span> <a href="/downloads/code/console-log-for-all/console.log.js">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+</pre></td><td class="code"><pre><code class="js"><span class="line"><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="s1">&#39;console&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="s1">&#39;log&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">)){</span>
+</span><span class="line">	<span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">		<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="p">{},</span>
+</span><span class="line">		<span class="nx">glow</span><span class="p">,</span>
+</span><span class="line">		<span class="nx">$</span><span class="p">,</span>
+</span><span class="line">		<span class="nx">logpanel</span><span class="p">,</span>
+</span><span class="line">		<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">			<span class="nx">enabled</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">disable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">			<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span><span class="line">			<span class="k">if</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">){</span>
+</span><span class="line">				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+</span><span class="line">			<span class="p">}</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">clear</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">			<span class="nx">logpanel</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class="line">			<span class="k">if</span><span class="p">(</span><span class="nx">enabled</span><span class="p">){</span>
+</span><span class="line">				<span class="k">if</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;undefined&#39;</span><span class="p">){</span>
+</span><span class="line">					<span class="nx">logpanel</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;&lt;p style=&quot;position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;&quot; id=&quot;console-log&quot;&gt;&#39;</span><span class="p">);</span>
+</span><span class="line">					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">);</span>
+</span><span class="line">					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;padding-bottom&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
+</span><span class="line">					<span class="k">if</span><span class="p">(</span><span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span> <span class="o">&amp;&amp;</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span><span class="o">&lt;=</span><span class="mi">6</span><span class="p">){</span> <span class="c1">//little hack to keep it at the bottom of the IE window</span>
+</span><span class="line">						<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#console-log&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span><span class="s1">&#39;absolute&#39;</span><span class="p">);</span>
+</span><span class="line">						<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;99px&#39;</span><span class="p">);</span>
+</span><span class="line">							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
+</span><span class="line">						<span class="p">},</span><span class="mi">250</span><span class="p">);</span>
+</span><span class="line">					<span class="p">}</span>
+</span><span class="line">				<span class="p">}</span>
+</span><span class="line">				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">append</span><span class="p">([</span><span class="nx">msg</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">));</span>
+</span><span class="line">				<span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollHeight</span><span class="p">;</span>
+</span><span class="line">			<span class="p">}</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">){</span>
+</span><span class="line">			<span class="nx">glow</span> <span class="o">=</span> <span class="nx">g</span><span class="p">;</span>
+</span><span class="line">			<span class="nx">$</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
+</span><span class="line">	<span class="p">}();</span>
+</span><span class="line">
+</span><span class="line">	<span class="nx">console</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">glow</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I&rsquo;m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it&rsquo;s really very good! (<strong>Update:</strong> although, now, sadly discontinued thanks to BBC cutbacks )</p>
+
+<p>So basically what we&rsquo;re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don&rsquo;t need to bother. Let&rsquo;s presume that it <em>doesn&rsquo;t</em> exist.</p>
+
+<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let&rsquo;s strip it back to make it easier to look at:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javscript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">	<span class="k">return</span> <span class="p">{};</span>
+</span><span class="line"><span class="p">}();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I&rsquo;m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it&rsquo;s called.</p>
+
+<p>It looks initially like I&rsquo;m defining <code>console</code> to be a function but straight after the closing brace of the function you&rsquo;ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
+
+<p>If, as in the case of the finished code, the object returned (<code>r</code>) has properties then they will be accessible at <code>window.console.property</code>. And of course, the property can also be a function, like <code>log</code>.</p>
+
+<h2 id="fully-functional">Fully functional</h2>
+
+<p>The functions that are defined here are:</p>
+
+<ul>
+  <li><code>enable</code></li>
+  <li><code>disable</code></li>
+  <li><code>clear</code></li>
+  <li><code>log</code></li>
+  <li><code>init</code></li>
+</ul>
+
+<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn&rsquo;t mean it&rsquo;s completely ineffective when disabled, though. The function still exists meaning you won&rsquo;t see any script errors or terminated JavaScript.</p>
+
+<p>To enable it, simple call <code>console.enable();</code>. You don&rsquo;t have to do this in the code (I&rsquo;d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I&rsquo;d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
+
+<p>Likewise to disable the console, just type <code>javascript:console.disable();</code>, or to clear it type <code>javascript:console.clear();</code>.</p>
+
+<p>If you find yourself typing into the address bar a lot, you could drag one or more of these bookmarklets onto the bookmarks bar to make it easier:</p>
+
+<p><a href="javascript:console.enable(\);">Enable console</a> <a href="javascript:console.disable(\);">Disable console</a> <a href="javascript:console.clear(\);">Clear console</a></p>
+
+<p>The reason I&rsquo;ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it&rsquo;s useful to be able to pass a specific version of the library to <code>console</code> to use. If you&rsquo;re not worried about that sort of thing then you don&rsquo;t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
+
+<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn&rsquo;t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
+
+<p>There&rsquo;s really not a lot to it!</p>
+
+<h2 id="got-console">Got console?</h2>
+
+<p>Since getting it&rsquo;s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It&rsquo;s accessible on Chrome and Safari under the developer menus. Of course this script won&rsquo;t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -103,118 +335,156 @@
   </header>
 
 
-  <div class="entry-content"><p>[caption id=&#8221;attachment_100&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221;]<img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/shameless.jpg" alt="Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess" />[/caption]</p>
+  <div class="entry-content"><p><img class="center" src="/images/wp-uploads/2009/11/shameless.jpg" width="628" height="150" title="'Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess'" /></p>
 
-<p><a href="http://www.paypal.com">PayPal</a> is, as I&#8217;m sure you know, a long-standing staple of online payment technologies. They are now merged with eBay and you pretty much can&#8217;t use eBay without a PayPal account which works nicely for eBay as they are now reaping the benefit of not just the eBay selling fees but also the PayPal fees.</p>
+<p><a href="http://www.paypal.com">PayPal</a> is, as I’m sure you know, a long-standing staple of online payment technologies. They are now merged with eBay and you pretty much can’t use eBay without a PayPal account which works nicely for eBay as they are now reaping the benefit of not just the eBay selling fees but also the PayPal fees.</p>
 
 <p>But this is not a post to lament how much money eBay/PayPal are raking in from punters.</p>
 
-<h4>Nice and easy</h4>
+<h2 id="nice-and-easy">Nice and easy</h2>
 
-<p>As well as a payment service for eBay, PayPal also offer shopping basket and checkout services for small online merchants who don&#8217;t want to buy and maintain e-commerce products. It works nicely and provided you don&#8217;t mind PayPal taking their cut it provides a really simple way of being able to take credit cards securely.</p>
+<p>As well as a payment service for eBay, PayPal also offer shopping basket and checkout services for small online merchants who don’t want to buy and maintain e-commerce products. It works nicely and provided you don’t mind PayPal taking their cut it provides a really simple way of being able to take credit cards securely.</p>
 
-<h4>Prepare yourself</h4>
+<h2 id="prepare-yourself">Prepare yourself</h2>
 
 <p>I was recently asked to add some shopping functions to a site using PayPal. Here is one of the nine code snippets PayPal provided me with to insert a button into my page:</p>
 
-<pre><code>&lt;form action="https://www.paypal.com/cgi-bin/webscr" target="paypal" method="post"&gt;
-&lt;input type="hidden" name="cmd" value="_s-xclick"&gt;
-&lt;input type="hidden" name="hosted_button_id" value="xxxxxxx"&gt;
-&lt;table&gt;
-&lt;tr&gt;&lt;td&gt;&lt;input type="hidden" name="on0" value="Sizes"&gt;Sizes&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;select name="os0"&gt;
-    &lt;option value="XXSmall"&gt;XXSmall £20.00&lt;/option&gt;
-    &lt;option value="XSmall"&gt;XSmall £20.00&lt;/option&gt;
-    &lt;option value="Small"&gt;Small £20.00&lt;/option&gt;
-    &lt;option value="Medium"&gt;Medium £20.00&lt;/option&gt;
-    &lt;option value="Large"&gt;Large £20.00&lt;/option&gt;
-    &lt;option value="XLarge"&gt;XLarge £20.00&lt;/option&gt;
-&lt;/select&gt; &lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;input type="hidden" name="currency_code" value="GBP"&gt;
-&lt;input src="https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif" border="0" type="image" name="submit" alt="PayPal - The safer, easier way to pay online."&gt;
-&lt;img src="https://www.paypal.com/en_GB/i/scr/pixel.gif" alt="" height="1" border="0" width="1"&gt;
-&lt;/form&gt;
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Paypal&#8217;s Button Code    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;https://www.paypal.com/cgi-bin/webscr&quot;</span> <span class="na">target=</span><span class="s">&quot;paypal&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;cmd&quot;</span> <span class="na">value=</span><span class="s">&quot;_s-xclick&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;hosted_button_id&quot;</span> <span class="na">value=</span><span class="s">&quot;xxxxxxx&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;table&gt;</span>
+</span><span class="line"><span class="nt">&lt;tr&gt;&lt;td&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;on0&quot;</span> <span class="na">value=</span><span class="s">&quot;Sizes&quot;</span><span class="nt">&gt;</span>Sizes<span class="nt">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;select</span> <span class="na">name=</span><span class="s">&quot;os0&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XXSmall&quot;</span><span class="nt">&gt;</span>XXSmall £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XSmall&quot;</span><span class="nt">&gt;</span>XSmall £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Small&quot;</span><span class="nt">&gt;</span>Small £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Medium&quot;</span><span class="nt">&gt;</span>Medium £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Large&quot;</span><span class="nt">&gt;</span>Large £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XLarge&quot;</span><span class="nt">&gt;</span>XLarge £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line"><span class="nt">&lt;/select&gt;</span> <span class="nt">&lt;/td&gt;&lt;/tr&gt;</span>
+</span><span class="line"><span class="nt">&lt;/table&gt;</span>
+</span><span class="line"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;currency_code&quot;</span> <span class="na">value=</span><span class="s">&quot;GBP&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;input</span> <span class="na">src=</span><span class="s">&quot;https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif&quot;</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">type=</span><span class="s">&quot;image&quot;</span> <span class="na">name=</span><span class="s">&quot;submit&quot;</span> <span class="na">alt=</span><span class="s">&quot;PayPal - The safer, easier way to pay online.&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;https://www.paypal.com/en_GB/i/scr/pixel.gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="na">height=</span><span class="s">&quot;1&quot;</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">width=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+</span><span class="line"><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>Oh PayPal, how do you sadden me? Let me count the ways&#8230;</p>
+<p>Oh PayPal, how do you sadden me? Let me count the ways…</p>
 
-<h4>Spot the nastiness</h4>
+<h2 id="spot-the-nastiness">Spot the nastiness</h2>
 
 <p>Well being generous, there are 7 horrible things about that above code snippet. If I count each problem every time it appears I reach a grand total of 12. Bleugh.</p>
 
-<p>Let me run through exactly what I take issue with, because I really don&#8217;t think I&#8217;m being unreasonable.</p>
+<p>Let me run through exactly what I take issue with, because I really don’t think I’m being unreasonable.</p>
 
-<h5>Inputs</h5>
+<h3 id="inputs">Inputs</h3>
 
-<p>There are a lot of hidden <code>input</code>s. No, I understand - they need to be there to make it work. That makes sense. What doesn&#8217;t make sense is that they don&#8217;t bother to close off the <code>input</code>s, XHTML style.</p>
+<p>There are a lot of hidden <code>input</code>s. No, I understand - they need to be there to make it work. That makes sense. What doesn’t make sense is that they don’t bother to close off the <code>input</code>s, XHTML style.</p>
 
-<pre><code>&lt;input type="hidden" name="name" value="value"&gt;&lt;/input&gt;
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Input, done correctly</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;value&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Simple.</p>
 
-<h5>Tables</h5>
+<h3 id="tables">Tables</h3>
 
-<p>Really? Tables? But look at it. What does it actually do? Absolutely nothing, apart from put the text and the select side by side, which is a choice for the designer to make. No <code>tbody</code>, no <code>th</code>&#8217;s, and so there&#8217;s no chance in hell of any <code>scope=</code>&#8217;s.</p>
+<p>Really? Tables? But look at it. What does it actually do? Absolutely nothing, apart from put the text and the select side by side, which is a choice for the designer to make. No <code>tbody</code>, no <code>th</code>’s, and so there’s no chance in hell of any <code>scope=</code>’s.</p>
 
 <p>Pointless.</p>
 
-<h5>Select with no id and no label</h5>
+<h3 id="select-with-no-id-and-no-label">Select with no id and no label</h3>
 
-<p>I don&#8217;t think I need to say a lot about this - the title says it all. They&#8217;ve put the text that should be in the label in plain text instead. They could have used the table (if they insisted on having one) to help with this by putting the label text in a th, but they didn&#8217;t even do that.</p>
+<p>I don’t think I need to say a lot about this - the title says it all. They’ve put the text that should be in the label in plain text instead. They could have used the table (if they insisted on having one) to help with this by putting the label text in a th, but they didn’t even do that.</p>
 
-<h5>Input type: image</h5>
+<h3 id="input-type-image">Input type: image</h3>
 
-<p>Again, no problem in using an input of type image. But wait&#8230; they didn&#8217;t specify the width and height! If they are going to go for a consistent look, as they appear to be doing with their tables mentioned earlier, then this is essential. Otherwise, rogue styles applied to all <code>input</code>s will seriously mess up the look of the button.</p>
+<p>Again, no problem in using an input of type image. But wait… they didn’t specify the width and height! If they are going to go for a consistent look, as they appear to be doing with their tables mentioned earlier, then this is essential. Otherwise, rogue styles applied to all <code>input</code>s will seriously mess up the look of the button.</p>
 
-<h5>Alt text</h5>
+<h3 id="alt-text">Alt text</h3>
 
 <p>Possibly the worst offender of all.</p>
 
-<p>Check it out, aren&#8217;t PayPal good? They added alt text and everything. Except the alt text is on the image input element -  the submit button -  and it isn&#8217;t at all descriptive. It&#8217;s basically an advert for PayPal.</p>
+<p>Check it out, aren’t PayPal good? They added alt text and everything. Except the alt text is on the image input element - the submit button - and it isn’t at all descriptive. It’s basically an advert for PayPal. </p>
 
-<p>What good is that to AT users? They would have <strong>no clue</strong> as to what that control does.</p>
+<p>What good is that to <abbr title="Assistive Technology">AT</abbr> users? They would have <strong>no clue</strong> as to what that control does.</p>
 
-<h5>Spacer gif</h5>
+<h3 id="spacer-gif">Spacer gif</h3>
 
 <p>Yes, for no apparent reason there is a spacer gif at the bottom of it all. And yes, it has no XHTML closing slash.</p>
 
-<h5>No enclosing element</h5>
+<h3 id="no-enclosing-element">No enclosing element</h3>
 
-<p>Oh yes, one last one. <code>input</code> elements can&#8217;t reside directly inside the <code>form</code> element. They need to be contained within any one of a variety of other elements (Eg. <code>p</code>, <code>div</code>, etc.). Sadly, there is nothing protecting our <code>input</code>s from the harsh reality of their <code>form</code> overlord.</p>
+<p>Oh yes, one last one. <code>input</code> elements can’t reside directly inside the <code>form</code> element. They need to be contained within any one of a variety of other elements (Eg. <code>p</code>, <code>div</code>, etc.). Sadly, there is nothing protecting our <code>input</code>s from the harsh reality of their <code>form</code> overlord.</p>
 
-<h4>The way it <em>should</em> be</h4>
+<h2 id="the-way-it-should-be">The way it <em>should</em> be</h2>
 
-<pre><code>&lt;form action="https://www.paypal.com/cgi-bin/webscr" target="paypal" method="post"&gt;
-    &lt;div&gt;
-        &lt;input type="hidden" name="cmd" value="_s-xclick"&gt;&lt;/input&gt;
-        &lt;input type="hidden" name="hosted_button_id" value="xxxxxxx"&gt;&lt;/input&gt;
-        &lt;input type="hidden" name="on0" value="Sizes"&gt;&lt;/input&gt;
-        &lt;label for="sizes-polo"&gt;Sizes&lt;/label&gt;
-        &lt;select name="os0" id="sizes-polo"&gt;
-            &lt;option value="XXSmall"&gt;XXSmall £20.00&lt;/option&gt;
-            &lt;option value="XSmall"&gt;XSmall £20.00&lt;/option&gt;
-            &lt;option value="Small"&gt;Small £20.00&lt;/option&gt;
-            &lt;option value="Medium"&gt;Medium £20.00&lt;/option&gt;
-            &lt;option value="Large"&gt;Large £20.00&lt;/option&gt;
-            &lt;option value="XLarge"&gt;XLarge £20.00&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;input type="hidden" name="currency_code" value="GBP"&gt;&lt;/input&gt;
-        &lt;div class="controls"&gt;
-            &lt;input src="https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif" name="submit" height="26" width="120" alt="Add a polo shirt in the selected size to your cart" type="image" class="image"&gt;&lt;/input&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/form&gt;
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Paypal&#8217;s Button Code - Fixed    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;https://www.paypal.com/cgi-bin/webscr&quot;</span> <span class="na">target=</span><span class="s">&quot;paypal&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">	<span class="nt">&lt;div&gt;</span>
+</span><span class="line">		<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;cmd&quot;</span> <span class="na">value=</span><span class="s">&quot;_s-xclick&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;hosted_button_id&quot;</span> <span class="na">value=</span><span class="s">&quot;xxxxxxx&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;on0&quot;</span> <span class="na">value=</span><span class="s">&quot;Sizes&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;sizes-polo&quot;</span><span class="nt">&gt;</span>Sizes<span class="nt">&lt;/label&gt;</span>
+</span><span class="line">		<span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">&quot;os0&quot;</span> <span class="na">id=</span><span class="s">&quot;sizes-polo&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XXSmall&quot;</span><span class="nt">&gt;</span>XXSmall £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XSmall&quot;</span><span class="nt">&gt;</span>XSmall £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Small&quot;</span><span class="nt">&gt;</span>Small £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Medium&quot;</span><span class="nt">&gt;</span>Medium £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;Large&quot;</span><span class="nt">&gt;</span>Large £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">			<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;XLarge&quot;</span><span class="nt">&gt;</span>XLarge £20.00<span class="nt">&lt;/option&gt;</span>
+</span><span class="line">		<span class="nt">&lt;/select&gt;</span>
+</span><span class="line">		<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;currency_code&quot;</span> <span class="na">value=</span><span class="s">&quot;GBP&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">			<span class="nt">&lt;input</span> <span class="na">src=</span><span class="s">&quot;https://www.paypal.com/en_GB/i/btn/btn_cart_LG.gif&quot;</span> <span class="na">name=</span><span class="s">&quot;submit&quot;</span> <span class="na">height=</span><span class="s">&quot;26&quot;</span> <span class="na">width=</span><span class="s">&quot;120&quot;</span> <span class="na">alt=</span><span class="s">&quot;Add a polo shirt in the selected size to your cart&quot;</span> <span class="na">type=</span><span class="s">&quot;image&quot;</span> <span class="na">class=</span><span class="s">&quot;image&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">		<span class="nt">&lt;/div&gt;</span>
+</span><span class="line">	<span class="nt">&lt;/div&gt;</span>
+</span><span class="line"><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>Much better. Notice that for the alt text I mentioned which item was being added and referenced the size select box in case they AT user might have missed that, or not made a selection yet.</p>
+<p>Much better. Notice that for the alt text I mentioned which item was being added and referenced the size select box in case they <abbr title="Assistive Technology">AT</abbr> user might have missed that, or not made a selection yet.</p>
 
-<h4>Why am I picking on PayPal?</h4>
+<h2 id="why-am-i-picking-on-paypal">Why am I picking on PayPal?</h2>
 
-<p>Well, I&#8217;m sure that many other large companies are equally guilty of this sort of thing. And as I come across them, if they enrage me enough I&#8217;m sure I&#8217;ll rant about them as well. But really, PayPal should know better. They event have people coming to (and sponsor) events (like <a href="http://www.barcamp.org/">BarCamp</a>) where the attendees have a low tolerance for this sort of thing.</p>
+<p>Well, I’m sure that many other large companies are equally guilty of this sort of thing. And as I come across them, if they enrage me enough I’m sure I’ll rant about them as well. But really, PayPal should know better. They even have people coming to (and sponsor) events (like <a href="http://www.barcamp.org/">BarCamp</a>) where the attendees know exactly how bad this sort of this is.</p>
 
-<p>Hopefully if enough people make a fuss, these things will change. Don&#8217;t tolerate it! And most of all, never blindly cut and paste markup from another site. It&#8217;ll only make you look bad.
-  *[AT]: Assistive Technology</p>
+<p>Hopefully if enough people make a fuss, these things will change. Don’t tolerate it! And most of all, never blindly cut and paste markup from another site. It’ll only make you look bad.</p>
+
 </div>
   
   
@@ -250,156 +520,154 @@
   </header>
 
 
-  <div class="entry-content"><p>[caption id=&#8221;attachment_88&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/adewale_oshineye/3405080707/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-lego.jpg" alt="BarCamp" /></a>[/caption]</p>
+  <div class="entry-content"><p><a href="http://www.flickr.com/photos/adewale_oshineye/3405080707/in/pool-barcamplondon"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-lego.jpg" width="628" height="142" title="'BarCamp'" /></a></p>
 
-<p>Well I didn&#8217;t quite know what to expect having never attended a BarCamp or indeed an &#8220;un-conference&#8221; before. What I found was one of the best geek-xperiences that I have come across, something that I would recommend to anyone into what they do and who enjoys the company of other people also into what they do.</p>
+<p>Well I didn’t quite know what to expect having never attended a BarCamp or indeed an “un-conference” before. What I found was one of the best geek-xperiences that I have come across, something that I would recommend to anyone into what they do and who enjoys the company of other people also into what they do.</p>
 
-<h4>Un-conference</h4>
+<h2 id="un-conference">Un-conference</h2>
 
 <p>So the premise behind an un-conference is that there are talks, but there is nothing scheduled when the event starts. Instead, right at the start all the attendees fill out the gaps in the schedule with sessions, presentations and talks that they have prepared (or will prepare over the course of the event). Everyone is encouraged to participate, especially those for whom it is their first BarCamp, which meant I was going to be doing one.</p>
 
-<p>[caption id=&#8221;attachment_91&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/yaili/4062052486/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-saturdaysessions.jpg" alt="The grid for the sessions on Saturday" /></a>[/caption]</p>
+<p><a href="http://www.flickr.com/photos/yaili/4062052486/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-saturdaysessions.jpg" width="628" height="184" title="'The grid for the sessions on Saturday'" /></a></p>
 
-<p>Public speaking isn&#8217;t one of my stronger qualities, but one thing I do know about it is that the more you do it the better (and the more confident) you get. This is a fact, and it&#8217;s also helped by the fact that all the attendees are lovely. The thing about this kind of event is that no-one is going to want to pick a fight with you or want to make you feel small. If they attended your presentation in preference to someone else&#8217;s then they genuinely want to hear what you have to say on the topic you have chosen. Also, most people will be in the same boat - all having their own sessions to run - and so they will treat you in the way they hope to be treated themselves. Finally, as it&#8217;s a free event, no-one will feel cheated if your talk doesn&#8217;t live up to the high expectations that might surround a conference which costs, say, £300. It&#8217;s the perfect incubator for talent!</p>
+<p>Public speaking isn’t one of my stronger qualities, but one thing I do know about it is that the more you do it the better (and the more confident) you get. This is a fact, and it’s also helped by the fact that all the attendees are lovely. The thing about this kind of event is that no-one is going to want to pick a fight with you or want to make you feel small. If they attended your presentation in preference to someone else’s then they genuinely want to hear what you have to say on the topic you have chosen. Also, most people will be in the same boat - all having their own sessions to run - and so they will treat you in the way they hope to be treated themselves. Finally, as it’s a free event, no-one will feel cheated if your talk doesn’t live up to the high expectations that might surround a conference which costs, say, £300. It’s the perfect incubator for talent!</p>
 
-<h4>Variety is the spice of life, and BarCamps</h4>
+<h2 id="variety-is-the-spice-of-life-and-barcamps">Variety is the spice of life, and BarCamps</h2>
 
 <p>The sessions can be on anything, and when I say anything I mean <em>anything</em>. There were sessions on topics varying from CSS to Erotic Writing, the alcohol ban parties on the Tube to multi touch programming on Snow Leopard and from Autism to LOST. Whatever your interest or topic of expertise, there will always be people interested in what you have to say!</p>
 
-<p>I&#8217;d say my main complaint about the event is that you can&#8217;t attend all the sessions! Obviously with so many sessions happening all at once, filming them all would be tricky and so it&#8217;s very much a case of if you miss it you miss it, so don&#8217;t miss it!</p>
+<p>I’d say my main complaint about the event is that you can’t attend all the sessions! Obviously with so many sessions happening all at once, filming them all would be tricky and so it’s very much a case of if you miss it you miss it, so don’t miss it!</p>
 
-<h4>Free is my favourite price</h4>
+<h2 id="free-is-my-favourite-price">Free is my favourite price</h2>
 
-<p>BarCamp is free. I say that; it must have taken some serious clout to pull it all together but to the attendees it&#8217;s free. It&#8217;s all done through sponsorship and the generously donated time of the wonderful team that organise it all. The sponsors are many which means they all only need to donate a little to add up to a decent pot of cash. That said, the prominence of the sponsors was minimal which I think added to the general feel of the event. It was all about sharing ideas and information and not wanting anything back for it - a fine and noble idea, and one I can get behind.</p>
+<p>BarCamp is free. I say that; it must have taken some serious clout to pull it all together but to the attendees it’s free. It’s all done through sponsorship and the generously donated time of the wonderful team that organise it all. The sponsors are many which means they all only need to donate a little to add up to a decent pot of cash. That said, the prominence of the sponsors was minimal which I think added to the general feel of the event. It was all about sharing ideas and information and not wanting anything back for it - a fine and noble idea, and one I can get behind.</p>
 
-<p>Of course staff from the sponsors are free to come along and give presentations (which the did, at least in some cases) but these are usually pretty interesting, at least to some people. And hey, if you don&#8217;t find it interesting you don&#8217;t have to go - there are probably 7-8 other talks happening at the same time&#8230; take your pick!</p>
+<p>Of course staff from the sponsors are free to come along and give presentations (which the did, at least in some cases) but these are usually pretty interesting, at least to some people. And hey, if you don’t find it interesting you don’t have to go - there are probably 7-8 other talks happening at the same time… take your pick!</p>
 
-<h4>My experiences</h4>
+<h2 id="my-experiences">My experiences</h2>
 
-<p>[caption id=&#8221;attachment_85&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/andypiper/4040452848/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-css.jpg" alt="My talk on CSS widgets" /></a>[/caption]</p>
+<p><a href="http://www.flickr.com/photos/andypiper/4040452848/in/pool-barcamplondon"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-css.jpg" width="628" height="190" title="'My talk on CSS widgets'" /></a></p>
 
-<p>I had already decided to do a CSS-related presentation (a blog version of which is forthcoming) but sadly this meant I had to miss a chunk of sessions during the first day just in the name of finishing off. I wish I had started to prepare earlier but it&#8217;s that always the case? It had to be done though&#8230; imagine turning up to do a talk with a half-finished set of slides. Not too impressive.</p>
+<p>I had already decided to do a CSS-related presentation (a blog version of which is forthcoming) but sadly this meant I had to miss a chunk of sessions during the first day just in the name of finishing off. I wish I had started to prepare earlier but it’s that always the case? It had to be done though… imagine turning up to do a talk with a half-finished set of slides. Not too impressive.</p>
 
-<p>So what follows is a list of the sessions I attended (or would have attended if I hadn&#8217;t been preparing my own):</p>
+<p>So what follows is a list of the sessions I attended (or would have attended if I hadn’t been preparing my own):</p>
 
-<h5>Saturday</h5>
-
-<ul>
-<li><p>BarCamp Bootstrap: 1st Timers Panel</p></li>
-<li><p>How we broke the tube with Facebook (Steve Emslie)</p></li>
-<li><p>Google Street View + Virtual Reality Goggles (Tom Scott) (Regrettably missed)</p></li>
-<li><p>CSS Nuggets - Some snippets of CSS that will help you make better sites and stuff (<a href="http://www.twitter.com/anna_debenham">Anna Debenham</a>) (Regrettably missed)</p></li>
-<li><p>Split fares aka Hack yourself a cheaper train ticket (<a href="http://www.twitter.com/@sammachin">Sam Machin</a>) (Regrettably missed)</p></li>
-<li><p>Mobile Stats 2008-2009 (<a href="http://www.twitter.com/adamcohenrose">Adam Cohen-Rose</a>)</p></li>
-<li><p>Design in Lost (yes, the TV show) (<a href="http://www.twitter.com/yaili">Inayaili de Leon</a>)</p></li>
-<li><p>Don&#8217;t break my stuff! A guide to writing CSS for widgets and pages with widgets (<a href="http://www.twitter.com/markstickley">Mark Stickley</a>) (My session!)</p></li>
-<li><p>Want to write a tech book? (Gavin Bell)</p></li>
-<li><p>Sex and other things we don&#8217;t talk about (<a href="http://www.twitter.com/cubicgarden">Ian Forrester</a>)</p></li>
-<li><p>Why I give web clients no control over their project (and why they love it) (<a href="http://www.twitter.com/xigme">Alex Teugels</a>)</p></li>
-<li><p>Web Scale Identifiers (Use and Abuse) (Ade)</p></li>
-</ul>
-
-
-<h5>Sunday</h5>
+<h3 id="saturday">Saturday</h3>
 
 <ul>
-<li><p>Linked Data and the Semantic Web for Dummies (<a href="http://www.twitter.com/dfflanders">David F. Flanders</a>)</p></li>
-<li><p>Designing for the teenage generation - what they &#8216;dig&#8217; (<a href="http://www.twitter.com/Jack_Franklin">Jack Franklin</a>)</p></li>
-<li><p>Multitouch: on Snow Leopard + Quartz Composer &amp; Chuck (<a href="http://www.twitter.com/gernot">@gernot</a>)</p></li>
-<li><p>10 Fucking Awesome Bands You Should Be Listening To (<a href="http://www.twitter.com/maryrosecook">Mary Rose Cook</a>)</p></li>
-<li><p>Putting telly on the Internet (<a href="http://www.twitter.com/dfflanders">David F. Flanders</a>)</p></li>
-<li><p>Photography is not a crime (know your rights as a photographer) (<a href="http://www.twitter.com/martin88">Martin C</a>)</p></li>
-<li><p>Lightning Talks</p></li>
-<li><p>Teach Me How To Run A New BarCamp - Cultures, Languages (BSL) (<a href="http://www.twitter.com/bjfletcher">@bjfletcher</a>)</p></li>
-<li><p>Autism, Internet and Antelope: Cognitive Accessibility and how people with autism use the web (Jamie + Lion)</p></li>
+  <li>BarCamp Bootstrap: 1st Timers Panel</li>
+  <li>How we broke the tube with Facebook (Steve Emslie)</li>
+  <li>Google Street View + Virtual Reality Goggles (Tom Scott) (Regrettably missed)</li>
+  <li>CSS Nuggets - Some snippets of CSS that will help you make better sites and stuff (<a href="http://www.twitter.com/anna_debenham">Anna Debenham</a>) (Regrettably missed)</li>
+  <li>Split fares aka Hack yourself a cheaper train ticket (<a href="http://www.twitter.com/@sammachin">Sam Machin</a>) (Regrettably missed)</li>
+  <li>Mobile Stats 2008-2009 (<a href="http://www.twitter.com/adamcohenrose">Adam Cohen-Rose</a>)</li>
+  <li>Design in Lost (yes, the TV show) (<a href="http://www.twitter.com/yaili">Inayaili de Leon</a>)</li>
+  <li>Don’t break my stuff! A guide to writing CSS for widgets and pages with widgets (<a href="http://www.twitter.com/markstickley">Mark Stickley</a>) (My session!)</li>
+  <li>Want to write a tech book? (Gavin Bell)</li>
+  <li>Sex and other things we don’t talk about (<a href="http://www.twitter.com/cubicgarden">Ian Forrester</a>)</li>
+  <li>Why I give web clients no control over their project (and why they love it) (<a href="http://www.twitter.com/xigme">Alex Teugels</a>)</li>
+  <li>Web Scale Identifiers (Use and Abuse) (Ade)</li>
 </ul>
 
+<h3 id="sunday">Sunday</h3>
 
-<p>If you&#8217;re interested in the full list of available talks, here&#8217;s the <a href="http://tommorris.org/files/barcamp_saturday.html">Saturday talks</a> and the <a href="http://tommorris.org/files/barcamp_sunday.html">Sunday talks</a>.</p>
+<ul>
+  <li>Linked Data and the Semantic Web for Dummies (<a href="http://www.twitter.com/dfflanders">David F. Flanders</a>)</li>
+  <li>Designing for the teenage generation - what they ‘dig’ (<a href="http://www.twitter.com/Jack_Franklin">Jack Franklin</a>)</li>
+  <li>Multitouch: on Snow Leopard + Quartz Composer &amp; Chuck (<a href="http://www.twitter.com/gernot">@gernot</a>)</li>
+  <li>10 Fucking Awesome Bands You Should Be Listening To (<a href="http://www.twitter.com/maryrosecook">Mary Rose Cook</a>)</li>
+  <li>Putting telly on the Internet (<a href="http://www.twitter.com/dfflanders">David F. Flanders</a>)</li>
+  <li>Photography is not a crime (know your rights as a photographer) (<a href="http://www.twitter.com/martin88">Martin C</a>)</li>
+  <li>Lightning Talks</li>
+  <li>Teach Me How To Run A New BarCamp - Cultures, Languages (BSL) (<a href="http://www.twitter.com/bjfletcher">@bjfletcher</a>)</li>
+  <li>Autism, Internet and Antelope: Cognitive Accessibility and how people with autism use the web (Jamie + Lion)</li>
+</ul>
 
-<p>I&#8217;ll just run over the panels that I actually went to and remember enough of to talk about extremely briefly to give some idea as to how they went.</p>
+<p>If you’re interested in the full list of available talks, here’s the <a href="http://tommorris.org/files/barcamp_saturday.html">Saturday talks</a> and the <a href="http://tommorris.org/files/barcamp_sunday.html">Sunday talks</a>.</p>
 
-<h5>BarCamp Bootstrap</h5>
+<p>I’ll just run over the panels that I actually went to and remember enough of to talk about extremely briefly to give some idea as to how they went.</p>
 
-<p>A brief introduction to BarCamps for first-timers. I figured I&#8217;d only be a first-timer once so why not pop along. We were told to enjoy it and given brief tactical instructions on the inevitable games of Werewolf that would take place overnight. Then we took part in an exercise which was supposed to both help us get over our fear of public speaking and put us more about saying something stupid by actually standing up and saying something stupid (we were fed a line) in front of everyone else. Good introduction!</p>
+<h3 id="barcamp-bootstrap">BarCamp Bootstrap</h3>
 
-<h5>How we broke the tube</h5>
+<p>A brief introduction to BarCamps for first-timers. I figured I’d only be a first-timer once so why not pop along. We were told to enjoy it and given brief tactical instructions on the inevitable games of Werewolf that would take place overnight. Then we took part in an exercise which was supposed to both help us get over our fear of public speaking and put us more about saying something stupid by actually standing up and saying something stupid (we were fed a line) in front of everyone else. Good introduction!</p>
 
-<p>Brief account of a couple of guys who innocently created a Facebook group encouraging people to go and have a &#8220;last drink&#8221; on the tube the night before the alcohol ban came into force and thought nothing more of it. Until it started to gain massive traction ultimately shutting down large parts of the tube on the night in question! They also asked if anyone knew how to mine the Facebook data to try and find who was responsible for the tipping point which caused such a huge uptake.</p>
+<h3 id="how-we-broke-the-tube">How we broke the tube</h3>
 
-<h5>Mobile stats</h5>
+<p>Brief account of a couple of guys who innocently created a Facebook group encouraging people to go and have a “last drink” on the tube the night before the alcohol ban came into force and thought nothing more of it. Until it started to gain massive traction ultimately shutting down large parts of the tube on the night in question! They also asked if anyone knew how to mine the Facebook data to try and find who was responsible for the tipping point which caused such a huge uptake.</p>
+
+<h3 id="mobile-stats">Mobile stats</h3>
 
 <p>Basically going through a bunch of stats on mobile device usage which showed the screen resolution of devices is quite rapidly on the up and how Apple crept up from 6th place to 5th in the device manufacturers sales charts in just one year.</p>
 
-<h5>Design in LOST</h5>
+<h3 id="design-in-lost">Design in LOST</h3>
 
-<p>[caption id=&#8221;attachment_89&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/yaili/4061297865/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-lost.jpg" alt="Card for @yaili's session on LOST" /></a>[/caption]</p>
+<p><a href="http://www.flickr.com/photos/yaili/4061297865/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-lost.jpg" width="628" height="189" title="'Card for @yaili's session on LOST'" /></a></p>
 
-<p>Going over some of the finer points of the hit TV show and showing how the plot and prop design goes so in depth that you wouldn&#8217;t really notice some of the more elaborate details unless you were paying meticulous attention. Also covered some of the cross promotion with other brands and Easter Eggs that don&#8217;t add anything but are a real treat to those who spot them. Fascinating!</p>
+<p>Going over some of the finer points of the hit TV show and showing how the plot and prop design goes so in depth that you wouldn’t really notice some of the more elaborate details unless you were paying meticulous attention. Also covered some of the cross promotion with other brands and Easter Eggs that don’t add anything but are a real treat to those who spot them. Fascinating!</p>
 
-<h5>Want to write a tech book</h5>
+<h3 id="want-to-write-a-tech-book">Want to write a tech book</h3>
 
-<p>[caption id=&#8221;attachment_82&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/37996583811@N01/4039838641/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-adewale.jpg" alt="Adewale &amp; Gavin doing their book writing talk" /></a>[/caption]</p>
+<p><a href="http://www.flickr.com/photos/37996583811@N01/4039838641/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-adewale.jpg" width="628" height="151" title="'Adewale &amp; Gavin doing their book writing talk'" /></a></p>
 
-<p>Tips mainly on how not to write a tech book actually! Don&#8217;t drag it out and don&#8217;t try and do it as well as a full-time job were the main ones I took away from that.</p>
+<p>Tips mainly on how not to write a tech book actually! Don’t drag it out and don’t try and do it as well as a full-time job were the main ones I took away from that.</p>
 
-<h5>Sex and other things</h5>
+<h3 id="sex-and-other-things">Sex and other things</h3>
 
-<p>[caption id=&#8221;attachment_86&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/adewale_oshineye/3405087239/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-cubicgarden.jpg" alt="Ian Forrester" /></a>[/caption]</p>
+<p><a href="http://www.flickr.com/photos/adewale_oshineye/3405087239/in/pool-barcamplondon"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-cubicgarden.jpg" width="628" height="187" title="'Ian Forrester'" /></a></p>
 
-<p>What was essentially a hosted discussion about geeks, sexuality, how comfortable we are with it and why. It was interesting to listen to but I wasn&#8217;t compelled to get involved&#8230;</p>
+<p>What was essentially a hosted discussion about geeks, sexuality, how comfortable we are with it and why. It was interesting to listen to but I wasn’t compelled to get involved…</p>
 
-<h5>Why I give my clients no control</h5>
+<h3 id="why-i-give-my-clients-no-control">Why I give my clients no control</h3>
 
-<p>[caption id=&#8221;attachment_83&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/bfirsh/4047990809/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-alex.jpg" alt="Alex Teugels and some guy I don't know the name of" /></a>[/caption]</p>
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-alex.jpg"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-alex.jpg" width="628" height="158" title="'Alex Teugels and some guy I don't know the name of'" /></a>](http://www.flickr.com/photos/bfirsh/4047990809/in/pool-barcamplondon)</p>
 
-<p>Alex took us through how he runs his business which is basically to take complete control of his clients&#8217; sites, charge them an ongoing fee and make sure conversions keep moving skywards. A very different and interesting approach which I haven&#8217;t seen before. Strangely enough this talk was given by an old school friend of mine who I hadn&#8217;t seen since all those years ago which was an unexpected bonus!</p>
+<p>Alex took us through how he runs his business which is basically to take complete control of his clients’ sites, charge them an ongoing fee and make sure conversions keep moving skywards. A very different and interesting approach which I haven’t seen before. Strangely enough this talk was given by an old school friend of mine who I hadn’t seen since all those years ago which was an unexpected bonus!</p>
 
-<h5>Web Scale Identifiers</h5>
+<h3 id="web-scale-identifiers">Web Scale Identifiers</h3>
 
-<p>An interesting talk that gave way to an interesting discussion that went on for almost an hour! It&#8217;s basically an idea that&#8217;s floating around that &#8220;wouldn&#8217;t it be nice if people would stop making their own ids for objects and start using standard ones.&#8221; For example, books have ISBNs. But what about things that don&#8217;t have a centralised authority? How do you identify the id to use? Very interesting.</p>
+<p>An interesting talk that gave way to an interesting discussion that went on for almost an hour! It’s basically an idea that’s floating around that “wouldn’t it be nice if people would stop making their own ids for objects and start using standard ones.” For example, books have ISBNs. But what about things that don’t have a centralised authority? How do you identify the id to use? Very interesting.</p>
 
-<h5>Designing for teenagers</h5>
+<h3 id="designing-for-teenagers">Designing for teenagers</h3>
 
-<p>As a teenager himself, Jack gave us an insight into what they like and what they are indifferent to. Turns out that the average teenager doesn&#8217;t give two hoots about fancy CSS3 rounded corners, gradients and the like - they are mostly interested in the content. Especially flash games. I still can&#8217;t help thinking, though, that if there was some excellent content or games available but the design was terrible they wouldn&#8217;t really be so interested&#8230;</p>
+<p>As a teenager himself, Jack gave us an insight into what they like and what they are indifferent to. Turns out that the average teenager doesn’t give two hoots about fancy CSS3 rounded corners, gradients and the like - they are mostly interested in the content. Especially flash games. I still can’t help thinking, though, that if there was some excellent content or games available but the design was terrible they wouldn’t really be so interested…</p>
 
-<h5>Multi touch on Snow Leopard</h5>
+<h3 id="multi-touch-on-snow-leopard">Multi touch on Snow Leopard</h3>
 
 <p>This was an interesting talk on programming with Quartz and the presenter demoed his own test app in which he showed how the trackpads on modern MacBooks can detect up to 11 simultaneous touches. Pretty incredible!</p>
 
-<h5>10 Fucking Awesome Bands</h5>
+<h3 id="fucking-awesome-bands">10 Fucking Awesome Bands</h3>
 
-<p>[caption id=&#8221;attachment_90&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/adewale_oshineye/4041691950/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-mary.jpg" alt="Mary Rose Cook" /></a>[/caption]</p>
+<p><a href="http://www.flickr.com/photos/adewale_oshineye/4041691950/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-mary.jpg" width="628" height="174" title="'Mary Rose Cook'" /></a></p>
 
-<p>Mary took us through 10 bands which in her opinion no-one should be without. Most of them were not so much to my taste but you can&#8217;t please them all, eh? Afterwards she took suggestions of other bands that should be added to the list.</p>
+<p>Mary took us through 10 bands which in her opinion no-one should be without. Most of them were not so much to my taste but you can’t please them all, eh? Afterwards she took suggestions of other bands that should be added to the list.</p>
 
-<h5>Putting telly on the internet</h5>
+<h3 id="putting-telly-on-the-internet">Putting telly on the internet</h3>
 
 <p>Some of the more technical challenges the iPlayer team have experienced. Very interesting stuff.</p>
 
-<h5>Photography is not a crime</h5>
+<h3 id="photography-is-not-a-crime">Photography is not a crime</h3>
 
-<p>Fascinating talk on photographers rights and how little law enforcement actually seems to understand them on the whole. Basically, anything you can see while standing in a public place is legal and fair game, although snapping people&#8217;s kids and other such intrusions are usually misunderstood and it pays to ask first. It&#8217;s just polite!</p>
+<p>Fascinating talk on photographers rights and how little law enforcement actually seems to understand them on the whole. Basically, anything you can see while standing in a public place is legal and fair game, although snapping people’s kids and other such intrusions are usually misunderstood and it pays to ask first. It’s just polite!</p>
 
-<h5>Lightning talks</h5>
+<h3 id="lightning-talks">Lightning talks</h3>
 
-<p>The lightning talks session is actually a series of 5 minute talks by whoever wants to do them. The trouble with these is they aren&#8217;t really long enough to be that memorable&#8230; I do remember one about a collaborative art project which was quite interesting.</p>
+<p>The lightning talks session is actually a series of 5 minute talks by whoever wants to do them. The trouble with these is they aren’t really long enough to be that memorable… I do remember one about a collaborative art project which was quite interesting.</p>
 
-<h5>Teach me how to run a BarCamp</h5>
+<h3 id="teach-me-how-to-run-a-barcamp">Teach me how to run a BarCamp</h3>
 
-<p>This was kind of a &#8216;reverse&#8217; session where the guy running it basically asked the audience their advice on how to set up, publicise, fund, organise and run a BarCamp&#8230; for deaf people! The responses were interesting, especially when discussing the advantages of a deaf-only event.</p>
+<p>This was kind of a ‘reverse’ session where the guy running it basically asked the audience their advice on how to set up, publicise, fund, organise and run a BarCamp… for deaf people! The responses were interesting, especially when discussing the advantages of a deaf-only event.</p>
 
-<h5>Autism</h5>
+<h3 id="autism">Autism</h3>
 
-<p>[caption id=&#8221;attachment_87&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/rugbymadgirl/4047724494/in/pool-barcamplondon"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-jamie.jpg" alt="Jamie &amp; Lion" /></a>[/caption]</p>
+<p><a href="http://www.flickr.com/photos/rugbymadgirl/4047724494/in/pool-barcamplondon"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-jamie.jpg" width="628" height="173" title="'Jamie &amp; Lion'" /></a></p>
 
 <p>Jamie (and his friend <a href="http://www.imetlion.com">Lion</a>) gave an interesting talk on how cognitive diversity affects internet use and taught us all a little about autism and how it affects people. Very useful indeed!</p>
 
-<h4>Recommended</h4>
+<h2 id="recommended">Recommended</h2>
 
 <p>BarCamp was not only a lot of fun but it was valuable, interesting and a good opportunity to meet nice people. It was also very exhausting, but the lack of sleep was my own fault! I hope to be attending many more in the future.</p>
 
-<p>[caption id=&#8221;attachment_84&#8221; align=&#8221;aligncenter&#8221; width=&#8221;628&#8221; caption=&#8221;&#8220;]<a href="http://www.flickr.com/photos/timblair/4040914375/"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-asleep.jpg" alt="Yours truly failing to stay awake" /></a>[/caption]</p>
+<p><a href="http://www.flickr.com/photos/timblair/4040914375/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-asleep.jpg" width="628" height="233" title="'Yours truly failing to stay awake'" /></a></p>
 
 <p>Check out the <a href="http://barcamp.org/">BarCamp wiki</a> for more information on BarCamps and to find your next local event. Alternatively you can go to the <a href="http://www.barcamplondon.org/">BarCamp London site</a> which was the fine event this article is written about!</p>
 </div>
@@ -439,19 +707,25 @@
 
   <div class="entry-content"><p>Aah, ambiguity! What a tricky devil you are. The <a href="http://www.w3.org">W3C</a> Recommendations are normally very specific and not at all ambiguous, but when things are left open to interpretation you can be fairly sure of varying results.</p>
 
-<h4>Bad form, old chap</h4>
+<h2 id="bad-form-old-chap">Bad form, old chap</h2>
 
 <p>Have a look at this form:</p>
 
-<pre><code>&lt;form action="wherever.html" method="post"&gt;
-    &lt;label for="firstname"&gt;First name&lt;/label&gt;
-&lt;input type="text" name="firstname" id="firstname"&gt;&lt;/input&gt;
-&lt;input type="submit" name="proceed" value="Proceed"&gt;&lt;/input&gt;
-&lt;input type="submit" name="back" value="Back"&gt;&lt;/input&gt;
-&lt;/form&gt;
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>HTML    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;wherever.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;firstname&quot;</span><span class="nt">&gt;</span>First name<span class="nt">&lt;/label&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;firstname&quot;</span> <span class="na">id=</span><span class="s">&quot;firstname&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;proceed&quot;</span> <span class="na">value=</span><span class="s">&quot;Proceed&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;back&quot;</span> <span class="na">value=</span><span class="s">&quot;Back&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line"><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>What gets submitted when you hit Proceed? Well yes, <code>firstname</code> is included as is <code>proceed</code>, but is <code>back</code>? What gets submitted when you hit Back, as <a href="http://atlantic-drugs.net/products/accutane.htm">the</a> second submit button in the form?</p>
+<p>What gets submitted when you hit Proceed? Well yes, <code>firstname</code> is included as is <code>proceed</code>, but is <code>back</code>? What gets submitted when you hit Back, as the second submit button in the form?</p>
 
 <p>Well the <a href="http://www.w3.org/TR/html401/interact/forms.html#submit-format">W3C Guidelines on form submission</a> say that for forms with more than one submit button, only the submit button that was pressed should be submitted. This seems fair enough.</p>
 
@@ -459,68 +733,84 @@
 
 <p>The W3C has no recommendation for this! The precise wording used to qualify whether a submit button gets sent along with the other form data is:</p>
 
-<blockquote><p>If a form contains more than one submit button, only the activated submit button is successful.</p></blockquote>
+<blockquote>
+  <p>If a form contains more than one submit button, only the activated submit button is successful.</p>
+</blockquote>
 
-<p>&#8230;where &#8216;activated&#8217; means having been clicked on to submit the form and being &#8216;successful&#8217; refers to the selection process for including form elements in the request.</p>
+<p>…where ‘activated’ means having been clicked on to submit the form and being ‘successful’ refers to the selection process for including form elements in the request.</p>
 
-<h4>Pressing the right buttons (or not, as the case may be)</h4>
+<h2 id="pressing-the-right-buttons-or-not-as-the-case-may-be">Pressing the right buttons (or not, as the case may be)</h2>
 
 <p>What actually happens varies between browsers, which I suppose is no surprise really. The surprise is which browsers do what.</p>
 
 <p>We see two behaviors here:</p>
 
 <ul>
-<li><p>IE (I tested 6, 7 &amp; 8) works on the basis that you only submit an <em>activated</em> form element and the only way to activate a submit button is to <em>click on it</em>. Therefore if you click on a submit button, IE will submit it&#8217;s value along with the rest of the form, but if you press <em>Enter</em> to submit it doesn&#8217;t submit the value of <em>any</em> submit buttons.</p></li>
-<li><p>All other browsers (tested: Firefox, Safari, Chrome, Opera) submit a value for a submit button, <em>whether or not you click it</em>. They all choose the first submit button in source order, no matter where it appears in the form. Thank goodness that&#8217;s consistent!</p></li>
+  <li>IE (I tested 6, 7 &amp; 8) works on the basis that you only submit an <em>activated</em> form element and the only way to activate a submit button is to <em>click on it</em>. Therefore if you click on a submit button, IE will submit it’s value along with the rest of the form, but if you press <em>Enter</em> to submit it doesn’t submit the value of <em>any</em> submit buttons.</li>
+  <li>All other browsers (tested: Firefox, Safari, Chrome, Opera) submit a value for a submit button, <em>whether or not you click it</em>. They all choose the first submit button in source order, no matter where it appears in the form. Thank goodness that’s consistent!</li>
 </ul>
 
-
-<p>I guess that the other browsers think it&#8217;s fair to assume that pressing enter while entering data into a form is the same as clicking on the submit button, which in most cases it is. But what happens when you&#8217;ve got two or more submit buttons? How do you know which button the user wanted to click? How can the developer predict that, supposing they <a href="http://atlantic-drugs.net/products/bystolic.htm">even</a> know about this peculiarity? Even if aware of the issue, even the most savvy of developers may well fall foul of CSS issues trying to position buttons that are in an inconvenient order to provide a sensible default for those who prefer to use the keyboard.</p>
+<p>I guess that the other browsers think it’s fair to assume that pressing enter while entering data into a form is the same as clicking on the submit button, which in most cases it is. But what happens when you’ve got two or more submit buttons? How do you know which button the user wanted to click? How can the developer predict that, supposing they even know about this peculiarity? Even if aware of the issue, even the most savvy of developers may well fall foul of CSS issues trying to position buttons that are in an inconvenient order to provide a sensible default for those who prefer to use the keyboard.</p>
 
 <p>Yes, this time <em>I think IE got it right</em>!</p>
 
-<h4>How to fix the problem</h4>
+<h2 id="how-to-fix-the-problem">How to fix the problem</h2>
 
-<p>I think anyone that works with browsers will admit that we all dream of a world where they all have consistent and good behavior. But failing that, consistent behavior would be nice.</p>
+<p>I think anyone that works with browsers will admit that we all dream of a world where they all have consistent and good behavior. But failing that, consistent behavior would be nice. </p>
 
-<p>I&#8217;m not convinced that all the other browsers will change their behavior any time soon (even if they could be convinced that what they are doing isn&#8217;t the right option) as there are probably hundreds of thousands of sites out there that will break if it changes. So the best thing to do is to &#8216;fix&#8217; IE to behave the same.</p>
+<p>I’m not convinced that all the other browsers will change their behavior any time soon (even if they could be convinced that what they are doing isn’t the right option) as there are probably hundreds of thousands of sites out there that will break if it changes. So the best thing to do is to ‘fix’ IE to behave the same.</p>
 
-<p>Here&#8217;s the code:</p>
+<p>Here’s the code:</p>
 
-<pre><code>&lt;form action="wherever.html" method="post"&gt;
-    &lt;label for="firstname"&gt;First name&lt;/label&gt;
-&lt;input type="text" name="firstname" id="firstname"&gt;&lt;/input&gt;
-&lt;input type="&lt;a href='http://atlantic-drugs.net/products/accutane.htm'&gt;hidden&lt;/a&gt;" name="submit_button" value="Proceed"&gt;&lt;/input&gt;
-&lt;input type="submit" name="submit_button" value="Proceed"&gt;&lt;/input&gt;
-&lt;input type="submit" name="submit_button" value="Back"&gt;&lt;/input&gt;
-&lt;/form&gt;
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>HTML    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;wherever.html&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</span><span class="line">    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;firstname&quot;</span><span class="nt">&gt;</span>First name<span class="nt">&lt;/label&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;firstname&quot;</span> <span class="na">id=</span><span class="s">&quot;firstname&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;&lt;a href=&#39;http://atlantic-drugs.net/products/accutane.htm&#39;&gt;hidden&lt;/a&gt;&quot;</span> <span class="na">name=</span><span class="s">&quot;submit_button&quot;</span> <span class="na">value=</span><span class="s">&quot;Proceed&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;submit_button&quot;</span> <span class="na">value=</span><span class="s">&quot;Proceed&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line">    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;submit_button&quot;</span> <span class="na">value=</span><span class="s">&quot;Back&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+</span><span class="line"><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>You&#8217;ll notice I changed a few things around! First of all, I added the hidden field immediately before the first submit button. The first button is the one which acts as the default button in FF, Safari <em>et al.</em> and so we are making it do the same in IE. By adding a hidden field with the same name and value as the first button <strong>immediately before</strong> the button itself, it effectively acts as a default. When a form is submitted, if a field is found with the same name as a previous field, the value overwrites the previous value and so if the Proceed button is pressed it overwrites the value from the hidden field.</p>
+<p>You’ll notice I changed a few things around! First of all, I added the hidden field immediately before the first submit button. The first button is the one which acts as the default button in FF, Safari <em>et al.</em> and so we are making it do the same in IE. By adding a hidden field with the same name and value as the first button <strong>immediately before</strong> the button itself, it effectively acts as a default. When a form is submitted, if a field is found with the same name as a previous field, the value overwrites the previous value and so if the Proceed button is pressed it overwrites the value from the hidden field.</p>
 
-<p>In IE if the user presses Enter to submit the form, neither button is pressed and the hidden field gets submitted. But as it has the same name and value as the Proceed button, it&#8217;s as if the Proceed button was pressed. In the other browsers the value of the Proceed button overwrites the value of the hidden field and so it&#8217;s like it&#8217;s not even there.</p>
+<p>In IE if the user presses Enter to submit the form, neither button is pressed and the hidden field gets submitted. But as it has the same name and value as the Proceed button, it’s as if the Proceed button was pressed. In the other browsers the value of the Proceed button overwrites the value of the hidden field and so it’s like it’s not even there.</p>
 
-<p>That&#8217;s all fine but if the Back button is clicked the hidden field will be submitted as well giving an impossible value for both the submit buttons in the same request! That&#8217;s why I&#8217;ve also changed the name of the Back button to be the same as the name of the Proceed button - that way there will always be a value submitted for <code>submit_button</code>: either &#8220;Back&#8221; or the default &#8220;Proceed&#8221;.</p>
+<p>That’s all fine but if the Back button is clicked the hidden field will be submitted as well giving an impossible value for both the submit buttons in the same request! That’s why I’ve also changed the name of the Back button to be the same as the name of the Proceed button - that way there will always be a value submitted for <code>submit_button</code>: either “Back” or the default “Proceed”.</p>
 
-<p><em>Notice I didn&#8217;t call any of the fields &#8221;<code>submit</code>&#8221;. That was intentional, and it&#8217;s because if we ever want to submit the form via Javascript having a field named <code>submit</code> would make that impossible.</em></p>
+<p><em>Notice I didn’t call any of the fields “<code>submit</code>”. That was intentional, and it’s because if we ever want to submit the form via Javascript having a field named <code>submit</code> would make that impossible.</em></p>
 
-<h4>But is it really a problem?</h4>
+<h2 id="but-is-it-really-a-problem">But is it really a problem?</h2>
 
-<p>That solution is a bit clunky to be honest. Having the extra field is a bit of a hack and the fact that you have to call the hidden field and both submit buttons by the same name make it a little restrictive, especially when it doesn&#8217;t even need to be a problem.</p>
+<p>That solution is a bit clunky to be honest. Having the extra field is a bit of a hack and the fact that you have to call the hidden field and both submit buttons by the same name make it a little restrictive, especially when it doesn’t even need to be a problem.</p>
 
-<p>Armed with the knowledge in this article we know that we can&#8217;t rely on the values of the submit buttons to be broadcast. If we don&#8217;t know which button has been clicked, we simply choose a default action and perform that unless we detect the alternative action. In PHP and for the first form it would go something like this:</p>
+<p>Armed with the knowledge in this article we know that we can’t rely on the values of the submit buttons to be broadcast. If we don’t know which button has been clicked, we simply choose a default action and perform that unless we detect the alternative action. In PHP and for the first form it would go something like this:</p>
 
-<pre><code>if($_SERVER['REQUEST_METHOD']=='POST'){ // if a form was submitted
-    if(array_key_exists('back', $_POST)){ // if the back button was clicked
-        // Perform back action
-    }
-    else{
-        // Perform default action
-    }
-}
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>PHP</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="php"><span class="line"><span class="x">if($_SERVER[&#39;REQUEST_METHOD&#39;]==&#39;POST&#39;){ // if a form was submitted</span>
+</span><span class="line"><span class="x">	if(array_key_exists(&#39;back&#39;, $_POST)){ // if the back button was clicked</span>
+</span><span class="line"><span class="x">		// Perform back action</span>
+</span><span class="line"><span class="x">	}</span>
+</span><span class="line"><span class="x">	else{</span>
+</span><span class="line"><span class="x">		// Perform default action</span>
+</span><span class="line"><span class="x">	}</span>
+</span><span class="line"><span class="x">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>So long as you don&#8217;t assume the button to be clicked in order to perform the default action, life will be good!</p>
+<p>So long as you don’t assume the button to be clicked in order to perform the default action, you will keep all your hair!</p>
 </div>
   
   
@@ -558,109 +848,110 @@
 
   <div class="entry-content"><p>Or: How to avoid paying for a replacement mouse when the sticky scroll ball proves too much to bear.</p>
 
-<h4>Impeccable timing</h4>
+<h2 id="impeccable-timing">Impeccable timing</h2>
 
-<p>I couldn&#8217;t really have timed this better. Rumours have just started to emerge about <a href="http://www.engadget.com/2009/10/02/new-apple-bluetooth-keyboard-arrives-at-the-fcc-new-mouse-rumor/">a new mouse and keyboard from Apple</a> in time for the also-rumoured new line of iMacs to be announced at the forthcoming Apple event. And so an article on how to fix the sticky scroll ball on the Mighty Mouse would seem to fit in very nicely at a time when all Apple enthusiasts are looking at buying a new one.</p>
+<p>I couldn’t really have timed this better. Rumours have just started to emerge about <a href="http://www.engadget.com/2009/10/02/new-apple-bluetooth-keyboard-arrives-at-the-fcc-new-mouse-rumor/">a new mouse and keyboard from Apple</a> in time for the also-rumoured new line of iMacs to be announced at the forthcoming Apple event. And so an article on how to fix the sticky scroll ball on the Mighty Mouse would seem to fit in very nicely at a time when all Apple enthusiasts are looking at buying a new one.</p>
 
-<p>In fact I have been sitting on this article for over a year now but didn&#8217;t have a suitable platform to publish it on and so now, right before it fades into irrelevance, here it is.</p>
+<p>&lt;/sarcasm&gt;</p>
 
-<h4>Requirements</h4>
+<p>In fact I have been sitting on this article for over a year now but didn’t have a suitable platform to publish it on and so now, right before it fades into irrelevance, here it is.</p>
+
+<h2 id="requirements">Requirements</h2>
 
 <p>To perform this feat of frugality you will need:</p>
 
 <ul>
-<li><p>A flat, non-scratchy object (like a plastic ruler)</p></li>
-<li><p>A small Philips screwdriver</p></li>
-<li><p>A small flat headed screwdriver</p></li>
-<li><p>Some glue that is good for plastics</p></li>
-<li><p>A certain amount of patience</p></li>
-<li><p>The ability to work with tiny objects</p></li>
+  <li>A flat, non-scratchy object (like a plastic ruler)</li>
+  <li>A small Philips screwdriver</li>
+  <li>A small flat headed screwdriver</li>
+  <li>Some glue that is good for plastics</li>
+  <li>A certain amount of patience</li>
+  <li>The ability to work with tiny objects</li>
 </ul>
-
 
 <p>You also might need a spirit cleaner such as methylated spirit, white spirit or surgical spirit and some paper towels.</p>
 
-<h4>Crack open the mouse</h4>
+<h2 id="crack-open-the-mouse">Crack open the mouse</h2>
 
-<p>There are no visible screws on the Mighty Mouse which makes it a pain to get into. A pain but not impossible. Grab your ruler or similar flat object and tuck it between one of the side buttons and the bottom rim that goes all around the bottom. Slide it around the edge to detach the rim from the mouse. It&#8217;s glued on there (or fused with heat or something similar) so it can be a bit tricky in places. Just go slowly and carefully and it should come off intact.</p>
+<p>There are no visible screws on the Mighty Mouse which makes it a pain to get into. A pain but not impossible. Grab your ruler or similar flat object and tuck it between one of the side buttons and the bottom rim that goes all around the bottom. Slide it around the edge to detach the rim from the mouse. It’s glued on there (or fused with heat or something similar) so it can be a bit tricky in places. Just go slowly and carefully and it should come off intact.</p>
 
-<p>[caption id=&#8221;attachment_42&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;Prising the mouse open with a ruler&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse01.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse01-300x224.jpg" alt="Prising the mouse open with a ruler" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse01.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse01-300x224.jpg" width="300" height="224" title="'Prising the mouse open with a ruler'" /></a></p>
 
-<p>This is the step that made me the most nervous. Don&#8217;t worry, it&#8217;s all OK from here on! And if it makes you too nervous just remember how damn annoying that sticky scroll ball is and how you <a href="http://atlantic-drugs.net/products/accutane.htm">were</a> probably just going to chuck it away anyway.</p>
+<p>This is the step that made me the most nervous. Don’t worry, it’s all OK from here on! And if it makes you too nervous just remember how damn annoying that sticky scroll ball is and how you <a href="http://atlantic-drugs.net/products/accutane.htm">were</a> probably just going to chuck it away anyway.</p>
 
-<h4>Rimless wonder</h4>
+<h2 id="rimless-wonder">Rimless wonder</h2>
 
 <p>Once you have detached the rim it should look something like this.</p>
 
-<p>[caption id=&#8221;attachment_43&#8221; align=&#8221;aligncenter&#8221; width=&#8221;224&#8221; caption=&#8221;The mouse with no bottom rim&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse02.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse02-224x300.jpg" alt="The mouse with no bottom rim" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse02.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse02-224x300.jpg" width="224" height="300" title="'The mouse with no bottom rim'" /></a></p>
 
-<p>The bottom half is still attached to the main enclosure but not by much. There&#8217;s the pivot at the back which lets the entire of the top half move when you click and at the front are just some loose clips preventing the guts from falling out of the shell. It&#8217;ll all pop out quite easily by hand with just a little gentle persuasion.</p>
+<p>The bottom half is still attached to the main enclosure but not by much. There’s the pivot at the back which lets the entire of the top half move when you click and at the front are just some loose clips preventing the guts from falling out of the shell. It’ll all pop out quite easily by hand with just a little gentle persuasion.</p>
 
-<h4>Detach the wires</h4>
+<h2 id="detach-the-wires">Detach the wires</h2>
 
 <p>Once you have got the bottom (the battery enclosure, laser, circuit board etc.) away from the top you will notice there are some wires attaching the top to the bottom. These need to come off because it makes it a lot easier to work with.</p>
 
-<p>[caption id=&#8221;attachment_44&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;Disconnecting the top from the bottom of the mouse &#8220;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse03.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse03-300x224.jpg" alt="Disconnecting the top from the bottom of the mouse " /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse03.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse03-300x224.jpg" width="300" height="224" title="'Disconnecting the top from the bottom of the mouse'" /></a></p>
 
 <p>Just take your flat head screwdriver and push the black clips away from the white sockets. The ribbon wires will just slide out easily after this.</p>
 
-<p>[caption id=&#8221;attachment_45&#8221; align=&#8221;aligncenter&#8221; width=&#8221;224&#8221; caption=&#8221;The bottom of the mouse, wires off&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse04.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse04-224x300.jpg" alt="The bottom of the mouse, wires off" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse04.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse04-224x300.jpg" width="224" height="300" title="'The bottom of the mouse, wires off'" /></a></p>
 
-<h4>Top-up</h4>
+<h2 id="top-up">Top-up</h2>
 
 <p>This is the inside of the top of the mouse. Look at those crazy pickups! Somehow they can tell where your fingers are. Very clever.</p>
 
-<p>[caption id=&#8221;attachment_46&#8221; align=&#8221;aligncenter&#8221; width=&#8221;224&#8221; caption=&#8221;Inside the top of the mouse &#8220;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse05.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse05-224x300.jpg" alt="Inside the top of the mouse " /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse05.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse05-224x300.jpg" width="224" height="300" title="'Inside the top of the mouse'" /></a></p>
 
-<p>But we don&#8217;t care about those; that black box with the three screws is what we&#8217;re concerned with. Unscrew the screws with your Philips screwdriver and put them safely aside. This is what you&#8217;re left with.</p>
+<p>But we don’t care about those; that black box with the three screws is what we’re concerned with. Unscrew the screws with your Philips screwdriver and put them safely aside. This is what you’re left with.</p>
 
-<p>[caption id=&#8221;attachment_47&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The scroll ball in its enclosure&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse06.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse06-300x224.jpg" alt="The scroll ball in its enclosure" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse06.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse06-300x224.jpg" width="300" height="224" title="'The scroll ball in its enclosure'" /></a></p>
 
-<p>Very nice, but what we&#8217;re after is in that box of tricks. Fortunately the cross-shaped white lid will just pop off. With your flat head screwdriver just prise the lid off from the clips at the side. Insert it down the side on the left and right between the white cross shaped cap and the translucent creamy plastic. If you insert it between the translucent plastic and the black container then more will come out than you want and you&#8217;ll need to put it back before continuing!</p>
+<p>Very nice, but what we’re after is in that box of tricks. Fortunately the cross-shaped white lid will just pop off. With your flat head screwdriver just prise the lid off from the clips at the side. Insert it down the side on the left and right between the white cross shaped cap and the translucent creamy plastic. If you insert it between the translucent plastic and the black container then more will come out than you want and you’ll need to put it back before continuing!</p>
 
-<p>[caption id=&#8221;attachment_48&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The top of the scolling enclosure removed&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse07.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse07-300x224.jpg" alt="The top of the scolling enclosure removed" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse07.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse07-300x224.jpg" width="300" height="224" title="'The top of the scolling enclosure removed'" /></a></p>
 
-<p>Here&#8217;s the problem! When these photos were taken I had already cleaned everything so you can&#8217;t see it here but those four white rollers are most likely covered in scum and dirt, very similar to what you might expect to find on the rollers of an old ball mouse.</p>
+<p>Here’s the problem! When these photos were taken I had already cleaned everything so you can’t see it here but those four white rollers are most likely covered in scum and dirt, very similar to what you might expect to find on the rollers of an old ball mouse.</p>
 
-<h4>Cleaning up</h4>
+<h2 id="cleaning-up">Cleaning up</h2>
 
 <p>Take the ball out of the enclosure.</p>
 
-<p>[caption id=&#8221;attachment_49&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The scroll enclosure without the scroll ball&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse08.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse08-300x224.jpg" alt="The scroll enclosure without the scroll ball" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse08.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse08-300x224.jpg" width="300" height="224" title="'The scroll enclosure without the scroll ball'" /></a></p>
 
-<p>Now take the rollers out. Here&#8217;s what you should be looking at:</p>
+<p>Now take the rollers out. Here’s what you should be looking at:</p>
 
-<p>[caption id=&#8221;attachment_50&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The scroll enclosure with no ball or rollers&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse09.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse09-300x224.jpg" alt="The scroll enclosure with no ball or rollers" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse09.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse09-300x224.jpg" width="300" height="224" title="'The scroll enclosure with no ball or rollers'" /></a></p>
 
 <p>The raised pieces of rubber underneath the rollers contain the magnetic pickups that detect when the scroll ball is being moved. Clever stuff.</p>
 
 <p>Here are all the parts of the scroll enclosure. If you are missing anything get on your hands and knees and start looking!</p>
 
-<p>[caption id=&#8221;attachment_51&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;The parts of the scroll enclosure laid out&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse10.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse10-300x224.jpg" alt="The parts of the scroll enclosure laid out" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse10.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse10-300x224.jpg" width="300" height="224" title="'The parts of the scroll enclosure laid out'" /></a></p>
 
-<p>Clean all the rollers. Scrape all the crud off with your fingernail. Then if it&#8217;s still dirty get out your spirit cleaner and paper towels and give them a little scrub. Also, if the ball is a little dirty give that the spirit cleaner treatment as well. It won&#8217;t hurt it!</p>
+<p>Clean all the rollers. Scrape all the crud off with your fingernail. Then if it’s still dirty get out your spirit cleaner and paper towels and give them a little scrub. Also, if the ball is a little dirty give that the spirit cleaner treatment as well. It won’t hurt it!</p>
 
-<p>[caption id=&#8221;attachment_52&#8221; align=&#8221;aligncenter&#8221; width=&#8221;348&#8221; caption=&#8221;Close up of a roller from the scroll enclosure&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse11.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse11.jpg" alt="Close up of a roller from the scroll enclosure" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse11.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse11.jpg" width="348" height="252" title="'Close up of a roller from the scroll enclosure'" /></a></p>
 
-<h4>Reassembling your mouse</h4>
+<h2 id="reassembling-your-mouse">Reassembling your mouse</h2>
 
-<p>Here&#8217;s the fiddly part. Everyone knows it&#8217;s easier to rip things apart than put them back together and this is no exception to the rule. The fiddlyest part is getting this scroll enclosure back together. This is mainly due to the rollers and getting them into position. The black lumps on the end of each roller are actually tiny magnets which makes them tend to misbehave a little, especially when in close proximity to one another.</p>
+<p>Here’s the fiddly part. Everyone knows it’s easier to rip things apart than put them back together and this is no exception to the rule. The fiddlyest part is getting this scroll enclosure back together. This is mainly due to the rollers and getting them into position. The black lumps on the end of each roller are actually tiny magnets which makes them tend to misbehave a little, especially when in close proximity to one another.</p>
 
 <p>The best way to get these back together is actually in the white cross-shaped lid because it has little grooves for the rollers to sit in. Place the ball in there first and then add each roller, one by one.</p>
 
-<p>[caption id=&#8221;attachment_53&#8221; align=&#8221;aligncenter&#8221; width=&#8221;300&#8221; caption=&#8221;Reassembling the scroll enclosure contents in the lid&#8221;]<a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse12.jpg"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/10/mouse12-300x224.jpg" alt="Reassembling the scroll enclosure contents in the lid" /></a>[/caption]</p>
+<p><a href="/images/wp-uploads/2009/10/mouse12.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse12-300x224.jpg" width="300" height="224" title="'Reassembling the scroll enclosure contents in the lid'" /></a></p>
 
 <p>Make sure you add them the right way around! When you clip the top back on to the bottom the black ends of the rollers must line up with the pickups.</p>
 
-<p>Turn the black bit with the wire still attached and quickly place it over the cross / roller / ball arrangement. Press down, making sure it&#8217;s all aligned well. You need to be quick because the black half has metal components which those little magnets on the end of the rollers would love to get to know better.</p>
+<p>Turn the black bit with the wire still attached and quickly place it over the cross / roller / ball arrangement. Press down, making sure it’s all aligned well. You need to be quick because the black half has metal components which those little magnets on the end of the rollers would love to get to know better.</p>
 
 <p>Once you have successfully reassembled the scroll enclosure, just reverse the process! Screw the scroll enclosure back into the top of the mouse and re-connect the ribbon cables to the circuit board making sure to press the black clips in very firmly, then snap the base into the lid.</p>
 
-<p>All you have to do now is glue the rim back on. Make sure you don&#8217;t use too much glue in case you have to do this again! Also, to make sure you don&#8217;t put any glue on the sections of the rim that fall beneath the side buttons, apply the glue to the mouse not the rim. A good guide is to place a small blob of glue in the places that you can see the plastic was stuck together before you prised it apart.</p>
+<p>All you have to do now is glue the rim back on. Make sure you don’t use too much glue in case you have to do this again! Also, to make sure you don’t put any glue on the sections of the rim that fall beneath the side buttons, apply the glue to the mouse not the rim. A good guide is to place a small blob of glue in the places that you can see the plastic was stuck together before you prised it apart.</p>
 
-<h4>All done!</h4>
+<h2 id="all-done">All done!</h2>
 
-<p>Just wait for the glue to dry and you&#8217;re all good to go. Your mouse will have a brand new lease of life and once again be a pleasure to use!</p>
+<p>Just wait for the glue to dry and you’re all good to go. Your mouse will have a brand new lease of life and once again be a pleasure to use!</p>
 </div>
   
   
@@ -696,33 +987,34 @@
   </header>
 
 
-  <div class="entry-content"><p>Good question, and something I&#8217;ve often wondered. You hear people using both terms the whole time so let&#8217;s lay this one to rest.</p>
+  <div class="entry-content"><p>Good question, and something I’ve often wondered. You hear people using both terms the whole time so let’s lay this one to rest.</p>
 
-<p>So I&#8217;m sitting in this café writing some code and probably looking like a bit of a geek. Fair enough, th<a href="http://atlantic-drugs.net/products/viagra.htm">viagra</a> happens. For various reasons I want to <a href="http://cvsmailorderpharmacy.org/buy-kamagra-usa.html">have</a> a variable in my webapp&#8217;s registry that stores the URL of the current page. Or is it URI? I&#8217;m at a bit of a loss on what to call it.</p>
+<p>So I’m sitting in this café writing some code and probably looking like a bit of a geek. Fair enough, that happens. For various reasons I want to have a variable in my webapp’s registry that stores the URL of the current page. Or is it URI? I’m at a bit of a loss on what to call it.</p>
 
-<h4>What is a URL?</h4>
+<h2 id="what-is-a-url">What is a URL?</h2>
 
-<p>URL stands for <em>Uniform Resource Locator</em> which means it&#8217;s a reference to a specific <em>location</em>. Importantly the location must be on the web, although this isn&#8217;t indicated within it&#8217;s name. More</p>
+<p>URL stands for <em>Uniform Resource Locator</em> which means it’s a reference to a specific <em>location</em>. Importantly the location must be on the web, although this isn’t indicated within it’s name. More </p>
 
-<h4>What is a URI?</h4>
+<h2 id="what-is-a-uri">What is a URI?</h2>
 
-<p>In relation to a URL<strong>a URI is like a superclass</strong>. It stands for <em>Uniform Resource Identifier</em> which means it&#8217;s a reference to a specific <em>thing</em>. This thing could be just about anything addressable. For example a location on the web!</p>
+<p>In relation to a URL <strong>a URI is like a superclass</strong>. It stands for <em>Uniform Resource Identifier</em> which means it’s a reference to a specific <em>thing</em>. This thing could be just about anything addressable. For example a location on the web!</p>
 
-<h4>What&#8217;s the difference really? Why don&#8217;t we just use URL?</h4>
+<h2 id="whats-the-difference-really-why-dont-we-just-use-url">What’s the difference really? Why don’t we just use URL?</h2>
 
 <p>We should do if we are talking about web addresses! The distinction is that a URL provides information on how to get to the resource (Eg. http, https, ftp, mailto, etc). A URI can be relative (Eg. /path/to/file.jpg) or missing the protocol (Eg. //www.norestfortheweekend.com/2009/). These are both valid URIs but not URLs.</p>
 
-<h4>Hidden Extras</h4>
+<h2 id="hidden-extras">Hidden Extras</h2>
 
-<p>A URL <em>is a _ URI but a URI </em>is not necessarily_ a URL. We see this kind of relationship in programming with classes. Another &#8216;subclass&#8217; of URI which not as many people have heard of is the URN.</p>
+<p>A URL <em>is a</em> URI but a URI <em>is not necessarily</em> a URL. We see this kind of relationship in programming with classes. Another ‘subclass’ of URI which not as many people have heard of is the URN.</p>
 
-<p>URNs (Uniform Resource Name) start with <code>urn:</code> followed by a string identifying something. They are used for identification purposes rather than as a way of finding (locating) things as URLs are. Something that has some kind of universal identifier can be formatted as a URN. A good example of this is books. The majority of books at retail have an ISBN. The ISBN is their universal identifier; it doesn&#8217;t point to where you can find the book, or contain any of the books subject matter. It just identifies it in a way that there is no confusion as to what you&#8217;re talking about.</p>
+<p>URNs (Uniform Resource Name) start with <code>urn:</code> followed by a string identifying something. They are used for identification purposes rather than as a way of finding (locating) things as URLs are. Something that has some kind of universal identifier can be formatted as a URN. A good example of this is books. The majority of books at retail have an <abbr title="International Standard Book Number">ISBN</abbr>. The <abbr title="International Standard Book Number">ISBN</abbr> is their universal identifier; it doesn’t point to where you can find the book, or contain any of the books subject matter. It just identifies it in a way that there is no confusion as to what you’re talking about. </p>
 
-<p>An ISBN can be expressed as a URN: <code>urn:isbn:1582408181</code>.</p>
+<p>An <abbr title="International Standard Book Number">ISBN</abbr> can be expressed as a URN: <code>urn:isbn:1582408181</code>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
 
 <p>For more wordy explanations, check out the wikipedia articles on <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URIs</a>, <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Locator">URLs</a> and <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Name">URNs</a>!</p>
 
-<p>  *[ISBN]: International Standard Book Number</p>
 </div>
   
   
@@ -772,9 +1064,9 @@
 @<a href="http://twitter.com/shauninman">shauninman</a> (Shaun Inman)
 @<a href="http://twitter.com/adactio">adactio</a> (Jeremy Keith)</p>
 
-<p>I should mention that (apparently unlike most people) I read all the tweets that come in on my stream. This means that I am less likely to be following people who, while very relevant are also a wee bit too verbose (for my tastes - your mileage may vary) on topics that I didn&#8217;t follow them for! I&#8217;m looking at you, @<a href="http://twitter.com/codepo8">codepo8</a> (Christian Heilmann)!</p>
+<p>I should mention that (apparently unlike most people) I read all the tweets that come in on my stream. This means that I am less likely to be following people who, while very relevant are also a wee bit too verbose (for my tastes - your mileage may vary) on topics that I didn’t follow them for! I won’t name names as I don’t want to upset anyone.</p>
 
-<p>Please comment and let me know who I missed&#8230;</p>
+<p>Please comment and let me know who I missed…</p>
 </div>
   
   
@@ -810,9 +1102,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Oh well, the weekend&#8217;s over again. What did you do? I got an impressive sunburn, bought some delicious fruit and veg at the market and looked into RESTful architectures, among other things. Although I would love to tell you about my culinary adventures, what I&#8217;m going to write about now is REST. It should be noted that in this case REST is not sitting in front of the TV and has nothing to do with the title of this blog, despite what you may think!</p>
+  <div class="entry-content"><p>Oh well, the weekend’s over again. What did you do? I got an impressive sunburn, bought some delicious fruit and veg at the market and looked into RESTful architectures, among other things. Although I would love to tell you about my culinary adventures, what I’m going to write about now is REST. It should be noted that in this case REST is not sitting in front of the TV and has nothing to do with the title of this blog, despite what you may think!</p>
 
-<h4>What REST is not</h4>
+<h2 id="what-rest-is-not">What REST is not</h2>
 
 <p>There seems to be some confusion over exactly what a RESTful architecture is. Some people think it is pretty URLs:</p>
 
@@ -832,78 +1124,77 @@
 <pre><code>http://www.mysite.com/contact/email/send
 </code></pre>
 
-<p>This isn&#8217;t RESTful either.</p>
+<p>This isn’t RESTful either.</p>
 
-<h4>Being resourceful</h4>
+<h2 id="being-resourceful">Being resourceful</h2>
 
-<p>REST stands for <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer and it&#8217;s all about resources. That is to say, data presented in a formatted way and made available at specific, addressable points of entry. Most of the time when people talk about a REST interface they will be talking about the web and URLs, but REST is not limited to this technology. So long as each resource on a system can be identified uniquely, manipulated, each request for resources includes enough information that the client knows how to process it and has the ability to contain references to other resources then it can be called RESTful.</p>
+<p>REST stands for <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer and it’s all about resources. That is to say, data presented in a formatted way and made available at specific, addressable points of entry. Most of the time when people talk about a REST interface they will be talking about the web and URLs, but REST is not limited to this technology. So long as each resource on a system can be identified uniquely, manipulated, each request for resources includes enough information that the client knows how to process it and has the ability to contain references to other resources then it can be called RESTful.</p>
 
 <p>A RESTful system is a stateless system; each resource request in a RESTful system should be completely independent of any other. It should not rely on cookies, session variables or any other state maintaining solutions. This is because a REST request is intended to be performed on the current state of the specified resource and the resource should be able to be encapsulated in a single response.</p>
 
-<h4>Strict instructions</h4>
+<h2 id="strict-instructions">Strict instructions</h2>
 
-<p>It might have slipped under the radar but a couple of paragraphs above I mentioned that a REST response should include information for the client on how to process the data. In the case of a web service (and it should be assumed from here on out I&#8217;ll be talking about web services) the <a href="http://en.wikipedia.org/wiki/MIME_type">MIME type</a> should be sufficient. For example, if you are serving your response up as JSON you&#8217;d want to use the <strong>MIME type</strong>: <code>application/json</code>. The <strong>MIME type</strong> is contained within the header of the response.</p>
+<p>It might have slipped under the radar but a couple of paragraphs above I mentioned that a REST response should include information for the client on how to process the data. In the case of a web service (and it should be assumed from here on out I’ll be talking about web services) the <a href="http://en.wikipedia.org/wiki/MIME_type">MIME type</a> should be sufficient. For example, if you are serving your response up as JSON you’d want to use the <strong>MIME type</strong>: <code>application/json</code>. The <strong>MIME type</strong> is contained within the header of the response.</p>
 
 <p>In a similar manner, the client needs to tell the server what it wants to do with the specific resource. We can do this by specifying the correct <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP Method</a> as part of the request.</p>
 
-<h4>Method in madness</h4>
+<h2 id="method-in-madness">Method in madness</h2>
 
-<p>So the HTTP methods most people are used to are: <code>GET</code> (the default method, what you get when you hit enter after typing a URL) and <code>POST</code> (the method used for submitting most forms). The others we are interested in are <code>PUT</code> and <code>DELETE</code>. Using these four methods we can instruct a RESTful interface to perform the basic CRUD operations:</p>
+<p>So the HTTP methods most people are used to are: <code>GET</code> (the default method, what you get when you hit enter after typing a URL) and <code>POST</code> (the method used for submitting most forms). The others we are interested in are <code>PUT</code> and <code>DELETE</code>. Using these four methods we can instruct a RESTful interface to perform the basic <abbr title="Create, Read, Update, Delete">CRUD</abbr> operations:</p>
 
 <ul>
-<li><p><strong>C</strong>reate = <code>POST</code></p></li>
-<li><p><strong>R</strong>ead = <code>GET</code></p></li>
-<li><p><strong>U</strong>pdate = <code>PUT</code></p></li>
-<li><p><strong>D</strong>elete = <code>DELETE</code> (rather unsurprisingly)</p></li>
+  <li><strong>C</strong>reate = <code>POST</code></li>
+  <li><strong>R</strong>ead = <code>GET</code></li>
+  <li><strong>U</strong>pdate = <code>PUT</code></li>
+  <li><strong>D</strong>elete = <code>DELETE</code> (rather unsurprisingly)</li>
 </ul>
 
+<p>Using these methods you can manipulate a resource in any way you like from that single addressable entry point. If you have the URL for the resource, in a RESTful architecture you know you won’t have to append strings to the URL to make it do things (Eg <code>?action=delete</code>) - you just change the method used to request the resource in the request header.</p>
 
-<p>Using these methods you can manipulate a resource in any way you like from that single addressable entry point. If you have the URL for the resource, in a RESTful architecture you know you won&#8217;t have to append strings to the URL to make it do things (Eg <code>?action=delete</code>) - you just change the method used to request the resource in the request header.</p>
+<p>Obviously if your system is externally accessible you will probably want to limit access to the ‘unsafe’ <code>POST</code>, <code>PUT</code> and <code>DELETE</code> methods.</p>
 
-<p>Obviously if your system is externally accessible you will probably want to limit access to the &#8216;unsafe&#8217; <code>POST</code>, <code>PUT</code> and <code>DELETE</code> methods.</p>
+<h2 id="not-for-everyone">Not for everyone</h2>
 
-<h4>Not for everyone</h4>
+<p>So as you can tell, REST isn’t something you should strive to include just for the sake of it. I can’t stress this enough: <em>there’s no point in shoehorning REST into a site or project when it is not really needed</em>. The main use for it it most likely to be for Web Service APIs and anything that is highly resource driven. Think of it as a series of defined views on a database or other resource and you can’t go too far wrong.</p>
 
-<p>So as you can tell, REST isn&#8217;t something you should strive to include just for the sake of it. I can&#8217;t stress this enough: <em>there&#8217;s no point in shoehorning REST into a site or project when it is not really needed</em>. The main use for it it most likely to be for Web Service APIs and anything that is highly resource driven. Think of it as a series of defined views on a database or other resource and you can&#8217;t go too far wrong.</p>
+<p>I am currently working on a web based file system for storing assets as part of a CMS. It has an API so that you can add, edit, read and delete assets from external locations, providing that you present the right credentials. This almost seems like the perfect application for REST as each entry - be it a file or a folder - needs to have the basic <abbr title="Create, Read, Update, Delete">CRUD</abbr> operations performed on it. The whole URL structure is basically the directory tree and every point in that tree is addressable and will accept all the different methods.</p>
 
-<p>I am currently working on a web based file system for storing assets as part of a CMS. It has an API so that you can add, edit, read and delete assets from external locations, providing that you present the right credentials. This almost seems like the perfect application for REST as each entry - be it a file or a folder - needs to have the basic CRUD operations performed on it. The whole URL structure is basically the directory tree and every point in that tree is addressable and will accept all the different methods.</p>
+<h2 id="testing-testing">Testing, testing</h2>
 
-<h4>Testing, testing</h4>
-
-<p>This is all very well, but how do you go about testing these crazy HTTP methods, practically? You can&#8217;t have a page full of links to click because a link is a <code>GET</code> request. There&#8217;s no way of changing that.</p>
+<p>This is all very well, but how do you go about testing these crazy HTTP methods, practically? You can’t have a page full of links to click because a link is a <code>GET</code> request. There’s no way of changing that. </p>
 
 <p>Forms offer a little flexibility - you can specify the method you want to use with the method attribute. Unfortunately this is restricted to <code>GET</code> and <code>POST</code>. If you try anything other than that it will default to <code>GET</code>.</p>
 
 <p>To test these request methods, you have to hand craft an HTTP request. You can do this in the server-side scripting language of your choice (Eg PHP, Ruby, Python etc) <em>OR</em> you can download one of the handy Firefox extensions that kindly developers have made available for nothing for this very purpose! My personal favourite is <a href="https://addons.mozilla.org/en-US/firefox/addon/9780">RESTClient</a> by <a href="http://www.porphyry.org/">Chao ZHOU</a> but there are plenty of others for you to choose from. Here are a few:</p>
 
 <ul>
-<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/2691">Poster</a> by <a href="http://www.milowski.com/">Alex Milowski</a></p></li>
-<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/5946">RESTTest</a> by <a href="http://www.xucia.com/">kriszyp</a></p></li>
-<li><p><a href="https://addons.mozilla.org/en-US/firefox/addon/967">Modify Headers</a> by <a href="http://www.garethhunt.com/">Gareth Hunt</a></p></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/2691">Poster</a> by <a href="http://www.milowski.com/">Alex Milowski</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/5946">RESTTest</a> by <a href="http://www.xucia.com/">kriszyp</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/967">Modify Headers</a> by <a href="http://www.garethhunt.com/">Gareth Hunt</a></li>
 </ul>
 
+<h2 id="using-restclient">Using RESTClient</h2>
 
-<h4>Using RESTClient</h4>
+<p>It’s pretty simple really. The basic interface looks like this:</p>
 
-<p>It&#8217;s pretty simple really. The basic interface looks like this:</p>
-
-<p>[caption id=&#8221;attachment_25&#8221; align=&#8221;aligncenter&#8221; width=&#8221;618&#8221; caption=&#8221;The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things.&#8221;]<img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/08/restclient.gif" alt="The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things." />[/caption]</p>
+<p><img class="center" src="/images/wp-uploads/2009/08/restclient.gif" width="618" height="603" title="'The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things.'" /></p>
 
 <ol>
-<li><p>Choose your request method</p></li>
-<li><p>Type the resource location</p></li>
-<li><p>Add any request headers you need (this is like items from form fields)</p></li>
-<li><p>Type the request body you want to transmit (this can be left blank most of the time)</p></li>
-<li><p>Hit send</p></li>
+  <li>Choose your request method</li>
+  <li>Type the resource location</li>
+  <li>Add any request headers you need (this is like items from form fields)</li>
+  <li>Type the request body you want to transmit (this can be left blank most of the time)</li>
+  <li>Hit send</li>
 </ol>
 
-
-<p>What you will get back is the response as the server sends it. You can inspect the header and the body to make sure it&#8217;s coming back as you&#8217;d expect and so your application that will consume the response won&#8217;t get any nasty surprises!</p>
+<p>What you will get back is the response as the server sends it. You can inspect the header and the body to make sure it’s coming back as you’d expect and so your application that will consume the response won’t get any nasty surprises!</p>
 
 <p>Hopefully you are interested in RESTful architectures now, and are feeling inspired to go off and write one of your own!</p>
 
-<p>For more information on this topic, check out the <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Wikipedia article on REST</a>
-  *[CRUD]: Create, Read, Update, Delete</p>
+<h2 id="footnotes">Footnotes</h2>
+
+<p>For more information on this topic, check out the <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Wikipedia article on REST</a></p>
+
 </div>
   
   
@@ -939,77 +1230,98 @@
   </header>
 
 
-  <div class="entry-content"><p>All this time, I&#8217;ve been happily using <code>window.location</code> in my code, but I never knew it&#8217;s dark secret!</p>
+  <div class="entry-content"><p>All this time, I’ve been happily using <code>window.location</code> in my code, but I never knew it’s dark secret!</p>
 
-<h4>When is a string not a string?</h4>
+<h2 id="when-is-a-string-not-a-string">When is a string not a string?</h2>
 
-<p>This may come as a surprise to some, but <code>window.location</code> is not a string. The reason this isn&#8217;t immediately obvious is that if you do this:</p>
+<p>This may come as a surprise to some, but <code>window.location</code> is not a string. The reason this isn’t immediately obvious is that if you do this:</p>
 
-<pre><code>alert(window.location);
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>&#8230;you will see the address of the current page.</p>
+<p>…you will see the address of the current page.</p>
 
 <p>However, say you wanted to extract the protocol of the current page. You might try something like this:</p>
 
-<pre><code>var loc = window.location;
-alert(loc.substring(0,loc.indexOf(':')));
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">loc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">;</span>
+</span><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nx">loc</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nx">loc</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>But this will fail! Firebug will tell you that loc.indexOf is not a function&#8230; but if it&#8217;s a string it should inherit that function automatically!</p>
+<p>But this will fail! Firebug will tell you that <code>loc.indexOf</code> is not a function… but if it’s a string it should inherit that function automatically!</p>
 
 <p>In actual fact, <code>window.location</code> is an object of type <code>Location</code>. It has several properties:</p>
 
 <ul>
-<li><p><code>hash</code> - the bit of the URL including and following the # symbol</p></li>
-<li><p><code>host</code> - the host name and port number</p></li>
-<li><p><code>hostname</code> - the host name without the port</p></li>
-<li><p><code>href</code> - the whole URL, unmodified</p></li>
-<li><p><code>pathname</code> - the path, that comes after the host including the first /</p></li>
-<li><p><code>port</code> - the port</p></li>
-<li><p><code>protocol</code> - the protocol</p></li>
-<li><p><code>search</code> - the URL parameters, including the ?</p></li>
+  <li><code>hash</code> - the bit of the URL including and following the # symbol</li>
+  <li><code>host</code> - the host name and port number</li>
+  <li><code>hostname</code> - the host name without the port</li>
+  <li><code>href</code> - the whole URL, unmodified</li>
+  <li><code>pathname</code> - the path, that comes after the host including the first /</li>
+  <li><code>port</code> - the port</li>
+  <li><code>protocol</code> - the protocol</li>
+  <li><code>search</code> - the URL parameters, including the ?</li>
 </ul>
 
+<p>So actually if I wanted to get the protocol, there’s no need at all for string manipulation because it’s all there separated out rather handily:</p>
 
-<p>So actually if I wanted to get the protocol, there&#8217;s no need at all for string manipulation because it&#8217;s all there separated out rather handily:</p>
-
-<pre><code>alert(window.location.protocol);
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>The question is: how and why does <code>window.location</code> produce a string when you should have to type <code>window.location.href</code>? The answer: <code>toString</code>.</p>
 
-<h4>toString or not toString?</h4>
+<h2 id="tostring-or-not-tostring">toString or not toString?</h2>
 
-<p><code>toString</code> is a &#8216;magic&#8217; function which you can add to an object to make it behave a bit more gracefully. If you run this code then you will simply get <code>[object Object]</code> back in the alert box:</p>
+<p><code>toString</code> is a ‘magic’ function which you can add to an object to make it behave a bit more gracefully. If you run this code then you will simply get <code>[object Object]</code> back in the alert box:</p>
 
-<pre><code>var myObj = {
-    'var1': 'foo',
-    'var2': 'bar'
-};
-alert(myObj);
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="line">    <span class="s1">&#39;var1&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;var2&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+</span><span class="line"><span class="p">};</span>
+</span><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nx">myObj</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>If you modify it slightly to include a function called <code>toString</code> you will see a lot nicer results.</p>
 
-<pre><code>var myObj = {
-    'var1': 'foo',
-    'var2': 'bar',
-    'toString': function(){
-        return this.var1+' '+this.var2;
-    }
-};
-alert(myObj);
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="line">    <span class="s1">&#39;var1&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;var2&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;toString&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">var1</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">var2</span><span class="p">;</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">};</span>
+</span><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nx">myObj</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>This code alerts &#8216;foo bar&#8217; as you might expect. In the case of <code>window.location</code>, I would imagine the <code>toString</code> function would look something like this:</p>
+<p>This code alerts ‘foo bar’ as you might expect. In the case of <code>window.location</code>, I would imagine the <code>toString</code> function would look something like this:</p>
 
-<pre><code>window.location.toString = function(){
-    return this.href;
-}
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><code>toString</code> functions are particularly useful if the object represents an actual thing, rather than simply a collection of data (Eg. a location, a user, a tweet, etc.).</p>
+
+<h2 id="footnotes">Footnotes</h2>
 
 <p>For more information on the <code>Location</code> object, have a look at this <a href="https://developer.mozilla.org/en/DOM/window.location">Mozilla developer document on <code>window.location</code></a>.</p>
 </div>
@@ -1034,6 +1346,10 @@ alert(myObj);
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
       </li>
     
@@ -1047,10 +1363,6 @@ alert(myObj);
     
       <li class="post">
         <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
       </li>
     
   </ul>
@@ -1121,6 +1433,8 @@ alert(myObj);
 
 
 
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
 
 
 </body>

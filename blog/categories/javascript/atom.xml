@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-04-29T23:12:11+01:00</updated>
+  <updated>2012-05-12T23:36:36+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -18,55 +18,51 @@
     <link href="http://blog.norestfortheweekend.com/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/"/>
     <updated>2011-04-30T18:47:19+01:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images</id>
-    <content type="html"><![CDATA[<p>Well that's not strictly true. The full headline reads something like this:</p>
+    <content type="html"><![CDATA[<p>Well that’s not strictly true. The full headline reads something like this:</p>
 
-<p><strong>Webkit doesn't fire the <code>load</code> event on images when you change the <code>src</code> attribute and the new <code>src</code> is the same as the old</strong></p>
+<p><strong>Webkit doesn’t fire the <code>load</code> event on images when you change the <code>src</code> attribute and the new <code>src</code> is the same as the old</strong></p>
 
-<h3>That seems reasonable</h3>
+<h3 id="that-seems-reasonable">That seems reasonable</h3>
 
-<p>That seems like reasonable behaviour. I mean, the image is already loaded. Changing the <code>src</code> attribute to it's <em>current value</em> isn't really changing it at all. It's staying the same. If the <code>src</code> is the same and the image is already loaded, why fire the <code>load</code> event? You would only want to do that if the image was reloaded but doing that would be pointless as it's already loaded. Loading it again would be a waste of bandwidth and make the experience feel slower; not what browser manufacturers are aiming for.</p>
+<p>That seems like reasonable behaviour. I mean, the image is already loaded. Changing the <code>src</code> attribute to it’s <em>current value</em> isn’t really changing it at all. It’s staying the same. If the <code>src</code> is the same and the image is already loaded, why fire the <code>load</code> event? You would only want to do that if the image was reloaded but doing that would be pointless as it’s already loaded. Loading it again would be a waste of bandwidth and make the experience feel slower; not what browser manufacturers are aiming for.</p>
 
-<p>So what's the big deal?</p>
+<p>So what’s the big deal?</p>
 
-<h3>Inherently lazy</h3>
+<h3 id="inherently-lazy">Inherently lazy</h3>
 
-<p>Developers like myself are inherently lazy. I don't mean we're workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
+<p>Developers like myself are inherently lazy. I don’t mean we’re workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
 
 <ol>
-<li>It's inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That's not good.</li>
-<li>It forces me to add extra code to cope with it's specific requirements. Let me explain:</li>
+  <li>It’s inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That’s not good.</li>
+  <li>It forces me to add extra code to cope with it’s specific requirements. Let me explain:</li>
 </ol>
 
+<p>If I was writing for a JS-guaranteed environment this wouldn’t be such a problem but I’m a conscientious sort of guy and realise that not everyone will have the benefits of a modern browser with all the options set to ‘awesome’. I want to cater for the JS-disadvantaged as well.</p>
 
-<p>If I was writing for a JS-guaranteed environment this wouldn't be such a problem but I'm a conscientious sort of guy and realise that not everyone will have the benefits of a modern browser with all the options set to 'awesome'. I want to cater for the JS-disadvantaged as well.</p>
-
-<p>Let's assume I'm writing a carousel for a photo slideshow that shows 4 pictures at a time. I want to show the first 4 pictures by default so that at least some content appears even for the non-JS users. Then, using non-intrusive JS I augment the slideshow to add next / previous buttons and the ability to click the image to enlarge it in a lightbox.</p>
+<p>Let’s assume I’m writing a carousel for a photo slideshow that shows 4 pictures at a time. I want to show the first 4 pictures by default so that at least some content appears even for the non-JS users. Then, using non-intrusive JS I augment the slideshow to add next / previous buttons and the ability to click the image to enlarge it in a lightbox.</p>
 
 <p>To avoid repeating a lot of code in a setup function that would also be present in the next/previous function I can write a single function to set the page of the carousel, setting up the images and their click events.</p>
 
 <p>``` javascript Carousel setup
-var picturesPerPage = 4,</p>
+var picturesPerPage = 4,
+    pictures = $(‘#pictures img’);</p>
 
-<pre><code>pictures = $('#pictures img');
-</code></pre>
+<p>var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind(‘load’,function(){
+                pictureContainer.removeClass(‘loading’);
+                picture.unbind(‘load’);
+            });
+            pictureContainer.addClass(‘loading’);
+            picture.attr(‘src’,carouseldata.images[imageStart+i].thumbnailurl);</p>
 
-<p>var loadGalleryCarouselPage = function(pagenumber){</p>
-
-<pre><code>var imageStart = pagenumber*picturesPerPage;
-pictures.each(function(i){
-    var picture = $(pictures[i]),
-        pictureContainer = picture.parent();
-    picture.hide();
-    if(carouseldata.images[imageStart+i]){
-        picture.show();
-        picture.bind('load',function(){
-            pictureContainer.removeClass('loading');
-            picture.unbind('load');
-        });
-        pictureContainer.addClass('loading');
-        picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
-
-        picture.unbind('click');
+<pre><code>        picture.unbind('click');
         picture.bind('click',function(e){
             e.preventDefault();
             pictureLink.fancybox({
@@ -74,80 +70,73 @@ pictures.each(function(i){
             });
         });
     }
-});
+}); };
 </code></pre>
-
-<p>};</p>
 
 <p>loadGalleryCarouselPage(0);
 ```</p>
 
-<p>I'm using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
+<p>I’m using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
 
-<p>So what we have there is a function that loops over the four <code>img</code> tags, pulls information out of an array (<code>carouseldata</code>) based on the page offset passed as an argument, sets up click and load listeners and changes the image's <code>src</code> attribute. This will work for any page at any time. In theory we could add a 'jump to page' option where the user could choose the page number to skip to. But we won't.</p>
+<p>So what we have there is a function that loops over the four <code>img</code> tags, pulls information out of an array (<code>carouseldata</code>) based on the page offset passed as an argument, sets up click and load listeners and changes the image’s <code>src</code> attribute. This will work for any page at any time. In theory we could add a ‘jump to page’ option where the user could choose the page number to skip to. But we won’t.</p>
 
 <p>This is especially handy as we can simply call <code>loadGalleryCarouselPage(0);</code> to set up the event listeners when the page first loads without having to duplicate most of the lines elsewhere. We even get a natty little loading spinner if we take advantage of the <code>loading</code> class that is set.</p>
 
-<h3>Making things difficult</h3>
+<h3 id="making-things-difficult">Making things difficult</h3>
 
-<p>When the page loads it's a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here's what happens:</p>
+<p>When the page loads it’s a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here’s what happens:</p>
 
 <ol>
-<li>A <code>load</code> event listener is set</li>
-<li>The <code>loading</code> class is applied which shows a spinner and hides the image</li>
-<li>The <code>src</code> of the <code>img</code> is set</li>
-<li>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</li>
-<li>The picture remains hidden and the spinner keeps spinning even though the image is loaded</li>
+  <li>A <code>load</code> event listener is set	</li>
+  <li>The <code>loading</code> class is applied which shows a spinner and hides the image</li>
+  <li>The <code>src</code> of the <code>img</code> is set</li>
+  <li>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</li>
+  <li>The picture remains hidden and the spinner keeps spinning even though the image is loaded</li>
 </ol>
-
 
 <p>And that is frustrating.</p>
 
-<p>It's an intermittent problem though, only when loading race conditions fail. Here's another situation where it happens every time.</p>
+<p>It’s an intermittent problem though, only when loading race conditions fail. Here’s another situation where it happens every time.</p>
 
-<h3>The dead cert.</h3>
+<h3 id="the-dead-cert">The dead cert.</h3>
 
-<p>The total number of images in the carousel doesn't divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
+<p>The total number of images in the carousel doesn’t divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
 
 <ol>
-<li>They act as spacers so that other elements flow around them correctly</li>
-<li>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</li>
+  <li>They act as spacers so that other elements flow around them correctly</li>
+  <li>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</li>
 </ol>
 
+<p>So say we’re on page 9 of 10 and click ‘Next’. Images 1 &amp; 2 are updated to show the final two pictures and images 3 &amp; 4 are hidden. Importantly: the <code>src</code> attributes of images 3 &amp; 4 don’t change. When we click ‘Previous’, images 1 &amp; 2 are changed back but 3 &amp; 4 are stuck with the loading spinner. That’s because, like before, the <code>src</code> was already set and it was equal to the new value.</p>
 
-<p>So say we're on page 9 of 10 and click 'Next'. Images 1 &amp; 2 are updated to show the final two pictures and images 3 &amp; 4 are hidden. Importantly: the <code>src</code> attributes of images 3 &amp; 4 don't change. When we click 'Previous', images 1 &amp; 2 are changed back but 3 &amp; 4 are stuck with the loading spinner. That's because, like before, the <code>src</code> was already set and it was equal to the new value.</p>
+<h3 id="working-around-it">Working around it</h3>
 
-<h3>Working around it</h3>
+<p>We could set the hidden images to a transparent .gif or .png instead of hiding them which would solve the second problem but because we want the images showing for non-JS users when the page loads we can’t use that technique to fix this. Also, downloading that extra image means extra bandwidth and latency times that we’d rather not have to deal with.</p>
 
-<p>We could set the hidden images to a transparent .gif or .png instead of hiding them which would solve the second problem but because we want the images showing for non-JS users when the page loads we can't use that technique to fix this. Also, downloading that extra image means extra bandwidth and latency times that we'd rather not have to deal with.</p>
+<p>It turns out that setting the <code>src</code> to <code>''</code> (empty string) immediately before setting the image url will fix the problem. But! It causes the images (and consequently their container) to collapse to zero width and height in Firefox while the new images are loading which looks really bad if you’re trying to navigate a slideshow.</p>
 
-<p>It turns out that setting the <code>src</code> to <code>''</code> (empty string) immediately before setting the image url will fix the problem. But! It causes the images (and consequently their container) to collapse to zero width and height in Firefox while the new images are loading which looks really bad if you're trying to navigate a slideshow.</p>
-
-<p>Here's my solution:</p>
+<p>Here’s my solution:</p>
 
 <p>``` javascript Carousel setup improved
-var picturesPerPage = 4,</p>
+var picturesPerPage = 4,
+    pictures = $(‘#pictures img’);</p>
 
-<pre><code>pictures = $('#pictures img');
-</code></pre>
+<p>var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind(‘load’,function(){
+                pictureContainer.removeClass(‘loading’);
+                picture.unbind(‘load’);
+            });
+            pictureContainer.addClass(‘loading’);
+            picture.attr(‘src’,carouseldata.images[imageStart+i].thumbnailurl);</p>
 
-<p>var loadGalleryCarouselPage = function(pagenumber){</p>
-
-<pre><code>var imageStart = pagenumber*picturesPerPage;
-pictures.each(function(i){
-    var picture = $(pictures[i]),
-        pictureContainer = picture.parent();
-    picture.hide();
-    if(carouseldata.images[imageStart+i]){
-        picture.show();
-        picture.bind('load',function(){
-            pictureContainer.removeClass('loading');
-            picture.unbind('load');
-        });
-        pictureContainer.addClass('loading');
-        picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
-
-        picture.unbind('click');
+<pre><code>        picture.unbind('click');
         picture.bind('click',function(e){
             e.preventDefault();
             pictureLink.fancybox({
@@ -158,33 +147,31 @@ pictures.each(function(i){
     else{
         picture.attr('src','');
     }
-});
+}); };
 </code></pre>
 
-<p>};</p>
-
-<p>if($.browser.webkit){</p>
-
-<pre><code>$('#pictures img').each(function(i){
-    $(this).attr('src','');
-});
-</code></pre>
-
-<p>}
+<p>if($.browser.webkit){
+    $(‘#pictures img’).each(function(i){
+        $(this).attr(‘src’,’’);
+    });
+}
 loadGalleryCarouselPage(0);
 ```</p>
 
-<p>I added an <code>else</code> so that if there aren't enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
+<p>I added an <code>else</code> so that if there aren’t enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
 
-<p>I also added a little <code>if</code> block directly before initialising the carousel, at the bottom. If the browser is webkit-powered then it'll loop over the <code>img</code> tags and prime them (set their <code>src</code> to empty) before initialisation. Because this is done using JS, non-JS users will still see the images.</p>
+<p>I also added a little <code>if</code> block directly before initialising the carousel, at the bottom. If the browser is webkit-powered then it’ll loop over the <code>img</code> tags and prime them (set their <code>src</code> to empty) before initialisation. Because this is done using JS, non-JS users will still see the images.</p>
 
-<h3>Grumpy</h3>
+<h3 id="grumpy">Grumpy</h3>
 
-<p>I'm grumpy about having to put in that extra, browser specific code. Setting the <code>src</code> to an empty string seems hacky. But it works and the logic is still clean and minimal. So it'll do.</p>
+<p>I’m grumpy about having to put in that extra, browser specific code. Setting the <code>src</code> to an empty string seems hacky. But it works and the logic is still clean and minimal. So it’ll do.</p>
 
-<p>I hope that helps anyone having image loading javascript issues. And as usual I'd be interested to hear if you have any alternative / better solutions!</p>
+<p>I hope that helps anyone having image loading javascript issues. And as usual I’d be interested to hear if you have any alternative / better solutions!</p>
+
+<h3 id="footnotes">Footnotes</h3>
 
 <p>Check out the carousel in action <a href="http://www.qkschool.org.uk">here</a>.</p>
+
 ]]></content>
   </entry>
   
@@ -193,18 +180,20 @@ loadGalleryCarouselPage(0);
     <link href="http://blog.norestfortheweekend.com/blog/2010/10/13/regex-for-an-email-address/"/>
     <updated>2010-10-13T14:21:53+01:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2010/10/13/regex-for-an-email-address</id>
-    <content type="html"><![CDATA[<p>It's something that I've come up against several times and each time I google for it I turn up a different result.</p>
+    <content type="html"><![CDATA[<p>It’s something that I’ve come up against several times and each time I google for it I turn up a different result.</p>
 
 <p>How do you validate an email address?</p>
 
-<p>Obviously you want to use a <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>, but given the specification for <a href="http://en.wikipedia.org/wiki/Email_address">email address</a>es that's going to be one really complicated line of code.</p>
+<p>Obviously you want to use a <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>, but given the specification for <a href="http://en.wikipedia.org/wiki/Email_address">email address</a>es that’s going to be one really complicated line of code.</p>
 
-<p>Following a user's complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today's search yielded more success <a href="http://atlantic-drugs.net/products/viagra.htm">viagra</a> usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
+<p>Following a user’s complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today’s search yielded more success than usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
 
-<pre><code>/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Email regex (email_regex.pl)</span> <a href='/downloads/code/regex-for-an-email-address/email_regex.pl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='perl'><span class='line'><span class="sr">/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>I won't lie to you: I haven't dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I've thrown at it. It also works in Javascript which, for me, is a massive win.</p>
+<p>I won’t lie to you: I haven’t dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I’ve thrown at it. It also works in Javascript which, for me, is a massive win.</p>
 ]]></content>
   </entry>
   
@@ -213,149 +202,197 @@ loadGalleryCarouselPage(0);
     <link href="http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all/"/>
     <updated>2009-12-12T20:47:01+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all</id>
-    <content type="html"><![CDATA[<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/console.jpg" alt="Firebug console" /></p>
+    <content type="html"><![CDATA[<p><img class="center" src="/images/wp-uploads/2009/12/console.jpg" width="628" height="187" title="‘Firebug console’" ></p>
 
-<p>If you're like me then you probably use <code>console.log</code> a lot. It's such a useful debugging tool! It's better that alert in so many ways I won't bother mentioning them all because- oh what the hell, this is my blog I'll do what I want. Here is why <code>console.log</code> is better than alert:</p>
+<p>If you’re like me then you probably use <code>console.log</code> a lot. It’s such a useful debugging tool! It’s better that alert in so many ways I won’t bother mentioning them all because - oh what the hell, this is my blog I’ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
 
 <ul>
-<li><p>It hides away when you don't need it and doesn't bother you unless you are interested in it.</p></li>
-<li><p>It lets you log more than one variable at a time simply by passing more than one argument.</p></li>
-<li><p>It doesn't interrupt the flow of the script until you click OK.*</p></li>
-<li><p>If you are testing a loop or quick interval you don't have to force quit Firefox just to get to the reload button.</p></li>
-<li><p>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</p></li>
-<li><p>If you log an <code>Element</code> that's on the page when you mouse over it in the log it highlights on the page.</p></li>
+  <li>It hides away when you don’t need it and doesn’t bother you unless you are interested in it.</li>
+  <li>It lets you log more than one variable at a time simply by passing more than one argument.</li>
+  <li>It doesn’t interrupt the flow of the script until you click OK.
+    <ul>
+      <li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don’t get me wrong!</li>
+    </ul>
+  </li>
+  <li>If you are testing a loop or quick interval you don’t have to force quit Firefox just to get to the reload button.</li>
+  <li>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</li>
+  <li>If you log an <code>Element</code> that’s on the page when you mouse over it in the log it highlights on the page.</li>
 </ul>
 
+<p>What’s my point? Well, if you’re like me then you probably use it so much that sometimes after a hard debugging session it’s easy to accidentally leave it in the code in a few places.</p>
 
-<p>What's my point? Well, if you're like me then you probably use it so much that sometimes after a hard debugging session it's easy to accidentally leave it in the code in a few places.</p>
+<h2 id="the-piece-of-grit-that-stopped-the-clock">The piece of grit that stopped the clock</h2>
 
-<h4>The piece of grit that stopped the clock</h4>
+<p>What harm can it do? Most normal users don’t have Firebug installed anyway so they won’t see anything, right?</p>
 
-<p>What harm can it do? Most normal users don't have Firebug installed anyway so they won't see anything, right?</p>
+<p>Wrong. Or at least wrong attitude. Developers will see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
 
-<p>Wrong. Or at least wrong attitude. Developers <a href="http://cvsonlinepharmacystore.com/products/kamasutra-ribbed-condoms.htm">will</a> see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
+<p>Without Firebug installed the <code>console</code> object doesn’t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It’s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
 
-<p>Without Firebug installed the <code>console</code> object doesn't exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It's little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
+<p><img class="center" src="/images/wp-uploads/2009/12/erroronpage.gif" width="109" height="21" title="‘IE’s ‘error on page’ icon’" ></p>
 
-<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/erroronpage.gif" alt="IE's 'error on page' icon" /></p>
+<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn’t inspire confidence in a site or product.</p>
 
-<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn't inspire confidence in a site or product.</p>
+<h2 id="undesirable">Undesirable</h2>
 
-<h4>Undesirable</h4>
+<p>It’s fair to say that you don’t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug’s console. Have a look at the code:</p>
 
-<p>It's fair to say that you don't want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug's console. Have a look at the code:</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (console.log.js)</span> <a href='/downloads/code/console-log-for-all/console.log.js'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="s1">&#39;console&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="s1">&#39;log&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">)){</span>
+</span><span class='line'>	<span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>		<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="p">{},</span>
+</span><span class='line'>		<span class="nx">glow</span><span class="p">,</span>
+</span><span class='line'>		<span class="nx">$</span><span class="p">,</span>
+</span><span class='line'>		<span class="nx">logpanel</span><span class="p">,</span>
+</span><span class='line'>		<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>			<span class="nx">enabled</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">disable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>			<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">){</span>
+</span><span class='line'>				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">clear</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>			<span class="nx">logpanel</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nx">enabled</span><span class="p">){</span>
+</span><span class='line'>				<span class="k">if</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;undefined&#39;</span><span class="p">){</span>
+</span><span class='line'>					<span class="nx">logpanel</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;&lt;p style=&quot;position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;&quot; id=&quot;console-log&quot;&gt;&#39;</span><span class="p">);</span>
+</span><span class='line'>					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">);</span>
+</span><span class='line'>					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;padding-bottom&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
+</span><span class='line'>					<span class="k">if</span><span class="p">(</span><span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span> <span class="o">&amp;&amp;</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span><span class="o">&lt;=</span><span class="mi">6</span><span class="p">){</span> <span class="c1">//little hack to keep it at the bottom of the IE window</span>
+</span><span class='line'>						<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#console-log&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span><span class="s1">&#39;absolute&#39;</span><span class="p">);</span>
+</span><span class='line'>						<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;99px&#39;</span><span class="p">);</span>
+</span><span class='line'>							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
+</span><span class='line'>						<span class="p">},</span><span class="mi">250</span><span class="p">);</span>
+</span><span class='line'>					<span class="p">}</span>
+</span><span class='line'>				<span class="p">}</span>
+</span><span class='line'>				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">append</span><span class="p">([</span><span class="nx">msg</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">));</span>
+</span><span class='line'>				<span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollHeight</span><span class="p">;</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">){</span>
+</span><span class='line'>			<span class="nx">glow</span> <span class="o">=</span> <span class="nx">g</span><span class="p">;</span>
+</span><span class='line'>			<span class="nx">$</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}();</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="nx">console</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">glow</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>    </p>
 
-<pre><code>if(!('console' in window) || !('log' in window.console)){
+<p>I’m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it’s really very good! (<strong>Update:</strong> although, now, sadly discontinued thanks to BBC cutbacks )</p>
+
+<p>So basically what we’re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don’t need to bother. Let’s presume that it <em>doesn’t</em> exist.</p>
+
+<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let’s strip it back to make it easier to look at:</p>
+
+<p><code>javascript Javscript
     window.console = function(){
-        var r = {},
-        glow,
-        $,
-        logpanel,
-        enabled=false;
-
-        r.enable = function(){
-            enabled=true;
-        };
-
-        r.disable = function(){
-            enabled=false;
-            if(logpanel){
-                logpanel.destroy();
-            }
-        };
-
-        r.clear = function(){
-            logpanel.empty();
-        };
-
-        r.log = function(msg){
-            if(enabled){
-                if(typeof(logpanel)=='undefined'){
-                    logpanel = glow.dom.create('
-&lt;p style="position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;" id="console-log"&gt;
-
-');
-                    $('body').append(logpanel);
-                    $('body').css('padding-bottom','100px');
-                    if(glow.env.ie &amp;&amp; glow.env.ie&lt;=6){ //little hack to keep it at the bottom of the IE window
-                        $('#console-log').css('position','absolute');
-                        setInterval(function(){
-                            logpanel.css('height','99px');
-                            logpanel.css('height','100px');
-                        },250);
-                    }
-                }
-                logpanel.append([msg,""].join(''));
-                logpanel[0].scrollTop = logpanel[0].scrollHeight;
-            }
-        };
-
-        r.init = function(g){
-            glow = g;
-            $ = glow.dom.get;
-        };
-
-        return r;
+    	return {};
     }();
+</code></p>
 
-    console.init(glow);
-}
-</code></pre>
+<p>I’m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it’s called.</p>
 
-<p>I'm using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it's really very good!</p>
-
-<p>So basically what we're doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don't need to bother. Let's presume that it <em>doesn't</em> exist.</p>
-
-<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let's strip it back to make it easier to look at:</p>
-
-<pre><code>window.console = function(){
-    return {};
-}();
-</code></pre>
-
-<p>I'm setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it's called.</p>
-
-<p>It looks initially like I'm defining <code>console</code> to be a function but straight after the closing brace of the function you've got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
+<p>It looks initially like I’m defining <code>console</code> to be a function but straight after the closing brace of the function you’ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
 
 <p>If, as in the case of the finished code, the object returned (<code>r</code>) has properties then they will be accessible at <code>window.console.property</code>. And of course, the property can also be a function, like <code>log</code>.</p>
 
-<h4>Fully functional</h4>
+<h2 id="fully-functional">Fully functional</h2>
 
 <p>The functions that are defined here are:</p>
 
 <ul>
-<li><p><code>enable</code></p></li>
-<li><p><code>disable</code></p></li>
-<li><p><code>clear</code></p></li>
-<li><p><code>log</code></p></li>
-<li><p><code>init</code></p></li>
+  <li><code>enable</code></li>
+  <li><code>disable</code></li>
+  <li><code>clear</code></li>
+  <li><code>log</code></li>
+  <li><code>init</code></li>
 </ul>
 
+<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn’t mean it’s completely ineffective when disabled, though. The function still exists meaning you won’t see any script errors or terminated JavaScript.</p>
 
-<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn't mean it's completely ineffective when disabled, though. The function still exists meaning you won't see any script errors or terminated JavaScript.</p>
-
-<p>To enable it, simple call <code>console.enable();</code>. You don't have to do this in the code (I'd advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I'd recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
+<p>To enable it, simple call <code>console.enable();</code>. You don’t have to do this in the code (I’d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I’d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
 
 <p>Likewise to disable the console, just type <code>javascript:console.disable();</code>, or to clear it type <code>javascript:console.clear();</code>.</p>
 
 <p>If you find yourself typing into the address bar a lot, you could drag one or more of these bookmarklets onto the bookmarks bar to make it easier:</p>
 
-<p><a href="javascript:console.enable(">Enable console</a>;) <a href="javascript:console.disable(">Disable console</a>;) <a href="javascript:console.clear(">Clear console</a>;)</p>
+<p><a href="javascript:console.enable(\);">Enable console</a> <a href="javascript:console.disable(\);">Disable console</a> <a href="javascript:console.clear(\);">Clear console</a></p>
 
-<p>The reason I've included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it's useful to be able to pass a specific version of the library to <code>console</code> to use. If you're not worried about that sort of thing then you don't need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
+<p>The reason I’ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it’s useful to be able to pass a specific version of the library to <code>console</code> to use. If you’re not worried about that sort of thing then you don’t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
 
-<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn't exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
+<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn’t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
 
-<p>There's really not a lot to it!</p>
+<p>There’s really not a lot to it!</p>
 
-<h4>Got console?</h4>
+<h2 id="got-console">Got console?</h2>
 
-<p>Since getting it's rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It's accessible on Chrome and Safari under the developer menus. Of course this script won't affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
-
-<ul>
-<li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don't get me wrong!</li>
-</ul>
-
+<p>Since getting it’s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It’s accessible on Chrome and Safari under the developer menus. Of course this script won’t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
 ]]></content>
   </entry>
   
@@ -364,60 +401,64 @@ loadGalleryCarouselPage(0);
     <link href="http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location/"/>
     <updated>2009-08-17T14:37:34+01:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location</id>
-    <content type="html"><![CDATA[<p>All this time, I've been happily using <code>window.location</code> in my code, but I never knew it's dark secret!</p>
+    <content type="html"><![CDATA[<p>All this time, I’ve been happily using <code>window.location</code> in my code, but I never knew it’s dark secret!</p>
 
-<h4>When is a string not a string?</h4>
+<h2 id="when-is-a-string-not-a-string">When is a string not a string?</h2>
 
-<p>This may come as a surprise to some, but <code>window.location</code> is not a string. The reason this isn't immediately obvious is that if you do this:</p>
+<p>This may come as a surprise to some, but <code>window.location</code> is not a string. The reason this isn’t immediately obvious is that if you do this:</p>
 
-<pre><code>alert(window.location);
-</code></pre>
+<p><code>javascript Javascript
+alert(window.location);
+</code></p>
 
-<p>...you will see the address of the current page.</p>
+<p>…you will see the address of the current page.</p>
 
 <p>However, say you wanted to extract the protocol of the current page. You might try something like this:</p>
 
-<pre><code>var loc = window.location;
+<p><code>javascript Javascript
+var loc = window.location;
 alert(loc.substring(0,loc.indexOf(':')));
-</code></pre>
+</code></p>
 
-<p>But this will fail! Firebug will tell you that loc.indexOf is not a function... but if it's a string it should inherit that function automatically!</p>
+<p>But this will fail! Firebug will tell you that <code>loc.indexOf</code> is not a function… but if it’s a string it should inherit that function automatically!</p>
 
 <p>In actual fact, <code>window.location</code> is an object of type <code>Location</code>. It has several properties:</p>
 
 <ul>
-<li><p><code>hash</code> - the bit of the URL including and following the # symbol</p></li>
-<li><p><code>host</code> - the host name and port number</p></li>
-<li><p><code>hostname</code> - the host name without the port</p></li>
-<li><p><code>href</code> - the whole URL, unmodified</p></li>
-<li><p><code>pathname</code> - the path, that comes after the host including the first /</p></li>
-<li><p><code>port</code> - the port</p></li>
-<li><p><code>protocol</code> - the protocol</p></li>
-<li><p><code>search</code> - the URL parameters, including the ?</p></li>
+  <li><code>hash</code> - the bit of the URL including and following the # symbol</li>
+  <li><code>host</code> - the host name and port number</li>
+  <li><code>hostname</code> - the host name without the port</li>
+  <li><code>href</code> - the whole URL, unmodified</li>
+  <li><code>pathname</code> - the path, that comes after the host including the first /</li>
+  <li><code>port</code> - the port</li>
+  <li><code>protocol</code> - the protocol</li>
+  <li><code>search</code> - the URL parameters, including the ?</li>
 </ul>
 
+<p>So actually if I wanted to get the protocol, there’s no need at all for string manipulation because it’s all there separated out rather handily:</p>
 
-<p>So actually if I wanted to get the protocol, there's no need at all for string manipulation because it's all there separated out rather handily:</p>
-
-<pre><code>alert(window.location.protocol);
-</code></pre>
+<p><code>javascript Javascript
+alert(window.location.protocol);
+</code></p>
 
 <p>The question is: how and why does <code>window.location</code> produce a string when you should have to type <code>window.location.href</code>? The answer: <code>toString</code>.</p>
 
-<h4>toString or not toString?</h4>
+<h2 id="tostring-or-not-tostring">toString or not toString?</h2>
 
-<p><code>toString</code> is a 'magic' function which you can add to an object to make it behave a bit more gracefully. If you run this code then you will simply get <code>[object Object]</code> back in the alert box:</p>
+<p><code>toString</code> is a ‘magic’ function which you can add to an object to make it behave a bit more gracefully. If you run this code then you will simply get <code>[object Object]</code> back in the alert box:</p>
 
-<pre><code>var myObj = {
+<p><code>javascript Javascript    
+var myObj = {
     'var1': 'foo',
     'var2': 'bar'
 };
 alert(myObj);
-</code></pre>
+</code></p>
 
 <p>If you modify it slightly to include a function called <code>toString</code> you will see a lot nicer results.</p>
 
-<pre><code>var myObj = {
+<p><code>javascript Javascript    
+var myObj = {
     'var1': 'foo',
     'var2': 'bar',
     'toString': function(){
@@ -425,16 +466,19 @@ alert(myObj);
     }
 };
 alert(myObj);
-</code></pre>
+</code></p>
 
-<p>This code alerts 'foo bar' as you might expect. In the case of <code>window.location</code>, I would imagine the <code>toString</code> function would look something like this:</p>
+<p>This code alerts ‘foo bar’ as you might expect. In the case of <code>window.location</code>, I would imagine the <code>toString</code> function would look something like this:</p>
 
-<pre><code>window.location.toString = function(){
+<p><code>javascript Javascript    
+window.location.toString = function(){
     return this.href;
 }
-</code></pre>
+</code></p>
 
 <p><code>toString</code> functions are particularly useful if the object represents an actual thing, rather than simply a collection of data (Eg. a location, a user, a tweet, etc.).</p>
+
+<h2 id="footnotes">Footnotes</h2>
 
 <p>For more information on the <code>Location</code> object, have a look at this <a href="https://developer.mozilla.org/en/DOM/window.location">Mozilla developer document on <code>window.location</code></a>.</p>
 ]]></content>

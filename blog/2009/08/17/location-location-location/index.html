@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="All this time, I&#8217;ve been happily using window.location in my code, but I never knew it&#8217;s dark secret! When is a string not a string? This &hellip;">
+  <meta name="description" content="All this time, I’ve been happily using window.location in my code, but I never knew it’s dark secret! When is a string not a string? This may come as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,10 +21,13 @@
   <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
   <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/prefixfree.min.js" type="text/javascript"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -46,14 +49,14 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
+  <header role="banner" id="banner"><hgroup>
   <h1><a href="/">No Rest For The Weekend</a></h1>
   
 </hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
   
@@ -67,6 +70,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 
 </nav>
@@ -100,77 +104,98 @@
   </header>
 
 
-<div class="entry-content"><p>All this time, I&#8217;ve been happily using <code>window.location</code> in my code, but I never knew it&#8217;s dark secret!</p>
+<div class="entry-content"><p>All this time, I’ve been happily using <code>window.location</code> in my code, but I never knew it’s dark secret!</p>
 
-<h4>When is a string not a string?</h4>
+<h2 id="when-is-a-string-not-a-string">When is a string not a string?</h2>
 
-<p>This may come as a surprise to some, but <code>window.location</code> is not a string. The reason this isn&#8217;t immediately obvious is that if you do this:</p>
+<p>This may come as a surprise to some, but <code>window.location</code> is not a string. The reason this isn’t immediately obvious is that if you do this:</p>
 
-<pre><code>alert(window.location);
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>&#8230;you will see the address of the current page.</p>
+<p>…you will see the address of the current page.</p>
 
 <p>However, say you wanted to extract the protocol of the current page. You might try something like this:</p>
 
-<pre><code>var loc = window.location;
-alert(loc.substring(0,loc.indexOf(':')));
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">loc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">;</span>
+</span><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nx">loc</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nx">loc</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>But this will fail! Firebug will tell you that loc.indexOf is not a function&#8230; but if it&#8217;s a string it should inherit that function automatically!</p>
+<p>But this will fail! Firebug will tell you that <code>loc.indexOf</code> is not a function… but if it’s a string it should inherit that function automatically!</p>
 
 <p>In actual fact, <code>window.location</code> is an object of type <code>Location</code>. It has several properties:</p>
 
 <ul>
-<li><p><code>hash</code> - the bit of the URL including and following the # symbol</p></li>
-<li><p><code>host</code> - the host name and port number</p></li>
-<li><p><code>hostname</code> - the host name without the port</p></li>
-<li><p><code>href</code> - the whole URL, unmodified</p></li>
-<li><p><code>pathname</code> - the path, that comes after the host including the first /</p></li>
-<li><p><code>port</code> - the port</p></li>
-<li><p><code>protocol</code> - the protocol</p></li>
-<li><p><code>search</code> - the URL parameters, including the ?</p></li>
+  <li><code>hash</code> - the bit of the URL including and following the # symbol</li>
+  <li><code>host</code> - the host name and port number</li>
+  <li><code>hostname</code> - the host name without the port</li>
+  <li><code>href</code> - the whole URL, unmodified</li>
+  <li><code>pathname</code> - the path, that comes after the host including the first /</li>
+  <li><code>port</code> - the port</li>
+  <li><code>protocol</code> - the protocol</li>
+  <li><code>search</code> - the URL parameters, including the ?</li>
 </ul>
 
+<p>So actually if I wanted to get the protocol, there’s no need at all for string manipulation because it’s all there separated out rather handily:</p>
 
-<p>So actually if I wanted to get the protocol, there&#8217;s no need at all for string manipulation because it&#8217;s all there separated out rather handily:</p>
-
-<pre><code>alert(window.location.protocol);
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>The question is: how and why does <code>window.location</code> produce a string when you should have to type <code>window.location.href</code>? The answer: <code>toString</code>.</p>
 
-<h4>toString or not toString?</h4>
+<h2 id="tostring-or-not-tostring">toString or not toString?</h2>
 
-<p><code>toString</code> is a &#8216;magic&#8217; function which you can add to an object to make it behave a bit more gracefully. If you run this code then you will simply get <code>[object Object]</code> back in the alert box:</p>
+<p><code>toString</code> is a ‘magic’ function which you can add to an object to make it behave a bit more gracefully. If you run this code then you will simply get <code>[object Object]</code> back in the alert box:</p>
 
-<pre><code>var myObj = {
-    'var1': 'foo',
-    'var2': 'bar'
-};
-alert(myObj);
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="line">    <span class="s1">&#39;var1&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;var2&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+</span><span class="line"><span class="p">};</span>
+</span><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nx">myObj</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>If you modify it slightly to include a function called <code>toString</code> you will see a lot nicer results.</p>
 
-<pre><code>var myObj = {
-    'var1': 'foo',
-    'var2': 'bar',
-    'toString': function(){
-        return this.var1+' '+this.var2;
-    }
-};
-alert(myObj);
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="line">    <span class="s1">&#39;var1&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;var2&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+</span><span class="line">    <span class="s1">&#39;toString&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">var1</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">var2</span><span class="p">;</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">};</span>
+</span><span class="line"><span class="nx">alert</span><span class="p">(</span><span class="nx">myObj</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>This code alerts &#8216;foo bar&#8217; as you might expect. In the case of <code>window.location</code>, I would imagine the <code>toString</code> function would look something like this:</p>
+<p>This code alerts ‘foo bar’ as you might expect. In the case of <code>window.location</code>, I would imagine the <code>toString</code> function would look something like this:</p>
 
-<pre><code>window.location.toString = function(){
-    return this.href;
-}
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><code>toString</code> functions are particularly useful if the object represents an actual thing, rather than simply a collection of data (Eg. a location, a user, a tweet, etc.).</p>
+
+<h2 id="footnotes">Footnotes</h2>
 
 <p>For more information on the <code>Location</code> object, have a look at this <a href="https://developer.mozilla.org/en/DOM/window.location">Mozilla developer document on <code>window.location</code></a>.</p>
 </div>
@@ -206,6 +231,7 @@ alert(myObj);
 
 
     </p>
+    <p class="rssCta"><a href="http://feeds.feedburner.com/NoRestForTheWeekend" title="Subscribe to the RSS feed now!">Subscribe to the RSS feed now!</a></p>
     
       <div class="sharing">
   
@@ -240,6 +266,10 @@ alert(myObj);
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
       </li>
     
@@ -253,10 +283,6 @@ alert(myObj);
     
       <li class="post">
         <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
       </li>
     
   </ul>
@@ -331,6 +357,8 @@ alert(myObj);
 
 
 
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
 
 
 </body>

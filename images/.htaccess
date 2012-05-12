@@ -1,0 +1,52 @@
+RewriteEngine On
+RewriteBase /images/
+
+# rewrite rule for the banner image - this is dumb, there has to be a better way than having 12 rewrite blocks.
+
+# Spring
+RewriteCond %{TIME_MON} =03
+RewriteCond %{TIME_DAY} >=21
+RewriteRule ^banner.gif header-bg-spring.gif [R,L]
+
+RewriteCond %{TIME_MON} ^(04|05)$
+RewriteRule ^banner.gif header-bg-spring.gif [R,L]
+
+RewriteCond %{TIME_MON} =06
+RewriteCond %{TIME_DAY} <21
+RewriteRule ^banner.gif header-bg-spring.gif [R,L]
+
+# Summer
+RewriteCond %{TIME_MON} =06
+RewriteCond %{TIME_DAY} >=21
+RewriteRule ^banner.gif header-bg-summer.gif [R,L]
+
+RewriteCond %{TIME_MON} ^(07|08)$
+RewriteRule ^banner.gif header-bg-summer.gif [R,L]
+
+RewriteCond %{TIME_MON} =09
+RewriteCond %{TIME_DAY} <23
+RewriteRule ^banner.gif header-bg-summer.gif [R,L]
+
+# Autumn
+RewriteCond %{TIME_MON} =09
+RewriteCond %{TIME_DAY} >=23
+RewriteRule ^banner.gif header-bg-autumn.gif [R,L]
+
+RewriteCond %{TIME_MON} ^(10|11)$
+RewriteRule ^banner.gif header-bg-autumn.gif [R,L]
+
+RewriteCond %{TIME_MON} =12
+RewriteCond %{TIME_DAY} <21
+RewriteRule ^banner.gif header-bg-autumn.gif [R,L]
+
+# Winter
+RewriteCond %{TIME_MON} =12
+RewriteCond %{TIME_DAY} >=21
+RewriteRule ^banner.gif header-bg-winter.gif [R,L]
+
+RewriteCond %{TIME_MON} ^(01|02)$
+RewriteRule ^banner.gif header-bg-winter.gif [R,L]
+
+RewriteCond %{TIME_MON} =03
+RewriteCond %{TIME_DAY} <21
+RewriteRule ^banner.gif header-bg-winter.gif [R,L]

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: coding | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/coding/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-04-29T23:12:11+01:00</updated>
+  <updated>2012-05-12T23:36:36+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -18,55 +18,51 @@
     <link href="http://blog.norestfortheweekend.com/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/"/>
     <updated>2011-04-30T18:47:19+01:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images</id>
-    <content type="html"><![CDATA[<p>Well that's not strictly true. The full headline reads something like this:</p>
+    <content type="html"><![CDATA[<p>Well that’s not strictly true. The full headline reads something like this:</p>
 
-<p><strong>Webkit doesn't fire the <code>load</code> event on images when you change the <code>src</code> attribute and the new <code>src</code> is the same as the old</strong></p>
+<p><strong>Webkit doesn’t fire the <code>load</code> event on images when you change the <code>src</code> attribute and the new <code>src</code> is the same as the old</strong></p>
 
-<h3>That seems reasonable</h3>
+<h3 id="that-seems-reasonable">That seems reasonable</h3>
 
-<p>That seems like reasonable behaviour. I mean, the image is already loaded. Changing the <code>src</code> attribute to it's <em>current value</em> isn't really changing it at all. It's staying the same. If the <code>src</code> is the same and the image is already loaded, why fire the <code>load</code> event? You would only want to do that if the image was reloaded but doing that would be pointless as it's already loaded. Loading it again would be a waste of bandwidth and make the experience feel slower; not what browser manufacturers are aiming for.</p>
+<p>That seems like reasonable behaviour. I mean, the image is already loaded. Changing the <code>src</code> attribute to it’s <em>current value</em> isn’t really changing it at all. It’s staying the same. If the <code>src</code> is the same and the image is already loaded, why fire the <code>load</code> event? You would only want to do that if the image was reloaded but doing that would be pointless as it’s already loaded. Loading it again would be a waste of bandwidth and make the experience feel slower; not what browser manufacturers are aiming for.</p>
 
-<p>So what's the big deal?</p>
+<p>So what’s the big deal?</p>
 
-<h3>Inherently lazy</h3>
+<h3 id="inherently-lazy">Inherently lazy</h3>
 
-<p>Developers like myself are inherently lazy. I don't mean we're workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
+<p>Developers like myself are inherently lazy. I don’t mean we’re workshy, but rather we always look for the easiest, cleanest solution to problems. This behaviour in WebKit fails twice on this count.</p>
 
 <ol>
-<li>It's inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That's not good.</li>
-<li>It forces me to add extra code to cope with it's specific requirements. Let me explain:</li>
+  <li>It’s inconsistent with other browsers. I have to work around it, potentially adding browser-specific code. That’s not good.</li>
+  <li>It forces me to add extra code to cope with it’s specific requirements. Let me explain:</li>
 </ol>
 
+<p>If I was writing for a JS-guaranteed environment this wouldn’t be such a problem but I’m a conscientious sort of guy and realise that not everyone will have the benefits of a modern browser with all the options set to ‘awesome’. I want to cater for the JS-disadvantaged as well.</p>
 
-<p>If I was writing for a JS-guaranteed environment this wouldn't be such a problem but I'm a conscientious sort of guy and realise that not everyone will have the benefits of a modern browser with all the options set to 'awesome'. I want to cater for the JS-disadvantaged as well.</p>
-
-<p>Let's assume I'm writing a carousel for a photo slideshow that shows 4 pictures at a time. I want to show the first 4 pictures by default so that at least some content appears even for the non-JS users. Then, using non-intrusive JS I augment the slideshow to add next / previous buttons and the ability to click the image to enlarge it in a lightbox.</p>
+<p>Let’s assume I’m writing a carousel for a photo slideshow that shows 4 pictures at a time. I want to show the first 4 pictures by default so that at least some content appears even for the non-JS users. Then, using non-intrusive JS I augment the slideshow to add next / previous buttons and the ability to click the image to enlarge it in a lightbox.</p>
 
 <p>To avoid repeating a lot of code in a setup function that would also be present in the next/previous function I can write a single function to set the page of the carousel, setting up the images and their click events.</p>
 
 <p>``` javascript Carousel setup
-var picturesPerPage = 4,</p>
+var picturesPerPage = 4,
+    pictures = $(‘#pictures img’);</p>
 
-<pre><code>pictures = $('#pictures img');
-</code></pre>
+<p>var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind(‘load’,function(){
+                pictureContainer.removeClass(‘loading’);
+                picture.unbind(‘load’);
+            });
+            pictureContainer.addClass(‘loading’);
+            picture.attr(‘src’,carouseldata.images[imageStart+i].thumbnailurl);</p>
 
-<p>var loadGalleryCarouselPage = function(pagenumber){</p>
-
-<pre><code>var imageStart = pagenumber*picturesPerPage;
-pictures.each(function(i){
-    var picture = $(pictures[i]),
-        pictureContainer = picture.parent();
-    picture.hide();
-    if(carouseldata.images[imageStart+i]){
-        picture.show();
-        picture.bind('load',function(){
-            pictureContainer.removeClass('loading');
-            picture.unbind('load');
-        });
-        pictureContainer.addClass('loading');
-        picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
-
-        picture.unbind('click');
+<pre><code>        picture.unbind('click');
         picture.bind('click',function(e){
             e.preventDefault();
             pictureLink.fancybox({
@@ -74,80 +70,73 @@ pictures.each(function(i){
             });
         });
     }
-});
+}); };
 </code></pre>
-
-<p>};</p>
 
 <p>loadGalleryCarouselPage(0);
 ```</p>
 
-<p>I'm using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
+<p>I’m using <a href="http://jquery.com/">JQuery</a> and <a href="http://fancybox.net/">Fancybox</a> for this example.</p>
 
-<p>So what we have there is a function that loops over the four <code>img</code> tags, pulls information out of an array (<code>carouseldata</code>) based on the page offset passed as an argument, sets up click and load listeners and changes the image's <code>src</code> attribute. This will work for any page at any time. In theory we could add a 'jump to page' option where the user could choose the page number to skip to. But we won't.</p>
+<p>So what we have there is a function that loops over the four <code>img</code> tags, pulls information out of an array (<code>carouseldata</code>) based on the page offset passed as an argument, sets up click and load listeners and changes the image’s <code>src</code> attribute. This will work for any page at any time. In theory we could add a ‘jump to page’ option where the user could choose the page number to skip to. But we won’t.</p>
 
 <p>This is especially handy as we can simply call <code>loadGalleryCarouselPage(0);</code> to set up the event listeners when the page first loads without having to duplicate most of the lines elsewhere. We even get a natty little loading spinner if we take advantage of the <code>loading</code> class that is set.</p>
 
-<h3>Making things difficult</h3>
+<h3 id="making-things-difficult">Making things difficult</h3>
 
-<p>When the page loads it's a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here's what happens:</p>
+<p>When the page loads it’s a bit of a race. The results of this function varies between refreshes for me. If the image has not yet loaded when the JS runs then it works fine. If the image has already loaded, however, here’s what happens:</p>
 
 <ol>
-<li>A <code>load</code> event listener is set</li>
-<li>The <code>loading</code> class is applied which shows a spinner and hides the image</li>
-<li>The <code>src</code> of the <code>img</code> is set</li>
-<li>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</li>
-<li>The picture remains hidden and the spinner keeps spinning even though the image is loaded</li>
+  <li>A <code>load</code> event listener is set	</li>
+  <li>The <code>loading</code> class is applied which shows a spinner and hides the image</li>
+  <li>The <code>src</code> of the <code>img</code> is set</li>
+  <li>The <code>load</code> event DOES NOT FIRE in WebKit because the image is already loaded</li>
+  <li>The picture remains hidden and the spinner keeps spinning even though the image is loaded</li>
 </ol>
-
 
 <p>And that is frustrating.</p>
 
-<p>It's an intermittent problem though, only when loading race conditions fail. Here's another situation where it happens every time.</p>
+<p>It’s an intermittent problem though, only when loading race conditions fail. Here’s another situation where it happens every time.</p>
 
-<h3>The dead cert.</h3>
+<h3 id="the-dead-cert">The dead cert.</h3>
 
-<p>The total number of images in the carousel doesn't divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
+<p>The total number of images in the carousel doesn’t divide perfectly by four, so on the final page there are only two images showing. The final two of the four <code>img</code> elements are hidden from view. They are hidden rather than removed because:</p>
 
 <ol>
-<li>They act as spacers so that other elements flow around them correctly</li>
-<li>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</li>
+  <li>They act as spacers so that other elements flow around them correctly</li>
+  <li>The <code>img</code> tag needs to stay so that we can easily change the <code>src</code> attribute if the user navigates back to a page with 4 images on it.</li>
 </ol>
 
+<p>So say we’re on page 9 of 10 and click ‘Next’. Images 1 &amp; 2 are updated to show the final two pictures and images 3 &amp; 4 are hidden. Importantly: the <code>src</code> attributes of images 3 &amp; 4 don’t change. When we click ‘Previous’, images 1 &amp; 2 are changed back but 3 &amp; 4 are stuck with the loading spinner. That’s because, like before, the <code>src</code> was already set and it was equal to the new value.</p>
 
-<p>So say we're on page 9 of 10 and click 'Next'. Images 1 &amp; 2 are updated to show the final two pictures and images 3 &amp; 4 are hidden. Importantly: the <code>src</code> attributes of images 3 &amp; 4 don't change. When we click 'Previous', images 1 &amp; 2 are changed back but 3 &amp; 4 are stuck with the loading spinner. That's because, like before, the <code>src</code> was already set and it was equal to the new value.</p>
+<h3 id="working-around-it">Working around it</h3>
 
-<h3>Working around it</h3>
+<p>We could set the hidden images to a transparent .gif or .png instead of hiding them which would solve the second problem but because we want the images showing for non-JS users when the page loads we can’t use that technique to fix this. Also, downloading that extra image means extra bandwidth and latency times that we’d rather not have to deal with.</p>
 
-<p>We could set the hidden images to a transparent .gif or .png instead of hiding them which would solve the second problem but because we want the images showing for non-JS users when the page loads we can't use that technique to fix this. Also, downloading that extra image means extra bandwidth and latency times that we'd rather not have to deal with.</p>
+<p>It turns out that setting the <code>src</code> to <code>''</code> (empty string) immediately before setting the image url will fix the problem. But! It causes the images (and consequently their container) to collapse to zero width and height in Firefox while the new images are loading which looks really bad if you’re trying to navigate a slideshow.</p>
 
-<p>It turns out that setting the <code>src</code> to <code>''</code> (empty string) immediately before setting the image url will fix the problem. But! It causes the images (and consequently their container) to collapse to zero width and height in Firefox while the new images are loading which looks really bad if you're trying to navigate a slideshow.</p>
-
-<p>Here's my solution:</p>
+<p>Here’s my solution:</p>
 
 <p>``` javascript Carousel setup improved
-var picturesPerPage = 4,</p>
+var picturesPerPage = 4,
+    pictures = $(‘#pictures img’);</p>
 
-<pre><code>pictures = $('#pictures img');
-</code></pre>
+<p>var loadGalleryCarouselPage = function(pagenumber){
+    var imageStart = pagenumber*picturesPerPage;
+    pictures.each(function(i){
+        var picture = $(pictures[i]),
+            pictureContainer = picture.parent();
+        picture.hide();
+        if(carouseldata.images[imageStart+i]){
+            picture.show();
+            picture.bind(‘load’,function(){
+                pictureContainer.removeClass(‘loading’);
+                picture.unbind(‘load’);
+            });
+            pictureContainer.addClass(‘loading’);
+            picture.attr(‘src’,carouseldata.images[imageStart+i].thumbnailurl);</p>
 
-<p>var loadGalleryCarouselPage = function(pagenumber){</p>
-
-<pre><code>var imageStart = pagenumber*picturesPerPage;
-pictures.each(function(i){
-    var picture = $(pictures[i]),
-        pictureContainer = picture.parent();
-    picture.hide();
-    if(carouseldata.images[imageStart+i]){
-        picture.show();
-        picture.bind('load',function(){
-            pictureContainer.removeClass('loading');
-            picture.unbind('load');
-        });
-        pictureContainer.addClass('loading');
-        picture.attr('src',carouseldata.images[imageStart+i].thumbnailurl);
-
-        picture.unbind('click');
+<pre><code>        picture.unbind('click');
         picture.bind('click',function(e){
             e.preventDefault();
             pictureLink.fancybox({
@@ -158,33 +147,31 @@ pictures.each(function(i){
     else{
         picture.attr('src','');
     }
-});
+}); };
 </code></pre>
 
-<p>};</p>
-
-<p>if($.browser.webkit){</p>
-
-<pre><code>$('#pictures img').each(function(i){
-    $(this).attr('src','');
-});
-</code></pre>
-
-<p>}
+<p>if($.browser.webkit){
+    $(‘#pictures img’).each(function(i){
+        $(this).attr(‘src’,’’);
+    });
+}
 loadGalleryCarouselPage(0);
 ```</p>
 
-<p>I added an <code>else</code> so that if there aren't enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
+<p>I added an <code>else</code> so that if there aren’t enough pictures to fill all the <code>img</code> tags the <code>src</code> of the unused images is set to an empty string. There will always be at least one image on each page so there will always be an image at full height to prop up the carousel container while those hidden <code>img</code> tags are primed to receive more content.</p>
 
-<p>I also added a little <code>if</code> block directly before initialising the carousel, at the bottom. If the browser is webkit-powered then it'll loop over the <code>img</code> tags and prime them (set their <code>src</code> to empty) before initialisation. Because this is done using JS, non-JS users will still see the images.</p>
+<p>I also added a little <code>if</code> block directly before initialising the carousel, at the bottom. If the browser is webkit-powered then it’ll loop over the <code>img</code> tags and prime them (set their <code>src</code> to empty) before initialisation. Because this is done using JS, non-JS users will still see the images.</p>
 
-<h3>Grumpy</h3>
+<h3 id="grumpy">Grumpy</h3>
 
-<p>I'm grumpy about having to put in that extra, browser specific code. Setting the <code>src</code> to an empty string seems hacky. But it works and the logic is still clean and minimal. So it'll do.</p>
+<p>I’m grumpy about having to put in that extra, browser specific code. Setting the <code>src</code> to an empty string seems hacky. But it works and the logic is still clean and minimal. So it’ll do.</p>
 
-<p>I hope that helps anyone having image loading javascript issues. And as usual I'd be interested to hear if you have any alternative / better solutions!</p>
+<p>I hope that helps anyone having image loading javascript issues. And as usual I’d be interested to hear if you have any alternative / better solutions!</p>
+
+<h3 id="footnotes">Footnotes</h3>
 
 <p>Check out the carousel in action <a href="http://www.qkschool.org.uk">here</a>.</p>
+
 ]]></content>
   </entry>
   
@@ -193,50 +180,46 @@ loadGalleryCarouselPage(0);
     <link href="http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/"/>
     <updated>2011-02-14T01:45:49+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser</id>
-    <content type="html"><![CDATA[<p>The Web in 3D - the Nintendo 3DS web browser</p>
+    <content type="html"><![CDATA[<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
 
-<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/nintendo3dswithpen.png" width="455" height="384" title="‘The Nintendo 3DS’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png" alt="The Nintendo 3DS" /></a></p>
+<p>Let’s not beat around the bush: this is a very impressive device. It’s tricked out with all the latest technologies (or the latest applications of ‘old’ technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I’m sure you have read about it - the top screen is a 3D display which importantly doesn’t require glasses. I can’t stress enough how good the 3D effect looked. It felt completely natural and I didn’t find myself getting any kind of a headache or nausea like some people are worried about.</p>
 
-<p>Let's not beat around the bush: this is a very impressive device. It's tricked out with all the latest technologies (or the latest applications of 'old' technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I'm sure you have read about it - the top screen is a 3D display which importantly doesn't require glasses. I can't stress enough how good the 3D effect looked. It felt completely natural and I didn't find myself getting any kind of a headache or nausea like some people are worried about.</p>
+<p>There were demos available of most of the functionality: Lots of games that’ll be available on launch or shortly thereafter, 3D photography, augmented reality (including the ‘reality’ part shown in 3D due to the 3D cameras on the lid - the most impressive thing for me) and street pass (Nintendo’s social discovery system). But the thing that actually holds the <em>most</em> interest for me <em>wasn’t</em> shown and indeed is barely talked about. I’m hoping that will change.</p>
 
-<p>There were demos available of most of the functionality: Lots of games that'll be available on launch or shortly thereafter, 3D photography, augmented reality (including the 'reality' part shown in 3D due to the 3D cameras on the lid - the most impressive thing for me) and street pass (Nintendo's social discovery system). But the thing that actually holds the <em>most</em> interest for me <em>wasn't</em> shown and indeed is barely talked about. I'm hoping that will change.</p>
+<h3 id="a-complex-web">A complex web</h3>
 
-<h3>A complex web</h3>
+<p>I’m talking, of course, about the web browser which will come built in to the device as part of the extensive suit of software bundled on-board.</p>
 
-<p>I'm talking, of course, about the web browser which will come built in to the device as part of the extensive suit of software bundled on-board.</p>
+<p>*YAWN*</p>
 
-<p><em>YAWN</em></p>
+<p>A web browser? What’s so great about that?</p>
 
-<p>A web browser? What's so great about that?</p>
+<p>I don’t know yet because no-one is talking about it, but I’m <em>hoping</em> it will inspire (even more) innovation and creativity on the web. I’m hoping it will have some semblance of 3D integration and capability. And if not, why not? Surely this is the way the web is going. More and more devices will be 3D enabled in the near future and you can bet that if the 3DS doesn’t kick-start the 3D web some other device will. You can buy a 3D TV to put in your living room for crying out loud - this is 2011! They reckon you’ll be able to buy a <a href="http://news.bbc.co.uk/1/hi/programmes/click_online/9393762.stm">HOLOGRAPHIC 3D TV</a> in 2012. I’m all over that. And I want the web to make sure it isn’t left behind. After all, a lot of modern TVs have integrated browsers. It’s the next logical step.</p>
 
-<p>I don't know yet because no-one is talking about it, but I'm <em>hoping</em> it will inspire (even more) innovation and creativity on the web. I'm hoping it will have some semblance of 3D integration and capability. And if not, why not? Surely this is the way the web is going. More and more devices will be 3D enabled in the near future and you can bet that if the 3DS doesn't kick-start the 3D web some other device will. You can buy a 3D TV to put in your living room for crying out loud - this is 2011! They reckon you'll be able to buy a <a href="http://news.bbc.co.uk/1/hi/programmes/click_online/9393762.stm">HOLOGRAPHIC 3D TV</a> in 2012. I'm all over that. And I want the web to make sure it isn't left behind. After all, a lot of modern TVs have integrated browsers. It's the next logical step.</p>
+<h3 id="least-they-could-do">Least they could do</h3>
 
-<h3>Least they could do</h3>
+<p>The least I could hope for is support for 3D images displayed in web pages. The <strong>LEAST</strong>. The standard open format is <a href="http://en.wikipedia.org/wiki/Image_file_formats#MPO">.mpo</a> and fortunately <a href="http://nintendo3dsblog.com/the-3d-camera-in-the-nintendo-3ds-saves-photos-in-the-open-mpo-file-format">the same format in which the 3DS saves it’s 3D photos</a>.</p>
 
-<p>The least I could hope for is support for 3D images displayed in web pages. The <strong>LEAST</strong>. The standard open format is <a href="http://en.wikipedia.org/wiki/Image_file_formats#MPO">.mpo</a> and fortunately <a href="http://nintendo3dsblog.com/the-3d-camera-in-the-nintendo-3ds-saves-photos-in-the-open-mpo-file-format">the same format in which the 3DS saves it's 3D photos</a>.</p>
+<p>That’s not to say you will be able to simply embed the 3D photos in your site and have them work in the 3DS’ web browser though. Think how that would look in a desktop browser… Well it probably wouldn’t show up or show a broken image.</p>
 
-<p>That's not to say you will be able to simply embed the 3D photos in your site and have them work in the 3DS' web browser though. Think how that would look in a desktop browser... Well it probably wouldn't show up or show a broken image.</p>
+<p>No, no, no, don’t even think about making a separate site for 3D devices. I thought we were past all that. What are you going to have yet another separate site for 3D+Mobile? We want to serve one page that works on all devices.</p>
 
-<p>No, no, no, don't even think about making a separate site for 3D devices. I thought we were past all that. What are you going to have yet another separate site for 3D+Mobile? We want to serve one page that works on all devices.</p>
-
-<p>The trouble is, without images having a similar failover pattern to the one available to <a href="http://dev.opera.com/articles/view/everything-you-need-to-know-about-html5-video-and-audio/">video and audio in HTML5</a>, you simply couldn't use the image inline in your page as non-3D-enabled browsers wouldn't recognise the format. This just proves that there are always new image formats emerging; they are not all supported by all browsers as it's easy to assume (if you forget about IE6 and .png's) so why should we assume that that's the case with the markup?</p>
+<p>The trouble is, without images having a similar failover pattern to the one available to <a href="http://dev.opera.com/articles/view/everything-you-need-to-know-about-html5-video-and-audio/">video and audio in HTML5</a>, you simply couldn’t use the image inline in your page as non-3D-enabled browsers wouldn’t recognise the format. This just proves that there are always new image formats emerging; they are not all supported by all browsers as it’s easy to assume (if you forget about IE6 and .png’s) so why should we assume that that’s the case with the markup?</p>
 
 <p><a href="http://www.brucelawson.co.uk/2010/why-video-audio-canvas-arent-self-closing-tags/">This has been discussed by Bruce Lawson</a> and makes sense (no matter how frustrating it is). So until all browsers support the display of 3D images on 2D screens we will have to find another way.</p>
 
 <p>The other way to include images in the page is, of course, CSS background images. This one has legs. The 3DS browser could easily respond to an @media query, something like <code>@media screen and (-3ds-min-device-spatial-dimensions: 3) { ... }</code>. Then you could alter how the page looks on a device that has 3D capabilities. Once you have the 3D background image in place you can mark it up to include a 2D version for the rest of the world:</p>
 
-<p>HTML:</p>
-
-<pre><code>&lt;div class="forest-picture"&gt;
+<p><code>html HTML    
+&lt;div class="forest-picture"&gt;
     &lt;img src="http://blog.norestfortheweekend.com/static/img/forest-2d.jpg" alt="Pretty forest scene" height="250" width="400"&gt;&lt;/img&gt;
 &lt;/div&gt;
-</code></pre>
+</code></p>
 
-<p>CSS:</p>
-
-<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) {
+<p><code>css CSS    
+@media screen and (-3ds-min-device-spatial-dimensions: 3) {
     .forest-picture{
         background: transparent url(../img/forest-3d.mpo) no-repeat 0 0;
         width: 400px;
@@ -246,29 +229,29 @@ loadGalleryCarouselPage(0);
         display: none;
     }
 }
-</code></pre>
+</code></p>
 
-<p>The best of both worlds! We can dream...</p>
+<p>The best of both worlds! We can dream…</p>
 
-<h3>Reality check</h3>
+<h3 id="reality-check">Reality check</h3>
 
-<p>Before we go on, I just need to make it abundantly clear (if it isn't already) that this article is pure speculation. I don't know if the 3DS browser supports any of this kind of stuff, but imagining the possibilities and how they might work is an interesting exercise. Oh wait, it looks like <a href="http://www.google.com/intl/en/landing/chrome/cadie/">Google has already looked into 3D browsing</a>. My mistake ;)</p>
+<p>Before we go on, I just need to make it abundantly clear (if it isn’t already) that this article is pure speculation. I don’t know if the 3DS browser supports any of this kind of stuff, but imagining the possibilities and how they might work is an interesting exercise. Oh wait, it looks like <a href="http://www.google.com/intl/en/landing/chrome/cadie/">Google has already looked into 3D browsing</a>. My mistake ;)</p>
 
-<p>Let's explore further down the rabbit hole...</p>
+<p>Let’s explore further down the rabbit hole…</p>
 
-<h3>Going the extra dimension</h3>
+<h3 id="going-the-extra-dimension">Going the extra dimension</h3>
 
-<p>What if we wanted to move beyond just sticking 3D images in our pages? As awesome as a 3D gallery might be, there are so many more possibilities. Imagine if the whole page could be rendered in 3D; if each element on the page had it's own depth setting. I think the most obvious thing to do would be to push the background actually into the background giving the site content more prominence, and if you start down that road you should just be able to let your imagination carry you forwards.</p>
+<p>What if we wanted to move beyond just sticking 3D images in our pages? As awesome as a 3D gallery might be, there are so many more possibilities. Imagine if the whole page could be rendered in 3D; if each element on the page had it’s own depth setting. I think the most obvious thing to do would be to push the background actually into the background giving the site content more prominence, and if you start down that road you should just be able to let your imagination carry you forwards.</p>
 
-<p>I know what you're thinking, and it's what I thought at first too... why not use <code>z-index</code> for that? The reason why not is because <code>z-index</code> controls the stacking order of elements on a single plane. If you change the function of <code>z-index</code> to control depth on 3D devices, how would you re-order a group of elements sharing the same depth on a 3D page? It's clear that we need a separate property to do that. I'm going to be bold and use <code>depth</code> in examples, for want of a better attribute name.</p>
+<p>I know what you’re thinking, and it’s what I thought at first too… why not use <code>z-index</code> for that? The reason why not is because <code>z-index</code> controls the stacking order of elements on a single plane. If you change the function of <code>z-index</code> to control depth on 3D devices, how would you re-order a group of elements sharing the same depth on a 3D page? It’s clear that we need a separate property to do that. I’m going to be bold and use <code>depth</code> in examples, for want of a better attribute name.</p>
 
-<p>So where are we? We've got 3D images and the ability to assign <code>depth</code> to elements. That's a good start, but it seems a little restricted, doesn't it? A bunch of flat panels sitting at different depths in a 3D space. We're not really making the most of the technology. We need to add a little style in there... style that can bridge the gap between depth-levels. Fortunately, Webkit is one step ahead of this game with it's <a href="http://webkit.org/blog/386/3d-transforms/">CSS 3D transforms</a>. These could easily be adapted to show in real 3D instead of 3D rendered in 2D.</p>
+<p>So where are we? We’ve got 3D images and the ability to assign <code>depth</code> to elements. That’s a good start, but it seems a little restricted, doesn’t it? A bunch of flat panels sitting at different depths in a 3D space. We’re not really making the most of the technology. We need to add a little style in there… style that can bridge the gap between depth-levels. Fortunately, Webkit is one step ahead of this game with it’s <a href="http://webkit.org/blog/386/3d-transforms/">CSS 3D transforms</a>. These could easily be adapted to show in real 3D instead of 3D rendered in 2D.</p>
 
-<h4>Curves would be nice</h4>
+<h4 id="curves-would-be-nice">Curves would be nice</h4>
 
-<p>Yes they would, and so would a mansion on the beach in Barbados. We don't even have the ability to define curves in 2D CSS yet. But then in 2D we might not have wanted to do crazy things like making a callout or title bow inwards or outwards, which would work pretty well in 3D. But maybe just one step at a time...</p>
+<p>Yes they would, and so would a mansion on the beach in Barbados. We don’t even have the ability to define curves in 2D CSS yet. But then in 2D we might not have wanted to do crazy things like making a callout or title bow inwards or outwards, which would work pretty well in 3D. But maybe just one step at a time…</p>
 
-<h3>What is 3D anyway</h3>
+<h3 id="what-is-3d-anyway">What is 3D anyway</h3>
 
 <p>To develop in 3D you need to understand how it really works. Fortunately understanding it is a lot simpler than getting your head around designing and developing in it:</p>
 
@@ -276,80 +259,76 @@ loadGalleryCarouselPage(0);
 
 <p>Simple enough, and in real life this works pretty well. But when generating your own 3D content you have to be ever-mindful of it.</p>
 
-<h3>Mind the gaps</h3>
+<h3 id="mind-the-gaps">Mind the gaps</h3>
 
-<p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance.</p>
+<p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance. </p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png" alt="3DS Screen showing plain background" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo1.png" width="628" height="312" title="‘3DS Screen showing plain background’" ></p>
 
-<p>You then have a look at it and wonder why it doesn't look like it's way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you're left feeling a little confused.</p>
+<p>You then have a look at it and wonder why it doesn’t look like it’s way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you’re left feeling a little confused.</p>
 
-<p>The reason why this doesn't appear to be in the background is because your eyes are seeing the exact same image. There needs to be some more detail in there before your eyes can be tricked into thinking that it's way off in the distance. Here are some suggestions:</p>
-
-<ol>
-<li>You could give it a border that makes it look like you're looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
-</ol>
-
-
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png" alt="3DS screen showing a background shaded to look like you are looking into a box" /></a></p>
+<p>The reason why this doesn’t appear to be in the background is because your eyes are seeing the exact same image. There needs to be some more detail in there before your eyes can be tricked into thinking that it’s way off in the distance. Here are some suggestions:</p>
 
 <ol>
-<li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it's not at the depth you intended.</li>
+  <li>You could give it a border that makes it look like you’re looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
 </ol>
 
-
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png" alt="3DS screen with a patterned background" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo2.png" width="628" height="312" title="‘3DS screen showing a background shaded to look like you are looking into a box’" ></p>
 
 <ol>
-<li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I'm going to go with this one.</li>
+  <li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it’s not at the depth you intended.</li>
 </ol>
 
+<p><img class="center" src="/images/wp-uploads/2011/02/demo3.png" width="628" height="312" title="‘3DS screen with a patterned background’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png" alt="3DS screen with a plain background and a green tile overlayed" /></a></p>
+<ol>
+  <li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I’m going to go with this one.</li>
+</ol>
 
-<p>But even laying something on top like this isn't too easy for our brains to process. Have a look what each eye would be seeing.</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo4.png" width="628" height="312" title="‘3DS screen with a plain background and a green tile overlayed’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png" alt="Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye" /></a></p>
+<p>But even laying something on top like this isn’t too easy for our brains to process. Have a look what each eye would be seeing.</p>
 
-<p>There's not a great deal to differentiate these two images and while your brain knows it's seeing different things from each eye it is struggling because there are things missing that it's used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don't give people headaches we'll have to sort this out.</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo5.png" width="628" height="312" title="‘Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye’" ></p>
 
-<pre><code>.floating-box{
+<p>There’s not a great deal to differentiate these two images and while your brain knows it’s seeing different things from each eye it is struggling because there are things missing that it’s used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don’t give people headaches we’ll have to sort this out.</p>
+
+<p><code>css CSS    
+.floating-box{
     box-shadow: 5px 5px 5px #ccc;
 }
-</code></pre>
+</code></p>
 
 <p>Now the panel has a nice drop shadow which should make it easier on the eyes and easier to see the 3D effect.</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png" alt="3DS screen with plain background and a green panel overlaid with a drop shadow" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo6.png" width="628" height="312" title="‘3DS screen with plain background and a green panel overlaid with a drop shadow’" ></p>
 
 <p>But how does it get rendered so that each eye sees the shadow differently?</p>
 
-<h3>Seeing the light</h3>
+<h3 id="seeing-the-light">Seeing the light</h3>
 
 <p>The way I see it there are two options:</p>
 
 <ol>
-<li><p>The browser provides a default (override-able) light source:</p>
-
-<p> body{</p>
-
-<pre><code> light-source: 25% 25% fixed;
-</code></pre>
-
-<p> }</p></li>
+  <li>The browser provides a default (override-able) light source:</li>
 </ol>
 
+<p><code>css CSS    
+body{
+    light-source: 25% 25% fixed;
+}
+</code></p>
 
 <p><code>fixed</code> would position the light source relative to the browser viewport, and as an alternative <code>absolute</code> would position it relative to the document.</p>
 
 <ol>
-<li>You, the developer, get granular control over what each eye sees:</li>
+  <li>You, the developer, get granular control over what each eye sees:</li>
 </ol>
-
 
 <p>If you had control over each eye the possibilities would be endless. Set the difference in box shadow offset, show a different background image to achieve a rippling effect. You would OWN all the dimensions.</p>
 
-<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: left-eye) {
+<p><code>css CSS    
+@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: left-eye) {
     .floating-box{
         box-shadow: 3px 5px 5px #ccc;
     }
@@ -359,19 +338,19 @@ loadGalleryCarouselPage(0);
         box-shadow: 7px 5px 5px #ccc;
     }
 }
-</code></pre>
+</code></p>
 
 <p>I think a combination of both would probably be in the interests of developer and user alike.</p>
 
-<h3>It's not all giant blue humanoids and bio-luminescent flowers</h3>
+<h3 id="its-not-all-giant-blue-humanoids-and-bio-luminescent-flowers">It’s not all giant blue humanoids and bio-luminescent flowers</h3>
 
-<p>This technology has it's disadvantages, and you can be sure that there will be some nasty surprises out there when it comes along. As with most visual effects, subtlety is king. Of course there will always be the developers who are irresponsible with this great power and make some eye-bleeding creations, but that's just inevitable. No, what I'm really worried about can be summed up in two words: Internet. Advertising. If you thought pop-over ads were intrusive now, you ain't seen nothing yet.</p>
+<p>This technology has it’s disadvantages, and you can be sure that there will be some nasty surprises out there when it comes along. As with most visual effects, subtlety is king. Of course there will always be the developers who are irresponsible with this great power and make some eye-bleeding creations, but that’s just inevitable. No, what I’m really worried about can be summed up in two words: Internet. Advertising. If you thought pop-over ads were intrusive now, you ain’t seen nothing yet.</p>
 
-<h3>The waiting game</h3>
+<h3 id="the-waiting-game">The waiting game</h3>
 
-<p>Who knows what you'll be able to do with the browser? Nintendo maybe? Or if it's <a href="http://www.opera.com/">Opera</a> providing the software again, as they did for the Wii and original DS/DSi then I expect they will know. (Please do get in touch if you have insider knowledge!) But until that information is made available or the 3DS is in our hands we won't know for sure. I hope it's got at least a few fun 3D features to play with. I'm sure the full set will develop over time.</p>
+<p>Who knows what you’ll be able to do with the browser? Nintendo maybe? Or if it’s <a href="http://www.opera.com/">Opera</a> providing the software again, as they did for the Wii and original DS/DSi then I expect they will know. (Please do get in touch if you have insider knowledge!) But until that information is made available or the 3DS is in our hands we won’t know for sure. I hope it’s got at least a few fun 3D features to play with. I’m sure the full set will develop over time.</p>
 
-<p><strong>Update:</strong> Now that the browser is available, I had a little play with it and <a href="http://www.norestfortheweekend.com/2011/06/14/3ds-browser-revisited/">wrote down a few of my thoughts</a>.</p>
+<p><strong>Update:</strong> Now that the browser is available, I had a little play with it and <a href="/blog/2011/06/14/3ds-browser-revisited/">wrote down a few of my thoughts</a>.</p>
 ]]></content>
   </entry>
   
@@ -380,37 +359,37 @@ loadGalleryCarouselPage(0);
     <link href="http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls/"/>
     <updated>2011-01-16T19:13:03+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2011/01/16/always-use-www-in-your-urls</id>
-    <content type="html"><![CDATA[<p>...unless you are specifically on another subdomain.</p>
+    <content type="html"><![CDATA[<p>…unless you are specifically on another subdomain. </p>
 
-<p>I'm not kidding! You need to make sure that your sites all redirect from http://yoursite.org to http://www.yoursite.org. If you're not sure whether your sites do this, try now. Go ahead, I'll wait.</p>
+<p>I’m not kidding! You need to make sure that your sites all redirect from http://yoursite.org to http://www.yoursite.org. If you’re not sure whether your sites do this, try now. Go ahead, I’ll wait.</p>
 
 <p>You can score yourself against this list based on what you see:</p>
 
 <ul>
-<li><p>Error page: <strong>NO POINTS!</strong></p></li>
-<li><p>Redirected to www.yoursite.org but to the front page instead of the page you wanted: <strong>Half a point</strong></p></li>
-<li><p>Page served, URL still has no www: <strong>1 point</strong></p></li>
-<li><p>Redirected to www.yoursite.org and to the correct page: <strong>10 points!</strong></p></li>
+  <li>Error page: <strong>NO POINTS!</strong></li>
+  <li>Redirected to www.yoursite.org but to the front page instead of the page you wanted: <strong>Half a point</strong></li>
+  <li>Page served, URL still has no www: <strong>1 point</strong></li>
+  <li>Redirected to www.yoursite.org and to the correct page: <strong>10 points!</strong></li>
 </ul>
 
+<p>On no account should a user see an error page if they don’t type www before your URL. That’s just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.</p>
 
-<p>On no account should a user see an error page if they don't type www before your URL. That's just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.</p>
+<p>It’s almost as bad if the user enters an address to a page within your site and then gets taken to the home page, even if the URL in the address bar says www. I mean at least the site doesn’t look broken but it’s still not a nice welcome. Having the www gets you half a point.</p>
 
-<p>It's almost as bad if the user enters an address to a page within your site and then gets taken to the home page, even if the URL in the address bar says www. I mean at least the site doesn't look broken but it's still not a nice welcome. Having the www gets you half a point.</p>
-
-<p>If the page is served irrespective of whether there is a www in the URL thats... OK. But only OK. Aside from the fact that you've got the same pages in two locations (not good for Google-juice) it could lead to errors. As yoursite.org and www.yoursite.org are seen as two different domains, if you have any AJAX on your site that refers specifically to www.yoursite.org it's going to <em>fail hard</em> if the URL in the address bar doesn't have the www. This is thanks to the cross-domain security model browsers employ. You don't want that happening.</p>
+<p>If the page is served irrespective of whether there is a www in the URL thats… OK. But only OK. Aside from the fact that you’ve got the same pages in two locations (not good for Google-juice) it could lead to errors. As yoursite.org and www.yoursite.org are seen as two different domains, if you have any AJAX on your site that refers specifically to www.yoursite.org it’s going to <em>fail hard</em> if the URL in the address bar doesn’t have the www. This is thanks to the cross-domain security model browsers employ. You don’t want that happening.</p>
 
 <p>What you should be doing is simply redirecting all traffic to the root domain to the www subdomain and maintaining the rest of the URL to ensure a good experience. This is actually very easy to do:</p>
 
-<p>Open the <code>.htaccess</code> file in the root of your site's file structure. If it doesn't exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it's open, add these lines to it:</p>
+<p>Open the <code>.htaccess</code> file in the root of your site’s file structure. If it doesn’t exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it’s open, add these lines to it:</p>
 
-<pre><code>RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
+<p><code>apache
+RewriteCond %{HTTP_HOST} ^yoursite\.org$ [NC]
 RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
-</code></pre>
+</code> </p>
 
-<p>Note that on the first line when you change the domain you need to add a slash before each dot as it's part of a regular expression.</p>
+<p>Note that on the first line when you change the domain you need to add a slash before each dot as it’s part of a regular expression.</p>
 
-<p>It's that simple!</p>
+<p>It’s that simple!</p>
 
 <p>You have no excuse now.</p>
 ]]></content>
@@ -421,18 +400,20 @@ RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
     <link href="http://blog.norestfortheweekend.com/blog/2010/10/13/regex-for-an-email-address/"/>
     <updated>2010-10-13T14:21:53+01:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2010/10/13/regex-for-an-email-address</id>
-    <content type="html"><![CDATA[<p>It's something that I've come up against several times and each time I google for it I turn up a different result.</p>
+    <content type="html"><![CDATA[<p>It’s something that I’ve come up against several times and each time I google for it I turn up a different result.</p>
 
 <p>How do you validate an email address?</p>
 
-<p>Obviously you want to use a <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>, but given the specification for <a href="http://en.wikipedia.org/wiki/Email_address">email address</a>es that's going to be one really complicated line of code.</p>
+<p>Obviously you want to use a <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>, but given the specification for <a href="http://en.wikipedia.org/wiki/Email_address">email address</a>es that’s going to be one really complicated line of code.</p>
 
-<p>Following a user's complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today's search yielded more success <a href="http://atlantic-drugs.net/products/viagra.htm">viagra</a> usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
+<p>Following a user’s complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today’s search yielded more success than usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
 
-<pre><code>/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[^()&lt;&gt;@,;:".\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|"[^\\\x80-\xff\n\015"]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015"]*)*")[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:".\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Email regex (email_regex.pl)</span> <a href='/downloads/code/regex-for-an-email-address/email_regex.pl'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='perl'><span class='line'><span class="sr">/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>I won't lie to you: I haven't dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I've thrown at it. It also works in Javascript which, for me, is a massive win.</p>
+<p>I won’t lie to you: I haven’t dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I’ve thrown at it. It also works in Javascript which, for me, is a massive win.</p>
 ]]></content>
   </entry>
   
@@ -441,149 +422,197 @@ RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
     <link href="http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all/"/>
     <updated>2009-12-12T20:47:01+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all</id>
-    <content type="html"><![CDATA[<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/console.jpg" alt="Firebug console" /></p>
+    <content type="html"><![CDATA[<p><img class="center" src="/images/wp-uploads/2009/12/console.jpg" width="628" height="187" title="‘Firebug console’" ></p>
 
-<p>If you're like me then you probably use <code>console.log</code> a lot. It's such a useful debugging tool! It's better that alert in so many ways I won't bother mentioning them all because- oh what the hell, this is my blog I'll do what I want. Here is why <code>console.log</code> is better than alert:</p>
+<p>If you’re like me then you probably use <code>console.log</code> a lot. It’s such a useful debugging tool! It’s better that alert in so many ways I won’t bother mentioning them all because - oh what the hell, this is my blog I’ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
 
 <ul>
-<li><p>It hides away when you don't need it and doesn't bother you unless you are interested in it.</p></li>
-<li><p>It lets you log more than one variable at a time simply by passing more than one argument.</p></li>
-<li><p>It doesn't interrupt the flow of the script until you click OK.*</p></li>
-<li><p>If you are testing a loop or quick interval you don't have to force quit Firefox just to get to the reload button.</p></li>
-<li><p>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</p></li>
-<li><p>If you log an <code>Element</code> that's on the page when you mouse over it in the log it highlights on the page.</p></li>
+  <li>It hides away when you don’t need it and doesn’t bother you unless you are interested in it.</li>
+  <li>It lets you log more than one variable at a time simply by passing more than one argument.</li>
+  <li>It doesn’t interrupt the flow of the script until you click OK.
+    <ul>
+      <li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don’t get me wrong!</li>
+    </ul>
+  </li>
+  <li>If you are testing a loop or quick interval you don’t have to force quit Firefox just to get to the reload button.</li>
+  <li>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</li>
+  <li>If you log an <code>Element</code> that’s on the page when you mouse over it in the log it highlights on the page.</li>
 </ul>
 
+<p>What’s my point? Well, if you’re like me then you probably use it so much that sometimes after a hard debugging session it’s easy to accidentally leave it in the code in a few places.</p>
 
-<p>What's my point? Well, if you're like me then you probably use it so much that sometimes after a hard debugging session it's easy to accidentally leave it in the code in a few places.</p>
+<h2 id="the-piece-of-grit-that-stopped-the-clock">The piece of grit that stopped the clock</h2>
 
-<h4>The piece of grit that stopped the clock</h4>
+<p>What harm can it do? Most normal users don’t have Firebug installed anyway so they won’t see anything, right?</p>
 
-<p>What harm can it do? Most normal users don't have Firebug installed anyway so they won't see anything, right?</p>
+<p>Wrong. Or at least wrong attitude. Developers will see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
 
-<p>Wrong. Or at least wrong attitude. Developers <a href="http://cvsonlinepharmacystore.com/products/kamasutra-ribbed-condoms.htm">will</a> see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
+<p>Without Firebug installed the <code>console</code> object doesn’t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It’s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
 
-<p>Without Firebug installed the <code>console</code> object doesn't exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It's little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
+<p><img class="center" src="/images/wp-uploads/2009/12/erroronpage.gif" width="109" height="21" title="‘IE’s ‘error on page’ icon’" ></p>
 
-<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/erroronpage.gif" alt="IE's 'error on page' icon" /></p>
+<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn’t inspire confidence in a site or product.</p>
 
-<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn't inspire confidence in a site or product.</p>
+<h2 id="undesirable">Undesirable</h2>
 
-<h4>Undesirable</h4>
+<p>It’s fair to say that you don’t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug’s console. Have a look at the code:</p>
 
-<p>It's fair to say that you don't want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug's console. Have a look at the code:</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (console.log.js)</span> <a href='/downloads/code/console-log-for-all/console.log.js'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="s1">&#39;console&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="s1">&#39;log&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">)){</span>
+</span><span class='line'>	<span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>		<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="p">{},</span>
+</span><span class='line'>		<span class="nx">glow</span><span class="p">,</span>
+</span><span class='line'>		<span class="nx">$</span><span class="p">,</span>
+</span><span class='line'>		<span class="nx">logpanel</span><span class="p">,</span>
+</span><span class='line'>		<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>			<span class="nx">enabled</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">disable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>			<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">){</span>
+</span><span class='line'>				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">clear</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>			<span class="nx">logpanel</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nx">enabled</span><span class="p">){</span>
+</span><span class='line'>				<span class="k">if</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;undefined&#39;</span><span class="p">){</span>
+</span><span class='line'>					<span class="nx">logpanel</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;&lt;p style=&quot;position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;&quot; id=&quot;console-log&quot;&gt;&#39;</span><span class="p">);</span>
+</span><span class='line'>					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">);</span>
+</span><span class='line'>					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;padding-bottom&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
+</span><span class='line'>					<span class="k">if</span><span class="p">(</span><span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span> <span class="o">&amp;&amp;</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span><span class="o">&lt;=</span><span class="mi">6</span><span class="p">){</span> <span class="c1">//little hack to keep it at the bottom of the IE window</span>
+</span><span class='line'>						<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#console-log&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span><span class="s1">&#39;absolute&#39;</span><span class="p">);</span>
+</span><span class='line'>						<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;99px&#39;</span><span class="p">);</span>
+</span><span class='line'>							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
+</span><span class='line'>						<span class="p">},</span><span class="mi">250</span><span class="p">);</span>
+</span><span class='line'>					<span class="p">}</span>
+</span><span class='line'>				<span class="p">}</span>
+</span><span class='line'>				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">append</span><span class="p">([</span><span class="nx">msg</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">));</span>
+</span><span class='line'>				<span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollHeight</span><span class="p">;</span>
+</span><span class='line'>			<span class="p">}</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">){</span>
+</span><span class='line'>			<span class="nx">glow</span> <span class="o">=</span> <span class="nx">g</span><span class="p">;</span>
+</span><span class='line'>			<span class="nx">$</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+</span><span class='line'>		<span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>		<span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
+</span><span class='line'>	<span class="p">}();</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="nx">console</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">glow</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>    </p>
 
-<pre><code>if(!('console' in window) || !('log' in window.console)){
+<p>I’m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it’s really very good! (<strong>Update:</strong> although, now, sadly discontinued thanks to BBC cutbacks )</p>
+
+<p>So basically what we’re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don’t need to bother. Let’s presume that it <em>doesn’t</em> exist.</p>
+
+<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let’s strip it back to make it easier to look at:</p>
+
+<p><code>javascript Javscript
     window.console = function(){
-        var r = {},
-        glow,
-        $,
-        logpanel,
-        enabled=false;
-
-        r.enable = function(){
-            enabled=true;
-        };
-
-        r.disable = function(){
-            enabled=false;
-            if(logpanel){
-                logpanel.destroy();
-            }
-        };
-
-        r.clear = function(){
-            logpanel.empty();
-        };
-
-        r.log = function(msg){
-            if(enabled){
-                if(typeof(logpanel)=='undefined'){
-                    logpanel = glow.dom.create('
-&lt;p style="position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;" id="console-log"&gt;
-
-');
-                    $('body').append(logpanel);
-                    $('body').css('padding-bottom','100px');
-                    if(glow.env.ie &amp;&amp; glow.env.ie&lt;=6){ //little hack to keep it at the bottom of the IE window
-                        $('#console-log').css('position','absolute');
-                        setInterval(function(){
-                            logpanel.css('height','99px');
-                            logpanel.css('height','100px');
-                        },250);
-                    }
-                }
-                logpanel.append([msg,""].join(''));
-                logpanel[0].scrollTop = logpanel[0].scrollHeight;
-            }
-        };
-
-        r.init = function(g){
-            glow = g;
-            $ = glow.dom.get;
-        };
-
-        return r;
+    	return {};
     }();
+</code></p>
 
-    console.init(glow);
-}
-</code></pre>
+<p>I’m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it’s called.</p>
 
-<p>I'm using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it's really very good!</p>
-
-<p>So basically what we're doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don't need to bother. Let's presume that it <em>doesn't</em> exist.</p>
-
-<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let's strip it back to make it easier to look at:</p>
-
-<pre><code>window.console = function(){
-    return {};
-}();
-</code></pre>
-
-<p>I'm setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it's called.</p>
-
-<p>It looks initially like I'm defining <code>console</code> to be a function but straight after the closing brace of the function you've got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
+<p>It looks initially like I’m defining <code>console</code> to be a function but straight after the closing brace of the function you’ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
 
 <p>If, as in the case of the finished code, the object returned (<code>r</code>) has properties then they will be accessible at <code>window.console.property</code>. And of course, the property can also be a function, like <code>log</code>.</p>
 
-<h4>Fully functional</h4>
+<h2 id="fully-functional">Fully functional</h2>
 
 <p>The functions that are defined here are:</p>
 
 <ul>
-<li><p><code>enable</code></p></li>
-<li><p><code>disable</code></p></li>
-<li><p><code>clear</code></p></li>
-<li><p><code>log</code></p></li>
-<li><p><code>init</code></p></li>
+  <li><code>enable</code></li>
+  <li><code>disable</code></li>
+  <li><code>clear</code></li>
+  <li><code>log</code></li>
+  <li><code>init</code></li>
 </ul>
 
+<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn’t mean it’s completely ineffective when disabled, though. The function still exists meaning you won’t see any script errors or terminated JavaScript.</p>
 
-<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn't mean it's completely ineffective when disabled, though. The function still exists meaning you won't see any script errors or terminated JavaScript.</p>
-
-<p>To enable it, simple call <code>console.enable();</code>. You don't have to do this in the code (I'd advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I'd recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
+<p>To enable it, simple call <code>console.enable();</code>. You don’t have to do this in the code (I’d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I’d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
 
 <p>Likewise to disable the console, just type <code>javascript:console.disable();</code>, or to clear it type <code>javascript:console.clear();</code>.</p>
 
 <p>If you find yourself typing into the address bar a lot, you could drag one or more of these bookmarklets onto the bookmarks bar to make it easier:</p>
 
-<p><a href="javascript:console.enable(">Enable console</a>;) <a href="javascript:console.disable(">Disable console</a>;) <a href="javascript:console.clear(">Clear console</a>;)</p>
+<p><a href="javascript:console.enable(\);">Enable console</a> <a href="javascript:console.disable(\);">Disable console</a> <a href="javascript:console.clear(\);">Clear console</a></p>
 
-<p>The reason I've included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it's useful to be able to pass a specific version of the library to <code>console</code> to use. If you're not worried about that sort of thing then you don't need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
+<p>The reason I’ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it’s useful to be able to pass a specific version of the library to <code>console</code> to use. If you’re not worried about that sort of thing then you don’t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
 
-<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn't exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
+<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn’t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
 
-<p>There's really not a lot to it!</p>
+<p>There’s really not a lot to it!</p>
 
-<h4>Got console?</h4>
+<h2 id="got-console">Got console?</h2>
 
-<p>Since getting it's rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It's accessible on Chrome and Safari under the developer menus. Of course this script won't affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
-
-<ul>
-<li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don't get me wrong!</li>
-</ul>
-
+<p>Since getting it’s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It’s accessible on Chrome and Safari under the developer menus. Of course this script won’t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
 ]]></content>
   </entry>
   

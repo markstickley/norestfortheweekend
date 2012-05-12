@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="If you&#8217;re like me then you probably use console.log a lot. It&#8217;s such a useful debugging tool! It&#8217;s better that alert in so many &hellip;">
+  <meta name="description" content="If you&rsquo;re like me then you probably use console.log a lot. It&rsquo;s such a useful debugging tool! It&rsquo;s better that alert in so many &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,10 +21,13 @@
   <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
   <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/prefixfree.min.js" type="text/javascript"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -46,14 +49,14 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
+  <header role="banner" id="banner"><hgroup>
   <h1><a href="/">No Rest For The Weekend</a></h1>
   
 </hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
   
@@ -67,6 +70,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 
 </nav>
@@ -100,149 +104,199 @@
   </header>
 
 
-<div class="entry-content"><p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/console.jpg" alt="Firebug console" /></p>
+<div class="entry-content"><p><img class="center" src="/images/wp-uploads/2009/12/console.jpg" width="628" height="187" title="'Firebug console'" /></p>
 
-<p>If you&#8217;re like me then you probably use <code>console.log</code> a lot. It&#8217;s such a useful debugging tool! It&#8217;s better that alert in so many ways I won&#8217;t bother mentioning them all because- oh what the hell, this is my blog I&#8217;ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
+<p>If you&rsquo;re like me then you probably use <code>console.log</code> a lot. It&rsquo;s such a useful debugging tool! It&rsquo;s better that alert in so many ways I won&rsquo;t bother mentioning them all because - oh what the hell, this is my blog I&rsquo;ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
 
 <ul>
-<li><p>It hides away when you don&#8217;t need it and doesn&#8217;t bother you unless you are interested in it.</p></li>
-<li><p>It lets you log more than one variable at a time simply by passing more than one argument.</p></li>
-<li><p>It doesn&#8217;t interrupt the flow of the script until you click OK.*</p></li>
-<li><p>If you are testing a loop or quick interval you don&#8217;t have to force quit Firefox just to get to the reload button.</p></li>
-<li><p>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</p></li>
-<li><p>If you log an <code>Element</code> that&#8217;s on the page when you mouse over it in the log it highlights on the page.</p></li>
+  <li>It hides away when you don&rsquo;t need it and doesn&rsquo;t bother you unless you are interested in it.</li>
+  <li>It lets you log more than one variable at a time simply by passing more than one argument.</li>
+  <li>It doesn&rsquo;t interrupt the flow of the script until you click OK.
+    <ul>
+      <li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don&rsquo;t get me wrong!</li>
+    </ul>
+  </li>
+  <li>If you are testing a loop or quick interval you don&rsquo;t have to force quit Firefox just to get to the reload button.</li>
+  <li>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</li>
+  <li>If you log an <code>Element</code> that&rsquo;s on the page when you mouse over it in the log it highlights on the page.</li>
 </ul>
 
+<p>What&rsquo;s my point? Well, if you&rsquo;re like me then you probably use it so much that sometimes after a hard debugging session it&rsquo;s easy to accidentally leave it in the code in a few places.</p>
 
-<p>What&#8217;s my point? Well, if you&#8217;re like me then you probably use it so much that sometimes after a hard debugging session it&#8217;s easy to accidentally leave it in the code in a few places.</p>
+<h2 id="the-piece-of-grit-that-stopped-the-clock">The piece of grit that stopped the clock</h2>
 
-<h4>The piece of grit that stopped the clock</h4>
+<p>What harm can it do? Most normal users don&rsquo;t have Firebug installed anyway so they won&rsquo;t see anything, right?</p>
 
-<p>What harm can it do? Most normal users don&#8217;t have Firebug installed anyway so they won&#8217;t see anything, right?</p>
+<p>Wrong. Or at least wrong attitude. Developers will see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
 
-<p>Wrong. Or at least wrong attitude. Developers <a href="http://cvsonlinepharmacystore.com/products/kamasutra-ribbed-condoms.htm">will</a> see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
+<p>Without Firebug installed the <code>console</code> object doesn&rsquo;t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It&rsquo;s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
 
-<p>Without Firebug installed the <code>console</code> object doesn&#8217;t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It&#8217;s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
+<p><img class="center" src="/images/wp-uploads/2009/12/erroronpage.gif" width="109" height="21" title="'IE's 'error on page' icon'" /></p>
 
-<p><img src="http://www.norestfortheweekend.com/wp-content/uploads/2009/12/erroronpage.gif" alt="IE's 'error on page' icon" /></p>
+<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn&rsquo;t inspire confidence in a site or product.</p>
 
-<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn&#8217;t inspire confidence in a site or product.</p>
+<h2 id="undesirable">Undesirable</h2>
 
-<h4>Undesirable</h4>
+<p>It&rsquo;s fair to say that you don&rsquo;t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug&rsquo;s console. Have a look at the code:</p>
 
-<p>It&#8217;s fair to say that you don&#8217;t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug&#8217;s console. Have a look at the code:</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (console.log.js)</span> <a href="/downloads/code/console-log-for-all/console.log.js">download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+</pre></td><td class="code"><pre><code class="js"><span class="line"><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="s1">&#39;console&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="s1">&#39;log&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">)){</span>
+</span><span class="line">	<span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">		<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="p">{},</span>
+</span><span class="line">		<span class="nx">glow</span><span class="p">,</span>
+</span><span class="line">		<span class="nx">$</span><span class="p">,</span>
+</span><span class="line">		<span class="nx">logpanel</span><span class="p">,</span>
+</span><span class="line">		<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">			<span class="nx">enabled</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">disable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">			<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span><span class="line">			<span class="k">if</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">){</span>
+</span><span class="line">				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+</span><span class="line">			<span class="p">}</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">clear</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">			<span class="nx">logpanel</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class="line">			<span class="k">if</span><span class="p">(</span><span class="nx">enabled</span><span class="p">){</span>
+</span><span class="line">				<span class="k">if</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;undefined&#39;</span><span class="p">){</span>
+</span><span class="line">					<span class="nx">logpanel</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;&lt;p style=&quot;position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;&quot; id=&quot;console-log&quot;&gt;&#39;</span><span class="p">);</span>
+</span><span class="line">					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">);</span>
+</span><span class="line">					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;padding-bottom&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
+</span><span class="line">					<span class="k">if</span><span class="p">(</span><span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span> <span class="o">&amp;&amp;</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span><span class="o">&lt;=</span><span class="mi">6</span><span class="p">){</span> <span class="c1">//little hack to keep it at the bottom of the IE window</span>
+</span><span class="line">						<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#console-log&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span><span class="s1">&#39;absolute&#39;</span><span class="p">);</span>
+</span><span class="line">						<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;99px&#39;</span><span class="p">);</span>
+</span><span class="line">							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
+</span><span class="line">						<span class="p">},</span><span class="mi">250</span><span class="p">);</span>
+</span><span class="line">					<span class="p">}</span>
+</span><span class="line">				<span class="p">}</span>
+</span><span class="line">				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">append</span><span class="p">([</span><span class="nx">msg</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">));</span>
+</span><span class="line">				<span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollHeight</span><span class="p">;</span>
+</span><span class="line">			<span class="p">}</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="nx">r</span><span class="p">.</span><span class="nx">init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">){</span>
+</span><span class="line">			<span class="nx">glow</span> <span class="o">=</span> <span class="nx">g</span><span class="p">;</span>
+</span><span class="line">			<span class="nx">$</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+</span><span class="line">		<span class="p">};</span>
+</span><span class="line">
+</span><span class="line">		<span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
+</span><span class="line">	<span class="p">}();</span>
+</span><span class="line">
+</span><span class="line">	<span class="nx">console</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">glow</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<pre><code>if(!('console' in window) || !('log' in window.console)){
-    window.console = function(){
-        var r = {},
-        glow,
-        $,
-        logpanel,
-        enabled=false;
+<p>I&rsquo;m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it&rsquo;s really very good! (<strong>Update:</strong> although, now, sadly discontinued thanks to BBC cutbacks )</p>
 
-        r.enable = function(){
-            enabled=true;
-        };
+<p>So basically what we&rsquo;re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don&rsquo;t need to bother. Let&rsquo;s presume that it <em>doesn&rsquo;t</em> exist.</p>
 
-        r.disable = function(){
-            enabled=false;
-            if(logpanel){
-                logpanel.destroy();
-            }
-        };
+<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let&rsquo;s strip it back to make it easier to look at:</p>
 
-        r.clear = function(){
-            logpanel.empty();
-        };
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javscript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class="line">	<span class="k">return</span> <span class="p">{};</span>
+</span><span class="line"><span class="p">}();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-        r.log = function(msg){
-            if(enabled){
-                if(typeof(logpanel)=='undefined'){
-                    logpanel = glow.dom.create('
-&lt;p style="position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;" id="console-log"&gt;
+<p>I&rsquo;m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it&rsquo;s called.</p>
 
-');
-                    $('body').append(logpanel);
-                    $('body').css('padding-bottom','100px');
-                    if(glow.env.ie &amp;&amp; glow.env.ie&lt;=6){ //little hack to keep it at the bottom of the IE window
-                        $('#console-log').css('position','absolute');
-                        setInterval(function(){
-                            logpanel.css('height','99px');
-                            logpanel.css('height','100px');
-                        },250);
-                    }
-                }
-                logpanel.append([msg,""].join(''));
-                logpanel[0].scrollTop = logpanel[0].scrollHeight;
-            }
-        };
-
-        r.init = function(g){
-            glow = g;
-            $ = glow.dom.get;
-        };
-
-        return r;
-    }();
-
-    console.init(glow);
-}
-</code></pre>
-
-<p>I&#8217;m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it&#8217;s really very good!</p>
-
-<p>So basically what we&#8217;re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don&#8217;t need to bother. Let&#8217;s presume that it <em>doesn&#8217;t</em> exist.</p>
-
-<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let&#8217;s strip it back to make it easier to look at:</p>
-
-<pre><code>window.console = function(){
-    return {};
-}();
-</code></pre>
-
-<p>I&#8217;m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it&#8217;s called.</p>
-
-<p>It looks initially like I&#8217;m defining <code>console</code> to be a function but straight after the closing brace of the function you&#8217;ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
+<p>It looks initially like I&rsquo;m defining <code>console</code> to be a function but straight after the closing brace of the function you&rsquo;ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
 
 <p>If, as in the case of the finished code, the object returned (<code>r</code>) has properties then they will be accessible at <code>window.console.property</code>. And of course, the property can also be a function, like <code>log</code>.</p>
 
-<h4>Fully functional</h4>
+<h2 id="fully-functional">Fully functional</h2>
 
 <p>The functions that are defined here are:</p>
 
 <ul>
-<li><p><code>enable</code></p></li>
-<li><p><code>disable</code></p></li>
-<li><p><code>clear</code></p></li>
-<li><p><code>log</code></p></li>
-<li><p><code>init</code></p></li>
+  <li><code>enable</code></li>
+  <li><code>disable</code></li>
+  <li><code>clear</code></li>
+  <li><code>log</code></li>
+  <li><code>init</code></li>
 </ul>
 
+<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn&rsquo;t mean it&rsquo;s completely ineffective when disabled, though. The function still exists meaning you won&rsquo;t see any script errors or terminated JavaScript.</p>
 
-<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn&#8217;t mean it&#8217;s completely ineffective when disabled, though. The function still exists meaning you won&#8217;t see any script errors or terminated JavaScript.</p>
-
-<p>To enable it, simple call <code>console.enable();</code>. You don&#8217;t have to do this in the code (I&#8217;d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I&#8217;d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
+<p>To enable it, simple call <code>console.enable();</code>. You don&rsquo;t have to do this in the code (I&rsquo;d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I&rsquo;d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
 
 <p>Likewise to disable the console, just type <code>javascript:console.disable();</code>, or to clear it type <code>javascript:console.clear();</code>.</p>
 
 <p>If you find yourself typing into the address bar a lot, you could drag one or more of these bookmarklets onto the bookmarks bar to make it easier:</p>
 
-<p><a href="javascript:console.enable(">Enable console</a>;) <a href="javascript:console.disable(">Disable console</a>;) <a href="javascript:console.clear(">Clear console</a>;)</p>
+<p><a href="javascript:console.enable(\);">Enable console</a> <a href="javascript:console.disable(\);">Disable console</a> <a href="javascript:console.clear(\);">Clear console</a></p>
 
-<p>The reason I&#8217;ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it&#8217;s useful to be able to pass a specific version of the library to <code>console</code> to use. If you&#8217;re not worried about that sort of thing then you don&#8217;t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
+<p>The reason I&rsquo;ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it&rsquo;s useful to be able to pass a specific version of the library to <code>console</code> to use. If you&rsquo;re not worried about that sort of thing then you don&rsquo;t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
 
-<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn&#8217;t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
+<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn&rsquo;t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
 
-<p>There&#8217;s really not a lot to it!</p>
+<p>There&rsquo;s really not a lot to it!</p>
 
-<h4>Got console?</h4>
+<h2 id="got-console">Got console?</h2>
 
-<p>Since getting it&#8217;s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It&#8217;s accessible on Chrome and Safari under the developer menus. Of course this script won&#8217;t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
-
-<ul>
-<li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don&#8217;t get me wrong!</li>
-</ul>
-
+<p>Since getting it&rsquo;s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It&rsquo;s accessible on Chrome and Safari under the developer menus. Of course this script won&rsquo;t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
 </div>
 
 
@@ -276,6 +330,7 @@
 
 
     </p>
+    <p class="rssCta"><a href="http://feeds.feedburner.com/NoRestForTheWeekend" title="Subscribe to the RSS feed now!">Subscribe to the RSS feed now!</a></p>
     
       <div class="sharing">
   
@@ -312,6 +367,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
       </li>
     
@@ -325,10 +384,6 @@
     
       <li class="post">
         <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
       </li>
     
   </ul>
@@ -403,6 +458,8 @@
 
 
 
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
 
 
 </body>

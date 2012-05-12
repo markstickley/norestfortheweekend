@@ -4,7 +4,7 @@
   <title><![CDATA[Category: css | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/css/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-04-29T23:12:11+01:00</updated>
+  <updated>2012-05-12T23:36:36+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -18,225 +18,234 @@
     <link href="http://blog.norestfortheweekend.com/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7/"/>
     <updated>2011-02-26T17:58:02+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7</id>
-    <content type="html"><![CDATA[<p>You know how, according to the W3C, <a href="http://www.w3.org/TR/CSS21/syndata.html#parsing-errors">CSS selectors that are not understood should be ignored, [with](http://cvsmailorderpharmacy.org/buy-kamagra-oral-jelly-usa.html)out error</a>? IE7 doesn't do that 100% of the time.</p>
+    <content type="html"><![CDATA[<p>You know how, according to the W3C, <a href="http://www.w3.org/TR/CSS21/syndata.html#parsing-errors">CSS selectors that are not understood should be ignored, without error</a>? IE7 doesn’t do that 100% of the time.</p>
 
-<h3>How dare it</h3>
+<h3 id="how-dare-it">How dare it</h3>
 
-<p>That's right. Just when you thought you had a nice system in place IE comes along and stomps all over it. I'm sure more and more people will come up against this as they start using CSS gradients in earnest. I can see it being quite a common situation, too. I have two background images: one, a CSS generated gradient and two, an image to be laid over the top of it. A nice shiny button with an icon, for example.</p>
+<p>That’s right. Just when you thought you had a nice system in place IE comes along and stomps all over it. I’m sure more and more people will come up against this as they start using CSS gradients in earnest. I can see it being quite a common situation, too. I have two background images: one, a CSS generated gradient and two, an image to be laid over the top of it. A nice shiny button with an icon, for example.</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/button.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/button.png" alt="A button that says Register now and has a gradient and a separate icon for the background" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/button.png" width="142" height="38" title="‘A button that says Register now and has a gradient and a separate icon for the background’" ></p>
 
-<p>We know that certain browsers can't render gradients and so we define the background to initially be just a solid colour with the icon image (the users of the older browsers will never miss what they didn't know was there). Then we go on to define the styles for the modern browsers. These styles use the same selector (<code>background-image</code>) so they will override the initial declaration but according to the rules, browsers that don't understand the gradient instructions will just ignore the whole declaration leaving us with just the initial icon for the background.</p>
+<p>We know that certain browsers can’t render gradients and so we define the background to initially be just a solid colour with the icon image (the users of the older browsers will never miss what they didn’t know was there). Then we go on to define the styles for the modern browsers. These styles use the same selector (<code>background-image</code>) so they will override the initial declaration but according to the rules, browsers that don’t understand the gradient instructions will just ignore the whole declaration leaving us with just the initial icon for the background.</p>
 
 <p>As we know, the backgrounds will appear top down from the order you specify them so we specify the icon first and then the gradient, otherwise the gradient would obscure the icon.</p>
 
-<p>We also define the background-position twice. This is so we can position the gradient+icon background differently from the icon on it's own. Browsers that don't support multiple backgrounds should not see this syntax as valid and should ignore it.</p>
+<p>We also define the background-position twice. This is so we can position the gradient+icon background differently from the icon on it’s own. Browsers that don’t support multiple backgrounds should not see this syntax as valid and should ignore it.</p>
 
-<p>Here's the code:</p>
+<p>Here’s the code:</p>
 
-<pre><code>&lt;a href="#" class="mybutton"&gt;Register now&lt;/a&gt;
+<p><code>html HTML
+&lt;a href="#" class="mybutton"&gt;Register now&lt;/a&gt;
+</code></p>
 
-
-
-
-
-
+<p>```css CSS  <br />
 .mybutton{
-    background-image: url(icon.png);
-    background-image: url(icon.png),
-        -webkit-gradient(
-            linear,
-            left bottom,
-            left top,
-            color-stop(0, rgb(233, 233, 233)),
-            color-stop(0.5, rgb(249, 249, 249)),
-            color-stop(0.5, rgb(255, 255, 255)),
-            color-stop(1, rgb(255, 255, 255))
-        );
-    background-image: url(icon.png),
-        -moz-linear-gradient(
-            center bottom,
-            rgb(233, 233, 233) 0%,
-            rgb(249, 249, 249) 50%,
-            rgb(255,255,255) 50%,
-            rgb(255,255,255) 100%
-        );
+	background-image: url(icon.png);
+	background-image: url(icon.png),
+		-webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0, rgb(233, 233, 233)),
+			color-stop(0.5, rgb(249, 249, 249)),
+			color-stop(0.5, rgb(255, 255, 255)),
+			color-stop(1, rgb(255, 255, 255))
+		);
+	background-image: url(icon.png),
+		-moz-linear-gradient(
+			center bottom,
+			rgb(233, 233, 233) 0%,
+			rgb(249, 249, 249) 50%,
+			rgb(255,255,255) 50%,
+			rgb(255,255,255) 100%
+		);</p>
 
-    background-position: 5px center;
-    background-position: 5px center, left top;
+<pre><code>background-position: 5px center;
+background-position: 5px center, left top;
 
-    background-repeat: no-repeat;
+background-repeat: no-repeat;
 
-    padding-left: 30px;
-}
+padding-left: 30px; } ```
 </code></pre>
 
-<p>Here it is in Firefox:</p>
+<p>Here it is in Firefox:  </p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ff.png" alt="Styles are working well in Firefox" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example1-ff.png" width="142" height="38" title="‘Styles are working well in Firefox’" ></p>
 
-<p>And in IE7:</p>
+<p>And in IE7:  </p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie.png" alt="The icon on the button is missing in IE" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example1-ie.png" width="142" height="38" title="‘The icon on the button is missing in IE’" ></p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example1.html">see it for yourself in your browser</a>.</p>
 
-<p>It seems that IE is not behaving as we might expect. It's not showing the gradient (expected) but it's not failing back to just showing the icon either. A quick look at the IE developer toolbar (in IE9, IE7 mode; the IE7 dev toolbar would leave you stumped) shows us why:</p>
+<p>It seems that IE is not behaving as we might expect. It’s not showing the gradient (expected) but it’s not failing back to just showing the icon either. A quick look at the IE developer toolbar (in IE9, IE7 mode; the IE7 dev toolbar would leave you stumped) shows us why:</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie-inspector.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie-inspector.png" alt="Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can't understand" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example1-ie-inspector.png" width="692" height="100" title="‘Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can’t understand’" ></p>
 
-<p>It's picked up the background image declaration that includes a gradient. In this case it's the Mozilla-specific gradient and the reason it's this one and not the Webkit one is that we are defining the Mozilla one last. If they were defined the other way around it would have picked up the Webkit one instead.</p>
+<p>It’s picked up the background image declaration that includes a gradient. In this case it’s the Mozilla-specific gradient and the reason it’s this one and not the Webkit one is that we are defining the Mozilla one last. If they were defined the other way around it would have picked up the Webkit one instead.</p>
 
-<h3>Why? Oh why??</h3>
+<h3 id="why-oh-why">Why? Oh why??</h3>
 
-<p>I'm no expert on how IE parses CSS but I would presume it's something like IE recognises the URL part just fine and when it reaches the closing parenthesis it figures that's it and all's well. Maybe not. Whatever, for some reason it thinks it's a valid declaration, scoops up the whole lot gradient and all and tries to render it. And fails.</p>
+<p>I’m no expert on how IE parses CSS but I would presume it’s something like IE recognises the URL part just fine and when it reaches the closing parenthesis it figures that’s it and all’s well. Maybe not. Whatever, for some reason it thinks it’s a valid declaration, scoops up the whole lot gradient and all and tries to render it. And fails.</p>
 
-<h3>That's annoying</h3>
+<h3 id="thats-annoying">That’s annoying</h3>
 
 <p>Yes it is.</p>
 
-<h3>The fix</h3>
+<h3 id="the-fix">The fix</h3>
 
-<p>Importantly, IE correctly recognises the <code>background-image</code> declaration as invalid (for itself) if it starts with a gradient, even if it contains a regular image later on. So we just start the declaration with a gradient. The trouble is, we don't want to put the gradient first as it'll obscure the icon, so we define <em>another</em> gradient that is OK to put on top of the icon. That would be an empty or transparent gradient.</p>
+<p>Importantly, IE correctly recognises the <code>background-image</code> declaration as invalid (for itself) if it starts with a gradient, even if it contains a regular image later on. So we just start the declaration with a gradient. The trouble is, we don’t want to put the gradient first as it’ll obscure the icon, so we define <em>another</em> gradient that is OK to put on top of the icon. That would be an empty or transparent gradient.</p>
 
 <p>We will use the minimum amount of code that is necessary to trigger a gradient in the rendering engine. For Webkit, it is <code>-webkit-gradient(linear, left bottom, left top)</code>. No <code>color-stop</code>s required. This is good because no colour means no visible gradient. For Mozilla, it requires some colour information, so we just give it completely transparent colours using <code>rgba</code>: <code>-moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%)</code>.</p>
 
-<p>Putting these gradients first mean that IE7 won't incorrectly think it can render that style and so it'll stick with just the icon.</p>
+<p>Putting these gradients first mean that IE7 won’t incorrectly think it can render that style and so it’ll stick with just the icon.</p>
 
 <p><strong>Important: Because we now have 3 background images, we also need to declare a third value for background-position.</strong></p>
 
-<pre><code>.mybutton{
-    background-image: url(icon.png);
-    background-image: -webkit-gradient(linear, left bottom, left top),
-        url(icon.png),
-        -webkit-gradient(
-            linear,
-            left bottom,
-            left top,
-            color-stop(0, rgb(233, 233, 233)),
-            color-stop(0.5, rgb(249, 249, 249)),
-            color-stop(0.5, rgb(255, 255, 255)),
-            color-stop(1, rgb(255, 255, 255))
-        );
-    background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
-        url(icon.png),
-        -moz-linear-gradient(
-            center bottom,
-            rgb(233, 233, 233) 0%,
-            rgb(249, 249, 249) 50%,
-            rgb(255,255,255) 50%,
-            rgb(255,255,255) 100%
-        );
+<p>``` css CSS  <br />
+.mybutton{
+	background-image: url(icon.png);
+	background-image: -webkit-gradient(linear, left bottom, left top),
+		url(icon.png),
+		-webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0, rgb(233, 233, 233)),
+			color-stop(0.5, rgb(249, 249, 249)),
+			color-stop(0.5, rgb(255, 255, 255)),
+			color-stop(1, rgb(255, 255, 255))
+		);
+	background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
+		url(icon.png),
+		-moz-linear-gradient(
+			center bottom,
+			rgb(233, 233, 233) 0%,
+			rgb(249, 249, 249) 50%,
+			rgb(255,255,255) 50%,
+			rgb(255,255,255) 100%
+		);</p>
 
-    background-repeat: no-repeat;
-    background-position: 5px center;
-    background-position: left top, 5px center, left top;
+<pre><code>background-repeat: no-repeat;
+background-position: 5px center;
+background-position: left top, 5px center, left top;
 
-    padding-left: 30px;
-}
+padding-left: 30px; } ```
 </code></pre>
 
-<p>Here it is in Firefox:</p>
+<p>Here it is in Firefox:  </p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ff.png" alt="The styles are working well in Firefox" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example2-ff.png" width="142" height="38" title="‘The styles are working well in Firefox’" ></p>
 
-<p>And in IE7:</p>
+<p>And in IE7:  </p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie.png" alt="The styles are working well in IE7" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example2-ie.png" width="142" height="38" title="‘The styles are working well in IE7’" ></p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example2.html">see it for yourself in your browser</a>.</p>
 
-<h3>But wait, there's more!</h3>
+<h3 id="but-wait-theres-more">But wait, there’s more!</h3>
 
-<p>You thought this was over? Of course it's not! IE9 is a heck of a lot better than previous versions but it's still not perfect. For example, it does support multiple backgrounds but it doesn't support CSS gradients. This means that it'll ignore the gradients but it'll use the <code>background-position</code> multiple background declaration we made, resulting in the icon being positioned <code>left top</code> as opposed to <code>5px center</code>.</p>
+<p>You thought this was over? Of course it’s not! IE9 is a heck of a lot better than previous versions but it’s still not perfect. For example, it does support multiple backgrounds but it doesn’t support CSS gradients. This means that it’ll ignore the gradients but it’ll use the <code>background-position</code> multiple background declaration we made, resulting in the icon being positioned <code>left top</code> as opposed to <code>5px center</code>.</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie9.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie9.png" alt="The styles have regressed in IE9 and the icon is incorrectly aligned" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example2-ie9.png" width="142" height="38" title="‘The styles have regressed in IE9 and the icon is incorrectly aligned’" ></p>
 
 <p>I tried getting around this by inserting another <code>background-image</code> defining three images (two of them transparent spacers) directly after the first <code>background-image</code> and before the first gradient:</p>
 
-<pre><code>.mybutton{
-    background-image: url(icon.png);
-    background-image: url(spacer.gif),
-        url(icon.png),
-        url(spacer.gif);
-    background-image: -webkit-gradient(linear, left bottom, left top),
-        url(icon.png),
-        -webkit-gradient(
-            linear,
-            left bottom,
-            left top,
-            color-stop(0, rgb(233, 233, 233)),
-            color-stop(0.5, rgb(249, 249, 249)),
-            color-stop(0.5, rgb(255, 255, 255)),
-            color-stop(1, rgb(255, 255, 255))
-        );
-    background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
-        url(icon.png),
-        -moz-linear-gradient(
-            center bottom,
-            rgb(233, 233, 233) 0%,
-            rgb(249, 249, 249) 50%,
-            rgb(255,255,255) 50%,
-            rgb(255,255,255) 100%
-        );
+<p>``` css CSS  <br />
+.mybutton{
+	background-image: url(icon.png);
+	background-image: url(spacer.gif),
+		url(icon.png),
+		url(spacer.gif);
+	background-image: -webkit-gradient(linear, left bottom, left top),
+		url(icon.png),
+		-webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0, rgb(233, 233, 233)),
+			color-stop(0.5, rgb(249, 249, 249)),
+			color-stop(0.5, rgb(255, 255, 255)),
+			color-stop(1, rgb(255, 255, 255))
+		);
+	background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
+		url(icon.png),
+		-moz-linear-gradient(
+			center bottom,
+			rgb(233, 233, 233) 0%,
+			rgb(249, 249, 249) 50%,
+			rgb(255,255,255) 50%,
+			rgb(255,255,255) 100%
+		);</p>
 
-    background-repeat: no-repeat;
-    background-position: 5px center;
-    background-position: left top, 5px center, left top;
+<pre><code>background-repeat: no-repeat;
+background-position: 5px center;
+background-position: left top, 5px center, left top;
 
-    padding-left: 30px;
-}
+padding-left: 30px; } ```
 </code></pre>
 
-<p>But that didn't work as IE7 still parsed it (incorrectly) just as it did in the first instance and therefore didn't show the icon at all. Back to square one.</p>
+<p>But that didn’t work as IE7 still parsed it (incorrectly) just as it did in the first instance and therefore didn’t show the icon at all. Back to square one.</p>
 
-<p>At this point I'm sure most people are thinking</p>
+<p>At this point I’m sure most people are thinking</p>
 
-<p>"Oh come on, why not just use <a href="http://www.modernizr.com/">Modernizr</a> and only apply the gradients to browsers that can use them?"</p>
+<p>“Oh come on, why not just use <a href="http://www.modernizr.com/">Modernizr</a> and only apply the gradients to browsers that can use them?”</p>
 
-<p>That's one way of doing it, although I would rather not use JavaScript if possible. This leaves one option... go back to the original CSS and add this conditional comment in the <code>&lt;head&gt;</code>:</p>
+<p>That’s one way of doing it, although I would rather not use JavaScript if possible. This leaves one option… go back to the original CSS and add this conditional comment in the <code>&lt;head&gt;</code>:</p>
 
-<p>As no versions of IE yet support gradients, we just reset the background to be the plain ol' icon. Problem solved.</p>
+<p><code>html Conditional Comment
+&lt;!--[if IE]&gt;
+    &lt;style type="text/css" media="screen"&gt;
+        .mybutton{
+            background-image: url(icon.png);
+            background-position: 5px center;
+        }
+    &lt;/style&gt;
+&lt;![endif]--&gt;
+</code></p>
 
-<p>Here it is in Firefox:</p>
+<p>As no versions of IE yet support gradients, we just reset the background to be the plain ol’ icon. Problem solved.</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ff.png" alt="The styles are working well in Firefox" /></a></p>
+<p>Here it is in Firefox:  </p>
 
-<p>And in Webkit (Chrome):</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ff.png" width="142" height="38" title="‘The styles are working well in Firefox’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ch.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ch.png" alt="The styles are working well in Chrome" /></a></p>
+<p>And in Webkit (Chrome):  </p>
 
-<p>And in Opera:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ch.png" width="142" height="38" title="‘The styles are working well in Chrome’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-op.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-op.png" alt="The styles are working well in Opera" /></a></p>
+<p>And in Opera:  </p>
 
-<p>And in IE6:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-op.png" width="142" height="38" title="‘The styles are working well in Opera’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie6.png" alt="The styles are working well in IE6" /></a></p>
+<p>And in IE6:  </p>
 
-<p>And in IE7:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie6.png" width="142" height="38" title="‘The styles are working well in IE6’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie7.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie7.png" alt="The styles are working well in IE7" /></a></p>
+<p>And in IE7:  </p>
 
-<p>And in IE8:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie7.png" width="142" height="38" title="‘The styles are working well in IE7’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie8.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie8.png" alt="The styles are working well in IE8" /></a></p>
+<p>And in IE8:  </p>
 
-<p>And in IE9:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie8.png" width="142" height="38" title="‘The styles are working well in IE8’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie9.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie9.png" alt="The styles are working well in IE9" /></a></p>
+<p>And in IE9:  </p>
+
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie9.png" width="142" height="38" title="‘The styles are working well in IE9’" ></p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example3.html">see it for yourself in your browser</a>.</p>
 
-<h3>A side serving of gradient</h3>
+<h3 id="a-side-serving-of-gradient">A side serving of gradient</h3>
 
-<p>You may have noticed that two of the <code>color-stop</code>s have the same percentage/distance value. This effectively give us the ability to have more than one gradient on the same element. The end result is a gradient from the top to the middle, a sudden stop and change of colour and another gradient from the middle to the bottom. It's useful to be able to change sharply from one colour to another as well as smoothly!</p>
+<p>You may have noticed that two of the <code>color-stop</code>s have the same percentage/distance value. This effectively give us the ability to have more than one gradient on the same element. The end result is a gradient from the top to the middle, a sudden stop and change of colour and another gradient from the middle to the bottom. It’s useful to be able to change sharply from one colour to another as well as smoothly!</p>
+
+<h3 id="footnotes">Footnotes</h3>
 
 <ul>
-<li><p>If anyone has a better solution, please get in touch in the comments or on Twitter.</p></li>
-<li><p>The images I've used come directly from the project I'm working on in my day job. If my employer has any objection to their use here I will of course replace them with something else. But I'm sure they won't.</p></li>
+  <li>If anyone has a better solution, please get in touch in the comments or on Twitter.</li>
+  <li>The images I’ve used come directly from the project I’m working on in my day job. If my employer has any objection to their use here I will of course replace them with something else. But I’m sure they won’t.</li>
 </ul>
-
 ]]></content>
   </entry>
   
@@ -245,50 +254,46 @@
     <link href="http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/"/>
     <updated>2011-02-14T01:45:49+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser</id>
-    <content type="html"><![CDATA[<p>The Web in 3D - the Nintendo 3DS web browser</p>
+    <content type="html"><![CDATA[<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
 
-<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/nintendo3dswithpen.png" width="455" height="384" title="‘The Nintendo 3DS’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/nintendo3dswithpen.png" alt="The Nintendo 3DS" /></a></p>
+<p>Let’s not beat around the bush: this is a very impressive device. It’s tricked out with all the latest technologies (or the latest applications of ‘old’ technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I’m sure you have read about it - the top screen is a 3D display which importantly doesn’t require glasses. I can’t stress enough how good the 3D effect looked. It felt completely natural and I didn’t find myself getting any kind of a headache or nausea like some people are worried about.</p>
 
-<p>Let's not beat around the bush: this is a very impressive device. It's tricked out with all the latest technologies (or the latest applications of 'old' technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I'm sure you have read about it - the top screen is a 3D display which importantly doesn't require glasses. I can't stress enough how good the 3D effect looked. It felt completely natural and I didn't find myself getting any kind of a headache or nausea like some people are worried about.</p>
+<p>There were demos available of most of the functionality: Lots of games that’ll be available on launch or shortly thereafter, 3D photography, augmented reality (including the ‘reality’ part shown in 3D due to the 3D cameras on the lid - the most impressive thing for me) and street pass (Nintendo’s social discovery system). But the thing that actually holds the <em>most</em> interest for me <em>wasn’t</em> shown and indeed is barely talked about. I’m hoping that will change.</p>
 
-<p>There were demos available of most of the functionality: Lots of games that'll be available on launch or shortly thereafter, 3D photography, augmented reality (including the 'reality' part shown in 3D due to the 3D cameras on the lid - the most impressive thing for me) and street pass (Nintendo's social discovery system). But the thing that actually holds the <em>most</em> interest for me <em>wasn't</em> shown and indeed is barely talked about. I'm hoping that will change.</p>
+<h3 id="a-complex-web">A complex web</h3>
 
-<h3>A complex web</h3>
+<p>I’m talking, of course, about the web browser which will come built in to the device as part of the extensive suit of software bundled on-board.</p>
 
-<p>I'm talking, of course, about the web browser which will come built in to the device as part of the extensive suit of software bundled on-board.</p>
+<p>*YAWN*</p>
 
-<p><em>YAWN</em></p>
+<p>A web browser? What’s so great about that?</p>
 
-<p>A web browser? What's so great about that?</p>
+<p>I don’t know yet because no-one is talking about it, but I’m <em>hoping</em> it will inspire (even more) innovation and creativity on the web. I’m hoping it will have some semblance of 3D integration and capability. And if not, why not? Surely this is the way the web is going. More and more devices will be 3D enabled in the near future and you can bet that if the 3DS doesn’t kick-start the 3D web some other device will. You can buy a 3D TV to put in your living room for crying out loud - this is 2011! They reckon you’ll be able to buy a <a href="http://news.bbc.co.uk/1/hi/programmes/click_online/9393762.stm">HOLOGRAPHIC 3D TV</a> in 2012. I’m all over that. And I want the web to make sure it isn’t left behind. After all, a lot of modern TVs have integrated browsers. It’s the next logical step.</p>
 
-<p>I don't know yet because no-one is talking about it, but I'm <em>hoping</em> it will inspire (even more) innovation and creativity on the web. I'm hoping it will have some semblance of 3D integration and capability. And if not, why not? Surely this is the way the web is going. More and more devices will be 3D enabled in the near future and you can bet that if the 3DS doesn't kick-start the 3D web some other device will. You can buy a 3D TV to put in your living room for crying out loud - this is 2011! They reckon you'll be able to buy a <a href="http://news.bbc.co.uk/1/hi/programmes/click_online/9393762.stm">HOLOGRAPHIC 3D TV</a> in 2012. I'm all over that. And I want the web to make sure it isn't left behind. After all, a lot of modern TVs have integrated browsers. It's the next logical step.</p>
+<h3 id="least-they-could-do">Least they could do</h3>
 
-<h3>Least they could do</h3>
+<p>The least I could hope for is support for 3D images displayed in web pages. The <strong>LEAST</strong>. The standard open format is <a href="http://en.wikipedia.org/wiki/Image_file_formats#MPO">.mpo</a> and fortunately <a href="http://nintendo3dsblog.com/the-3d-camera-in-the-nintendo-3ds-saves-photos-in-the-open-mpo-file-format">the same format in which the 3DS saves it’s 3D photos</a>.</p>
 
-<p>The least I could hope for is support for 3D images displayed in web pages. The <strong>LEAST</strong>. The standard open format is <a href="http://en.wikipedia.org/wiki/Image_file_formats#MPO">.mpo</a> and fortunately <a href="http://nintendo3dsblog.com/the-3d-camera-in-the-nintendo-3ds-saves-photos-in-the-open-mpo-file-format">the same format in which the 3DS saves it's 3D photos</a>.</p>
+<p>That’s not to say you will be able to simply embed the 3D photos in your site and have them work in the 3DS’ web browser though. Think how that would look in a desktop browser… Well it probably wouldn’t show up or show a broken image.</p>
 
-<p>That's not to say you will be able to simply embed the 3D photos in your site and have them work in the 3DS' web browser though. Think how that would look in a desktop browser... Well it probably wouldn't show up or show a broken image.</p>
+<p>No, no, no, don’t even think about making a separate site for 3D devices. I thought we were past all that. What are you going to have yet another separate site for 3D+Mobile? We want to serve one page that works on all devices.</p>
 
-<p>No, no, no, don't even think about making a separate site for 3D devices. I thought we were past all that. What are you going to have yet another separate site for 3D+Mobile? We want to serve one page that works on all devices.</p>
-
-<p>The trouble is, without images having a similar failover pattern to the one available to <a href="http://dev.opera.com/articles/view/everything-you-need-to-know-about-html5-video-and-audio/">video and audio in HTML5</a>, you simply couldn't use the image inline in your page as non-3D-enabled browsers wouldn't recognise the format. This just proves that there are always new image formats emerging; they are not all supported by all browsers as it's easy to assume (if you forget about IE6 and .png's) so why should we assume that that's the case with the markup?</p>
+<p>The trouble is, without images having a similar failover pattern to the one available to <a href="http://dev.opera.com/articles/view/everything-you-need-to-know-about-html5-video-and-audio/">video and audio in HTML5</a>, you simply couldn’t use the image inline in your page as non-3D-enabled browsers wouldn’t recognise the format. This just proves that there are always new image formats emerging; they are not all supported by all browsers as it’s easy to assume (if you forget about IE6 and .png’s) so why should we assume that that’s the case with the markup?</p>
 
 <p><a href="http://www.brucelawson.co.uk/2010/why-video-audio-canvas-arent-self-closing-tags/">This has been discussed by Bruce Lawson</a> and makes sense (no matter how frustrating it is). So until all browsers support the display of 3D images on 2D screens we will have to find another way.</p>
 
 <p>The other way to include images in the page is, of course, CSS background images. This one has legs. The 3DS browser could easily respond to an @media query, something like <code>@media screen and (-3ds-min-device-spatial-dimensions: 3) { ... }</code>. Then you could alter how the page looks on a device that has 3D capabilities. Once you have the 3D background image in place you can mark it up to include a 2D version for the rest of the world:</p>
 
-<p>HTML:</p>
-
-<pre><code>&lt;div class="forest-picture"&gt;
+<p><code>html HTML    
+&lt;div class="forest-picture"&gt;
     &lt;img src="http://blog.norestfortheweekend.com/static/img/forest-2d.jpg" alt="Pretty forest scene" height="250" width="400"&gt;&lt;/img&gt;
 &lt;/div&gt;
-</code></pre>
+</code></p>
 
-<p>CSS:</p>
-
-<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) {
+<p><code>css CSS    
+@media screen and (-3ds-min-device-spatial-dimensions: 3) {
     .forest-picture{
         background: transparent url(../img/forest-3d.mpo) no-repeat 0 0;
         width: 400px;
@@ -298,29 +303,29 @@
         display: none;
     }
 }
-</code></pre>
+</code></p>
 
-<p>The best of both worlds! We can dream...</p>
+<p>The best of both worlds! We can dream…</p>
 
-<h3>Reality check</h3>
+<h3 id="reality-check">Reality check</h3>
 
-<p>Before we go on, I just need to make it abundantly clear (if it isn't already) that this article is pure speculation. I don't know if the 3DS browser supports any of this kind of stuff, but imagining the possibilities and how they might work is an interesting exercise. Oh wait, it looks like <a href="http://www.google.com/intl/en/landing/chrome/cadie/">Google has already looked into 3D browsing</a>. My mistake ;)</p>
+<p>Before we go on, I just need to make it abundantly clear (if it isn’t already) that this article is pure speculation. I don’t know if the 3DS browser supports any of this kind of stuff, but imagining the possibilities and how they might work is an interesting exercise. Oh wait, it looks like <a href="http://www.google.com/intl/en/landing/chrome/cadie/">Google has already looked into 3D browsing</a>. My mistake ;)</p>
 
-<p>Let's explore further down the rabbit hole...</p>
+<p>Let’s explore further down the rabbit hole…</p>
 
-<h3>Going the extra dimension</h3>
+<h3 id="going-the-extra-dimension">Going the extra dimension</h3>
 
-<p>What if we wanted to move beyond just sticking 3D images in our pages? As awesome as a 3D gallery might be, there are so many more possibilities. Imagine if the whole page could be rendered in 3D; if each element on the page had it's own depth setting. I think the most obvious thing to do would be to push the background actually into the background giving the site content more prominence, and if you start down that road you should just be able to let your imagination carry you forwards.</p>
+<p>What if we wanted to move beyond just sticking 3D images in our pages? As awesome as a 3D gallery might be, there are so many more possibilities. Imagine if the whole page could be rendered in 3D; if each element on the page had it’s own depth setting. I think the most obvious thing to do would be to push the background actually into the background giving the site content more prominence, and if you start down that road you should just be able to let your imagination carry you forwards.</p>
 
-<p>I know what you're thinking, and it's what I thought at first too... why not use <code>z-index</code> for that? The reason why not is because <code>z-index</code> controls the stacking order of elements on a single plane. If you change the function of <code>z-index</code> to control depth on 3D devices, how would you re-order a group of elements sharing the same depth on a 3D page? It's clear that we need a separate property to do that. I'm going to be bold and use <code>depth</code> in examples, for want of a better attribute name.</p>
+<p>I know what you’re thinking, and it’s what I thought at first too… why not use <code>z-index</code> for that? The reason why not is because <code>z-index</code> controls the stacking order of elements on a single plane. If you change the function of <code>z-index</code> to control depth on 3D devices, how would you re-order a group of elements sharing the same depth on a 3D page? It’s clear that we need a separate property to do that. I’m going to be bold and use <code>depth</code> in examples, for want of a better attribute name.</p>
 
-<p>So where are we? We've got 3D images and the ability to assign <code>depth</code> to elements. That's a good start, but it seems a little restricted, doesn't it? A bunch of flat panels sitting at different depths in a 3D space. We're not really making the most of the technology. We need to add a little style in there... style that can bridge the gap between depth-levels. Fortunately, Webkit is one step ahead of this game with it's <a href="http://webkit.org/blog/386/3d-transforms/">CSS 3D transforms</a>. These could easily be adapted to show in real 3D instead of 3D rendered in 2D.</p>
+<p>So where are we? We’ve got 3D images and the ability to assign <code>depth</code> to elements. That’s a good start, but it seems a little restricted, doesn’t it? A bunch of flat panels sitting at different depths in a 3D space. We’re not really making the most of the technology. We need to add a little style in there… style that can bridge the gap between depth-levels. Fortunately, Webkit is one step ahead of this game with it’s <a href="http://webkit.org/blog/386/3d-transforms/">CSS 3D transforms</a>. These could easily be adapted to show in real 3D instead of 3D rendered in 2D.</p>
 
-<h4>Curves would be nice</h4>
+<h4 id="curves-would-be-nice">Curves would be nice</h4>
 
-<p>Yes they would, and so would a mansion on the beach in Barbados. We don't even have the ability to define curves in 2D CSS yet. But then in 2D we might not have wanted to do crazy things like making a callout or title bow inwards or outwards, which would work pretty well in 3D. But maybe just one step at a time...</p>
+<p>Yes they would, and so would a mansion on the beach in Barbados. We don’t even have the ability to define curves in 2D CSS yet. But then in 2D we might not have wanted to do crazy things like making a callout or title bow inwards or outwards, which would work pretty well in 3D. But maybe just one step at a time…</p>
 
-<h3>What is 3D anyway</h3>
+<h3 id="what-is-3d-anyway">What is 3D anyway</h3>
 
 <p>To develop in 3D you need to understand how it really works. Fortunately understanding it is a lot simpler than getting your head around designing and developing in it:</p>
 
@@ -328,80 +333,76 @@
 
 <p>Simple enough, and in real life this works pretty well. But when generating your own 3D content you have to be ever-mindful of it.</p>
 
-<h3>Mind the gaps</h3>
+<h3 id="mind-the-gaps">Mind the gaps</h3>
 
-<p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance.</p>
+<p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance. </p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo1.png" alt="3DS Screen showing plain background" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo1.png" width="628" height="312" title="‘3DS Screen showing plain background’" ></p>
 
-<p>You then have a look at it and wonder why it doesn't look like it's way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you're left feeling a little confused.</p>
+<p>You then have a look at it and wonder why it doesn’t look like it’s way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you’re left feeling a little confused.</p>
 
-<p>The reason why this doesn't appear to be in the background is because your eyes are seeing the exact same image. There needs to be some more detail in there before your eyes can be tricked into thinking that it's way off in the distance. Here are some suggestions:</p>
-
-<ol>
-<li>You could give it a border that makes it look like you're looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
-</ol>
-
-
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo2.png" alt="3DS screen showing a background shaded to look like you are looking into a box" /></a></p>
+<p>The reason why this doesn’t appear to be in the background is because your eyes are seeing the exact same image. There needs to be some more detail in there before your eyes can be tricked into thinking that it’s way off in the distance. Here are some suggestions:</p>
 
 <ol>
-<li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it's not at the depth you intended.</li>
+  <li>You could give it a border that makes it look like you’re looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
 </ol>
 
-
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo3.png" alt="3DS screen with a patterned background" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo2.png" width="628" height="312" title="‘3DS screen showing a background shaded to look like you are looking into a box’" ></p>
 
 <ol>
-<li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I'm going to go with this one.</li>
+  <li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it’s not at the depth you intended.</li>
 </ol>
 
+<p><img class="center" src="/images/wp-uploads/2011/02/demo3.png" width="628" height="312" title="‘3DS screen with a patterned background’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo4.png" alt="3DS screen with a plain background and a green tile overlayed" /></a></p>
+<ol>
+  <li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I’m going to go with this one.</li>
+</ol>
 
-<p>But even laying something on top like this isn't too easy for our brains to process. Have a look what each eye would be seeing.</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo4.png" width="628" height="312" title="‘3DS screen with a plain background and a green tile overlayed’" ></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo5.png" alt="Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye" /></a></p>
+<p>But even laying something on top like this isn’t too easy for our brains to process. Have a look what each eye would be seeing.</p>
 
-<p>There's not a great deal to differentiate these two images and while your brain knows it's seeing different things from each eye it is struggling because there are things missing that it's used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don't give people headaches we'll have to sort this out.</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo5.png" width="628" height="312" title="‘Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye’" ></p>
 
-<pre><code>.floating-box{
+<p>There’s not a great deal to differentiate these two images and while your brain knows it’s seeing different things from each eye it is struggling because there are things missing that it’s used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don’t give people headaches we’ll have to sort this out.</p>
+
+<p><code>css CSS    
+.floating-box{
     box-shadow: 5px 5px 5px #ccc;
 }
-</code></pre>
+</code></p>
 
 <p>Now the panel has a nice drop shadow which should make it easier on the eyes and easier to see the 3D effect.</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/demo6.png" alt="3DS screen with plain background and a green panel overlaid with a drop shadow" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/demo6.png" width="628" height="312" title="‘3DS screen with plain background and a green panel overlaid with a drop shadow’" ></p>
 
 <p>But how does it get rendered so that each eye sees the shadow differently?</p>
 
-<h3>Seeing the light</h3>
+<h3 id="seeing-the-light">Seeing the light</h3>
 
 <p>The way I see it there are two options:</p>
 
 <ol>
-<li><p>The browser provides a default (override-able) light source:</p>
-
-<p> body{</p>
-
-<pre><code> light-source: 25% 25% fixed;
-</code></pre>
-
-<p> }</p></li>
+  <li>The browser provides a default (override-able) light source:</li>
 </ol>
 
+<p><code>css CSS    
+body{
+    light-source: 25% 25% fixed;
+}
+</code></p>
 
 <p><code>fixed</code> would position the light source relative to the browser viewport, and as an alternative <code>absolute</code> would position it relative to the document.</p>
 
 <ol>
-<li>You, the developer, get granular control over what each eye sees:</li>
+  <li>You, the developer, get granular control over what each eye sees:</li>
 </ol>
-
 
 <p>If you had control over each eye the possibilities would be endless. Set the difference in box shadow offset, show a different background image to achieve a rippling effect. You would OWN all the dimensions.</p>
 
-<pre><code>@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: left-eye) {
+<p><code>css CSS    
+@media screen and (-3ds-min-device-spatial-dimensions: 3) and (-3ds-perspective: left-eye) {
     .floating-box{
         box-shadow: 3px 5px 5px #ccc;
     }
@@ -411,19 +412,19 @@
         box-shadow: 7px 5px 5px #ccc;
     }
 }
-</code></pre>
+</code></p>
 
 <p>I think a combination of both would probably be in the interests of developer and user alike.</p>
 
-<h3>It's not all giant blue humanoids and bio-luminescent flowers</h3>
+<h3 id="its-not-all-giant-blue-humanoids-and-bio-luminescent-flowers">It’s not all giant blue humanoids and bio-luminescent flowers</h3>
 
-<p>This technology has it's disadvantages, and you can be sure that there will be some nasty surprises out there when it comes along. As with most visual effects, subtlety is king. Of course there will always be the developers who are irresponsible with this great power and make some eye-bleeding creations, but that's just inevitable. No, what I'm really worried about can be summed up in two words: Internet. Advertising. If you thought pop-over ads were intrusive now, you ain't seen nothing yet.</p>
+<p>This technology has it’s disadvantages, and you can be sure that there will be some nasty surprises out there when it comes along. As with most visual effects, subtlety is king. Of course there will always be the developers who are irresponsible with this great power and make some eye-bleeding creations, but that’s just inevitable. No, what I’m really worried about can be summed up in two words: Internet. Advertising. If you thought pop-over ads were intrusive now, you ain’t seen nothing yet.</p>
 
-<h3>The waiting game</h3>
+<h3 id="the-waiting-game">The waiting game</h3>
 
-<p>Who knows what you'll be able to do with the browser? Nintendo maybe? Or if it's <a href="http://www.opera.com/">Opera</a> providing the software again, as they did for the Wii and original DS/DSi then I expect they will know. (Please do get in touch if you have insider knowledge!) But until that information is made available or the 3DS is in our hands we won't know for sure. I hope it's got at least a few fun 3D features to play with. I'm sure the full set will develop over time.</p>
+<p>Who knows what you’ll be able to do with the browser? Nintendo maybe? Or if it’s <a href="http://www.opera.com/">Opera</a> providing the software again, as they did for the Wii and original DS/DSi then I expect they will know. (Please do get in touch if you have insider knowledge!) But until that information is made available or the 3DS is in our hands we won’t know for sure. I hope it’s got at least a few fun 3D features to play with. I’m sure the full set will develop over time.</p>
 
-<p><strong>Update:</strong> Now that the browser is available, I had a little play with it and <a href="http://www.norestfortheweekend.com/2011/06/14/3ds-browser-revisited/">wrote down a few of my thoughts</a>.</p>
+<p><strong>Update:</strong> Now that the browser is available, I had a little play with it and <a href="/blog/2011/06/14/3ds-browser-revisited/">wrote down a few of my thoughts</a>.</p>
 ]]></content>
   </entry>
   
@@ -432,11 +433,11 @@
     <link href="http://blog.norestfortheweekend.com/blog/2010/02/02/a-little-something-while-you-wait/"/>
     <updated>2010-02-02T00:46:59+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2010/02/02/a-little-something-while-you-wait</id>
-    <content type="html"><![CDATA[<p>I know, I know it's been a while since I posted. There's one on the way, I promise!</p>
+    <content type="html"><![CDATA[<p>I know, I know it’s been a while since I posted. There’s one on the way, I promise!</p>
 
-<p>While you wait for it to brew, however, why don't you check out my inaugural post on the BBC Web Developer blog: <a href="http://www.bbc.co.uk/blogs/webdeveloper/2010/02/css-for-widgets-friends-dont-break-friends-styles.shtml">CSS for Widgets</a>.</p>
+<p>While you wait for it to brew, however, why don’t you check out my inaugural post on the BBC Web Developer blog: <a href="http://www.bbc.co.uk/blogs/webdeveloper/2010/02/css-for-widgets-friends-dont-break-friends-styles.shtml">CSS for Widgets</a>.</p>
 
-<p>Have you ever written some CSS on a page which contains other people's stylesheets? And have you noticed that either your CSS broke their stuff or theirs messed about with yours? If you have then this post is right down your street. If you haven't... well have a read just to make sure it never happens.</p>
+<p>Have you ever written some CSS on a page which contains other people’s stylesheets? And have you noticed that either your CSS broke their stuff or theirs messed about with yours? If you have then this post is right down your street. If you haven’t… well have a read just to make sure it never happens. </p>
 ]]></content>
   </entry>
   

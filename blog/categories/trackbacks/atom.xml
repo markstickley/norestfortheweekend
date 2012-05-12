@@ -4,7 +4,7 @@
   <title><![CDATA[Category: trackbacks | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/trackbacks/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-04-29T23:12:11+01:00</updated>
+  <updated>2012-05-12T23:36:36+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -18,11 +18,11 @@
     <link href="http://blog.norestfortheweekend.com/blog/2010/02/02/a-little-something-while-you-wait/"/>
     <updated>2010-02-02T00:46:59+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2010/02/02/a-little-something-while-you-wait</id>
-    <content type="html"><![CDATA[<p>I know, I know it's been a while since I posted. There's one on the way, I promise!</p>
+    <content type="html"><![CDATA[<p>I know, I know it’s been a while since I posted. There’s one on the way, I promise!</p>
 
-<p>While you wait for it to brew, however, why don't you check out my inaugural post on the BBC Web Developer blog: <a href="http://www.bbc.co.uk/blogs/webdeveloper/2010/02/css-for-widgets-friends-dont-break-friends-styles.shtml">CSS for Widgets</a>.</p>
+<p>While you wait for it to brew, however, why don’t you check out my inaugural post on the BBC Web Developer blog: <a href="http://www.bbc.co.uk/blogs/webdeveloper/2010/02/css-for-widgets-friends-dont-break-friends-styles.shtml">CSS for Widgets</a>.</p>
 
-<p>Have you ever written some CSS on a page which contains other people's stylesheets? And have you noticed that either your CSS broke their stuff or theirs messed about with yours? If you have then this post is right down your street. If you haven't... well have a read just to make sure it never happens.</p>
+<p>Have you ever written some CSS on a page which contains other people’s stylesheets? And have you noticed that either your CSS broke their stuff or theirs messed about with yours? If you have then this post is right down your street. If you haven’t… well have a read just to make sure it never happens. </p>
 ]]></content>
   </entry>
   

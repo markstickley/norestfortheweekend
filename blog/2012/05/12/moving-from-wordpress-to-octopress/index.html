@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Moving from Wordpress to Octopress - No Rest For The Weekend</title>
+  <meta name="author" content="Mark Stickley">
+
+  
+  <meta name="description" content="My Wordpress install kept disabling all the plugins. No idea why. Because I don’t browse my own blog too regularly (especially with the regularity of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2012/05/12/moving-from-wordpress-to-octopress">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/prefixfree.min.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-537105-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner" id="banner"><hgroup>
+  <h1><a href="/">No Rest For The Weekend</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.norestfortheweekend.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Moving From Wordpress to Octopress</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-12T15:34:00+01:00" pubdate data-updated="true">May 12<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>My Wordpress install kept disabling all the plugins. No idea why. Because I don’t browse my own blog too regularly (especially with the regularity of posts I’ve been writing recently) the only indication I had was when I started getting lots of spam comments thanks to the lack of <a href="Askimet">http://akismet.com/</a>.</p>
+
+<p>When <a href="a colleage">http://www.twitter.com/elduderion78</a> mentioned Wordpress recently, in particular how they would never use it in a million years, I asked what he would use instead thinking perhaps something like <a href="Tumblr">http://www.tumblr.com</a>, <a href="Blogger">http://www.blogger.com</a>, <a href="Posterous">http://www.posterous.com</a> or something similar. Instead, he suggested something decidedly more… <em>fishy</em>.</p>
+
+<h1 id="octopress">Octopress</h1>
+
+<p><a href="Octopress">http://octopress.org/</a> is a very neat little blogging environment. You write your posts in <a href="markdown">http://daringfireball.net/projects/markdown/</a> and then run a little rake script to generate your blog. The files generated are static HTML files which is great for performance and caching.</p>
+
+<p>The blog’s structure is generated from templates and the CSS is generated using <a href="SASS">http://sass-lang.com/</a> so you get all the benefits of a dynamically generated site but none of the overheads. As if that wasn’t awesome enough, it’s virtually seamlessly integrated with GitHub and <a href="GitHub Pages">http://pages.github.com/</a>, so you write locally, generate and then deploy with another rake script.</p>
+
+<h1 id="migrating-from-wordpress">Migrating from Wordpress</h1>
+
+<p>To get all my stuff out of Wordpress I used Wordpress’ own export function to generate an XML document of all the posts and metadata. Then I used <a href="exitwp">https://github.com/thomasf/exitwp</a> to convert the XML to markdown, which worked OK. That converted everything except comments. Generating static files means that comments are not really possible natively but Octopress has built in support for <a href="Disqus">http://disqus.com/</a> which works seamlessly. This does mean that the old comments are lost but you know what they say: you can’t make a seafood paella without chopping up a few octopi.</p>
+
+<p>It wasn’t all plain sailing though.</p>
+
+<h1 id="this-almost-seems-like-work">This almost seems like work</h1>
+
+<p>I noticed as I clicked through some of the generated markdown files that some scamp had been at my articles and inserted spam links directly into the articles! Honestly, I was getting more and more glad to be moving from Wordpress by the minute. This did mean I had to read each of them through to make sure there wasn’t anything in there I didn’t want. </p>
+
+<p>Reading through your old blog posts is hard. There’s stuff that doesn’t matter any more, there’s stuff that’s just plain inaccurate, there’s stuff which sounds really goofy reading back 3 years later. I tried my hardest not to change the content in them and for the most part I managed for historical reasons to preserve it.</p>
+
+<p>As I was going through each article I adjusted the formatting of the markdown making sure the heading level was correct, the line spacing was correct, the code correctly marked down etc. All the usual OCD stuff that needs doing once you know it’s there.</p>
+
+<p>I had been using a plugin to handle media on Wordpress so images were kind of messed up and I had to copy all the images and reformat all the image tags by hand. I was so glad I hadn’t written all that many articles! Keeping it really simple in markdown seems so sensible I can’t believe we didn’t always blog like this.</p>
+
+<p>The last thing that needed doing was to give it more of the look and feel of the old site. The default theme, <em>classic</em>, is very nice but I’m rather fond of that little pixel dude in the header. Plus I got to try out a friend’s clever <a href="CSS Patterns Workbench">http://glan.github.com/CSS-Patterns-Workbench/</a> to create the background in pure CSS instead of images.</p>
+
+<h1 id="cname-cname-run">CNAME. CNAME RUN.</h1>
+
+<p>One last awesome thing: GitHub Pages support domains. By setting your CNAME to point at the page (or the A tag if it’s the whole domain, not just a subdomain) you can point your site to GitHub Pages and have the whole thing hosted for free, no bandwidth charges or anything. I love you GitHub.</p>
+
+<h1 id="verdict">Verdict</h1>
+
+<p>I’m so glad I’m not using WordPress anymore. Wordpress blogs are such a target for hackers and spammers and I was hit several times over. I tended to keep fairly on to of the updates as well, so you can image how bad it might be for people who don’t bother. If anyone wants to hack this blog now they have to hack my GitHub account. Of course having <a href="the whole blog on GitHub">https://github.com/markstickley/norestfortheweekend</a> has it’s advantages too… if you like you can correct any mistakes or typos by submitting a pull request!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Stickley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-12T15:34:00+01:00" pubdate data-updated="true">May 12<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blogging/'>blogging</a>
+  
+</span>
+
+
+    </p>
+    <p class="rssCta"><a href="http://feeds.feedburner.com/NoRestForTheWeekend" title="Subscribe to the RSS feed now!">Subscribe to the RSS feed now!</a></p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.norestfortheweekend.com/blog/2012/05/12/moving-from-wordpress-to-octopress/" data-via="norestftw" data-counturl="http://blog.norestfortheweekend.com/blog/2012/05/12/moving-from-wordpress-to-octopress/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/06/14/3ds-browser-revisited/" title="Previous Post: 3DS browser revisited">&laquo; 3DS browser revisited</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/">Webkit doesn't fire the load event on images</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7/">CSS3 gradients, multiple backgrounds and IE7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("norestftw", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/norestftw" class="twitter-follow-button" data-show-count="false">Follow @norestftw</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Mark Stickley -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'norestfortheweekend';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.norestfortheweekend.com/blog/2012/05/12/moving-from-wordpress-to-octopress/';
+        var disqus_url = 'http://blog.norestfortheweekend.com/blog/2012/05/12/moving-from-wordpress-to-octopress/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
+
+
+</body>
+</html>

@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="You know how, according to the W3C, CSS selectors that are not understood should be ignored, [with](http://cvsmailorderpharmacy.org/buy-kamagra-oral- &hellip;">
+  <meta name="description" content="You know how, according to the W3C, CSS selectors that are not understood should be ignored, without error? IE7 doesn’t do that 100% of the time. How &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,10 +21,13 @@
   <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
   <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/prefixfree.min.js" type="text/javascript"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -46,14 +49,14 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
+  <header role="banner" id="banner"><hgroup>
   <h1><a href="/">No Rest For The Weekend</a></h1>
   
 </hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
   
@@ -67,6 +70,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 
 </nav>
@@ -100,225 +104,330 @@
   </header>
 
 
-<div class="entry-content"><p>You know how, according to the W3C, <a href="http://www.w3.org/TR/CSS21/syndata.html#parsing-errors">CSS selectors that are not understood should be ignored, [with](http://cvsmailorderpharmacy.org/buy-kamagra-oral-jelly-usa.html)out error</a>? IE7 doesn&#8217;t do that 100% of the time.</p>
+<div class="entry-content"><p>You know how, according to the W3C, <a href="http://www.w3.org/TR/CSS21/syndata.html#parsing-errors">CSS selectors that are not understood should be ignored, without error</a>? IE7 doesn’t do that 100% of the time.</p>
 
-<h3>How dare it</h3>
+<h3 id="how-dare-it">How dare it</h3>
 
-<p>That&#8217;s right. Just when you thought you had a nice system in place IE comes along and stomps all over it. I&#8217;m sure more and more people will come up against this as they start using CSS gradients in earnest. I can see it being quite a common situation, too. I have two background images: one, a CSS generated gradient and two, an image to be laid over the top of it. A nice shiny button with an icon, for example.</p>
+<p>That’s right. Just when you thought you had a nice system in place IE comes along and stomps all over it. I’m sure more and more people will come up against this as they start using CSS gradients in earnest. I can see it being quite a common situation, too. I have two background images: one, a CSS generated gradient and two, an image to be laid over the top of it. A nice shiny button with an icon, for example.</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/button.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/button.png" alt="A button that says Register now and has a gradient and a separate icon for the background" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/button.png" width="142" height="38" title="'A button that says Register now and has a gradient and a separate icon for the background'" /></p>
 
-<p>We know that certain browsers can&#8217;t render gradients and so we define the background to initially be just a solid colour with the icon image (the users of the older browsers will never miss what they didn&#8217;t know was there). Then we go on to define the styles for the modern browsers. These styles use the same selector (<code>background-image</code>) so they will override the initial declaration but according to the rules, browsers that don&#8217;t understand the gradient instructions will just ignore the whole declaration leaving us with just the initial icon for the background.</p>
+<p>We know that certain browsers can’t render gradients and so we define the background to initially be just a solid colour with the icon image (the users of the older browsers will never miss what they didn’t know was there). Then we go on to define the styles for the modern browsers. These styles use the same selector (<code>background-image</code>) so they will override the initial declaration but according to the rules, browsers that don’t understand the gradient instructions will just ignore the whole declaration leaving us with just the initial icon for the background.</p>
 
 <p>As we know, the backgrounds will appear top down from the order you specify them so we specify the icon first and then the gradient, otherwise the gradient would obscure the icon.</p>
 
-<p>We also define the background-position twice. This is so we can position the gradient+icon background differently from the icon on it&#8217;s own. Browsers that don&#8217;t support multiple backgrounds should not see this syntax as valid and should ignore it.</p>
+<p>We also define the background-position twice. This is so we can position the gradient+icon background differently from the icon on it’s own. Browsers that don’t support multiple backgrounds should not see this syntax as valid and should ignore it.</p>
 
-<p>Here&#8217;s the code:</p>
+<p>Here’s the code:</p>
 
-<pre><code>&lt;a href="#" class="mybutton"&gt;Register now&lt;/a&gt;
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>HTML</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">class=</span><span class="s">&quot;mybutton&quot;</span><span class="nt">&gt;</span>Register now<span class="nt">&lt;/a&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CSS    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+</pre></td><td class="code"><pre><code class="css"><span class="line"><span class="nc">.mybutton</span><span class="p">{</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="sx">url(icon.png)</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="sx">url(icon.png)</span><span class="o">,</span>
+</span><span class="line">		<span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span>
+</span><span class="line">			<span class="n">linear</span><span class="o">,</span>
+</span><span class="line">			<span class="k">left</span> <span class="k">bottom</span><span class="o">,</span>
+</span><span class="line">			<span class="k">left</span> <span class="k">top</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">1</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="p">))</span>
+</span><span class="line">		<span class="p">);</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="sx">url(icon.png)</span><span class="o">,</span>
+</span><span class="line">		<span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span>
+</span><span class="line">			<span class="k">center</span> <span class="k">bottom</span><span class="o">,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="p">)</span> <span class="m">50</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="p">)</span> <span class="m">50</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span>
+</span><span class="line">		<span class="p">);</span>
+</span><span class="line">
+</span><span class="line">	<span class="k">background-position</span><span class="o">:</span> <span class="m">5px</span> <span class="k">center</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-position</span><span class="o">:</span> <span class="m">5px</span> <span class="k">center</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">	<span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">	<span class="k">padding-left</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p>Here it is in Firefox:  </p>
 
+<p><img class="center" src="/images/wp-uploads/2011/02/example1-ff.png" width="142" height="38" title="'Styles are working well in Firefox'" /></p>
 
+<p>And in IE7:  </p>
 
-
-.mybutton{
-    background-image: url(icon.png);
-    background-image: url(icon.png),
-        -webkit-gradient(
-            linear,
-            left bottom,
-            left top,
-            color-stop(0, rgb(233, 233, 233)),
-            color-stop(0.5, rgb(249, 249, 249)),
-            color-stop(0.5, rgb(255, 255, 255)),
-            color-stop(1, rgb(255, 255, 255))
-        );
-    background-image: url(icon.png),
-        -moz-linear-gradient(
-            center bottom,
-            rgb(233, 233, 233) 0%,
-            rgb(249, 249, 249) 50%,
-            rgb(255,255,255) 50%,
-            rgb(255,255,255) 100%
-        );
-
-    background-position: 5px center;
-    background-position: 5px center, left top;
-
-    background-repeat: no-repeat;
-
-    padding-left: 30px;
-}
-</code></pre>
-
-<p>Here it is in Firefox:</p>
-
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ff.png" alt="Styles are working well in Firefox" /></a></p>
-
-<p>And in IE7:</p>
-
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie.png" alt="The icon on the button is missing in IE" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example1-ie.png" width="142" height="38" title="'The icon on the button is missing in IE'" /></p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example1.html">see it for yourself in your browser</a>.</p>
 
-<p>It seems that IE is not behaving as we might expect. It&#8217;s not showing the gradient (expected) but it&#8217;s not failing back to just showing the icon either. A quick look at the IE developer toolbar (in IE9, IE7 mode; the IE7 dev toolbar would leave you stumped) shows us why:</p>
+<p>It seems that IE is not behaving as we might expect. It’s not showing the gradient (expected) but it’s not failing back to just showing the icon either. A quick look at the IE developer toolbar (in IE9, IE7 mode; the IE7 dev toolbar would leave you stumped) shows us why:</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie-inspector.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example1-ie-inspector.png" alt="Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can't understand" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example1-ie-inspector.png" width="692" height="100" title="'Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can't understand'" /></p>
 
-<p>It&#8217;s picked up the background image declaration that includes a gradient. In this case it&#8217;s the Mozilla-specific gradient and the reason it&#8217;s this one and not the Webkit one is that we are defining the Mozilla one last. If they were defined the other way around it would have picked up the Webkit one instead.</p>
+<p>It’s picked up the background image declaration that includes a gradient. In this case it’s the Mozilla-specific gradient and the reason it’s this one and not the Webkit one is that we are defining the Mozilla one last. If they were defined the other way around it would have picked up the Webkit one instead.</p>
 
-<h3>Why? Oh why??</h3>
+<h3 id="why-oh-why">Why? Oh why??</h3>
 
-<p>I&#8217;m no expert on how IE parses CSS but I would presume it&#8217;s something like IE recognises the URL part just fine and when it reaches the closing parenthesis it figures that&#8217;s it and all&#8217;s well. Maybe not. Whatever, for some reason it thinks it&#8217;s a valid declaration, scoops up the whole lot gradient and all and tries to render it. And fails.</p>
+<p>I’m no expert on how IE parses CSS but I would presume it’s something like IE recognises the URL part just fine and when it reaches the closing parenthesis it figures that’s it and all’s well. Maybe not. Whatever, for some reason it thinks it’s a valid declaration, scoops up the whole lot gradient and all and tries to render it. And fails.</p>
 
-<h3>That&#8217;s annoying</h3>
+<h3 id="thats-annoying">That’s annoying</h3>
 
 <p>Yes it is.</p>
 
-<h3>The fix</h3>
+<h3 id="the-fix">The fix</h3>
 
-<p>Importantly, IE correctly recognises the <code>background-image</code> declaration as invalid (for itself) if it starts with a gradient, even if it contains a regular image later on. So we just start the declaration with a gradient. The trouble is, we don&#8217;t want to put the gradient first as it&#8217;ll obscure the icon, so we define <em>another</em> gradient that is OK to put on top of the icon. That would be an empty or transparent gradient.</p>
+<p>Importantly, IE correctly recognises the <code>background-image</code> declaration as invalid (for itself) if it starts with a gradient, even if it contains a regular image later on. So we just start the declaration with a gradient. The trouble is, we don’t want to put the gradient first as it’ll obscure the icon, so we define <em>another</em> gradient that is OK to put on top of the icon. That would be an empty or transparent gradient.</p>
 
 <p>We will use the minimum amount of code that is necessary to trigger a gradient in the rendering engine. For Webkit, it is <code>-webkit-gradient(linear, left bottom, left top)</code>. No <code>color-stop</code>s required. This is good because no colour means no visible gradient. For Mozilla, it requires some colour information, so we just give it completely transparent colours using <code>rgba</code>: <code>-moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%)</code>.</p>
 
-<p>Putting these gradients first mean that IE7 won&#8217;t incorrectly think it can render that style and so it&#8217;ll stick with just the icon.</p>
+<p>Putting these gradients first mean that IE7 won’t incorrectly think it can render that style and so it’ll stick with just the icon.</p>
 
 <p><strong>Important: Because we now have 3 background images, we also need to declare a third value for background-position.</strong></p>
 
-<pre><code>.mybutton{
-    background-image: url(icon.png);
-    background-image: -webkit-gradient(linear, left bottom, left top),
-        url(icon.png),
-        -webkit-gradient(
-            linear,
-            left bottom,
-            left top,
-            color-stop(0, rgb(233, 233, 233)),
-            color-stop(0.5, rgb(249, 249, 249)),
-            color-stop(0.5, rgb(255, 255, 255)),
-            color-stop(1, rgb(255, 255, 255))
-        );
-    background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
-        url(icon.png),
-        -moz-linear-gradient(
-            center bottom,
-            rgb(233, 233, 233) 0%,
-            rgb(249, 249, 249) 50%,
-            rgb(255,255,255) 50%,
-            rgb(255,255,255) 100%
-        );
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CSS    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+</pre></td><td class="code"><pre><code class="css"><span class="line"><span class="nc">.mybutton</span><span class="p">{</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="sx">url(icon.png)</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">bottom</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">		<span class="sx">url(icon.png)</span><span class="o">,</span>
+</span><span class="line">		<span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span>
+</span><span class="line">			<span class="n">linear</span><span class="o">,</span>
+</span><span class="line">			<span class="k">left</span> <span class="k">bottom</span><span class="o">,</span>
+</span><span class="line">			<span class="k">left</span> <span class="k">top</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">1</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="p">))</span>
+</span><span class="line">		<span class="p">);</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">center</span> <span class="k">bottom</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">		<span class="sx">url(icon.png)</span><span class="o">,</span>
+</span><span class="line">		<span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span>
+</span><span class="line">			<span class="k">center</span> <span class="k">bottom</span><span class="o">,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="p">)</span> <span class="m">50</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="p">)</span> <span class="m">50</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span>
+</span><span class="line">		<span class="p">);</span>
+</span><span class="line">
+</span><span class="line">	<span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-position</span><span class="o">:</span> <span class="m">5px</span> <span class="k">center</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-position</span><span class="o">:</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="m">5px</span> <span class="k">center</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">	<span class="k">padding-left</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-    background-repeat: no-repeat;
-    background-position: 5px center;
-    background-position: left top, 5px center, left top;
+<p>Here it is in Firefox:  </p>
 
-    padding-left: 30px;
-}
-</code></pre>
+<p><img class="center" src="/images/wp-uploads/2011/02/example2-ff.png" width="142" height="38" title="'The styles are working well in Firefox'" /></p>
 
-<p>Here it is in Firefox:</p>
+<p>And in IE7:  </p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ff.png" alt="The styles are working well in Firefox" /></a></p>
-
-<p>And in IE7:</p>
-
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie.png" alt="The styles are working well in IE7" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example2-ie.png" width="142" height="38" title="'The styles are working well in IE7'" /></p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example2.html">see it for yourself in your browser</a>.</p>
 
-<h3>But wait, there&#8217;s more!</h3>
+<h3 id="but-wait-theres-more">But wait, there’s more!</h3>
 
-<p>You thought this was over? Of course it&#8217;s not! IE9 is a heck of a lot better than previous versions but it&#8217;s still not perfect. For example, it does support multiple backgrounds but it doesn&#8217;t support CSS gradients. This means that it&#8217;ll ignore the gradients but it&#8217;ll use the <code>background-position</code> multiple background declaration we made, resulting in the icon being positioned <code>left top</code> as opposed to <code>5px center</code>.</p>
+<p>You thought this was over? Of course it’s not! IE9 is a heck of a lot better than previous versions but it’s still not perfect. For example, it does support multiple backgrounds but it doesn’t support CSS gradients. This means that it’ll ignore the gradients but it’ll use the <code>background-position</code> multiple background declaration we made, resulting in the icon being positioned <code>left top</code> as opposed to <code>5px center</code>.</p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie9.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example2-ie9.png" alt="The styles have regressed in IE9 and the icon is incorrectly aligned" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example2-ie9.png" width="142" height="38" title="'The styles have regressed in IE9 and the icon is incorrectly aligned'" /></p>
 
 <p>I tried getting around this by inserting another <code>background-image</code> defining three images (two of them transparent spacers) directly after the first <code>background-image</code> and before the first gradient:</p>
 
-<pre><code>.mybutton{
-    background-image: url(icon.png);
-    background-image: url(spacer.gif),
-        url(icon.png),
-        url(spacer.gif);
-    background-image: -webkit-gradient(linear, left bottom, left top),
-        url(icon.png),
-        -webkit-gradient(
-            linear,
-            left bottom,
-            left top,
-            color-stop(0, rgb(233, 233, 233)),
-            color-stop(0.5, rgb(249, 249, 249)),
-            color-stop(0.5, rgb(255, 255, 255)),
-            color-stop(1, rgb(255, 255, 255))
-        );
-    background-image: -moz-linear-gradient(center bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%),
-        url(icon.png),
-        -moz-linear-gradient(
-            center bottom,
-            rgb(233, 233, 233) 0%,
-            rgb(249, 249, 249) 50%,
-            rgb(255,255,255) 50%,
-            rgb(255,255,255) 100%
-        );
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CSS    </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+</pre></td><td class="code"><pre><code class="css"><span class="line"><span class="nc">.mybutton</span><span class="p">{</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="sx">url(icon.png)</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="sx">url(spacer.gif)</span><span class="o">,</span>
+</span><span class="line">		<span class="sx">url(icon.png)</span><span class="o">,</span>
+</span><span class="line">		<span class="sx">url(spacer.gif)</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">bottom</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">		<span class="sx">url(icon.png)</span><span class="o">,</span>
+</span><span class="line">		<span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span>
+</span><span class="line">			<span class="n">linear</span><span class="o">,</span>
+</span><span class="line">			<span class="k">left</span> <span class="k">bottom</span><span class="o">,</span>
+</span><span class="line">			<span class="k">left</span> <span class="k">top</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="p">))</span><span class="o">,</span>
+</span><span class="line">			<span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">1</span><span class="o">,</span> <span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="o">,</span> <span class="m">255</span><span class="p">))</span>
+</span><span class="line">		<span class="p">);</span>
+</span><span class="line">	<span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">center</span> <span class="k">bottom</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">		<span class="sx">url(icon.png)</span><span class="o">,</span>
+</span><span class="line">		<span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span>
+</span><span class="line">			<span class="k">center</span> <span class="k">bottom</span><span class="o">,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="o">,</span> <span class="m">233</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="o">,</span> <span class="m">249</span><span class="p">)</span> <span class="m">50</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="p">)</span> <span class="m">50</span><span class="o">%,</span>
+</span><span class="line">			<span class="k">rgb</span><span class="p">(</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span>
+</span><span class="line">		<span class="p">);</span>
+</span><span class="line">
+</span><span class="line">	<span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-position</span><span class="o">:</span> <span class="m">5px</span> <span class="k">center</span><span class="p">;</span>
+</span><span class="line">	<span class="k">background-position</span><span class="o">:</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="m">5px</span> <span class="k">center</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">	<span class="k">padding-left</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-    background-repeat: no-repeat;
-    background-position: 5px center;
-    background-position: left top, 5px center, left top;
+<p>But that didn’t work as IE7 still parsed it (incorrectly) just as it did in the first instance and therefore didn’t show the icon at all. Back to square one.</p>
 
-    padding-left: 30px;
-}
-</code></pre>
+<p>At this point I’m sure most people are thinking</p>
 
-<p>But that didn&#8217;t work as IE7 still parsed it (incorrectly) just as it did in the first instance and therefore didn&#8217;t show the icon at all. Back to square one.</p>
+<p>“Oh come on, why not just use <a href="http://www.modernizr.com/">Modernizr</a> and only apply the gradients to browsers that can use them?”</p>
 
-<p>At this point I&#8217;m sure most people are thinking</p>
+<p>That’s one way of doing it, although I would rather not use JavaScript if possible. This leaves one option… go back to the original CSS and add this conditional comment in the <code>&lt;head&gt;</code>:</p>
 
-<p>&#8220;Oh come on, why not just use <a href="http://www.modernizr.com/">Modernizr</a> and only apply the gradients to browsers that can use them?&#8221;</p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Conditional Comment</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="c">&lt;!--[if IE]&gt;</span>
+</span><span class="line"><span class="c">    &lt;style type=&quot;text/css&quot; media=&quot;screen&quot;&gt;</span>
+</span><span class="line"><span class="c">        .mybutton{</span>
+</span><span class="line"><span class="c">            background-image: url(icon.png);</span>
+</span><span class="line"><span class="c">            background-position: 5px center;</span>
+</span><span class="line"><span class="c">        }</span>
+</span><span class="line"><span class="c">    &lt;/style&gt;</span>
+</span><span class="line"><span class="c">&lt;![endif]--&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>That&#8217;s one way of doing it, although I would rather not use JavaScript if possible. This leaves one option&#8230; go back to the original CSS and add this conditional comment in the <code>&lt;head&gt;</code>:</p>
+<p>As no versions of IE yet support gradients, we just reset the background to be the plain ol’ icon. Problem solved.</p>
 
-<p>As no versions of IE yet support gradients, we just reset the background to be the plain ol&#8217; icon. Problem solved.</p>
+<p>Here it is in Firefox:  </p>
 
-<p>Here it is in Firefox:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ff.png" width="142" height="38" title="'The styles are working well in Firefox'" /></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ff.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ff.png" alt="The styles are working well in Firefox" /></a></p>
+<p>And in Webkit (Chrome):  </p>
 
-<p>And in Webkit (Chrome):</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ch.png" width="142" height="38" title="'The styles are working well in Chrome'" /></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ch.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ch.png" alt="The styles are working well in Chrome" /></a></p>
+<p>And in Opera:  </p>
 
-<p>And in Opera:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-op.png" width="142" height="38" title="'The styles are working well in Opera'" /></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-op.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-op.png" alt="The styles are working well in Opera" /></a></p>
+<p>And in IE6:  </p>
 
-<p>And in IE6:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie6.png" width="142" height="38" title="'The styles are working well in IE6'" /></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie6.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie6.png" alt="The styles are working well in IE6" /></a></p>
+<p>And in IE7:  </p>
 
-<p>And in IE7:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie7.png" width="142" height="38" title="'The styles are working well in IE7'" /></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie7.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie7.png" alt="The styles are working well in IE7" /></a></p>
+<p>And in IE8:  </p>
 
-<p>And in IE8:</p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie8.png" width="142" height="38" title="'The styles are working well in IE8'" /></p>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie8.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie8.png" alt="The styles are working well in IE8" /></a></p>
+<p>And in IE9:  </p>
 
-<p>And in IE9:</p>
-
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie9.png"><img src="http://www.norestfortheweekend.com/wp-content/uploads/2011/02/example3-ie9.png" alt="The styles are working well in IE9" /></a></p>
+<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie9.png" width="142" height="38" title="'The styles are working well in IE9'" /></p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example3.html">see it for yourself in your browser</a>.</p>
 
-<h3>A side serving of gradient</h3>
+<h3 id="a-side-serving-of-gradient">A side serving of gradient</h3>
 
-<p>You may have noticed that two of the <code>color-stop</code>s have the same percentage/distance value. This effectively give us the ability to have more than one gradient on the same element. The end result is a gradient from the top to the middle, a sudden stop and change of colour and another gradient from the middle to the bottom. It&#8217;s useful to be able to change sharply from one colour to another as well as smoothly!</p>
+<p>You may have noticed that two of the <code>color-stop</code>s have the same percentage/distance value. This effectively give us the ability to have more than one gradient on the same element. The end result is a gradient from the top to the middle, a sudden stop and change of colour and another gradient from the middle to the bottom. It’s useful to be able to change sharply from one colour to another as well as smoothly!</p>
+
+<h3 id="footnotes">Footnotes</h3>
 
 <ul>
-<li><p>If anyone has a better solution, please get in touch in the comments or on Twitter.</p></li>
-<li><p>The images I&#8217;ve used come directly from the project I&#8217;m working on in my day job. If my employer has any objection to their use here I will of course replace them with something else. But I&#8217;m sure they won&#8217;t.</p></li>
+  <li>If anyone has a better solution, please get in touch in the comments or on Twitter.</li>
+  <li>The images I’ve used come directly from the project I’m working on in my day job. If my employer has any objection to their use here I will of course replace them with something else. But I’m sure they won’t.</li>
 </ul>
-
 </div>
 
 
@@ -352,6 +461,7 @@
 
 
     </p>
+    <p class="rssCta"><a href="http://feeds.feedburner.com/NoRestForTheWeekend" title="Subscribe to the RSS feed now!">Subscribe to the RSS feed now!</a></p>
     
       <div class="sharing">
   
@@ -388,6 +498,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
       </li>
     
@@ -401,10 +515,6 @@
     
       <li class="post">
         <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
       </li>
     
   </ul>
@@ -479,6 +589,8 @@
 
 
 
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
 
 
 </body>

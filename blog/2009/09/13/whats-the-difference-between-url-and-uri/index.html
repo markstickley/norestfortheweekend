@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="Good question, and something I&#8217;ve often wondered. You hear people using both terms the whole time so let&#8217;s lay this one to rest. So I&# &hellip;">
+  <meta name="description" content="Good question, and something I’ve often wondered. You hear people using both terms the whole time so let’s lay this one to rest. So I’m sitting in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,10 +21,13 @@
   <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2009/09/13/whats-the-difference-between-url-and-uri">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
   <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/prefixfree.min.js" type="text/javascript"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -46,14 +49,14 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
+  <header role="banner" id="banner"><hgroup>
   <h1><a href="/">No Rest For The Weekend</a></h1>
   
 </hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
   
@@ -67,6 +70,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
 </ul>
 
 </nav>
@@ -100,33 +104,34 @@
   </header>
 
 
-<div class="entry-content"><p>Good question, and something I&#8217;ve often wondered. You hear people using both terms the whole time so let&#8217;s lay this one to rest.</p>
+<div class="entry-content"><p>Good question, and something I’ve often wondered. You hear people using both terms the whole time so let’s lay this one to rest.</p>
 
-<p>So I&#8217;m sitting in this café writing some code and probably looking like a bit of a geek. Fair enough, th<a href="http://atlantic-drugs.net/products/viagra.htm">viagra</a> happens. For various reasons I want to <a href="http://cvsmailorderpharmacy.org/buy-kamagra-usa.html">have</a> a variable in my webapp&#8217;s registry that stores the URL of the current page. Or is it URI? I&#8217;m at a bit of a loss on what to call it.</p>
+<p>So I’m sitting in this café writing some code and probably looking like a bit of a geek. Fair enough, that happens. For various reasons I want to have a variable in my webapp’s registry that stores the URL of the current page. Or is it URI? I’m at a bit of a loss on what to call it.</p>
 
-<h4>What is a URL?</h4>
+<h2 id="what-is-a-url">What is a URL?</h2>
 
-<p>URL stands for <em>Uniform Resource Locator</em> which means it&#8217;s a reference to a specific <em>location</em>. Importantly the location must be on the web, although this isn&#8217;t indicated within it&#8217;s name. More</p>
+<p>URL stands for <em>Uniform Resource Locator</em> which means it’s a reference to a specific <em>location</em>. Importantly the location must be on the web, although this isn’t indicated within it’s name. More </p>
 
-<h4>What is a URI?</h4>
+<h2 id="what-is-a-uri">What is a URI?</h2>
 
-<p>In relation to a URL<strong>a URI is like a superclass</strong>. It stands for <em>Uniform Resource Identifier</em> which means it&#8217;s a reference to a specific <em>thing</em>. This thing could be just about anything addressable. For example a location on the web!</p>
+<p>In relation to a URL <strong>a URI is like a superclass</strong>. It stands for <em>Uniform Resource Identifier</em> which means it’s a reference to a specific <em>thing</em>. This thing could be just about anything addressable. For example a location on the web!</p>
 
-<h4>What&#8217;s the difference really? Why don&#8217;t we just use URL?</h4>
+<h2 id="whats-the-difference-really-why-dont-we-just-use-url">What’s the difference really? Why don’t we just use URL?</h2>
 
 <p>We should do if we are talking about web addresses! The distinction is that a URL provides information on how to get to the resource (Eg. http, https, ftp, mailto, etc). A URI can be relative (Eg. /path/to/file.jpg) or missing the protocol (Eg. //www.norestfortheweekend.com/2009/). These are both valid URIs but not URLs.</p>
 
-<h4>Hidden Extras</h4>
+<h2 id="hidden-extras">Hidden Extras</h2>
 
-<p>A URL <em>is a _ URI but a URI </em>is not necessarily_ a URL. We see this kind of relationship in programming with classes. Another &#8216;subclass&#8217; of URI which not as many people have heard of is the URN.</p>
+<p>A URL <em>is a</em> URI but a URI <em>is not necessarily</em> a URL. We see this kind of relationship in programming with classes. Another ‘subclass’ of URI which not as many people have heard of is the URN.</p>
 
-<p>URNs (Uniform Resource Name) start with <code>urn:</code> followed by a string identifying something. They are used for identification purposes rather than as a way of finding (locating) things as URLs are. Something that has some kind of universal identifier can be formatted as a URN. A good example of this is books. The majority of books at retail have an ISBN. The ISBN is their universal identifier; it doesn&#8217;t point to where you can find the book, or contain any of the books subject matter. It just identifies it in a way that there is no confusion as to what you&#8217;re talking about.</p>
+<p>URNs (Uniform Resource Name) start with <code>urn:</code> followed by a string identifying something. They are used for identification purposes rather than as a way of finding (locating) things as URLs are. Something that has some kind of universal identifier can be formatted as a URN. A good example of this is books. The majority of books at retail have an <abbr title="International Standard Book Number">ISBN</abbr>. The <abbr title="International Standard Book Number">ISBN</abbr> is their universal identifier; it doesn’t point to where you can find the book, or contain any of the books subject matter. It just identifies it in a way that there is no confusion as to what you’re talking about. </p>
 
-<p>An ISBN can be expressed as a URN: <code>urn:isbn:1582408181</code>.</p>
+<p>An <abbr title="International Standard Book Number">ISBN</abbr> can be expressed as a URN: <code>urn:isbn:1582408181</code>.</p>
+
+<h2 id="footnotes">Footnotes</h2>
 
 <p>For more wordy explanations, check out the wikipedia articles on <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URIs</a>, <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Locator">URLs</a> and <a href="http://en.wikipedia.org/wiki/Uniform_Resource_Name">URNs</a>!</p>
 
-<p>  *[ISBN]: International Standard Book Number</p>
 </div>
 
 
@@ -160,6 +165,7 @@
 
 
     </p>
+    <p class="rssCta"><a href="http://feeds.feedburner.com/NoRestForTheWeekend" title="Subscribe to the RSS feed now!">Subscribe to the RSS feed now!</a></p>
     
       <div class="sharing">
   
@@ -196,6 +202,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
       </li>
     
@@ -209,10 +219,6 @@
     
       <li class="post">
         <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">The Web in 3D - the Nintendo 3DS web browser</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always use www in your URLs</a>
       </li>
     
   </ul>
@@ -287,6 +293,8 @@
 
 
 
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
 
 
 </body>
