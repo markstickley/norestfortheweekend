@@ -1,0 +1,47 @@
+<!doctype HTML>
+<html>
+	<head>
+		<title>Radial background to create a close button</title>
+
+		<meta charset="utf-8" />
+
+		<style type="text/css">
+			a.close{
+				background-image: -moz-linear-gradient(-45deg, rgba(70,70,70,1) 0%, rgba(70,70,70,1) 33%, rgba(0,0,0,0) 33%, rgba(0,0,0,0) 67%, rgba(70,70,70,1) 67%, rgba(70,70,70,1) 100%), -moz-linear-gradient(45deg, rgba(70,70,70,1) 0%, rgba(70,70,70,1) 33%, rgba(0,0,0,0) 33%, rgba(0,0,0,0) 67%, rgba(70,70,70,1) 67%, rgba(70,70,70,1) 100%),-moz-linear-gradient(-45deg, rgba(70,70,70,1) 0%, rgba(70,70,70,1) 33%, rgba(0,0,0,0) 33%, rgba(0,0,0,0) 67%, rgba(70,70,70,1) 67%, rgba(70,70,70,1) 100%), -moz-linear-gradient(45deg, rgba(70,70,70,1) 0%, rgba(70,70,70,1) 33%, rgba(0,0,0,0) 33%, rgba(0,0,0,0) 67%, rgba(70,70,70,1) 67%, rgba(70,70,70,1) 100%);
+				background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(70,70,70,1)), color-stop(33%,rgba(70,70,70,1)), color-stop(33%,rgba(0,0,0,0)), color-stop(67%,rgba(0,0,0,0)), color-stop(67%,rgba(70,70,70,1)), color-stop(100%,rgba(70,70,70,1))), -webkit-gradient(linear, right top, left bottom, color-stop(0%,rgba(70,70,70,1)), color-stop(33%,rgba(70,70,70,1)), color-stop(33%,rgba(0,0,0,0)), color-stop(67%,rgba(0,0,0,0)), color-stop(67%,rgba(70,70,70,1)), color-stop(100%,rgba(70,70,70,1))),-webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(70,70,70,1)), color-stop(33%,rgba(70,70,70,1)), color-stop(33%,rgba(0,0,0,0)), color-stop(67%,rgba(0,0,0,0)), color-stop(67%,rgba(70,70,70,1)), color-stop(100%,rgba(70,70,70,1))), -webkit-gradient(linear, right top, left bottom, color-stop(0%,rgba(70,70,70,1)), color-stop(33%,rgba(70,70,70,1)), color-stop(33%,rgba(0,0,0,0)), color-stop(67%,rgba(0,0,0,0)), color-stop(67%,rgba(70,70,70,1)), color-stop(100%,rgba(70,70,70,1)));
+				background-image: -webkit-linear-gradient(-45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%), -webkit-linear-gradient(45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%),-webkit-linear-gradient(-45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%), -webkit-linear-gradient(45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%);
+				background-image: -o-linear-gradient(-45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%), -o-linear-gradient(45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%),-o-linear-gradient(-45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%), -o-linear-gradient(45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%);
+				background-image: -ms-linear-gradient(-45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%), -ms-linear-gradient(45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%),-ms-linear-gradient(-45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%), -ms-linear-gradient(45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%);
+				background-image: linear-gradient(135deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%), linear-gradient(45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%),linear-gradient(135deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%), linear-gradient(45deg, rgba(70,70,70,1) 0%,rgba(70,70,70,1) 33%,rgba(0,0,0,0) 33%,rgba(0,0,0,0) 67%,rgba(70,70,70,1) 67%,rgba(70,70,70,1) 100%);
+
+				background-size: 50%;
+				background-repeat: no-repeat;
+				background-position: right top, left top, left bottom, right bottom;
+
+				-webkit-border-radius: 40px;
+				-moz-border-radius: 40px;
+				border-radius: 40px;
+
+				display: inline-block;
+				width: 60px;
+				height: 60px;
+				text-indent: -99999px;
+				overflow: hidden;
+			}
+			a.close:hover{
+				background-color: rgba(0,0,0,0.1);
+			}
+
+			p{
+				padding: 10px;
+				background: teal;
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<p>
+			<a href="#" class="close">Close</a>
+		</p>
+	</body>
+</html>

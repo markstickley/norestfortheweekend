@@ -119,3 +119,44 @@ article {
 		}
 	}
 }
+
+table.display { /* gotta put a class in there or it may affect octopress styles */
+	$borderColour: #D0D0D0;
+	$headingBg: #F2F2F2;
+	$cellBg: #FFFFFF;
+	$emptyBg: #E8E8E8;
+
+	width: 100%;
+	margin-bottom: 1.5em;
+	border-left: 1px solid $borderColour;
+	border-top: 1px solid $borderColour;
+
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+
+	-webkit-box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+
+
+
+	th, td {
+		border-right: 1px solid $borderColour;
+		border-bottom: 1px solid $borderColour;
+		padding: 3px 8px;
+	}
+
+	th {
+		font-weight: bold;
+		background: $headingBg;
+		text-shadow: white 1px 1px 1px;
+	}
+
+	td {
+		background: $cellBg;
+
+		&.unused {
+			background: $emptyBg;
+		}
+	}	
+}

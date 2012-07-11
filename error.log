@@ -134,3 +134,7 @@
 [Mon May 07 16:34:46 2012] [error] [client 192.168.100.100] File does not exist: /var/www/blog.norestfortheweekend.com/public/images/banner.gif, referer: http://www.norestfortheweekend.dev/
 [Mon May 07 16:35:31 2012] [error] [client 192.168.100.100] File does not exist: /var/www/blog.norestfortheweekend.com/public/images/banner.gif, referer: http://www.norestfortheweekend.dev/
 [Mon May 07 17:31:41 2012] [error] [client 192.168.100.100] File does not exist: /var/www/blog.norestfortheweekend.com/public/about/feeds.feedburner.com, referer: http://www.norestfortheweekend.dev/about/
+[Tue Jul 10 08:25:40 2012] [error] [client 192.168.100.100] File does not exist: /var/www/norestfortheweekend.com/public/demos/zero-image-close-button
+[Wed Jul 11 10:10:58 2012] [error] [client 192.168.100.100] File does not exist: /var/www/norestfortheweekend.com/public/images/posts/2012/07/11/zero-image-close-buttons/x.png, referer: http://www.norestfortheweekend.dev/
+[Wed Jul 11 10:10:58 2012] [error] [client 192.168.100.100] File does not exist: /var/www/norestfortheweekend.com/public/images/posts/2012/07/11/zero-image-close-buttons/x-components-simple.png, referer: http://www.norestfortheweekend.dev/
+[Wed Jul 11 10:10:58 2012] [error] [client 192.168.100.100] File does not exist: /var/www/norestfortheweekend.com/public/images/posts/2012/07/11/zero-image-close-buttons/x-components-advanced.png, referer: http://www.norestfortheweekend.dev/
