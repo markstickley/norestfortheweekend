@@ -4,7 +4,7 @@
   <title><![CDATA[Category: blogging | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/blogging/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-05-13T00:25:51+01:00</updated>
+  <updated>2012-07-11T19:52:07+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -18,19 +18,19 @@
     <link href="http://blog.norestfortheweekend.com/blog/2012/05/12/moving-from-wordpress-to-octopress/"/>
     <updated>2012-05-12T15:34:00+01:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2012/05/12/moving-from-wordpress-to-octopress</id>
-    <content type="html"><![CDATA[<p>My Wordpress install kept disabling all the plugins. No idea why. Because I don’t browse my own blog too regularly (especially with the regularity of posts I’ve been writing recently) the only indication I had was when I started getting lots of spam comments thanks to the lack of <a href="Askimet">http://akismet.com/</a>.</p>
+    <content type="html"><![CDATA[<p>My Wordpress install kept disabling all the plugins. No idea why. Because I don’t browse my own blog too regularly (especially with the regularity of posts I’ve been writing recently) the only indication I had was when I started getting lots of spam comments thanks to the lack of <a href="http://akismet.com/">Askimet</a>.</p>
 
-<p>When <a href="a colleage">http://www.twitter.com/elduderion78</a> mentioned Wordpress recently, in particular how they would never use it in a million years, I asked what he would use instead thinking perhaps something like <a href="Tumblr">http://www.tumblr.com</a>, <a href="Blogger">http://www.blogger.com</a>, <a href="Posterous">http://www.posterous.com</a> or something similar. Instead, he suggested something decidedly more… <em>fishy</em>.</p>
+<p>When <a href="http://www.twitter.com/elduderino78">a colleague</a> mentioned Wordpress recently, in particular how he would never use it in a million years, I asked what he would use instead thinking perhaps something like <a href="http://www.tumblr.com">Tumblr</a>, <a href="http://www.blogger.com">Blogger</a>, <a href="http://www.posterous.com">Posterous</a> or something similar. Instead, he suggested something decidedly more… <em>fishy</em>.</p>
 
 <h2 id="octopress">Octopress</h2>
 
-<p><a href="Octopress">http://octopress.org/</a> is a very neat little blogging environment. You write your posts in <a href="markdown">http://daringfireball.net/projects/markdown/</a> and then run a little rake script to generate your blog. The files generated are static HTML files which is great for performance and caching.</p>
+<p><a href="http://octopress.org/">Octopress</a> is a very neat little blogging environment. You write your posts in <a href="http://daringfireball.net/projects/markdown/">markdown</a> and then run a little rake script to generate your blog. The files generated are static HTML files which is great for performance and caching.</p>
 
-<p>The blog’s structure is generated from templates and the CSS is generated using <a href="SASS">http://sass-lang.com/</a> so you get all the benefits of a dynamically generated site but none of the overheads. As if that wasn’t awesome enough, it’s virtually seamlessly integrated with GitHub and <a href="GitHub Pages">http://pages.github.com/</a>, so you write locally, generate and then deploy with another rake script.</p>
+<p>The blog’s structure is generated from templates and the CSS is generated using <a href="http://sass-lang.com/">SASS</a> so you get all the benefits of a dynamically generated site but none of the overheads. As if that wasn’t awesome enough, it’s virtually seamlessly integrated with GitHub and <a href="http://pages.github.com/">GitHub Pages</a>, so you write locally, generate and then deploy with another rake script.</p>
 
 <h2 id="migrating-from-wordpress">Migrating from Wordpress</h2>
 
-<p>To get all my stuff out of Wordpress I used Wordpress’ own export function to generate an XML document of all the posts and metadata. Then I used <a href="exitwp">https://github.com/thomasf/exitwp</a> to convert the XML to markdown, which worked OK. That converted everything except comments. Generating static files means that comments are not really possible natively but Octopress has built in support for <a href="Disqus">http://disqus.com/</a> which works seamlessly. This does mean that the old comments are lost but you know what they say: you can’t make a seafood paella without chopping up a few octopi.</p>
+<p>To get all my stuff out of Wordpress I used Wordpress’ own export function to generate an XML document of all the posts and metadata. Then I used <a href="https://github.com/thomasf/exitwp">exitwp</a> to convert the XML to markdown, which worked OK. That converted everything except comments. Generating static files means that comments are not really possible natively but Octopress has built in support for <a href="http://disqus.com/">Disqus</a> which works seamlessly. This does mean that the old comments are lost but you know what they say: you can’t make a seafood paella without chopping up a few octopi.</p>
 
 <p>It wasn’t all plain sailing though.</p>
 
@@ -44,7 +44,7 @@
 
 <p>I had been using a plugin to handle media on Wordpress so images were kind of messed up and I had to copy all the images and reformat all the image tags by hand. I was so glad I hadn’t written all that many articles! Keeping it really simple in markdown seems so sensible I can’t believe we didn’t always blog like this.</p>
 
-<p>The last thing that needed doing was to give it more of the look and feel of the old site. The default theme, <em>classic</em>, is very nice but I’m rather fond of that little pixel dude in the header. Plus I got to try out a friend’s clever <a href="CSS Patterns Workbench">http://glan.github.com/CSS-Patterns-Workbench/</a> to create the background in pure CSS instead of images.</p>
+<p>The last thing that needed doing was to give it more of the look and feel of the old site. The default theme, <em>classic</em>, is very nice but I’m rather fond of that little pixel dude in the header. Plus I got to try out a friend’s clever <a href="http://glan.github.com/CSS-Patterns-Workbench/">CSS Patterns Workbench</a> to create the background in pure CSS instead of images.</p>
 
 <h2 id="cname-cname-run">CNAME. CNAME RUN.</h2>
 
@@ -52,7 +52,7 @@
 
 <h2 id="verdict">Verdict</h2>
 
-<p>I’m so glad I’m not using WordPress anymore. Wordpress blogs are such a target for hackers and spammers and I was hit several times over. I tended to keep fairly on to of the updates as well, so you can image how bad it might be for people who don’t bother. If anyone wants to hack this blog now they have to hack my GitHub account. Of course having <a href="the whole blog on GitHub">https://github.com/markstickley/norestfortheweekend</a> has it’s advantages too… if you like you can correct any mistakes or typos by submitting a pull request!</p>
+<p>I’m so glad I’m not using WordPress anymore. Wordpress blogs are such a target for hackers and spammers and I was hit several times over. I tended to keep fairly on to of the updates as well, so you can image how bad it might be for people who don’t bother. If anyone wants to hack this blog now they have to hack my GitHub account. Of course having <a href="https://github.com/markstickley/norestfortheweekend">the whole blog on GitHub</a> has it’s advantages too… if you like you can correct any mistakes or typos by submitting a pull request!</p>
 ]]></content>
   </entry>
   

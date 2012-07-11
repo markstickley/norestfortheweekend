@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Zero image close buttons - No Rest For The Weekend</title>
+  <meta name="author" content="Mark Stickley">
+
+  
+  <meta name="description" content="While I was shaving yaks recently, I came across and interface element in our product: a tiny button that removed an item from a list. The button was &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2012/07/11/zero-image-close-buttons">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/prefixfree.min.js" type="text/javascript"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-537105-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner" id="banner"><hgroup>
+  <h1><a href="/">No Rest For The Weekend</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.norestfortheweekend.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Zero Image Close Buttons</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-11T15:06:00+01:00" pubdate data-updated="true">Jul 11<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>While I was <a href="http://en.wiktionary.org/wiki/yak_shaving#Noun">shaving yaks</a> recently, I came across and interface element in our product: a tiny button that removed an item from a list. The button was just a simple circle with an X through it.</p>
+
+<p>Originally it had been created by hiding the text of a link, using the <code>:before</code> selector and the <code>content</code> property to add an X and then styling it. It wasn’t ideal because it never really lined up properly, especially when the font size changed and <em>especially</em> if the font family was changed. I wanted to find a better way.</p>
+
+<h2 id="using-a-gradient-as-a-gradient-is-so-overrated">Using a gradient as a gradient is so overrated</h2>
+
+<p>You can create a much better X with a few gradients! In fact, gradient backgrounds, multiple background images and rounded corners give you pretty much all the tools you need to create the <strong>best X button ever</strong>. You just have to realise that just because it’s called a gradient it doesn’t have to look like one.</p>
+
+<p>There are two ways of doing this, but I’ll start with the simplest. Let’s deconstruct our button:</p>
+
+<p><img class="center" src="/images/posts/2012/07/11/zero-image-close-buttons/simple-breakdown.png" width="514" height="195" title="'The X is just two lines'" /></p>
+
+<p>As a single linear gradient can only make lines parallel to each other, we need to make two lines by using two gradients.</p>
+
+<p>By placing two colour stops of differing colours right next to each other we create a solid transition between colours instead of a gradient.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CSS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="css"><span class="line"><span class="nt">a</span><span class="nc">.close</span><span class="p">{</span>
+</span><span class="line">    <span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">135</span><span class="n">deg</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">41</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">41</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">58</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">58</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">                      <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">45</span><span class="n">deg</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">41</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">41</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">58</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">58</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>You can <a href="/demos/zero-image-close-buttons/simple.html">see it in action</a> and also check the source for the full gamut of vendor extensions.</p>
+
+<h2 id="adding-pzazz">Adding pzazz</h2>
+
+<p>We can make our close button look a lot like the <a href="https://www.google.co.uk/search?q=x+men+logo&amp;tbm=isch">X-Men logo</a> by adding a couple of lines of extra CSS. I added a hover state as well just for kicks:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CSS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="css"><span class="line"><span class="nt">a</span><span class="nc">.close</span><span class="p">{</span>
+</span><span class="line">    <span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">135</span><span class="n">deg</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">41</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">41</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">58</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">58</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">                      <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">45</span><span class="n">deg</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">41</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">41</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">58</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">58</span><span class="o">.</span><span class="m">5</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span><span class="p">);</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">border</span><span class="o">:</span> <span class="m">3px</span> <span class="k">solid</span> <span class="nb">black</span><span class="p">;</span>
+</span><span class="line">    <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line"><span class="nt">a</span><span class="nc">.close</span><span class="nd">:hover</span><span class="p">{</span>
+</span><span class="line">    <span class="k">background-color</span><span class="o">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">.</span><span class="m">1</span><span class="p">);</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p><a href="/demos/zero-image-close-buttons/simple-with-border.html">See it in action here</a>.</p>
+
+<h2 id="the-next-level">The next level</h2>
+
+<p>The above approach is a bit limited. A couple of problems:</p>
+
+<ul>
+  <li>It’s easy to change the background or to leave it transparent, BUT what if we want the background to have a solid colour and have the X transparent, letting the colour or image behind show through? It doesn’t work.</li>
+  <li>With one line of the X overlaid on the other it would be impossible to give the lines of the X a gradient with any kind of rotational symmetry.</li>
+</ul>
+
+<p>Both these problems can be solved by deconstructing the X a little further:</p>
+
+<p><img class="center" src="/images/posts/2012/07/11/zero-image-close-buttons/advanced-breakdown.png" width="200" height="200" title="'The X is four lines joining at the centre'" /></p>
+
+<p>This means as well as creating four gradients we must also give them each different positions within the element they apply to.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CSS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="css"><span class="line"><span class="nt">a</span><span class="nc">.close</span><span class="p">{</span>
+</span><span class="line">    <span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">135</span><span class="n">deg</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">33</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">33</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">67</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">67</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">                      <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">45</span><span class="n">deg</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">33</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">33</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">67</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">67</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">                      <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">135</span><span class="n">deg</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">33</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">33</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">67</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">67</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span><span class="p">)</span><span class="o">,</span>
+</span><span class="line">                      <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">45</span><span class="n">deg</span><span class="o">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">0</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">33</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">33</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">1</span><span class="p">)</span> <span class="m">67</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">67</span><span class="o">%,</span><span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">)</span> <span class="m">100</span><span class="o">%</span><span class="p">);</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">background</span><span class="o">-</span><span class="k">size</span><span class="o">:</span> <span class="m">50</span><span class="o">%</span><span class="p">;</span>
+</span><span class="line">    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+</span><span class="line">    <span class="k">background-position</span><span class="o">:</span> <span class="k">right</span> <span class="k">top</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="k">left</span> <span class="k">bottom</span><span class="o">,</span> <span class="k">right</span> <span class="k">bottom</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><a href="/demos/zero-image-close-buttons/advanced.html">See it</a>! (Yes, it looks the same as the first one).</p>
+
+<h2 id="thats-a-bit-fancy">That’s a bit fancy</h2>
+
+<p>Now that each ‘spoke’ of the X is created by a separate gradient, we can get super-fancy and create effects like <a href="/demos/zero-image-close-buttons/fancy1.html">this</a>, <a href="/demos/zero-image-close-buttons/fancy2.html">this</a> and <a href="/demos/zero-image-close-buttons/fancy3.html">this</a>.</p>
+
+<h2 id="getting-sassy">Getting SASSy</h2>
+
+<p>It only seems right that all this goodness should be rolled into a simple-to-use SCSS mixin. Copy and paste this code and create close buttons as easily as typing <code>@include XBackground($foreground: white, $background: gray, $width: 34%)</code> (adding your own <code>border</code> and <code>border-radius</code> as required).</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>SCSS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="scss"><span class="line"><span class="k">@mixin</span><span class="nf"> XBackground</span><span class="p">(</span><span class="nv">$foreground</span><span class="o">,</span> <span class="nv">$background</span><span class="o">,</span> <span class="nv">$width</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="nv">$stop1</span><span class="o">:</span> <span class="mi">50</span><span class="kt">%</span> <span class="o">-</span> <span class="p">(</span><span class="nv">$width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class="line">    <span class="nv">$stop2</span><span class="o">:</span> <span class="mi">50</span><span class="kt">%</span> <span class="o">+</span> <span class="p">(</span><span class="nv">$width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class="line">
+</span><span class="line">    <span class="na">background-image</span><span class="o">:</span> <span class="nf">-moz-linear-gradient</span><span class="p">(</span><span class="mi">-45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span> <span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span> <span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span> <span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span> <span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">-moz-linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span> <span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span> <span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span> <span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span> <span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,-</span><span class="nf">moz-linear-gradient</span><span class="p">(</span><span class="mi">-45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span> <span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span> <span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span> <span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span> <span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">-moz-linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span> <span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span> <span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span> <span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span> <span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span>
+</span><span class="line">	<span class="na">background-image</span><span class="o">:</span> <span class="nf">-webkit-gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="no">left</span> <span class="no">top</span><span class="o">,</span> <span class="no">right</span> <span class="no">bottom</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop1</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop2</span><span class="o">,</span><span class="nv">$foreground</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="mi">100</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span><span class="p">))</span><span class="o">,</span> <span class="nf">-webkit-gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="no">right</span> <span class="no">top</span><span class="o">,</span> <span class="no">left</span> <span class="no">bottom</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop1</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop2</span><span class="o">,</span><span class="nv">$foreground</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="mi">100</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span><span class="p">))</span><span class="o">,-</span><span class="nf">webkit-gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="no">left</span> <span class="no">top</span><span class="o">,</span> <span class="no">right</span> <span class="no">bottom</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop1</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop2</span><span class="o">,</span><span class="nv">$foreground</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="mi">100</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span><span class="p">))</span><span class="o">,</span> <span class="nf">-webkit-gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="no">right</span> <span class="no">top</span><span class="o">,</span> <span class="no">left</span> <span class="no">bottom</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop1</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop2</span><span class="o">,</span><span class="nv">$foreground</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span><span class="p">)</span><span class="o">,</span> <span class="nf">color-stop</span><span class="p">(</span><span class="mi">100</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span><span class="p">));</span>
+</span><span class="line">	<span class="na">background-image</span><span class="o">:</span> <span class="nf">-webkit-linear-gradient</span><span class="p">(</span><span class="mi">-45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">-webkit-linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,-</span><span class="nf">webkit-linear-gradient</span><span class="p">(</span><span class="mi">-45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">-webkit-linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span>
+</span><span class="line">	<span class="na">background-image</span><span class="o">:</span> <span class="nf">-o-linear-gradient</span><span class="p">(</span><span class="mi">-45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">-o-linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,-</span><span class="nf">o-linear-gradient</span><span class="p">(</span><span class="mi">-45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">-o-linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span>
+</span><span class="line">	<span class="na">background-image</span><span class="o">:</span> <span class="nf">-ms-linear-gradient</span><span class="p">(</span><span class="mi">-45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">-ms-linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,-</span><span class="nf">ms-linear-gradient</span><span class="p">(</span><span class="mi">-45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">-ms-linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span>
+</span><span class="line">	<span class="na">background-image</span><span class="o">:</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="mi">135</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span><span class="nf">linear-gradient</span><span class="p">(</span><span class="mi">135</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">)</span><span class="o">,</span> <span class="nf">linear-gradient</span><span class="p">(</span><span class="mi">45</span><span class="kt">deg</span><span class="o">,</span> <span class="nv">$background</span> <span class="mi">0</span><span class="kt">%</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop1</span><span class="o">,</span><span class="nv">$foreground</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="nv">$stop2</span><span class="o">,</span><span class="nv">$background</span> <span class="mi">100</span><span class="kt">%</span><span class="p">);</span>
+</span><span class="line">
+</span><span class="line">	<span class="na">background-size</span><span class="o">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
+</span><span class="line">	<span class="na">background-repeat</span><span class="o">:</span> <span class="no">no-repeat</span><span class="p">;</span>
+</span><span class="line">	<span class="na">background-position</span><span class="o">:</span> <span class="no">right</span> <span class="no">top</span><span class="o">,</span> <span class="no">left</span> <span class="no">top</span><span class="o">,</span> <span class="no">left</span> <span class="no">bottom</span><span class="o">,</span> <span class="no">right</span> <span class="no">bottom</span><span class="p">;</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="vendor-schmendor">Vendor schmendor</h2>
+
+<p>Looking again at <a href="/demos/zero-image-close-buttons/advanced.html">the CSS of the more advanced solution</a>, it turns out that there’s quite a lot of it. This is thanks to all the variations and vendor prefixes we have to use (THANKS FOR THAT VENDORS).</p>
+
+<p>Of course another way we could do this is just to use an image. <em>Old school</em>. We can base64 encode and include it directly in the CSS. While doing that makes it a little larger than a separate file it cuts out the overhead of an extra request so it should be quicker overall.</p>
+
+<p><a href="/demos/zero-image-close-buttons/base64.html">Here</a>’s the base64 version in action. View source and you’ll see that it’s a lot smaller (about half the size) of the gradient-based solution. The gradient version will scale to any size but if you use it at a fixed size is it worth the extra bandwidth?</p>
+
+<p>Fortunately you don’t need to make that choice! Here’s a handy little chart explaining why:</p>
+
+<table class="display">
+	<thead>
+		<tr>
+			<td class="unused" />
+			<th>Chars</th>
+			<th>Uncompressed</th>
+			<th>Gzipped</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Gradients</th>
+			<td>3969</td>
+			<td>3.84KB</td>
+			<td>313 bytes</td>
+		</tr>
+		<tr>
+			<th>Base64 image</th>
+			<td>1961</td>
+			<td>1.91KB</td>
+			<td>1.33KB</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>And you <em>are</em> gzipping all your stuff as you serve it, right? I thought so.</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Stickley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-11T15:06:00+01:00" pubdate data-updated="true">Jul 11<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/css/'>css</a>
+  
+</span>
+
+
+    </p>
+    <p class="rssCta"><a href="http://feeds.feedburner.com/NoRestForTheWeekend" title="Subscribe to the RSS feed now!">Subscribe to the RSS feed now!</a></p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.norestfortheweekend.com/blog/2012/07/11/zero-image-close-buttons/" data-via="norestftw" data-counturl="http://blog.norestfortheweekend.com/blog/2012/07/11/zero-image-close-buttons/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/05/12/moving-from-wordpress-to-octopress/" title="Previous Post: Moving from Wordpress to Octopress">&laquo; Moving from Wordpress to Octopress</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/07/11/zero-image-close-buttons/">Zero image close buttons</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/">Webkit doesn't fire the load event on images</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/26/css3-gradients-multiple-backgrounds-and-ie7/">CSS3 gradients, multiple backgrounds and IE7</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("norestftw", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/norestftw" class="twitter-follow-button" data-show-count="false">Follow @norestftw</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Mark Stickley -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'norestfortheweekend';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.norestfortheweekend.com/blog/2012/07/11/zero-image-close-buttons/';
+        var disqus_url = 'http://blog.norestfortheweekend.com/blog/2012/07/11/zero-image-close-buttons/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
+
+
+</body>
+</html>

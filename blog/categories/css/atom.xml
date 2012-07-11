@@ -4,7 +4,7 @@
   <title><![CDATA[Category: css | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/css/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2012-05-13T00:25:51+01:00</updated>
+  <updated>2012-07-11T19:52:07+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -12,6 +12,143 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Zero image close buttons]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2012/07/11/zero-image-close-buttons/"/>
+    <updated>2012-07-11T15:06:00+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2012/07/11/zero-image-close-buttons</id>
+    <content type="html"><![CDATA[<p>While I was <a href="http://en.wiktionary.org/wiki/yak_shaving#Noun">shaving yaks</a> recently, I came across and interface element in our product: a tiny button that removed an item from a list. The button was just a simple circle with an X through it.</p>
+
+<p>Originally it had been created by hiding the text of a link, using the <code>:before</code> selector and the <code>content</code> property to add an X and then styling it. It wasn’t ideal because it never really lined up properly, especially when the font size changed and <em>especially</em> if the font family was changed. I wanted to find a better way.</p>
+
+<h2 id="using-a-gradient-as-a-gradient-is-so-overrated">Using a gradient as a gradient is so overrated</h2>
+
+<p>You can create a much better X with a few gradients! In fact, gradient backgrounds, multiple background images and rounded corners give you pretty much all the tools you need to create the <strong>best X button ever</strong>. You just have to realise that just because it’s called a gradient it doesn’t have to look like one.</p>
+
+<p>There are two ways of doing this, but I’ll start with the simplest. Let’s deconstruct our button:</p>
+
+<p><img class="center" src="/images/posts/2012/07/11/zero-image-close-buttons/simple-breakdown.png" width="514" height="195" title="‘The X is just two lines’" ></p>
+
+<p>As a single linear gradient can only make lines parallel to each other, we need to make two lines by using two gradients.</p>
+
+<p>By placing two colour stops of differing colours right next to each other we create a solid transition between colours instead of a gradient.</p>
+
+<p><code>css CSS
+a.close{
+    background-image: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 41.5%,rgba(0,0,0,1) 41.5%,rgba(0,0,0,1) 58.5%,rgba(0,0,0,0) 58.5%,rgba(0,0,0,0) 100%),
+                      linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 41.5%,rgba(0,0,0,1) 41.5%,rgba(0,0,0,1) 58.5%,rgba(0,0,0,0) 58.5%,rgba(0,0,0,0) 100%);
+}
+</code>
+You can <a href="/demos/zero-image-close-buttons/simple.html">see it in action</a> and also check the source for the full gamut of vendor extensions.</p>
+
+<h2 id="adding-pzazz">Adding pzazz</h2>
+
+<p>We can make our close button look a lot like the <a href="https://www.google.co.uk/search?q=x+men+logo&amp;tbm=isch">X-Men logo</a> by adding a couple of lines of extra CSS. I added a hover state as well just for kicks:</p>
+
+<p>``` css CSS
+a.close{
+    background-image: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 41.5%,rgba(0,0,0,1) 41.5%,rgba(0,0,0,1) 58.5%,rgba(0,0,0,0) 58.5%,rgba(0,0,0,0) 100%),
+                      linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 41.5%,rgba(0,0,0,1) 41.5%,rgba(0,0,0,1) 58.5%,rgba(0,0,0,0) 58.5%,rgba(0,0,0,0) 100%);</p>
+
+<pre><code>border: 3px solid black;
+border-radius: 5px; } a.close:hover{
+background-color: rgba(0,0,0,0.1); } ``` [See it in action here](/demos/zero-image-close-buttons/simple-with-border.html).
+</code></pre>
+
+<h2 id="the-next-level">The next level</h2>
+
+<p>The above approach is a bit limited. A couple of problems:</p>
+
+<ul>
+  <li>It’s easy to change the background or to leave it transparent, BUT what if we want the background to have a solid colour and have the X transparent, letting the colour or image behind show through? It doesn’t work.</li>
+  <li>With one line of the X overlaid on the other it would be impossible to give the lines of the X a gradient with any kind of rotational symmetry.</li>
+</ul>
+
+<p>Both these problems can be solved by deconstructing the X a little further:</p>
+
+<p><img class="center" src="/images/posts/2012/07/11/zero-image-close-buttons/advanced-breakdown.png" width="200" height="200" title="‘The X is four lines joining at the centre’" ></p>
+
+<p>This means as well as creating four gradients we must also give them each different positions within the element they apply to.</p>
+
+<p>``` css CSS
+a.close{
+    background-image: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 33%,rgba(0,0,0,1) 33%,rgba(0,0,0,1) 67%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%),
+                      linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 33%,rgba(0,0,0,1) 33%,rgba(0,0,0,1) 67%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%),
+                      linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 33%,rgba(0,0,0,1) 33%,rgba(0,0,0,1) 67%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%),
+                      linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 33%,rgba(0,0,0,1) 33%,rgba(0,0,0,1) 67%,rgba(0,0,0,0) 67%,rgba(0,0,0,0) 100%);</p>
+
+<pre><code>background-size: 50%;
+background-repeat: no-repeat;
+background-position: right top, left top, left bottom, right bottom; } ```
+</code></pre>
+
+<p><a href="/demos/zero-image-close-buttons/advanced.html">See it</a>! (Yes, it looks the same as the first one).</p>
+
+<h2 id="thats-a-bit-fancy">That’s a bit fancy</h2>
+
+<p>Now that each ‘spoke’ of the X is created by a separate gradient, we can get super-fancy and create effects like <a href="/demos/zero-image-close-buttons/fancy1.html">this</a>, <a href="/demos/zero-image-close-buttons/fancy2.html">this</a> and <a href="/demos/zero-image-close-buttons/fancy3.html">this</a>.</p>
+
+<h2 id="getting-sassy">Getting SASSy</h2>
+
+<p>It only seems right that all this goodness should be rolled into a simple-to-use SCSS mixin. Copy and paste this code and create close buttons as easily as typing <code>@include XBackground($foreground: white, $background: gray, $width: 34%)</code> (adding your own <code>border</code> and <code>border-radius</code> as required).</p>
+
+<p>``` scss SCSS
+@mixin XBackground($foreground, $background, $width) {
+    $stop1: 50% - ($width / 2);
+    $stop2: 50% + ($width / 2);</p>
+
+<pre><code>background-image: -moz-linear-gradient(-45deg, $background 0%, $background $stop1, $foreground $stop1, $foreground $stop2, $background $stop2, $background 100%), -moz-linear-gradient(45deg, $background 0%, $background $stop1, $foreground $stop1, $foreground $stop2, $background $stop2, $background 100%),-moz-linear-gradient(-45deg, $background 0%, $background $stop1, $foreground $stop1, $foreground $stop2, $background $stop2, $background 100%), -moz-linear-gradient(45deg, $background 0%, $background $stop1, $foreground $stop1, $foreground $stop2, $background $stop2, $background 100%);
+background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0%,$background), color-stop($stop1,$background), color-stop($stop1,$foreground), color-stop($stop2,$foreground), color-stop($stop2,$background), color-stop(100%,$background)), -webkit-gradient(linear, right top, left bottom, color-stop(0%,$background), color-stop($stop1,$background), color-stop($stop1,$foreground), color-stop($stop2,$foreground), color-stop($stop2,$background), color-stop(100%,$background)),-webkit-gradient(linear, left top, right bottom, color-stop(0%,$background), color-stop($stop1,$background), color-stop($stop1,$foreground), color-stop($stop2,$foreground), color-stop($stop2,$background), color-stop(100%,$background)), -webkit-gradient(linear, right top, left bottom, color-stop(0%,$background), color-stop($stop1,$background), color-stop($stop1,$foreground), color-stop($stop2,$foreground), color-stop($stop2,$background), color-stop(100%,$background));
+background-image: -webkit-linear-gradient(-45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%), -webkit-linear-gradient(45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%),-webkit-linear-gradient(-45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%), -webkit-linear-gradient(45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%);
+background-image: -o-linear-gradient(-45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%), -o-linear-gradient(45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%),-o-linear-gradient(-45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%), -o-linear-gradient(45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%);
+background-image: -ms-linear-gradient(-45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%), -ms-linear-gradient(45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%),-ms-linear-gradient(-45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%), -ms-linear-gradient(45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%);
+background-image: linear-gradient(135deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%), linear-gradient(45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%),linear-gradient(135deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%), linear-gradient(45deg, $background 0%,$background $stop1,$foreground $stop1,$foreground $stop2,$background $stop2,$background 100%);
+
+background-size: 50%;
+background-repeat: no-repeat;
+background-position: right top, left top, left bottom, right bottom; } ```
+</code></pre>
+
+<h2 id="vendor-schmendor">Vendor schmendor</h2>
+
+<p>Looking again at <a href="/demos/zero-image-close-buttons/advanced.html">the CSS of the more advanced solution</a>, it turns out that there’s quite a lot of it. This is thanks to all the variations and vendor prefixes we have to use (THANKS FOR THAT VENDORS).</p>
+
+<p>Of course another way we could do this is just to use an image. <em>Old school</em>. We can base64 encode and include it directly in the CSS. While doing that makes it a little larger than a separate file it cuts out the overhead of an extra request so it should be quicker overall.</p>
+
+<p><a href="/demos/zero-image-close-buttons/base64.html">Here</a>’s the base64 version in action. View source and you’ll see that it’s a lot smaller (about half the size) of the gradient-based solution. The gradient version will scale to any size but if you use it at a fixed size is it worth the extra bandwidth?</p>
+
+<p>Fortunately you don’t need to make that choice! Here’s a handy little chart explaining why:</p>
+
+<table class="display">
+	<thead>
+		<tr>
+			<td class="unused" />
+			<th>Chars</th>
+			<th>Uncompressed</th>
+			<th>Gzipped</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Gradients</th>
+			<td>3969</td>
+			<td>3.84KB</td>
+			<td>313 bytes</td>
+		</tr>
+		<tr>
+			<th>Base64 image</th>
+			<td>1961</td>
+			<td>1.91KB</td>
+			<td>1.33KB</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>And you <em>are</em> gzipping all your stuff as you serve it, right? I thought so.</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CSS3 gradients, multiple backgrounds and IE7]]></title>
