@@ -54,4 +54,4 @@ One last awesome thing: GitHub Pages support domains. By setting your CNAME to p
 
 ## Verdict
 
-I'm so glad I'm not using WordPress anymore. Wordpress blogs are such a target for hackers and spammers and I was hit several times over. I tended to keep fairly on to of the updates as well, so you can image how bad it might be for people who don't bother. If anyone wants to hack this blog now they have to hack my GitHub account. Of course having [the whole blog on GitHub](https://github.com/markstickley/norestfortheweekend) has it's advantages too... if you like you can correct any mistakes or typos by submitting a pull request!
+I'm so glad I'm not using WordPress anymore. Wordpress blogs are such a target for hackers and spammers and I was hit several times over. I tended to keep fairly on top of the updates as well, so you can image how bad it might be for people who don't bother. If anyone wants to hack this blog now they have to hack my GitHub account. Of course having [the whole blog on GitHub](https://github.com/markstickley/norestfortheweekend) has its advantages too... if you like you can correct any mistakes or typos by submitting a pull request!
