@@ -17,6 +17,7 @@ Aide memoir
 -----------
 
 Mainly because I don't use them too often, here are a few useful commands for Octopress:
+
 * `rake new_post["title"]`
 * `rake generate` (creates markup from markdown and templates)
 * `rake watch` (generates when changes are detected in SASS or source)
