@@ -1,7 +1,7 @@
 (function(d){
 	var banner = d.getElementById('banner');
-	
-	banner.className = getSeason();
+
+	banner.parentNode.className = getSeason();
 
 	function getSeason(){
 		var date = new Date(),
