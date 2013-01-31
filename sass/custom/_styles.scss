@@ -40,9 +40,9 @@ $phones-min-width: 480px;
 
 
 html {
-	background: linear-gradient(45deg, $page-bg-check-dark 25%, $page-bg-check-light 25%, $page-bg-check-light 75%, $page-bg-check-dark 75%, $page-bg-check-dark) 0 0,
+	@include background(linear-gradient(45deg, $page-bg-check-dark 25%, $page-bg-check-light 25%, $page-bg-check-light 75%, $page-bg-check-dark 75%, $page-bg-check-dark) 0 0,
 		linear-gradient(45deg, $page-bg-check-dark 25%, $page-bg-check-light 25%, $page-bg-check-light 75%, $page-bg-check-dark 75%, $page-bg-check-dark) 16px 16px,
-		linear-gradient(0deg, $page-bg-grad-light 0, $page-bg-grad-dark 50%, $page-bg-grad-light 100%) center top;
+		linear-gradient(0deg, $page-bg-grad-light 0, $page-bg-grad-dark 50%, $page-bg-grad-light 100%) center top);
 	background-size: 32px 32px, 32px 32px, 1440px 100px;
 	background-repeat: repeat-both, repeat-both, repeat-y;
 	background-color: $page-bg;
@@ -158,5 +158,12 @@ table.display { /* gotta put a class in there or it may affect octopress styles 
 		&.unused {
 			background: $emptyBg;
 		}
-	}	
+	}
+}
+
+
+.blog-error{
+	.container{
+		padding: 2em 55px 1em 55px;
+	}
 }

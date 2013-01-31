@@ -12,7 +12,6 @@ single: true
       {% include post/date.html %}{% if updated %}{{ updated }}{% else %}{{ time }}{% endif %}
       {% include post/categories.html %}
     </p>
-    <p class="rssCta"><a href="{{ site.subscribe_rss }}" title="Subscribe to the RSS feed now!">Subscribe to the RSS feed now!</a></p>
     {% unless page.sharing == false %}
       {% include post/sharing.html %}
     {% endunless %}
