@@ -4,7 +4,7 @@
   <title><![CDATA[Category: css | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/css/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-01-31T22:10:21+00:00</updated>
+  <updated>2013-02-01T00:41:07+00:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -12,6 +12,101 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Interviewing for CSS]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2013/01/31/interviewing-for-css/"/>
+    <updated>2013-01-31T23:43:00+00:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2013/01/31/interviewing-for-css</id>
+    <content type="html"><![CDATA[<p>One day in my previous job I was kind of dropped in it when my boss asked me at about 5pm to interview a potential new recruit at 11am the next day. I’d never been on that side of the table in an interview before. Considering how long I had got to prepare I was understandably a little nervous - and for good reason. When you’re interviewing, not only do you have to display an excellent knowledge of the topics you are discussing but you also have to assess whether the person you are talking to possesses that same knowledge. If you do not do this well you are either rejecting a good candidate (which is bad) or hiring a bad one (which is worse).</p>
+
+<p>I was told that the role was for a short contract and the successful candidate would be showing a little love to our badly neglected CSS, both tidying it up while also making sure the styles were rendering accurately according to the designs (plus a few extra tweaks here and there). So basically they had to be fluent in CSS-ese.</p>
+
+<h2 id="twitter-saves-the-day-again">Twitter saves the day again</h2>
+
+<p>When faced with a daunting task such as this, I did what any other self-respecting geek would do and turned to the all-knowing masses on Twitter.</p>
+
+<p>Some brilliant people came to my rescue almost immediately and here are their responses:</p>
+
+<!-- "spell 'specificity' (and then explain it...)" -@rich13 -->
+<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> "spell 'specificity' (and then explain it...)"</p>&mdash; Richard Northover (@rich13) <a href="https://twitter.com/rich13/status/200628477991464961">May 10, 2012</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+
+<p>I like this one because it’s really getting back to basics. Not only do you have to know that specificity exists but you have to understand what it does and how it does it. The spelling part is a bit of fun - hopefully the candidate will understand that that’s not the important part! Here’s <a href="http://css-tricks.com/specifics-on-css-specificity/">an article on CSS specificity</a> if you need a refresher.</p>
+
+<!-- I got asked the difference between display:none; and visibility:hidden -@mfujica -->
+<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> I got asked the difference between display:none; and visibility:hidden - but that's years ago...</p>&mdash; Morena Fiore (@mfujica) <a href="https://twitter.com/mfujica/status/200629821737406465">May 10, 2012</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+
+<p>This is a nice one as well. It checks that they have some understanding about how the document flow works. You could follow this question up by asking if they know any other ways of hiding content and why they might want to do it that way instead.</p>
+
+<p>The answer, of course, is that <code>display: none</code> removes the element from the document flow while <code>visibility: hidden</code> does not. Another way of hiding content (which is good for accessibility as it doesn’t hide it from screen readers) is by using a negative margin. There are various drawbacks and other ways of achieveing this which might also be a good thing to discuss.</p>
+
+<!-- What is the default position of an element? -@mfujica -->
+<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> What is the default position of an element?</p>&mdash; Morena Fiore (@mfujica) <a href="https://twitter.com/mfujica/status/200630440720220160">May 10, 2012</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+
+<p>It is <code>static</code>. But it’s not the most well-known property as normally we are changing the position <em>from</em> <code>static</code> <em>to</em> something else, like <code>relative</code> or <code>fixed</code>.</p>
+
+<!-- Explaning what inline-block is also should be a good -@mfujica -->
+<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> Explaning what inline-block is also should be a good question...</p>&mdash; Morena Fiore (@mfujica) <a href="https://twitter.com/mfujica/status/200631684956299266">May 10, 2012</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+
+<p><code>inline-block</code> has only really been useful since IE started supporting it properly (around v8) and so while it’s very handy, not everyone has used it.</p>
+
+<p>An element with <code>display: inline-block</code> flows in the document like an inline element but allows you to apply styles to it that normally only apply to block-level elements such as <code>margin</code>, <code>width</code> and <code>height</code>.</p>
+
+<!-- what is CSS3? Draw an arrow head using borders. -@ralfas -->
+<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> what is CSS3? Draw an arrow head using borders.</p>&mdash; Ralfas Jegorovas (@ralfas) <a href="https://twitter.com/ralfas/status/200843040892518400">May 11, 2012</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+
+<p>I expect most candidates would ask for clarification or look confused at the first part of that question. That’s fine, seeing their reaction allows you to gauge the way they might react to a poorly defined spec, for example. It’s kind of open ended so they might simple say “It’s the latest version of CSS”. Others may list a few new features. If they’re really smart they’ll tell you that CSS3 hasn’t been formally specified because it’s still in development.</p>
+
+<p>Drawing an arrowhead with borders requires the knowledge that when fat borders meet on adjecent edges they form a diagonal. Check out <a href="http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/">this article</a> for more details. Alternatively you can ask them to <a href="/blog/2012/07/11/zero-image-close-buttons/">create a close button with pure CSS</a> if you’re feeling mean!</p>
+
+<!-- @markstickley @mfujica just make sure you know the answers yourself... -@timblair -->
+<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> @<a href="https://twitter.com/mfujica">mfujica</a> just make sure you know the answers yourself...</p>&mdash; Tim Blair (@timblair) <a href="https://twitter.com/timblair/status/200633510950748161">May 10, 2012</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+
+<p>Yep :)</p>
+
+<h2 id="other-ideas">Other ideas</h2>
+
+<h3 id="vendor-prefixes">Vendor prefixes</h3>
+
+<p>I quite like an open ended question, particularly if it calls for some opinion. A lot of this industry is based on facts and rigid concepts that are either right or wrong so hearing someone’s opinion and their ability to express it well could be the difference between a hire and a no-hire.</p>
+
+<p>Simply ask them to explain vendor prefixes, what they’re for and importantly whether they think they are a good idea, making sure to push them for both positive and negative points).</p>
+
+<h3 id="box-model">Box model</h3>
+
+<p>Get them to explain <a href="https://developer.mozilla.org/en-US/docs/CSS/box_model">the box model</a> to you. You’re looking for a good understanding of the different parts that come into play, particularly how it can affect how wide an element will be (and how it won’t always be the same width as its <code>width</code> value). This conversation can then lead onto <a href="https://developer.mozilla.org/en-US/docs/CSS/box-sizing">the <code>box-sizing</code> property</a> introduced in CSS3. See if they know the default value for all element (<code>content-box</code>) and for bonus points see if they know which mode IE uses in Quirks Mode (<code>border-box</code>).</p>
+
+<h3 id="scss">SCSS</h3>
+
+<p>Of course these days CSS isn’t quite as static as it used to be with code generators like <a href="http://sass-lang.com/">Sass</a> and <a href="http://lesscss.org/">less</a> becoming more and more popular. You can ask if they know about these technologies (and what they think of them). If you’re using one in your business, you should probably have a few specific questions about it as well ;)</p>
+
+<p>In favour of CSS generation, it is nice to be able to use a <abbr title="Don't Repeat Yourself">DRY</abbr> methodology through mixins and inheritance, and it’s even better to be able to define things once and use them many times throughout the document (like colours). Against it, the code generated can be quite verbose and it’s typically hard to debug as looking at the compiled code gives you no indication where a rule exists (or was generated from) in the source.</p>
+
+<h3 id="implement-something-with-no-classes-or-ids">Implement {something} with no classes or ids</h3>
+
+<p>Finally, get them to code up some HTML and CSS for a small interface element (Eg. a tweet (including all the meta data around it)) but do it <strong>without using classes or ids</strong>. Ask them to use HTML5 and to use semantically relevant tags.</p>
+
+<p>This task can take a while but it shows a lot about their thinking process.</p>
+
+<ul>
+  <li>It shows they have a knowledge of HTML5 tags and semantic markup</li>
+  <li>It forces them to improvise with the use of CSS selectors</li>
+</ul>
+
+<p>There are many under-used selectors out there which would be perfect for this sort of task. Just <a href="http://www.w3.org/TR/selectors/#selectors">look at them</a>! Do you know all of them? I know I don’t, certainly not without looking. If you really wanted to test just their CSS skills then you could write the HTML for them in a way that would force them to use specific selectors. The sky really is the limit here… get creative!</p>
+
+<h2 id="any-more">Any more?</h2>
+
+<p>If you’ve got any favourites (and I’m sure you have, whether they’re questions you use or have had used on you), please stick them in the comments. I’d be really interested to hear them!</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Zero image close buttons]]></title>
