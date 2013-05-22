@@ -4,7 +4,7 @@
   <title><![CDATA[No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-02-01T00:41:07+00:00</updated>
+  <updated>2013-05-22T08:51:03+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -12,6 +12,140 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Javascript Named Arguments]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments/"/>
+    <updated>2013-05-22T08:47:00+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments</id>
+    <content type="html"><![CDATA[<h2 id="whats-in-a-name">What’s In A Name?</h2>
+
+<p>Javascript is an extremely versatile language, however it is missing various useful features that other languages aren’t. In many cases these features can be added with a shim or a polyfill, if required. However, there is a set of missing features that are low-level enough that a shim isn’t possible. They are all surrounding function arguments:</p>
+
+<ul>
+  <li>Named arguments</li>
+  <li>Default argument values</li>
+  <li>Argument type enforcement</li>
+</ul>
+
+<p>Default argument values is actually <a href="https://wiki.mozilla.org/ES6_plans#New_syntax_.28stuff_that_affects_the_front_end_and.2For_bytecode.29">a feature proposed in ES6</a> but as we aren’t quite there yet with ES6 I decided to patch the functionality myself in the best way I could. I’ve made a little library and it’s called <a href="http://namesjs.markstickley.co.uk">Names.js</a>. Please <a href="https://github.com/markstickley/names.js">fork it</a> and help me improve it!</p>
+
+<h2 id="namesjs">Names.js</h2>
+
+<p>As it is impossible to alter the fundamental way that functions work without making changes to the Javascript engine, it’s written as an augmentation to the <code>Function</code> object adding a couple of instance methods to the prototype and a static method to the main object. The static method is this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">createNamed</span><span class="p">({</span>
+</span><span class="line">    <span class="nx">args</span><span class="o">:</span> <span class="p">[</span>
+</span><span class="line">        <span class="p">[</span><span class="s1">&#39;arg1&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">],</span>
+</span><span class="line">        <span class="p">[</span><span class="s1">&#39;arg2&#39;</span><span class="p">,</span> <span class="nx">MyClass</span><span class="p">,</span> <span class="nx">someVar</span><span class="p">]</span>
+</span><span class="line">    <span class="p">],</span>
+</span><span class="line">    <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">        <span class="c1">// ...</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>It’s a bit more verbose than simply</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="c1">// ...</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>however it offers the following benefits:</p>
+
+<ul>
+  <li>You don’t need to provide an argument each time if you’re happy with the default value:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="nx">arg1</span><span class="o">:</span> <span class="s1">&#39;Hello world&#39;</span> <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>You know what each argument <em>means</em> (this advantage is a lot clearer when the arguments are named well and the values you are assigning them are all booleans and integers).</li>
+  <li>You can provide the arguments in whichever order you like:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">arg2</span><span class="o">:</span> <span class="nx">fooBar</span><span class="p">,</span>
+</span><span class="line">    <span class="nx">arg1</span><span class="o">:</span> <span class="s1">&#39;Hello world&#39;</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>The function will throw an error if you pass it an incorrectly typed value:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="nx">arg1</span><span class="o">:</span> <span class="mi">1234</span> <span class="p">});</span> <span class="c1">// throws, as 1234 is not a &#39;string&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>applyNamed</code> works just like Javascript’s native <code>apply</code> method, taking the scope as the first argument and the arguments to apply as the second.</p>
+
+<h2 id="adding-validation">Adding validation</h2>
+
+<p>In many languages, type checking is mandatory but at the end of the day it’s just a form of validation. In an effort to reduce the usual argument-checking clutter at the beginning of a function I thought it was worth extending the validation functionality to allow for custom validations.</p>
+
+<p>You can either use a regex or a function:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">addValidaton</span><span class="p">({</span>
+</span><span class="line">    <span class="nx">arg1</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">test</span><span class="o">:</span> <span class="sr">/-a-diddly$/</span><span class="p">,</span> <span class="c1">// Check for Flanders</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">    <span class="nx">arg2</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">test</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">myClass</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">            <span class="k">return</span> <span class="nx">myClass</span><span class="p">.</span><span class="nx">isInitialised</span><span class="p">;</span>
+</span><span class="line">        <span class="p">},</span>
+</span><span class="line">        <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>The <code>required</code> option on <code>arg2</code>’s validation object means that <code>arg2</code> is required. Ordinarily if the argument is omitted when calling <code>applyNamed</code> then that validation will not be run. If the argument is omitted but the validation for that argument states that it is <code>required</code> then it will fail instantly.</p>
+
+<h2 id="dogs-dinner">Dog’s dinner</h2>
+
+<p>Names.js <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eats its own dogfood</a> wherever possible and practical. There are only 3 public functions:</p>
+
+<ul>
+  <li><code>applyNamed</code> wouldn’t make sense to be able to <code>applyNamed</code> to.</li>
+  <li><code>createNamed</code> would be an even more verbose way of creating a function if you used it with <code>applyNamed</code>. However it does use an <code>applyNamed</code>-style syntax and goes on to use <code>applyNamed</code> internally to create the new function.</li>
+  <li><code>addValidation</code> is not only created with <code>createNamed</code> but also its own validation rules are added using <code>addValidation</code>. Talk about meta!</li>
+</ul>
+
+<h2 id="and">And…</h2>
+
+<p>…that’s pretty much it really. I also wrote a <a href="https://github.com/markstickley/names.js/blob/master/release">release script</a> for the library that I’m pretty pleased with but maybe that’s for another blog post :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Interviewing for CSS]]></title>
@@ -259,7 +393,7 @@
 <table class="display">
 	<thead>
 		<tr>
-			<td class="unused" />
+			<td class="unused"></td>
 			<th>Chars</th>
 			<th>Uncompressed</th>
 			<th>Gzipped</th>
@@ -1386,38 +1520,38 @@
     <id>http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all</id>
     <content type="html"><![CDATA[<p><img class="center" src="http://blog.norestfortheweekend.com/images/wp-uploads/2009/12/console.jpg" width="628" height="187" title="'Firebug console'" /></p>
 
-<p>If you&rsquo;re like me then you probably use <code>console.log</code> a lot. It&rsquo;s such a useful debugging tool! It&rsquo;s better that alert in so many ways I won&rsquo;t bother mentioning them all because - oh what the hell, this is my blog I&rsquo;ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
+<p>If you&#8217;re like me then you probably use <code>console.log</code> a lot. It&#8217;s such a useful debugging tool! It&#8217;s better that alert in so many ways I won&#8217;t bother mentioning them all because - oh what the hell, this is my blog I&#8217;ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
 
 <ul>
-  <li>It hides away when you don&rsquo;t need it and doesn&rsquo;t bother you unless you are interested in it.</li>
+  <li>It hides away when you don&#8217;t need it and doesn&#8217;t bother you unless you are interested in it.</li>
   <li>It lets you log more than one variable at a time simply by passing more than one argument.</li>
-  <li>It doesn&rsquo;t interrupt the flow of the script until you click OK.
+  <li>It doesn&#8217;t interrupt the flow of the script until you click OK.
     <ul>
-      <li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don&rsquo;t get me wrong!</li>
+      <li>Of course if you want the flow to be stopped as you read your debug text then alert is just great, don&#8217;t get me wrong!</li>
     </ul>
   </li>
-  <li>If you are testing a loop or quick interval you don&rsquo;t have to force quit Firefox just to get to the reload button.</li>
+  <li>If you are testing a loop or quick interval you don&#8217;t have to force quit Firefox just to get to the reload button.</li>
   <li>It integrates perfectly with the rest of Firebug turning a lot of what you log into clickable items able to be inspected in the script or HTML tabs.`</li>
-  <li>If you log an <code>Element</code> that&rsquo;s on the page when you mouse over it in the log it highlights on the page.</li>
+  <li>If you log an <code>Element</code> that&#8217;s on the page when you mouse over it in the log it highlights on the page.</li>
 </ul>
 
-<p>What&rsquo;s my point? Well, if you&rsquo;re like me then you probably use it so much that sometimes after a hard debugging session it&rsquo;s easy to accidentally leave it in the code in a few places.</p>
+<p>What&#8217;s my point? Well, if you&#8217;re like me then you probably use it so much that sometimes after a hard debugging session it&#8217;s easy to accidentally leave it in the code in a few places.</p>
 
 <h2 id="the-piece-of-grit-that-stopped-the-clock">The piece of grit that stopped the clock</h2>
 
-<p>What harm can it do? Most normal users don&rsquo;t have Firebug installed anyway so they won&rsquo;t see anything, right?</p>
+<p>What harm can it do? Most normal users don&#8217;t have Firebug installed anyway so they won&#8217;t see anything, right?</p>
 
 <p>Wrong. Or at least wrong attitude. Developers will see your <code>console.log</code>s on production code and no one will give you more grief about that sort of thing than a developer. But more importantly, it can affect everyone else too.</p>
 
-<p>Without Firebug installed the <code>console</code> object doesn&rsquo;t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It&rsquo;s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
+<p>Without Firebug installed the <code>console</code> object doesn&#8217;t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It&#8217;s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
 
 <p><img class="center" src="http://blog.norestfortheweekend.com/images/wp-uploads/2009/12/erroronpage.gif" width="109" height="21" title="'IE's 'error on page' icon'" /></p>
 
-<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn&rsquo;t inspire confidence in a site or product.</p>
+<p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn&#8217;t inspire confidence in a site or product.</p>
 
 <h2 id="undesirable">Undesirable</h2>
 
-<p>It&rsquo;s fair to say that you don&rsquo;t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug&rsquo;s console. Have a look at the code:</p>
+<p>It&#8217;s fair to say that you don&#8217;t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug&#8217;s console. Have a look at the code:</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (console.log.js)</span> <a href="http://blog.norestfortheweekend.com/downloads/code/console-log-for-all/console.log.js">download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -1526,11 +1660,11 @@
 </span><span class="line"><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>I&rsquo;m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it&rsquo;s really very good! (<strong>Update:</strong> although, now, sadly discontinued thanks to BBC cutbacks )</p>
+<p>I&#8217;m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it&#8217;s really very good! (<strong>Update:</strong> although, now, sadly discontinued thanks to BBC cutbacks )</p>
 
-<p>So basically what we&rsquo;re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don&rsquo;t need to bother. Let&rsquo;s presume that it <em>doesn&rsquo;t</em> exist.</p>
+<p>So basically what we&#8217;re doing is a test to see whether <code>console</code>, and indeed <code>console.log</code> exist or not. If they do we don&#8217;t need to bother. Let&#8217;s presume that it <em>doesn&#8217;t</em> exist.</p>
 
-<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let&rsquo;s strip it back to make it easier to look at:</p>
+<p>We then define <code>console</code> but the way we do it may not be familiar to some. Let&#8217;s strip it back to make it easier to look at:</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javscript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -1540,9 +1674,9 @@
 </span><span class="line"><span class="p">}();</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>I&rsquo;m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it&rsquo;s called.</p>
+<p>I&#8217;m setting <code>window.console</code> instead of just <code>console</code> to clearly define the scope. <code>window</code> is available to everything and so setting <code>console</code> on <code>window</code> means it will be available wherever it&#8217;s called.</p>
 
-<p>It looks initially like I&rsquo;m defining <code>console</code> to be a function but straight after the closing brace of the function you&rsquo;ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
+<p>It looks initially like I&#8217;m defining <code>console</code> to be a function but straight after the closing brace of the function you&#8217;ve got the open and close parentheses which runs the function immediately. This has the effect of setting <code>window.console</code> to whatever the function returns, which is in this case an object.</p>
 
 <p>If, as in the case of the finished code, the object returned (<code>r</code>) has properties then they will be accessible at <code>window.console.property</code>. And of course, the property can also be a function, like <code>log</code>.</p>
 
@@ -1558,9 +1692,9 @@
   <li><code>init</code></li>
 </ul>
 
-<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn&rsquo;t mean it&rsquo;s completely ineffective when disabled, though. The function still exists meaning you won&rsquo;t see any script errors or terminated JavaScript.</p>
+<p>The console is disabled by default. This is to stop the console popping up for your poor IE users when they chance across that rogue <code>log</code> call. You have to <em>want</em> the console on to get it. This doesn&#8217;t mean it&#8217;s completely ineffective when disabled, though. The function still exists meaning you won&#8217;t see any script errors or terminated JavaScript.</p>
 
-<p>To enable it, simple call <code>console.enable();</code>. You don&rsquo;t have to do this in the code (I&rsquo;d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I&rsquo;d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
+<p>To enable it, simple call <code>console.enable();</code>. You don&#8217;t have to do this in the code (I&#8217;d advise against it as you could forget to take that out too!). Unless you are debugging specifically for IE and specifically for something that happens automatically on page load I&#8217;d recommend enabling it manually by typing <code>javascript:console.enable();</code> into the address bar and press enter.</p>
 
 <p>Likewise to disable the console, just type <code>javascript:console.disable();</code>, or to clear it type <code>javascript:console.clear();</code>.</p>
 
@@ -1568,15 +1702,15 @@
 
 <p><a href="javascript:console.enable(\);">Enable console</a> <a href="javascript:console.disable(\);">Disable console</a> <a href="javascript:console.clear(\);">Clear console</a></p>
 
-<p>The reason I&rsquo;ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it&rsquo;s useful to be able to pass a specific version of the library to <code>console</code> to use. If you&rsquo;re not worried about that sort of thing then you don&rsquo;t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
+<p>The reason I&#8217;ve included an <code>init</code> function is because Glow supports a <a href="http://www.bbc.co.uk/glow/docs/articles/gloader.shtml#tocHeading1.13">sandboxing feature</a> it&#8217;s useful to be able to pass a specific version of the library to <code>console</code> to use. If you&#8217;re not worried about that sort of thing then you don&#8217;t need to include it and it will still work so long as you load glow before this script and map <a href="http://www.bbc.co.uk/glow/docs/1.7/api/glow.dom.shtml"><code>glow.dom.get</code></a> to <code>$</code>.</p>
 
-<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn&rsquo;t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
+<p>Finally the <code>log</code> function is where the magic happens. The bulk of the function is, if the log panel doesn&#8217;t exist already to create it. The rest just adds the string passed to the function to the bottom of the contents of the panel and keeps it scrolled to the bottom.</p>
 
-<p>There&rsquo;s really not a lot to it!</p>
+<p>There&#8217;s really not a lot to it!</p>
 
 <h2 id="got-console">Got console?</h2>
 
-<p>Since getting it&rsquo;s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It&rsquo;s accessible on Chrome and Safari under the developer menus. Of course this script won&rsquo;t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
+<p>Since getting it&#8217;s rather nice developer suite, WebKit has sprouted a <code>console</code> too which is fab! It&#8217;s accessible on Chrome and Safari under the developer menus. Of course this script won&#8217;t affect those browsers but IE, Opera and Firefox without Firebug can still benefit from it.</p>
 ]]></content>
   </entry>
   
@@ -2182,107 +2316,6 @@
 <p>I should mention that (apparently unlike most people) I read all the tweets that come in on my stream. This means that I am less likely to be following people who, while very relevant are also a wee bit too verbose (for my tastes - your mileage may vary) on topics that I didn’t follow them for! I won’t name names as I don’t want to upset anyone.</p>
 
 <p>Please comment and let me know who I missed…</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[REST For The Weekend]]></title>
-    <link href="http://blog.norestfortheweekend.com/blog/2009/08/25/rest-for-the-weekend/"/>
-    <updated>2009-08-25T16:05:20+01:00</updated>
-    <id>http://blog.norestfortheweekend.com/blog/2009/08/25/rest-for-the-weekend</id>
-    <content type="html"><![CDATA[<p>Oh well, the weekend’s over again. What did you do? I got an impressive sunburn, bought some delicious fruit and veg at the market and looked into RESTful architectures, among other things. Although I would love to tell you about my culinary adventures, what I’m going to write about now is REST. It should be noted that in this case REST is not sitting in front of the TV and has nothing to do with the title of this blog, despite what you may think!</p>
-
-<h2 id="what-rest-is-not">What REST is not</h2>
-
-<p>There seems to be some confusion over exactly what a RESTful architecture is. Some people think it is pretty URLs:</p>
-
-<pre><code>http://www.mysite.com/portfolio/design/someclient
-</code></pre>
-
-<p>as opposed to:</p>
-
-<pre><code>http://www.mysite.com/index.php?section=portfolio »
-    &amp;subsection;=design&amp;client;=someclient
-</code></pre>
-
-<p>This is not RESTful.</p>
-
-<p>Some people think REST is a bunch of actions triggered by visiting URLs:</p>
-
-<pre><code>http://www.mysite.com/contact/email/send
-</code></pre>
-
-<p>This isn’t RESTful either.</p>
-
-<h2 id="being-resourceful">Being resourceful</h2>
-
-<p>REST stands for <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer and it’s all about resources. That is to say, data presented in a formatted way and made available at specific, addressable points of entry. Most of the time when people talk about a REST interface they will be talking about the web and URLs, but REST is not limited to this technology. So long as each resource on a system can be identified uniquely, manipulated, each request for resources includes enough information that the client knows how to process it and has the ability to contain references to other resources then it can be called RESTful.</p>
-
-<p>A RESTful system is a stateless system; each resource request in a RESTful system should be completely independent of any other. It should not rely on cookies, session variables or any other state maintaining solutions. This is because a REST request is intended to be performed on the current state of the specified resource and the resource should be able to be encapsulated in a single response.</p>
-
-<h2 id="strict-instructions">Strict instructions</h2>
-
-<p>It might have slipped under the radar but a couple of paragraphs above I mentioned that a REST response should include information for the client on how to process the data. In the case of a web service (and it should be assumed from here on out I’ll be talking about web services) the <a href="http://en.wikipedia.org/wiki/MIME_type">MIME type</a> should be sufficient. For example, if you are serving your response up as JSON you’d want to use the <strong>MIME type</strong>: <code>application/json</code>. The <strong>MIME type</strong> is contained within the header of the response.</p>
-
-<p>In a similar manner, the client needs to tell the server what it wants to do with the specific resource. We can do this by specifying the correct <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP Method</a> as part of the request.</p>
-
-<h2 id="method-in-madness">Method in madness</h2>
-
-<p>So the HTTP methods most people are used to are: <code>GET</code> (the default method, what you get when you hit enter after typing a URL) and <code>POST</code> (the method used for submitting most forms). The others we are interested in are <code>PUT</code> and <code>DELETE</code>. Using these four methods we can instruct a RESTful interface to perform the basic <abbr title="Create, Read, Update, Delete">CRUD</abbr> operations:</p>
-
-<ul>
-  <li><strong>C</strong>reate = <code>POST</code></li>
-  <li><strong>R</strong>ead = <code>GET</code></li>
-  <li><strong>U</strong>pdate = <code>PUT</code></li>
-  <li><strong>D</strong>elete = <code>DELETE</code> (rather unsurprisingly)</li>
-</ul>
-
-<p>Using these methods you can manipulate a resource in any way you like from that single addressable entry point. If you have the URL for the resource, in a RESTful architecture you know you won’t have to append strings to the URL to make it do things (Eg <code>?action=delete</code>) - you just change the method used to request the resource in the request header.</p>
-
-<p>Obviously if your system is externally accessible you will probably want to limit access to the ‘unsafe’ <code>POST</code>, <code>PUT</code> and <code>DELETE</code> methods.</p>
-
-<h2 id="not-for-everyone">Not for everyone</h2>
-
-<p>So as you can tell, REST isn’t something you should strive to include just for the sake of it. I can’t stress this enough: <em>there’s no point in shoehorning REST into a site or project when it is not really needed</em>. The main use for it it most likely to be for Web Service APIs and anything that is highly resource driven. Think of it as a series of defined views on a database or other resource and you can’t go too far wrong.</p>
-
-<p>I am currently working on a web based file system for storing assets as part of a CMS. It has an API so that you can add, edit, read and delete assets from external locations, providing that you present the right credentials. This almost seems like the perfect application for REST as each entry - be it a file or a folder - needs to have the basic <abbr title="Create, Read, Update, Delete">CRUD</abbr> operations performed on it. The whole URL structure is basically the directory tree and every point in that tree is addressable and will accept all the different methods.</p>
-
-<h2 id="testing-testing">Testing, testing</h2>
-
-<p>This is all very well, but how do you go about testing these crazy HTTP methods, practically? You can’t have a page full of links to click because a link is a <code>GET</code> request. There’s no way of changing that. </p>
-
-<p>Forms offer a little flexibility - you can specify the method you want to use with the method attribute. Unfortunately this is restricted to <code>GET</code> and <code>POST</code>. If you try anything other than that it will default to <code>GET</code>.</p>
-
-<p>To test these request methods, you have to hand craft an HTTP request. You can do this in the server-side scripting language of your choice (Eg PHP, Ruby, Python etc) <em>OR</em> you can download one of the handy Firefox extensions that kindly developers have made available for nothing for this very purpose! My personal favourite is <a href="https://addons.mozilla.org/en-US/firefox/addon/9780">RESTClient</a> by <a href="http://www.porphyry.org/">Chao ZHOU</a> but there are plenty of others for you to choose from. Here are a few:</p>
-
-<ul>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/2691">Poster</a> by <a href="http://www.milowski.com/">Alex Milowski</a></li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/5946">RESTTest</a> by <a href="http://www.xucia.com/">kriszyp</a></li>
-  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/967">Modify Headers</a> by <a href="http://www.garethhunt.com/">Gareth Hunt</a></li>
-</ul>
-
-<h2 id="using-restclient">Using RESTClient</h2>
-
-<p>It’s pretty simple really. The basic interface looks like this:</p>
-
-<p><img class="center" src="http://blog.norestfortheweekend.com/images/wp-uploads/2009/08/restclient.gif" width="618" height="603" title="'The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things.'" /></p>
-
-<ol>
-  <li>Choose your request method</li>
-  <li>Type the resource location</li>
-  <li>Add any request headers you need (this is like items from form fields)</li>
-  <li>Type the request body you want to transmit (this can be left blank most of the time)</li>
-  <li>Hit send</li>
-</ol>
-
-<p>What you will get back is the response as the server sends it. You can inspect the header and the body to make sure it’s coming back as you’d expect and so your application that will consume the response won’t get any nasty surprises!</p>
-
-<p>Hopefully you are interested in RESTful architectures now, and are feeling inspired to go off and write one of your own!</p>
-
-<h2 id="footnotes">Footnotes</h2>
-
-<p>For more information on this topic, check out the <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Wikipedia article on REST</a></p>
-
 ]]></content>
   </entry>
   

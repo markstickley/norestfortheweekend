@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="One day in my previous job I was kind of dropped in it when my boss asked me at about 5pm to interview a potential new recruit at 11am the next day. &hellip;">
+  <meta name="description" content="What’s In A Name? Javascript is an extremely versatile language, however it is missing various useful features that other languages aren’t. In many &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,167 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/22/javascript-named-arguments/">Javascript Named Arguments</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-22T08:47:00+01:00" pubdate data-updated="true">May 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="whats-in-a-name">What’s In A Name?</h2>
+
+<p>Javascript is an extremely versatile language, however it is missing various useful features that other languages aren’t. In many cases these features can be added with a shim or a polyfill, if required. However, there is a set of missing features that are low-level enough that a shim isn’t possible. They are all surrounding function arguments:</p>
+
+<ul>
+  <li>Named arguments</li>
+  <li>Default argument values</li>
+  <li>Argument type enforcement</li>
+</ul>
+
+<p>Default argument values is actually <a href="https://wiki.mozilla.org/ES6_plans#New_syntax_.28stuff_that_affects_the_front_end_and.2For_bytecode.29">a feature proposed in ES6</a> but as we aren’t quite there yet with ES6 I decided to patch the functionality myself in the best way I could. I’ve made a little library and it’s called <a href="http://namesjs.markstickley.co.uk">Names.js</a>. Please <a href="https://github.com/markstickley/names.js">fork it</a> and help me improve it!</p>
+
+<h2 id="namesjs">Names.js</h2>
+
+<p>As it is impossible to alter the fundamental way that functions work without making changes to the Javascript engine, it’s written as an augmentation to the <code>Function</code> object adding a couple of instance methods to the prototype and a static method to the main object. The static method is this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">createNamed</span><span class="p">({</span>
+</span><span class="line">    <span class="nx">args</span><span class="o">:</span> <span class="p">[</span>
+</span><span class="line">        <span class="p">[</span><span class="s1">&#39;arg1&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">],</span>
+</span><span class="line">        <span class="p">[</span><span class="s1">&#39;arg2&#39;</span><span class="p">,</span> <span class="nx">MyClass</span><span class="p">,</span> <span class="nx">someVar</span><span class="p">]</span>
+</span><span class="line">    <span class="p">],</span>
+</span><span class="line">    <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">        <span class="c1">// ...</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>It’s a bit more verbose than simply</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="c1">// ...</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>however it offers the following benefits:</p>
+
+<ul>
+  <li>You don’t need to provide an argument each time if you’re happy with the default value:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="nx">arg1</span><span class="o">:</span> <span class="s1">&#39;Hello world&#39;</span> <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>You know what each argument <em>means</em> (this advantage is a lot clearer when the arguments are named well and the values you are assigning them are all booleans and integers).</li>
+  <li>You can provide the arguments in whichever order you like:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">arg2</span><span class="o">:</span> <span class="nx">fooBar</span><span class="p">,</span>
+</span><span class="line">    <span class="nx">arg1</span><span class="o">:</span> <span class="s1">&#39;Hello world&#39;</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>The function will throw an error if you pass it an incorrectly typed value:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="nx">arg1</span><span class="o">:</span> <span class="mi">1234</span> <span class="p">});</span> <span class="c1">// throws, as 1234 is not a &#39;string&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>applyNamed</code> works just like Javascript’s native <code>apply</code> method, taking the scope as the first argument and the arguments to apply as the second.</p>
+
+<h2 id="adding-validation">Adding validation</h2>
+
+<p>In many languages, type checking is mandatory but at the end of the day it’s just a form of validation. In an effort to reduce the usual argument-checking clutter at the beginning of a function I thought it was worth extending the validation functionality to allow for custom validations.</p>
+
+<p>You can either use a regex or a function:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">addValidaton</span><span class="p">({</span>
+</span><span class="line">    <span class="nx">arg1</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">test</span><span class="o">:</span> <span class="sr">/-a-diddly$/</span><span class="p">,</span> <span class="c1">// Check for Flanders</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">    <span class="nx">arg2</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">test</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">myClass</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">            <span class="k">return</span> <span class="nx">myClass</span><span class="p">.</span><span class="nx">isInitialised</span><span class="p">;</span>
+</span><span class="line">        <span class="p">},</span>
+</span><span class="line">        <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>The <code>required</code> option on <code>arg2</code>’s validation object means that <code>arg2</code> is required. Ordinarily if the argument is omitted when calling <code>applyNamed</code> then that validation will not be run. If the argument is omitted but the validation for that argument states that it is <code>required</code> then it will fail instantly.</p>
+
+<h2 id="dogs-dinner">Dog’s dinner</h2>
+
+<p>Names.js <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eats its own dogfood</a> wherever possible and practical. There are only 3 public functions:</p>
+
+<ul>
+  <li><code>applyNamed</code> wouldn’t make sense to be able to <code>applyNamed</code> to.</li>
+  <li><code>createNamed</code> would be an even more verbose way of creating a function if you used it with <code>applyNamed</code>. However it does use an <code>applyNamed</code>-style syntax and goes on to use <code>applyNamed</code> internally to create the new function.</li>
+  <li><code>addValidation</code> is not only created with <code>createNamed</code> but also its own validation rules are added using <code>addValidation</code>. Talk about meta!</li>
+</ul>
+
+<h2 id="and">And…</h2>
+
+<p>…that’s pretty much it really. I also wrote a <a href="https://github.com/markstickley/names.js/blob/master/release">release script</a> for the library that I’m pretty pleased with but maybe that’s for another blog post :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -375,7 +536,7 @@
 <table class="display">
 	<thead>
 		<tr>
-			<td class="unused" />
+			<td class="unused"></td>
 			<th>Chars</th>
 			<th>Uncompressed</th>
 			<th>Gzipped</th>
@@ -1525,104 +1686,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/03/21/why-do-we-need-conferences/">Why Do We Need Conferences?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-21T00:58:21+00:00" pubdate data-updated="true">Mar 21<span>st</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards"><img class="center" src="/images/wp-uploads/2010/03/hBeer.jpg" width="280" height="420" title="'hBeer'" /></a></p>
-
-<p>Seriously? Why do we need to spend hundreds of pounds, dollars, euros or whatever to attend these events? They are pretty pricey and more often that not they are nowhere near home so you have the added cost of transport and hotel bills and all those meals you’re going to consume out while you’re away. It’s not cheap, and even if you can afford it, why spend it?</p>
-
-<h3 id="the-talks-its-all-about-the-presentations--sessions">The Talks… it’s all about the presentations &amp; sessions!</h3>
-
-<p>Is it really though? These people who get on the stage and talk: Yeah OK, they’re great. They do a fantastic presentation, insightful with great slides and funny too! But don’t they put articles on their blogs for free that cover that topic and a wealth of others besides, all year round? If hearing and seeing them actually say the words is so integral to getting their message across, they could very easily record themselves and publish it in a video or audio format right there on their blogs.</p>
-
-<p>In fact, recently some conferences have taken to publishing all the talks that are given right there on the web for all to see. Everyone can watch, even people who didn’t pay to go to the conference itself! I was watching <a href="http://vimeo.com/build">the videos</a> from a conference that I didn’t go to - <a href="http://buildconference.com">Build</a> - which was held in Belfast at the end of last year. How nice of them to go to all the effort of filming it, editing it and putting it online, I thought. And the talks are great, I’d encourage you to go and watch them. But I was thinking… how would I feel about this if I actually PAID to go to the conference?</p>
-
-<h3 id="money-talks">Money talks</h3>
-
-<p>If I’d laid down cold hard cash to see the talks, wouldn’t I be unhappy that others who hadn’t could then just browse to a page and see all the content… for free? Maybe a little. But then again I’m all for sharing information and content, especially when it’s of benefit to the community so maybe I’d be a little conflicted about that.</p>
-
-<p>Most people I ask, however, seem not to mind this sort of behaviour. They seem to think that conferences go beyond the talks, and I’d be inclined to agree.</p>
-
-<h3 id="its-not-about-what-you-know">It’s not about what you know</h3>
-
-<p>I think that while the talks are nice and all, what most people value the most from conferences is the opportunity to meet other like-minded people. Or to put it in business-speak: networking. Between the talks and in the evening(s), you get to mingle with people who all have their own goals, ideas, methods, questions and accomplishments in the same field as you and are quite willing to share them with you. The more people you talk to and the more conferences you go to (where you’re likely to see these people again) the more contacts and even friends you are likely to make.</p>
-
-<p>Nothing drives this home more clearly than the general chatter I picked up from this years <a href="http://sxsw.com">SXSW</a> which I was sadly unable to attend. Essentially, the vast majority of talk I picked up from SXSW was not about the panels and talks (which no doubt were excellent) but they were about the parties, BBQs and the socialising. The Networking.</p>
-
-<p>But this brings me back to my original point. Why do we need conferences? If all we need to make contacts is to get people who are in similar lines of work to talk to each other why don’t we do it all the time? The talks are nice but completely unnecessary to get what people seem to value the most from conferences.</p>
-
-<h3 id="pub-standards">Pub Standards</h3>
-
-<p><a href="http://www.pubstandards.co.uk">Pub Standards</a> is something that happens in London on a monthly basis. It also happens in <a href="http://pubstandards.org">Melbourne</a>, I believe (<a href="http://en.wikipedia.org/wiki/User:Aliasd/Pub_Standards">Wikipedia confirms this</a> so it must be true). What it is is this: a whole bunch of web folk get together and take over a pub for an evening. They sit and drink and talk about whatever they please which may or may not include topics such as:</p>
-
-<ul>
-  <li>What they are doing at work</li>
-  <li>What they are watching on TV</li>
-  <li>The contents of that controversial blog post that’s been doing the rounds on Twitter</li>
-  <li>The latest CSS tricks that they’ve learned or seen in action</li>
-  <li>Why anyone who uses a Palm Pre should be hugged / pitied / unfollowed / shot on sight</li>
-  <li>Anything and everything else</li>
-</ul>
-
-<p>…you get the idea. It sounds pretty much like the after party at a conference then.</p>
-
-<p>The other night it was in fact my first Pub Standards (for shame) but it certainly won’t be my last. I just can’t imagine why this hasn’t caught on more places than just London and Melbourne!</p>
-
-<h3 id="the-reality">The reality</h3>
-
-<p>While it would be awesome to think that we could all get our conference fix by reading blogs, watching online video and going to Pub Standards the reality is that it’s just not logistically possible.</p>
-
-<p>There are actually people outside of London (and indeed outside of any large city) who are involved in the web industry who just couldn’t make it in to the city on a regular basis. They could start their own group but you really need a large city environment to get a decent sized and varied bunch of people together each month. In addition to that, conferences can provide the chance for people to meet developers from other parts of the country or from the other side of the world which local meet-ups just can’t.</p>
-
-<p>It would be nice to think that we might be able to organise some kind of International Pub Standards where people fly in and join the fun for a few times every year, but that wouldn’t work for so many reasons:</p>
-
-<ol>
-  <li>Spouses and significant others often remain unconvinced of the value of developers drinking beer together.</li>
-  <li>No one’s going to fly in from Amsterdam just for a night out at the pub - it has to be for longer to make it worth it.</li>
-  <li>Any longer than an evening and you start having to take things like food breaks and accommodation into account… and the conversation could start to need a catalyst of some sort.</li>
-  <li>No company is going to pay your transatlantic flights for what can only be described as a night down the pub with a bunch of geeks.</li>
-</ol>
-
-<p>The talks that you get at a conference and the information you glean from them, or the questions that arise from them seem to solve all these problems quite neatly. And let’s face it they generally are quite good, otherwise they wouldn’t bother making them available for everyone else on the internet.</p>
-
-<h3 id="is-that-your-final-answer">Is that your final answer?</h3>
-
-<p>Why do we need conferences? It’s so we can meet people and gel as a community on a global level in a way that you can’t do by just using Twitter, Facebook and all of their social contemporaries.</p>
-
-<p>But let’s not underestimate the value of local groups either. I find it astounding that Pub Standards is only happening in London and Melbourne. There must be so many places, large cities, where there are plenty enough web developers interested in Standards and beer to get a regular meet-up going. If you live or work in one of them, why not start one up? I’m sure it would be very rewarding on many levels.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1638,6 +1701,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/22/javascript-named-arguments/">Javascript Named Arguments</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/01/31/interviewing-for-css/">Interviewing for CSS</a>
       </li>
     
@@ -1651,10 +1718,6 @@
     
       <li class="post">
         <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/">Webkit doesn&#8217;t fire the load event on images</a>
       </li>
     
   </ul>

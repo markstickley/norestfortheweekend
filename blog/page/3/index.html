@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="All this time, I’ve been happily using window.location in my code, but I never knew it’s dark secret! When is a string not a string? This may come as &hellip;">
+  <meta name="description" content="Oh well, the weekend’s over again. What did you do? I got an impressive sunburn, bought some delicious fruit and veg at the market and looked into &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,134 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/08/25/rest-for-the-weekend/">REST for the Weekend</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-25T16:05:20+01:00" pubdate data-updated="true">Aug 25<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Oh well, the weekend’s over again. What did you do? I got an impressive sunburn, bought some delicious fruit and veg at the market and looked into RESTful architectures, among other things. Although I would love to tell you about my culinary adventures, what I’m going to write about now is REST. It should be noted that in this case REST is not sitting in front of the TV and has nothing to do with the title of this blog, despite what you may think!</p>
+
+<h2 id="what-rest-is-not">What REST is not</h2>
+
+<p>There seems to be some confusion over exactly what a RESTful architecture is. Some people think it is pretty URLs:</p>
+
+<pre><code>http://www.mysite.com/portfolio/design/someclient
+</code></pre>
+
+<p>as opposed to:</p>
+
+<pre><code>http://www.mysite.com/index.php?section=portfolio »
+    &amp;subsection;=design&amp;client;=someclient
+</code></pre>
+
+<p>This is not RESTful.</p>
+
+<p>Some people think REST is a bunch of actions triggered by visiting URLs:</p>
+
+<pre><code>http://www.mysite.com/contact/email/send
+</code></pre>
+
+<p>This isn’t RESTful either.</p>
+
+<h2 id="being-resourceful">Being resourceful</h2>
+
+<p>REST stands for <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer and it’s all about resources. That is to say, data presented in a formatted way and made available at specific, addressable points of entry. Most of the time when people talk about a REST interface they will be talking about the web and URLs, but REST is not limited to this technology. So long as each resource on a system can be identified uniquely, manipulated, each request for resources includes enough information that the client knows how to process it and has the ability to contain references to other resources then it can be called RESTful.</p>
+
+<p>A RESTful system is a stateless system; each resource request in a RESTful system should be completely independent of any other. It should not rely on cookies, session variables or any other state maintaining solutions. This is because a REST request is intended to be performed on the current state of the specified resource and the resource should be able to be encapsulated in a single response.</p>
+
+<h2 id="strict-instructions">Strict instructions</h2>
+
+<p>It might have slipped under the radar but a couple of paragraphs above I mentioned that a REST response should include information for the client on how to process the data. In the case of a web service (and it should be assumed from here on out I’ll be talking about web services) the <a href="http://en.wikipedia.org/wiki/MIME_type">MIME type</a> should be sufficient. For example, if you are serving your response up as JSON you’d want to use the <strong>MIME type</strong>: <code>application/json</code>. The <strong>MIME type</strong> is contained within the header of the response.</p>
+
+<p>In a similar manner, the client needs to tell the server what it wants to do with the specific resource. We can do this by specifying the correct <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP Method</a> as part of the request.</p>
+
+<h2 id="method-in-madness">Method in madness</h2>
+
+<p>So the HTTP methods most people are used to are: <code>GET</code> (the default method, what you get when you hit enter after typing a URL) and <code>POST</code> (the method used for submitting most forms). The others we are interested in are <code>PUT</code> and <code>DELETE</code>. Using these four methods we can instruct a RESTful interface to perform the basic <abbr title="Create, Read, Update, Delete">CRUD</abbr> operations:</p>
+
+<ul>
+  <li><strong>C</strong>reate = <code>POST</code></li>
+  <li><strong>R</strong>ead = <code>GET</code></li>
+  <li><strong>U</strong>pdate = <code>PUT</code></li>
+  <li><strong>D</strong>elete = <code>DELETE</code> (rather unsurprisingly)</li>
+</ul>
+
+<p>Using these methods you can manipulate a resource in any way you like from that single addressable entry point. If you have the URL for the resource, in a RESTful architecture you know you won’t have to append strings to the URL to make it do things (Eg <code>?action=delete</code>) - you just change the method used to request the resource in the request header.</p>
+
+<p>Obviously if your system is externally accessible you will probably want to limit access to the ‘unsafe’ <code>POST</code>, <code>PUT</code> and <code>DELETE</code> methods.</p>
+
+<h2 id="not-for-everyone">Not for everyone</h2>
+
+<p>So as you can tell, REST isn’t something you should strive to include just for the sake of it. I can’t stress this enough: <em>there’s no point in shoehorning REST into a site or project when it is not really needed</em>. The main use for it it most likely to be for Web Service APIs and anything that is highly resource driven. Think of it as a series of defined views on a database or other resource and you can’t go too far wrong.</p>
+
+<p>I am currently working on a web based file system for storing assets as part of a CMS. It has an API so that you can add, edit, read and delete assets from external locations, providing that you present the right credentials. This almost seems like the perfect application for REST as each entry - be it a file or a folder - needs to have the basic <abbr title="Create, Read, Update, Delete">CRUD</abbr> operations performed on it. The whole URL structure is basically the directory tree and every point in that tree is addressable and will accept all the different methods.</p>
+
+<h2 id="testing-testing">Testing, testing</h2>
+
+<p>This is all very well, but how do you go about testing these crazy HTTP methods, practically? You can’t have a page full of links to click because a link is a <code>GET</code> request. There’s no way of changing that. </p>
+
+<p>Forms offer a little flexibility - you can specify the method you want to use with the method attribute. Unfortunately this is restricted to <code>GET</code> and <code>POST</code>. If you try anything other than that it will default to <code>GET</code>.</p>
+
+<p>To test these request methods, you have to hand craft an HTTP request. You can do this in the server-side scripting language of your choice (Eg PHP, Ruby, Python etc) <em>OR</em> you can download one of the handy Firefox extensions that kindly developers have made available for nothing for this very purpose! My personal favourite is <a href="https://addons.mozilla.org/en-US/firefox/addon/9780">RESTClient</a> by <a href="http://www.porphyry.org/">Chao ZHOU</a> but there are plenty of others for you to choose from. Here are a few:</p>
+
+<ul>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/2691">Poster</a> by <a href="http://www.milowski.com/">Alex Milowski</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/5946">RESTTest</a> by <a href="http://www.xucia.com/">kriszyp</a></li>
+  <li><a href="https://addons.mozilla.org/en-US/firefox/addon/967">Modify Headers</a> by <a href="http://www.garethhunt.com/">Gareth Hunt</a></li>
+</ul>
+
+<h2 id="using-restclient">Using RESTClient</h2>
+
+<p>It’s pretty simple really. The basic interface looks like this:</p>
+
+<p><img class="center" src="/images/wp-uploads/2009/08/restclient.gif" width="618" height="603" title="'The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things.'" /></p>
+
+<ol>
+  <li>Choose your request method</li>
+  <li>Type the resource location</li>
+  <li>Add any request headers you need (this is like items from form fields)</li>
+  <li>Type the request body you want to transmit (this can be left blank most of the time)</li>
+  <li>Hit send</li>
+</ol>
+
+<p>What you will get back is the response as the server sends it. You can inspect the header and the body to make sure it’s coming back as you’d expect and so your application that will consume the response won’t get any nasty surprises!</p>
+
+<p>Hopefully you are interested in RESTful architectures now, and are feeling inspired to go off and write one of your own!</p>
+
+<h2 id="footnotes">Footnotes</h2>
+
+<p>For more information on this topic, check out the <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Wikipedia article on REST</a></p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -223,6 +351,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/22/javascript-named-arguments/">Javascript Named Arguments</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/01/31/interviewing-for-css/">Interviewing for CSS</a>
       </li>
     
@@ -236,10 +368,6 @@
     
       <li class="post">
         <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/04/30/webkit-doesnt-fire-the-load-event-on-images/">Webkit doesn&#8217;t fire the load event on images</a>
       </li>
     
   </ul>

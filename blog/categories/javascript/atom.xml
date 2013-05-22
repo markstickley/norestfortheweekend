@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-02-01T00:41:07+00:00</updated>
+  <updated>2013-05-22T08:51:03+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -12,6 +12,117 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Javascript Named Arguments]]></title>
+    <link href="http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments/"/>
+    <updated>2013-05-22T08:47:00+01:00</updated>
+    <id>http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments</id>
+    <content type="html"><![CDATA[<h2 id="whats-in-a-name">What’s In A Name?</h2>
+
+<p>Javascript is an extremely versatile language, however it is missing various useful features that other languages aren’t. In many cases these features can be added with a shim or a polyfill, if required. However, there is a set of missing features that are low-level enough that a shim isn’t possible. They are all surrounding function arguments:</p>
+
+<ul>
+  <li>Named arguments</li>
+  <li>Default argument values</li>
+  <li>Argument type enforcement</li>
+</ul>
+
+<p>Default argument values is actually <a href="https://wiki.mozilla.org/ES6_plans#New_syntax_.28stuff_that_affects_the_front_end_and.2For_bytecode.29">a feature proposed in ES6</a> but as we aren’t quite there yet with ES6 I decided to patch the functionality myself in the best way I could. I’ve made a little library and it’s called <a href="http://namesjs.markstickley.co.uk">Names.js</a>. Please <a href="https://github.com/markstickley/names.js">fork it</a> and help me improve it!</p>
+
+<h2 id="namesjs">Names.js</h2>
+
+<p>As it is impossible to alter the fundamental way that functions work without making changes to the Javascript engine, it’s written as an augmentation to the <code>Function</code> object adding a couple of instance methods to the prototype and a static method to the main object. The static method is this:</p>
+
+<p><code>javascript Javascript
+var myFunction = Function.createNamed({
+    args: [
+        ['arg1', 'string', 'defaultValue'],
+        ['arg2', MyClass, someVar]
+    ],
+    method: function(arg1, arg2) {
+        // ...
+    }
+});
+</code></p>
+
+<p>It’s a bit more verbose than simply</p>
+
+<p><code>javascript Javascript
+var myFunction = function(arg1, arg2) {
+    // ...
+}
+</code></p>
+
+<p>however it offers the following benefits:</p>
+
+<ul>
+  <li>You don’t need to provide an argument each time if you’re happy with the default value:</li>
+</ul>
+
+<p><code>javascript Javascript
+myFunction.applyNamed(null, { arg1: 'Hello world' });
+</code></p>
+
+<ul>
+  <li>You know what each argument <em>means</em> (this advantage is a lot clearer when the arguments are named well and the values you are assigning them are all booleans and integers).</li>
+  <li>You can provide the arguments in whichever order you like:</li>
+</ul>
+
+<p><code>javascript Javascript
+myFunction.applyNamed(null, {
+    arg2: fooBar,
+    arg1: 'Hello world'
+});
+</code></p>
+
+<ul>
+  <li>The function will throw an error if you pass it an incorrectly typed value:</li>
+</ul>
+
+<p><code>javascript Javascript
+myFunction.applyNamed(null, { arg1: 1234 }); // throws, as 1234 is not a 'string'
+</code></p>
+
+<p><code>applyNamed</code> works just like Javascript’s native <code>apply</code> method, taking the scope as the first argument and the arguments to apply as the second.</p>
+
+<h2 id="adding-validation">Adding validation</h2>
+
+<p>In many languages, type checking is mandatory but at the end of the day it’s just a form of validation. In an effort to reduce the usual argument-checking clutter at the beginning of a function I thought it was worth extending the validation functionality to allow for custom validations.</p>
+
+<p>You can either use a regex or a function:</p>
+
+<p><code>javascript Javascript
+myFunction.addValidaton({
+    arg1: {
+        test: /-a-diddly$/, // Check for Flanders
+    },
+    arg2: {
+        test: function(myClass) {
+            return myClass.isInitialised;
+        },
+        required: true
+    }
+});
+</code></p>
+
+<p>The <code>required</code> option on <code>arg2</code>’s validation object means that <code>arg2</code> is required. Ordinarily if the argument is omitted when calling <code>applyNamed</code> then that validation will not be run. If the argument is omitted but the validation for that argument states that it is <code>required</code> then it will fail instantly.</p>
+
+<h2 id="dogs-dinner">Dog’s dinner</h2>
+
+<p>Names.js <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eats its own dogfood</a> wherever possible and practical. There are only 3 public functions:</p>
+
+<ul>
+  <li><code>applyNamed</code> wouldn’t make sense to be able to <code>applyNamed</code> to.</li>
+  <li><code>createNamed</code> would be an even more verbose way of creating a function if you used it with <code>applyNamed</code>. However it does use an <code>applyNamed</code>-style syntax and goes on to use <code>applyNamed</code> internally to create the new function.</li>
+  <li><code>addValidation</code> is not only created with <code>createNamed</code> but also its own validation rules are added using <code>addValidation</code>. Talk about meta!</li>
+</ul>
+
+<h2 id="and">And…</h2>
+
+<p>…that’s pretty much it really. I also wrote a <a href="https://github.com/markstickley/names.js/blob/master/release">release script</a> for the library that I’m pretty pleased with but maybe that’s for another blog post :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Webkit doesn't fire the load event on images]]></title>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: css | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/css/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-02-01T00:41:07+00:00</updated>
+  <updated>2013-05-22T08:51:03+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -218,7 +218,7 @@ background-position: right top, left top, left bottom, right bottom; } ```
 <table class="display">
 	<thead>
 		<tr>
-			<td class="unused" />
+			<td class="unused"></td>
 			<th>Chars</th>
 			<th>Uncompressed</th>
 			<th>Gzipped</th>

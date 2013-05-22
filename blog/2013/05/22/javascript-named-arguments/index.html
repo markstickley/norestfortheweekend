@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Javascript Named Arguments - No Rest For The Weekend</title>
+  <meta name="author" content="Mark Stickley">
+
+  
+  <meta name="description" content="What’s In A Name? Javascript is an extremely versatile language, however it is missing various useful features that other languages aren’t. In many &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+    document.rssUrl = 'http://feeds.feedburner.com/NoRestForTheWeekend';
+</script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-537105-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup id="banner">
+  <h1><a href="/">No Rest For The Weekend</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.norestfortheweekend.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Javascript Named Arguments</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-22T08:47:00+01:00" pubdate data-updated="true">May 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2 id="whats-in-a-name">What’s In A Name?</h2>
+
+<p>Javascript is an extremely versatile language, however it is missing various useful features that other languages aren’t. In many cases these features can be added with a shim or a polyfill, if required. However, there is a set of missing features that are low-level enough that a shim isn’t possible. They are all surrounding function arguments:</p>
+
+<ul>
+  <li>Named arguments</li>
+  <li>Default argument values</li>
+  <li>Argument type enforcement</li>
+</ul>
+
+<p>Default argument values is actually <a href="https://wiki.mozilla.org/ES6_plans#New_syntax_.28stuff_that_affects_the_front_end_and.2For_bytecode.29">a feature proposed in ES6</a> but as we aren’t quite there yet with ES6 I decided to patch the functionality myself in the best way I could. I’ve made a little library and it’s called <a href="http://namesjs.markstickley.co.uk">Names.js</a>. Please <a href="https://github.com/markstickley/names.js">fork it</a> and help me improve it!</p>
+
+<h2 id="namesjs">Names.js</h2>
+
+<p>As it is impossible to alter the fundamental way that functions work without making changes to the Javascript engine, it’s written as an augmentation to the <code>Function</code> object adding a couple of instance methods to the prototype and a static method to the main object. The static method is this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">createNamed</span><span class="p">({</span>
+</span><span class="line">    <span class="nx">args</span><span class="o">:</span> <span class="p">[</span>
+</span><span class="line">        <span class="p">[</span><span class="s1">&#39;arg1&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">],</span>
+</span><span class="line">        <span class="p">[</span><span class="s1">&#39;arg2&#39;</span><span class="p">,</span> <span class="nx">MyClass</span><span class="p">,</span> <span class="nx">someVar</span><span class="p">]</span>
+</span><span class="line">    <span class="p">],</span>
+</span><span class="line">    <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">        <span class="c1">// ...</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>It’s a bit more verbose than simply</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="kd">var</span> <span class="nx">myFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="c1">// ...</span>
+</span><span class="line"><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>however it offers the following benefits:</p>
+
+<ul>
+  <li>You don’t need to provide an argument each time if you’re happy with the default value:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="nx">arg1</span><span class="o">:</span> <span class="s1">&#39;Hello world&#39;</span> <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>You know what each argument <em>means</em> (this advantage is a lot clearer when the arguments are named well and the values you are assigning them are all booleans and integers).</li>
+  <li>You can provide the arguments in whichever order you like:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class="line">    <span class="nx">arg2</span><span class="o">:</span> <span class="nx">fooBar</span><span class="p">,</span>
+</span><span class="line">    <span class="nx">arg1</span><span class="o">:</span> <span class="s1">&#39;Hello world&#39;</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>The function will throw an error if you pass it an incorrectly typed value:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">applyNamed</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="nx">arg1</span><span class="o">:</span> <span class="mi">1234</span> <span class="p">});</span> <span class="c1">// throws, as 1234 is not a &#39;string&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>applyNamed</code> works just like Javascript’s native <code>apply</code> method, taking the scope as the first argument and the arguments to apply as the second.</p>
+
+<h2 id="adding-validation">Adding validation</h2>
+
+<p>In many languages, type checking is mandatory but at the end of the day it’s just a form of validation. In an effort to reduce the usual argument-checking clutter at the beginning of a function I thought it was worth extending the validation functionality to allow for custom validations.</p>
+
+<p>You can either use a regex or a function:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Javascript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">myFunction</span><span class="p">.</span><span class="nx">addValidaton</span><span class="p">({</span>
+</span><span class="line">    <span class="nx">arg1</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">test</span><span class="o">:</span> <span class="sr">/-a-diddly$/</span><span class="p">,</span> <span class="c1">// Check for Flanders</span>
+</span><span class="line">    <span class="p">},</span>
+</span><span class="line">    <span class="nx">arg2</span><span class="o">:</span> <span class="p">{</span>
+</span><span class="line">        <span class="nx">test</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">myClass</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">            <span class="k">return</span> <span class="nx">myClass</span><span class="p">.</span><span class="nx">isInitialised</span><span class="p">;</span>
+</span><span class="line">        <span class="p">},</span>
+</span><span class="line">        <span class="nx">required</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class="line">    <span class="p">}</span>
+</span><span class="line"><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>The <code>required</code> option on <code>arg2</code>’s validation object means that <code>arg2</code> is required. Ordinarily if the argument is omitted when calling <code>applyNamed</code> then that validation will not be run. If the argument is omitted but the validation for that argument states that it is <code>required</code> then it will fail instantly.</p>
+
+<h2 id="dogs-dinner">Dog’s dinner</h2>
+
+<p>Names.js <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eats its own dogfood</a> wherever possible and practical. There are only 3 public functions:</p>
+
+<ul>
+  <li><code>applyNamed</code> wouldn’t make sense to be able to <code>applyNamed</code> to.</li>
+  <li><code>createNamed</code> would be an even more verbose way of creating a function if you used it with <code>applyNamed</code>. However it does use an <code>applyNamed</code>-style syntax and goes on to use <code>applyNamed</code> internally to create the new function.</li>
+  <li><code>addValidation</code> is not only created with <code>createNamed</code> but also its own validation rules are added using <code>addValidation</code>. Talk about meta!</li>
+</ul>
+
+<h2 id="and">And…</h2>
+
+<p>…that’s pretty much it really. I also wrote a <a href="https://github.com/markstickley/names.js/blob/master/release">release script</a> for the library that I’m pretty pleased with but maybe that’s for another blog post :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Stickley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-22T08:47:00+01:00" pubdate data-updated="true">May 22<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments/" data-via="norestftw" data-counturl="http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/01/31/interviewing-for-css/" title="Previous Post: Interviewing for CSS">&laquo; Interviewing for CSS</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/22/javascript-named-arguments/">Javascript Named Arguments</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/31/interviewing-for-css/">Interviewing for CSS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/11/zero-image-close-buttons/">Zero image close buttons</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("norestftw", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/norestftw" class="twitter-follow-button" data-show-count="false">Follow @norestftw</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Mark Stickley -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'norestfortheweekend';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments/';
+        var disqus_url = 'http://blog.norestfortheweekend.com/blog/2013/05/22/javascript-named-arguments/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
+
+
+</body>
+</html>
