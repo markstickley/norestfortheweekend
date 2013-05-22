@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Javascript Named Arguments"
-date: 2013-05-21 08:47
+date: 2013-05-22 08:47
 comments: true
 status: publish
 categories:
