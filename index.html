@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="What’s In A Name? Javascript is an extremely versatile language, however it is missing various useful features that other languages aren’t. In many &hellip;">
+  <meta name="description" content="The BBC has said that due to a single person complaining, they will be removing the clock from the home page. The news has been reported fairly &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,113 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/06/in-defence-of-the-bbc-and-its-clock/">In Defence of the BBC and Its Clock</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T23:00:00+01:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The <abbr title="British Broadcasting Corporation">BBC</abbr> has said that due to a single person complaining, <a href="http://www.bbc.co.uk/news/entertainment-arts-22768861">they will be removing the clock from the home page</a>. The news has been reported fairly widely, particularly through technology channels, and people have been very vocal about their feelings on one particular point:</p>
+
+<ul>
+  <li>How could it possibly take 100 days to fix the problem?</li>
+</ul>
+
+<p>Having worked for the <abbr title="British Broadcasting Corporation">BBC</abbr> for 4 years I would agree on that estimate, and I’ll explain why. First, I need to explain a little about the <abbr title="British Broadcasting Corporation">BBC</abbr> some of the history surrounding the clock.</p>
+
+<h2 id="history">History</h2>
+
+<p><img class="center" src="/images/posts/2013/06/06/in-defence-of-the-bbc-and-its-clock/clocks.jpg" width="790" height="592" title="'The BBC clock through the ages'" /></p>
+
+<p>The <a href="https://www.google.co.uk/search?q=bbc+clock&amp;tbm=isch"><abbr title="British Broadcasting Corporation">BBC</abbr> clock</a> has been around for a long time. It has had many incarnations and is an integral part of the <abbr title="British Broadcasting Corporation">BBC</abbr>’s history. It first appeared on BBC1 as an actual clock with a camera pointing at it, and then digital representations in the same style appeared. During a major redesign of the <abbr title="British Broadcasting Corporation">BBC</abbr> home page it was lovingly recreated in Flash as an homage to this iconic timepiece.</p>
+
+<p>A subsequent redesign removed the clock from the home page but due to an outcry from regular visitors to the site it was reinstated, and rewritten to use the modern <code>canvas</code> <abbr title="Hypertext Markup Language">HTML</abbr> element with Flash as a fallback to give the best available experience.</p>
+
+<h2 id="the-trust">The Trust</h2>
+
+<p>The <a href="http://www.bbc.co.uk/bbctrust/"><abbr title="British Broadcasting Corporation">BBC</abbr> Trust</a> is an independent body who governs the <abbr title="British Broadcasting Corporation">BBC</abbr> and is intended to act in the best interests of the licence fee payers (for the benefit of international readers, everyone in the UK who owns a TV must pay a yearly fee which mainly funds the output of the <abbr title="British Broadcasting Corporation">BBC</abbr> which is broadcast ad-free). This basically means that the Trust have final say in matters such as this. A single complaint such as this can out-weigh the opinions of many if the Trust feel that the <abbr title="British Broadcasting Corporation">BBC</abbr> is not upholding its core values.</p>
+
+<p>One of the core values of the <abbr title="British Broadcasting Corporation">BBC</abbr> is to never knowingly broadcast inaccurate information. As the clock is on the <abbr title="British Broadcasting Corporation">BBC</abbr> home page, it looks like that information comes from the <abbr title="British Broadcasting Corporation">BBC</abbr>, and therefore should be accurate. As the time displayed actually comes from the user’s computer it has the potential to be inaccurate and therefore make the <abbr title="British Broadcasting Corporation">BBC</abbr> home page inaccurate, and that is unacceptable.</p>
+
+<h2 id="breaking-down-the-problem">Breaking down the problem</h2>
+
+<p>As the clock has been criticised for its accuracy, a fix that makes it anything less than perfect for every single user would be unacceptable. Here are the facts:</p>
+
+<ol>
+  <li>As already established, you can’t trust the user’s clock.</li>
+  <li>The site is not restricted to people within a single time zone, the clock will have to display the correct time according to the time zone the user is in.</li>
+  <li>As we can’t trust any time information on the user’s computer(1), we can’t rely on their computer to provide a time zone automatically.</li>
+  <li>Getting a user’s location by IP address is never 100% accurate, particularly when using mobile broadband so we can’t use that.</li>
+  <li>This leaves us with only one option - the user must manually provide their time zone, which can be stored in a cookie or a similar client-side storage mechanism.</li>
+  <li>To make the clock accurate if they move time zones, or if they have not yet provided a time zone, the time zone must be displayed along side the clock.</li>
+</ol>
+
+<p>Now that the facts are clearer the problem can be broken down.</p>
+
+<p><strong>User Experience &amp; Design</strong>:</p>
+
+<ul>
+  <li>How should the time zone be displayed next to the clock?</li>
+  <li>How does the user know they can change it?</li>
+  <li>How does the interaction to change the time zone work / look?</li>
+  <li>Does this all fit within the <abbr title="British Broadcasting Corporation">BBC</abbr>’s <abbr title="User Experience">UX</abbr> guidelines?</li>
+</ul>
+
+<p>These are all decisions that will need consideration and questions that will need answering before at least some of the development starts. Design documents will be created in order to accurately pass on the outcome of these decisions to the developers.</p>
+
+<p><abbr title="User Experience &amp; Design">UX&D</abbr> will also perform some user testing to make sure the solution is easy to use and understandable. There may also be accessibility testing to ensure disabled users can still get the most out of the site possible including use of the clock.</p>
+
+<p><strong>Development</strong>:</p>
+
+<ul>
+  <li>How do we build this so that the home page retains its current high level of cachability which is necessary for the load the <abbr title="British Broadcasting Corporation">BBC</abbr> experiences?</li>
+  <li>How do we deliver the time accurately to the end-user?</li>
+  <li>How do we minimise load and rendering times on the home page?</li>
+</ul>
+
+<p>When you have a site with as much traffic as the <abbr title="British Broadcasting Corporation">BBC</abbr> there is a strong need for a good caching strategy to avoid overloading the servers and mitigating downtime. When it comes to delivering the time, one option would be to embed it in the body of the page, but this would mean that the cache would have to be regenerated every second which is an inefficient solution. There is the possibility of using post-cache/edge includes to insert the time with placeholders but this would be on every request and even more inefficient.</p>
+
+<p>Logically then, you would need a separate <abbr title="Asynchronous Javascript And XML">AJAX</abbr> call to get the current time. This could result in a short period of time when the clock displayed no time at all before the time had loaded which would look bad. This would have to be referred back to <abbr title="User Experience &amp; Design">UX&D</abbr> for approval.</p>
+
+<p>To serve the accurate time the <abbr title="British Broadcasting Corporation">BBC</abbr> would need to set up one or more time servers capable of handling the constant load of every single person who visited the home page. Not only would the servers need to maintain perfectly accurate time but they would need to deliver it to the user in a fraction of a second wherever they were in the world.</p>
+
+<p>Because any request that took longer than 1 second would make the clock inaccurate there would have to be a series of servers at various locations around the world capable between them of delivering a latency lower than 1 second to any country. This would take some setting up, particularly if you want to defend against <abbr title="Distributed Denial of Service">DDoS</abbr> attacks.</p>
+
+<p>For extra fun, the cookie required to store the time zone would have to be added to the <abbr title="British Broadcasting Corporation">BBC</abbr>’s cookie registry to make sure it’s strictly necessary. Because of the size and scope of the content available under bbc.co.uk there are a lot of cookies set. Every cookie set on the domain is sent with every request whether they are needed for that page or not. The more cookies there are the more data there is to send and the longer the request takes to send. Not to mention that certain old versions of <abbr title="Internet Explorer">IE</abbr> will crash if you send too much cookie data.</p>
+
+<h2 id="days">100 days?</h2>
+
+<p>Given the complexity of the task, the number of different teams &amp; discipines involved, the infrastucture and the attention to detail required, perhaps 100 days doesn’t seem that mad after all. I don’t think so.</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1637,55 +1744,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/10/13/regex-for-an-email-address/">Regex for an Email Address</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-13T14:21:53+01:00" pubdate data-updated="true">Oct 13<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>It’s something that I’ve come up against several times and each time I google for it I turn up a different result.</p>
-
-<p>How do you validate an email address?</p>
-
-<p>Obviously you want to use a <a href="http://en.wikipedia.org/wiki/Regular_expression">regular expression</a>, but given the specification for <a href="http://en.wikipedia.org/wiki/Email_address">email address</a>es that’s going to be one really complicated line of code.</p>
-
-<p>Following a user’s complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today’s search yielded more success than usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Email regex (email_regex.pl)</span> <a href="/downloads/code/regex-for-an-email-address/email_regex.pl">download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="perl"><span class="line"><span class="sr">/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>I won’t lie to you: I haven’t dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I’ve thrown at it. It also works in Javascript which, for me, is a massive win.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1701,6 +1759,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/06/06/in-defence-of-the-bbc-and-its-clock/">In Defence Of The BBC And Its Clock</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/22/javascript-named-arguments/">Javascript Named Arguments</a>
       </li>
     
@@ -1714,10 +1776,6 @@
     
       <li class="post">
         <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/06/14/3ds-browser-revisited/">3DS browser revisited</a>
       </li>
     
   </ul>
