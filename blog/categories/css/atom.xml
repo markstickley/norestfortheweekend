@@ -4,7 +4,7 @@
   <title><![CDATA[Category: css | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/css/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-06T23:26:19+01:00</updated>
+  <updated>2013-06-07T08:30:50+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -60,9 +60,9 @@
 <p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> what is CSS3? Draw an arrow head using borders.</p>&mdash; Ralfas Jegorovas (@ralfas) <a href="https://twitter.com/ralfas/status/200843040892518400">May 11, 2012</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
 
-<p>I expect most candidates would ask for clarification or look confused at the first part of that question. That’s fine, seeing their reaction allows you to gauge the way they might react to a poorly defined spec, for example. It’s kind of open ended so they might simple say “It’s the latest version of CSS”. Others may list a few new features. If they’re really smart they’ll tell you that CSS3 hasn’t been formally specified because it’s still in development.</p>
+<p>I expect most candidates would ask for clarification or look confused at the first part of that question. That’s fine, seeing their reaction allows you to gauge the way they might react to a poorly defined spec, for example. It’s kind of open ended so they might simply say “It’s the latest version of CSS”. Others may list a few new features. If they’re really smart they’ll tell you that CSS3 hasn’t been formally specified because it’s still in development.</p>
 
-<p>Drawing an arrowhead with borders requires the knowledge that when fat borders meet on adjecent edges they form a diagonal. Check out <a href="http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/">this article</a> for more details. Alternatively you can ask them to <a href="/blog/2012/07/11/zero-image-close-buttons/">create a close button with pure CSS</a> if you’re feeling mean!</p>
+<p>Drawing an arrowhead with borders requires the knowledge that when fat borders meet on adjacent edges they form a diagonal. Check out <a href="http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/">this article</a> for more details. Alternatively you can ask them to <a href="/blog/2012/07/11/zero-image-close-buttons/">create a close button with pure CSS</a> if you’re feeling mean!</p>
 
 <!-- @markstickley @mfujica just make sure you know the answers yourself... -@timblair -->
 <p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> @<a href="https://twitter.com/mfujica">mfujica</a> just make sure you know the answers yourself...</p>&mdash; Tim Blair (@timblair) <a href="https://twitter.com/timblair/status/200633510950748161">May 10, 2012</a></blockquote>

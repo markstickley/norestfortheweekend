@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-06T23:26:19+01:00</updated>
+  <updated>2013-06-07T08:30:50+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -512,7 +512,7 @@ loadGalleryCarouselPage(0);
     <link href="http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location/"/>
     <updated>2009-08-17T14:37:34+01:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/08/17/location-location-location</id>
-    <content type="html"><![CDATA[<p>All this time, I’ve been happily using <code>window.location</code> in my code, but I never knew it’s dark secret!</p>
+    <content type="html"><![CDATA[<p>All this time, I’ve been happily using <code>window.location</code> in my code, but I never knew its dark secret!</p>
 
 <h2 id="when-is-a-string-not-a-string">When is a string not a string?</h2>
 

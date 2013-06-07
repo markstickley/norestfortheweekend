@@ -138,7 +138,7 @@
   <li>The site is not restricted to people within a single time zone, the clock will have to display the correct time according to the time zone the user is in.</li>
   <li>As we can’t trust any time information on the user’s computer(1), we can’t rely on their computer to provide a time zone automatically.</li>
   <li>Getting a user’s location by IP address is never 100% accurate, particularly when using mobile broadband so we can’t use that.</li>
-  <li>This leaves us with only one option - the user must manually provide their time zone, which can be stored in a cookie or a similar client-side storage mechanism.</li>
+  <li>This leaves us with only one option (since we can’t rely on every device having GPS built in) - the user must manually provide their time zone, which can be stored in a cookie or a similar client-side storage mechanism.</li>
   <li>To make the clock accurate if they move time zones, or if they have not yet provided a time zone, the time zone must be displayed along side the clock.</li>
 </ol>
 
@@ -178,6 +178,12 @@
 <h2 id="days">100 days?</h2>
 
 <p>Given the complexity of the task, the number of different teams &amp; discipines involved, the infrastucture and the attention to detail required, perhaps 100 days doesn’t seem that mad after all. I don’t think so.</p>
+
+<p><strong>Update 07/06/2013</strong>:</p>
+
+<p>I’ve been made aware of <a href="http://www.ntp.org"><abbr title="Network Time Protocol">NTP</abbr></a>, which provides a mechanism of transmitting an accurate time across a network. However, (according to the FAQ it can take up to 5 minutes to determine the time accurately)[http://www.ntp.org/ntpfaq/<abbr title="Network Time Protocol">NTP</abbr>-s-algo.htm]. This is because it has to make multiple requests to sanity-check the result and ensure latency isn’t affecting the time.</p>
+
+<p>I doubt many people will remain on the home page for 5 minutes and since the page would not have access to set the time of the user’s computer clock the process would have to start from scratch each time the page loaded.</p>
 
 </div>
   
@@ -417,9 +423,9 @@
 <div class="embed tweet"><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> what is CSS3? Draw an arrow head using borders.</p>&mdash; Ralfas Jegorovas (@ralfas) <a href="https://twitter.com/ralfas/status/200843040892518400">May 11, 2012</a></blockquote>
 <script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>
 
-<p>I expect most candidates would ask for clarification or look confused at the first part of that question. That’s fine, seeing their reaction allows you to gauge the way they might react to a poorly defined spec, for example. It’s kind of open ended so they might simple say “It’s the latest version of CSS”. Others may list a few new features. If they’re really smart they’ll tell you that CSS3 hasn’t been formally specified because it’s still in development.</p>
+<p>I expect most candidates would ask for clarification or look confused at the first part of that question. That’s fine, seeing their reaction allows you to gauge the way they might react to a poorly defined spec, for example. It’s kind of open ended so they might simply say “It’s the latest version of CSS”. Others may list a few new features. If they’re really smart they’ll tell you that CSS3 hasn’t been formally specified because it’s still in development.</p>
 
-<p>Drawing an arrowhead with borders requires the knowledge that when fat borders meet on adjecent edges they form a diagonal. Check out <a href="http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/">this article</a> for more details. Alternatively you can ask them to <a href="/blog/2012/07/11/zero-image-close-buttons/">create a close button with pure CSS</a> if you’re feeling mean!</p>
+<p>Drawing an arrowhead with borders requires the knowledge that when fat borders meet on adjacent edges they form a diagonal. Check out <a href="http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/">this article</a> for more details. Alternatively you can ask them to <a href="/blog/2012/07/11/zero-image-close-buttons/">create a close button with pure CSS</a> if you’re feeling mean!</p>
 
 <!-- @markstickley @mfujica just make sure you know the answers yourself... -@timblair -->
 <div class="embed tweet"><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> @<a href="https://twitter.com/mfujica">mfujica</a> just make sure you know the answers yourself&#8230;</p>&mdash; Tim Blair (@timblair) <a href="https://twitter.com/timblair/status/200633510950748161">May 10, 2012</a></blockquote>
