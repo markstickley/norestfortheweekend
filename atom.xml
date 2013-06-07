@@ -4,7 +4,7 @@
   <title><![CDATA[No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:30:50+01:00</updated>
+  <updated>2013-06-07T08:49:41+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -83,8 +83,6 @@
 <p>To serve the accurate time the <abbr title="British Broadcasting Corporation">BBC</abbr> would need to set up one or more time servers capable of handling the constant load of every single person who visited the home page. Not only would the servers need to maintain perfectly accurate time but they would need to deliver it to the user in a fraction of a second wherever they were in the world.</p>
 
 <p>Because any request that took longer than 1 second would make the clock inaccurate there would have to be a series of servers at various locations around the world capable between them of delivering a latency lower than 1 second to any country. This would take some setting up, particularly if you want to defend against <abbr title="Distributed Denial of Service">DDoS</abbr> attacks.</p>
-
-<p>For extra fun, the cookie required to store the time zone would have to be added to the <abbr title="British Broadcasting Corporation">BBC</abbr>’s cookie registry to make sure it’s strictly necessary. Because of the size and scope of the content available under bbc.co.uk there are a lot of cookies set. Every cookie set on the domain is sent with every request whether they are needed for that page or not. The more cookies there are the more data there is to send and the longer the request takes to send. Not to mention that certain old versions of <abbr title="Internet Explorer">IE</abbr> will crash if you send too much cookie data.</p>
 
 <h2 id="days">100 days?</h2>
 
