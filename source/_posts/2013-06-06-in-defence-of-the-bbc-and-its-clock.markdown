@@ -77,8 +77,6 @@ To serve the accurate time the BBC would need to set up one or more time servers
 
 Because any request that took longer than 1 second would make the clock inaccurate there would have to be a series of servers at various locations around the world capable between them of delivering a latency lower than 1 second to any country. This would take some setting up, particularly if you want to defend against DDoS attacks.
 
-For extra fun, the cookie required to store the time zone would have to be added to the BBC's cookie registry to make sure it's strictly necessary. Because of the size and scope of the content available under bbc.co.uk there are a lot of cookies set. Every cookie set on the domain is sent with every request whether they are needed for that page or not. The more cookies there are the more data there is to send and the longer the request takes to send. Not to mention that certain old versions of IE will crash if you send too much cookie data.
-
 
 100 days?
 ---------
