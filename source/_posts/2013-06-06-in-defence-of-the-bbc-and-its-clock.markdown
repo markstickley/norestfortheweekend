@@ -47,7 +47,7 @@ As the clock has been criticised for its accuracy, a fix that makes it anything 
 2. The site is not restricted to people within a single time zone, the clock will have to display the correct time according to the time zone the user is in.
 3. As we can't trust any time information on the user's computer(1), we can't rely on their computer to provide a time zone automatically.
 4. Getting a user's location by IP address is never 100% accurate, particularly when using mobile broadband so we can't use that.
-5. This leaves us with only one option - the user must manually provide their time zone, which can be stored in a cookie or a similar client-side storage mechanism.
+5. This leaves us with only one option (since we can't rely on every device having GPS built in) - the user must manually provide their time zone, which can be stored in a cookie or a similar client-side storage mechanism.
 6. To make the clock accurate if they move time zones, or if they have not yet provided a time zone, the time zone must be displayed along side the clock.
 
 Now that the facts are clearer the problem can be broken down.
@@ -86,6 +86,14 @@ For extra fun, the cookie required to store the time zone would have to be added
 Given the complexity of the task, the number of different teams & discipines involved, the infrastucture and the attention to detail required, perhaps 100 days doesn't seem that mad after all. I don't think so.
 
 
+**Update 07/06/2013**:
+
+I've been made aware of [NTP](http://www.ntp.org), which provides a mechanism of transmitting an accurate time across a network. However, (according to the FAQ it can take up to 5 minutes to determine the time accurately)[http://www.ntp.org/ntpfaq/NTP-s-algo.htm]. This is because it has to make multiple requests to sanity-check the result and ensure latency isn't affecting the time.
+
+I doubt many people will remain on the home page for 5 minutes and since the page would not have access to set the time of the user's computer clock the process would have to start from scratch each time the page loaded.
+
+
+
 *[UX]: User Experience
 *[UX&D]: User Experience & Design
 *[DDoS]: Distributed Denial of Service
@@ -93,3 +101,4 @@ Given the complexity of the task, the number of different teams & discipines inv
 *[AJAX]: Asynchronous Javascript And XML
 *[BBC]: British Broadcasting Corporation
 *[HTML]: Hypertext Markup Language
+*[NTP]: Network Time Protocol
