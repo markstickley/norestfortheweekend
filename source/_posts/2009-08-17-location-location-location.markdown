@@ -11,7 +11,7 @@ categories:
 - javascript
 ---
 
-All this time, I've been happily using `window.location` in my code, but I never knew it's dark secret!
+All this time, I've been happily using `window.location` in my code, but I never knew its dark secret!
 
 
 

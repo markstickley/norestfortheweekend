@@ -55,9 +55,9 @@ An element with `display: inline-block` flows in the document like an inline ele
 <!-- what is CSS3? Draw an arrow head using borders. -@ralfas -->
 {% tweet https://twitter.com/ralfas/status/200843040892518400 %}
 
-I expect most candidates would ask for clarification or look confused at the first part of that question. That's fine, seeing their reaction allows you to gauge the way they might react to a poorly defined spec, for example. It's kind of open ended so they might simple say "It's the latest version of CSS". Others may list a few new features. If they're really smart they'll tell you that CSS3 hasn't been formally specified because it's still in development.
+I expect most candidates would ask for clarification or look confused at the first part of that question. That's fine, seeing their reaction allows you to gauge the way they might react to a poorly defined spec, for example. It's kind of open ended so they might simply say "It's the latest version of CSS". Others may list a few new features. If they're really smart they'll tell you that CSS3 hasn't been formally specified because it's still in development.
 
-Drawing an arrowhead with borders requires the knowledge that when fat borders meet on adjecent edges they form a diagonal. Check out [this article](http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/) for more details. Alternatively you can ask them to [create a close button with pure CSS](/blog/2012/07/11/zero-image-close-buttons/) if you're feeling mean!
+Drawing an arrowhead with borders requires the knowledge that when fat borders meet on adjacent edges they form a diagonal. Check out [this article](http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/) for more details. Alternatively you can ask them to [create a close button with pure CSS](/blog/2012/07/11/zero-image-close-buttons/) if you're feeling mean!
 
 
 <!-- @markstickley @mfujica just make sure you know the answers yourself... -@timblair -->
