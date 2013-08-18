@@ -70,6 +70,7 @@ github_skip_forks: true
 
 # Twitter
 twitter_user: norestftw
+twitter_widget_id: 369131738645004288
 twitter_tweet_count: 4
 twitter_show_replies: false
 twitter_follow_button: true
