@@ -155,7 +155,7 @@ Make a small change and try `git push live master` again. As soon as it has fini
 A note on security
 ------------------
 
-If you navigate to http://mydomain.com/.git you may notice that the contents of your git repository are available for the world to see. Reasons why you might not want this:
+If you navigate to http://mydomain.com/.git you may notice that the contents of your git repository are available for the world to see. Some reasons why you might not want this:
 
 * Your email address is probably associated with all your commits
 * Anyone could download your repository and all of its history
