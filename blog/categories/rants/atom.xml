@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rants | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/rants/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-08-18T17:07:08+01:00</updated>
+  <updated>2013-08-18T17:29:10+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.norestfortheweekend.com/blog/2009/11/28/paypal-for-shame/"/>
     <updated>2009-11-28T12:12:14+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/11/28/paypal-for-shame</id>
-    <content type="html"><![CDATA[<p>{% img center /images/wp-uploads/2009/11/shameless.jpg 628 150 ‘Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess’ %}</p>
+    <content type="html"><![CDATA[<p><img class="center" src="/images/wp-uploads/2009/11/shameless.jpg" width="628" height="150" title="‘Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess’" ></p>
 
 <p><a href="http://www.paypal.com">PayPal</a> is, as I’m sure you know, a long-standing staple of online payment technologies. They are now merged with eBay and you pretty much can’t use eBay without a PayPal account which works nicely for eBay as they are now reaping the benefit of not just the eBay selling fees but also the PayPal fees.</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: events | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/events/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-08-18T17:07:08+01:00</updated>
+  <updated>2013-08-18T17:29:10+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.norestfortheweekend.com/blog/2010/03/21/why-do-we-need-conferences/"/>
     <updated>2010-03-21T00:58:21+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2010/03/21/why-do-we-need-conferences</id>
-    <content type="html"><![CDATA[<p><a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards">{% img center /images/wp-uploads/2010/03/hBeer.jpg 280 420 ‘hBeer’ %}</a></p>
+    <content type="html"><![CDATA[<p><a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards"><img class="center" src="/images/wp-uploads/2010/03/hBeer.jpg" width="280" height="420" title="‘hBeer’" ></a></p>
 
 <p>Seriously? Why do we need to spend hundreds of pounds, dollars, euros or whatever to attend these events? They are pretty pricey and more often that not they are nowhere near home so you have the added cost of transport and hotel bills and all those meals you’re going to consume out while you’re away. It’s not cheap, and even if you can afford it, why spend it?</p>
 
@@ -89,7 +89,7 @@
     <link href="http://blog.norestfortheweekend.com/blog/2009/11/09/barcamp-london-7/"/>
     <updated>2009-11-09T15:06:47+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/11/09/barcamp-london-7</id>
-    <content type="html"><![CDATA[<p><a href="http://www.flickr.com/photos/adewale_oshineye/3405080707/in/pool-barcamplondon">{% img center /images/wp-uploads/2009/11/barcamp7-lego.jpg 628 142 ‘BarCamp’ %}</a></p>
+    <content type="html"><![CDATA[<p><a href="http://www.flickr.com/photos/adewale_oshineye/3405080707/in/pool-barcamplondon"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-lego.jpg" width="628" height="142" title="‘BarCamp’" ></a></p>
 
 <p>Well I didn’t quite know what to expect having never attended a BarCamp or indeed an “un-conference” before. What I found was one of the best geek-xperiences that I have come across, something that I would recommend to anyone into what they do and who enjoys the company of other people also into what they do.</p>
 
@@ -97,7 +97,7 @@
 
 <p>So the premise behind an un-conference is that there are talks, but there is nothing scheduled when the event starts. Instead, right at the start all the attendees fill out the gaps in the schedule with sessions, presentations and talks that they have prepared (or will prepare over the course of the event). Everyone is encouraged to participate, especially those for whom it is their first BarCamp, which meant I was going to be doing one.</p>
 
-<p><a href="http://www.flickr.com/photos/yaili/4062052486/">{% img center /images/wp-uploads/2009/11/barcamp7-saturdaysessions.jpg 628 184 ‘The grid for the sessions on Saturday’ %}</a></p>
+<p><a href="http://www.flickr.com/photos/yaili/4062052486/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-saturdaysessions.jpg" width="628" height="184" title="‘The grid for the sessions on Saturday’" ></a></p>
 
 <p>Public speaking isn’t one of my stronger qualities, but one thing I do know about it is that the more you do it the better (and the more confident) you get. This is a fact, and it’s also helped by the fact that all the attendees are lovely. The thing about this kind of event is that no-one is going to want to pick a fight with you or want to make you feel small. If they attended your presentation in preference to someone else’s then they genuinely want to hear what you have to say on the topic you have chosen. Also, most people will be in the same boat - all having their own sessions to run - and so they will treat you in the way they hope to be treated themselves. Finally, as it’s a free event, no-one will feel cheated if your talk doesn’t live up to the high expectations that might surround a conference which costs, say, £300. It’s the perfect incubator for talent!</p>
 
@@ -115,7 +115,7 @@
 
 <h2 id="my-experiences">My experiences</h2>
 
-<p><a href="http://www.flickr.com/photos/andypiper/4040452848/in/pool-barcamplondon">{% img center /images/wp-uploads/2009/11/barcamp7-css.jpg 628 190 ‘My talk on CSS widgets’ %}</a></p>
+<p><a href="http://www.flickr.com/photos/andypiper/4040452848/in/pool-barcamplondon"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-css.jpg" width="628" height="190" title="‘My talk on CSS widgets’" ></a></p>
 
 <p>I had already decided to do a CSS-related presentation (a blog version of which is forthcoming) but sadly this meant I had to miss a chunk of sessions during the first day just in the name of finishing off. I wish I had started to prepare earlier but it’s that always the case? It had to be done though… imagine turning up to do a talk with a half-finished set of slides. Not too impressive.</p>
 
@@ -170,25 +170,25 @@
 
 <h3 id="design-in-lost">Design in LOST</h3>
 
-<p><a href="http://www.flickr.com/photos/yaili/4061297865/">{% img center /images/wp-uploads/2009/11/barcamp7-lost.jpg 628 189 ‘Card for @yaili’s session on LOST’ %}</a></p>
+<p><a href="http://www.flickr.com/photos/yaili/4061297865/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-lost.jpg" width="628" height="189" title="‘Card for @yaili’s session on LOST’" ></a></p>
 
 <p>Going over some of the finer points of the hit TV show and showing how the plot and prop design goes so in depth that you wouldn’t really notice some of the more elaborate details unless you were paying meticulous attention. Also covered some of the cross promotion with other brands and Easter Eggs that don’t add anything but are a real treat to those who spot them. Fascinating!</p>
 
 <h3 id="want-to-write-a-tech-book">Want to write a tech book</h3>
 
-<p><a href="http://www.flickr.com/photos/37996583811@N01/4039838641/">{% img center /images/wp-uploads/2009/11/barcamp7-adewale.jpg 628 151 ‘Adewale &amp; Gavin doing their book writing talk’ %}</a></p>
+<p><a href="http://www.flickr.com/photos/37996583811@N01/4039838641/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-adewale.jpg" width="628" height="151" title="‘Adewale &amp; Gavin doing their book writing talk’" ></a></p>
 
 <p>Tips mainly on how not to write a tech book actually! Don’t drag it out and don’t try and do it as well as a full-time job were the main ones I took away from that.</p>
 
 <h3 id="sex-and-other-things">Sex and other things</h3>
 
-<p><a href="http://www.flickr.com/photos/adewale_oshineye/3405087239/in/pool-barcamplondon">{% img center /images/wp-uploads/2009/11/barcamp7-cubicgarden.jpg 628 187 ‘Ian Forrester’ %}</a></p>
+<p><a href="http://www.flickr.com/photos/adewale_oshineye/3405087239/in/pool-barcamplondon"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-cubicgarden.jpg" width="628" height="187" title="‘Ian Forrester’" ></a></p>
 
 <p>What was essentially a hosted discussion about geeks, sexuality, how comfortable we are with it and why. It was interesting to listen to but I wasn’t compelled to get involved…</p>
 
 <h3 id="why-i-give-my-clients-no-control">Why I give my clients no control</h3>
 
-<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-alex.jpg">{% img center /images/wp-uploads/2009/11/barcamp7-alex.jpg 628 158 ‘Alex Teugels and some guy I don’t know the name of’ %}</a>](http://www.flickr.com/photos/bfirsh/4047990809/in/pool-barcamplondon)</p>
+<p><a href="http://www.norestfortheweekend.com/wp-content/uploads/2009/11/barcamp7-alex.jpg"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-alex.jpg" width="628" height="158" title="‘Alex Teugels and some guy I don’t know the name of’" ></a>](http://www.flickr.com/photos/bfirsh/4047990809/in/pool-barcamplondon)</p>
 
 <p>Alex took us through how he runs his business which is basically to take complete control of his clients’ sites, charge them an ongoing fee and make sure conversions keep moving skywards. A very different and interesting approach which I haven’t seen before. Strangely enough this talk was given by an old school friend of mine who I hadn’t seen since all those years ago which was an unexpected bonus!</p>
 
@@ -206,7 +206,7 @@
 
 <h3 id="fucking-awesome-bands">10 Fucking Awesome Bands</h3>
 
-<p><a href="http://www.flickr.com/photos/adewale_oshineye/4041691950/">{% img center /images/wp-uploads/2009/11/barcamp7-mary.jpg 628 174 ‘Mary Rose Cook’ %}</a></p>
+<p><a href="http://www.flickr.com/photos/adewale_oshineye/4041691950/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-mary.jpg" width="628" height="174" title="‘Mary Rose Cook’" ></a></p>
 
 <p>Mary took us through 10 bands which in her opinion no-one should be without. Most of them were not so much to my taste but you can’t please them all, eh? Afterwards she took suggestions of other bands that should be added to the list.</p>
 
@@ -228,7 +228,7 @@
 
 <h3 id="autism">Autism</h3>
 
-<p><a href="http://www.flickr.com/photos/rugbymadgirl/4047724494/in/pool-barcamplondon">{% img center /images/wp-uploads/2009/11/barcamp7-jamie.jpg 628 173 ‘Jamie &amp; Lion’ %}</a></p>
+<p><a href="http://www.flickr.com/photos/rugbymadgirl/4047724494/in/pool-barcamplondon"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-jamie.jpg" width="628" height="173" title="‘Jamie &amp; Lion’" ></a></p>
 
 <p>Jamie (and his friend <a href="http://www.imetlion.com">Lion</a>) gave an interesting talk on how cognitive diversity affects internet use and taught us all a little about autism and how it affects people. Very useful indeed!</p>
 
@@ -236,7 +236,7 @@
 
 <p>BarCamp was not only a lot of fun but it was valuable, interesting and a good opportunity to meet nice people. It was also very exhausting, but the lack of sleep was my own fault! I hope to be attending many more in the future.</p>
 
-<p><a href="http://www.flickr.com/photos/timblair/4040914375/">{% img center /images/wp-uploads/2009/11/barcamp7-asleep.jpg 628 233 ‘Yours truly failing to stay awake’ %}</a></p>
+<p><a href="http://www.flickr.com/photos/timblair/4040914375/"><img class="center" src="/images/wp-uploads/2009/11/barcamp7-asleep.jpg" width="628" height="233" title="‘Yours truly failing to stay awake’" ></a></p>
 
 <p>Check out the <a href="http://barcamp.org/">BarCamp wiki</a> for more information on BarCamps and to find your next local event. Alternatively you can go to the <a href="http://www.barcamplondon.org/">BarCamp London site</a> which was the fine event this article is written about!</p>
 ]]></content>
