@@ -4,7 +4,7 @@
   <title><![CDATA[Category: coding | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/coding/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:49:41+01:00</updated>
+  <updated>2013-08-18T16:23:16+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -182,7 +182,7 @@ loadGalleryCarouselPage(0);
     <id>http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser</id>
     <content type="html"><![CDATA[<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/nintendo3dswithpen.png" width="455" height="384" title="‘The Nintendo 3DS’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/nintendo3dswithpen.png 455 384 ‘The Nintendo 3DS’ %}</p>
 
 <p>Let’s not beat around the bush: this is a very impressive device. It’s tricked out with all the latest technologies (or the latest applications of ‘old’ technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I’m sure you have read about it - the top screen is a 3D display which importantly doesn’t require glasses. I can’t stress enough how good the 3D effect looked. It felt completely natural and I didn’t find myself getting any kind of a headache or nausea like some people are worried about.</p>
 
@@ -263,7 +263,7 @@ loadGalleryCarouselPage(0);
 
 <p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance. </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo1.png" width="628" height="312" title="‘3DS Screen showing plain background’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo1.png 628 312 ‘3DS Screen showing plain background’ %}</p>
 
 <p>You then have a look at it and wonder why it doesn’t look like it’s way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you’re left feeling a little confused.</p>
 
@@ -273,23 +273,23 @@ loadGalleryCarouselPage(0);
   <li>You could give it a border that makes it look like you’re looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
 </ol>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo2.png" width="628" height="312" title="‘3DS screen showing a background shaded to look like you are looking into a box’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo2.png 628 312 ‘3DS screen showing a background shaded to look like you are looking into a box’ %}</p>
 
 <ol>
   <li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it’s not at the depth you intended.</li>
 </ol>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo3.png" width="628" height="312" title="‘3DS screen with a patterned background’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo3.png 628 312 ‘3DS screen with a patterned background’ %}</p>
 
 <ol>
   <li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I’m going to go with this one.</li>
 </ol>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo4.png" width="628" height="312" title="‘3DS screen with a plain background and a green tile overlayed’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo4.png 628 312 ‘3DS screen with a plain background and a green tile overlayed’ %}</p>
 
 <p>But even laying something on top like this isn’t too easy for our brains to process. Have a look what each eye would be seeing.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo5.png" width="628" height="312" title="‘Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo5.png 628 312 ‘Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye’ %}</p>
 
 <p>There’s not a great deal to differentiate these two images and while your brain knows it’s seeing different things from each eye it is struggling because there are things missing that it’s used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don’t give people headaches we’ll have to sort this out.</p>
 
@@ -301,7 +301,7 @@ loadGalleryCarouselPage(0);
 
 <p>Now the panel has a nice drop shadow which should make it easier on the eyes and easier to see the 3D effect.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo6.png" width="628" height="312" title="‘3DS screen with plain background and a green panel overlaid with a drop shadow’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo6.png 628 312 ‘3DS screen with plain background and a green panel overlaid with a drop shadow’ %}</p>
 
 <p>But how does it get rendered so that each eye sees the shadow differently?</p>
 
@@ -408,10 +408,7 @@ RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
 
 <p>Following a user’s complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today’s search yielded more success than usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Email regex (email_regex.pl)</span> <a href='/downloads/code/regex-for-an-email-address/email_regex.pl'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='perl'><span class='line'><span class="sr">/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code Email regex regex-for-an-email-address/email_regex.pl %}</p>
 
 <p>I won’t lie to you: I haven’t dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I’ve thrown at it. It also works in Javascript which, for me, is a massive win.</p>
 ]]></content>
@@ -422,7 +419,7 @@ RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
     <link href="http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all/"/>
     <updated>2009-12-12T20:47:01+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all</id>
-    <content type="html"><![CDATA[<p><img class="center" src="/images/wp-uploads/2009/12/console.jpg" width="628" height="187" title="‘Firebug console’" ></p>
+    <content type="html"><![CDATA[<p>{% img center /images/wp-uploads/2009/12/console.jpg 628 187 ‘Firebug console’ %}</p>
 
 <p>If you’re like me then you probably use <code>console.log</code> a lot. It’s such a useful debugging tool! It’s better that alert in so many ways I won’t bother mentioning them all because - oh what the hell, this is my blog I’ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
 
@@ -449,7 +446,7 @@ RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
 
 <p>Without Firebug installed the <code>console</code> object doesn’t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It’s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
 
-<p><img class="center" src="/images/wp-uploads/2009/12/erroronpage.gif" width="109" height="21" title="‘IE’s ‘error on page’ icon’" ></p>
+<p>{% img center /images/wp-uploads/2009/12/erroronpage.gif 109 21 ‘IE’s ‘error on page’ icon’ %}</p>
 
 <p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn’t inspire confidence in a site or product.</p>
 
@@ -457,112 +454,7 @@ RewriteRule ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
 
 <p>It’s fair to say that you don’t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug’s console. Have a look at the code:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (console.log.js)</span> <a href='/downloads/code/console-log-for-all/console.log.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="s1">&#39;console&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="s1">&#39;log&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">)){</span>
-</span><span class='line'>	<span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>		<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="p">{},</span>
-</span><span class='line'>		<span class="nx">glow</span><span class="p">,</span>
-</span><span class='line'>		<span class="nx">$</span><span class="p">,</span>
-</span><span class='line'>		<span class="nx">logpanel</span><span class="p">,</span>
-</span><span class='line'>		<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>			<span class="nx">enabled</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">disable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>			<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">){</span>
-</span><span class='line'>				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
-</span><span class='line'>			<span class="p">}</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">clear</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>			<span class="nx">logpanel</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
-</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nx">enabled</span><span class="p">){</span>
-</span><span class='line'>				<span class="k">if</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;undefined&#39;</span><span class="p">){</span>
-</span><span class='line'>					<span class="nx">logpanel</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;&lt;p style=&quot;position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;&quot; id=&quot;console-log&quot;&gt;&#39;</span><span class="p">);</span>
-</span><span class='line'>					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">);</span>
-</span><span class='line'>					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;padding-bottom&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
-</span><span class='line'>					<span class="k">if</span><span class="p">(</span><span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span> <span class="o">&amp;&amp;</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span><span class="o">&lt;=</span><span class="mi">6</span><span class="p">){</span> <span class="c1">//little hack to keep it at the bottom of the IE window</span>
-</span><span class='line'>						<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#console-log&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span><span class="s1">&#39;absolute&#39;</span><span class="p">);</span>
-</span><span class='line'>						<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;99px&#39;</span><span class="p">);</span>
-</span><span class='line'>							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
-</span><span class='line'>						<span class="p">},</span><span class="mi">250</span><span class="p">);</span>
-</span><span class='line'>					<span class="p">}</span>
-</span><span class='line'>				<span class="p">}</span>
-</span><span class='line'>				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">append</span><span class="p">([</span><span class="nx">msg</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">));</span>
-</span><span class='line'>				<span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollHeight</span><span class="p">;</span>
-</span><span class='line'>			<span class="p">}</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">){</span>
-</span><span class='line'>			<span class="nx">glow</span> <span class="o">=</span> <span class="nx">g</span><span class="p">;</span>
-</span><span class='line'>			<span class="nx">$</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
-</span><span class='line'>	<span class="p">}();</span>
-</span><span class='line'>
-</span><span class='line'>	<span class="nx">console</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">glow</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>    </p>
+<p>{% include_code console-log-for-all/console.log.js %}    </p>
 
 <p>I’m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it’s really very good! (<strong>Update:</strong> although, now, sadly discontinued thanks to BBC cutbacks )</p>
 

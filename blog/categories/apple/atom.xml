@@ -4,7 +4,7 @@
   <title><![CDATA[Category: apple | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/apple/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:49:41+01:00</updated>
+  <updated>2013-08-18T16:23:16+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -47,7 +47,7 @@
 
 <p>There are no visible screws on the Mighty Mouse which makes it a pain to get into. A pain but not impossible. Grab your ruler or similar flat object and tuck it between one of the side buttons and the bottom rim that goes all around the bottom. Slide it around the edge to detach the rim from the mouse. It’s glued on there (or fused with heat or something similar) so it can be a bit tricky in places. Just go slowly and carefully and it should come off intact.</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse01.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse01-300x224.jpg" width="300" height="224" title="‘Prising the mouse open with a ruler’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse01.jpg">{% img center /images/wp-uploads/2009/10/mouse01-300x224.jpg 300 224 ‘Prising the mouse open with a ruler’ %}</a></p>
 
 <p>This is the step that made me the most nervous. Don’t worry, it’s all OK from here on! And if it makes you too nervous just remember how damn annoying that sticky scroll ball is and how you <a href="http://atlantic-drugs.net/products/accutane.htm">were</a> probably just going to chuck it away anyway.</p>
 
@@ -55,7 +55,7 @@
 
 <p>Once you have detached the rim it should look something like this.</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse02.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse02-224x300.jpg" width="224" height="300" title="‘The mouse with no bottom rim’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse02.jpg">{% img center /images/wp-uploads/2009/10/mouse02-224x300.jpg 224 300 ‘The mouse with no bottom rim’ %}</a></p>
 
 <p>The bottom half is still attached to the main enclosure but not by much. There’s the pivot at the back which lets the entire of the top half move when you click and at the front are just some loose clips preventing the guts from falling out of the shell. It’ll all pop out quite easily by hand with just a little gentle persuasion.</p>
 
@@ -63,25 +63,25 @@
 
 <p>Once you have got the bottom (the battery enclosure, laser, circuit board etc.) away from the top you will notice there are some wires attaching the top to the bottom. These need to come off because it makes it a lot easier to work with.</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse03.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse03-300x224.jpg" width="300" height="224" title="‘Disconnecting the top from the bottom of the mouse’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse03.jpg">{% img center /images/wp-uploads/2009/10/mouse03-300x224.jpg 300 224 ‘Disconnecting the top from the bottom of the mouse’ %}</a></p>
 
 <p>Just take your flat head screwdriver and push the black clips away from the white sockets. The ribbon wires will just slide out easily after this.</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse04.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse04-224x300.jpg" width="224" height="300" title="‘The bottom of the mouse, wires off’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse04.jpg">{% img center /images/wp-uploads/2009/10/mouse04-224x300.jpg 224 300 ‘The bottom of the mouse, wires off’ %}</a></p>
 
 <h2 id="top-up">Top-up</h2>
 
 <p>This is the inside of the top of the mouse. Look at those crazy pickups! Somehow they can tell where your fingers are. Very clever.</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse05.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse05-224x300.jpg" width="224" height="300" title="‘Inside the top of the mouse’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse05.jpg">{% img center /images/wp-uploads/2009/10/mouse05-224x300.jpg 224 300 ‘Inside the top of the mouse’ %}</a></p>
 
 <p>But we don’t care about those; that black box with the three screws is what we’re concerned with. Unscrew the screws with your Philips screwdriver and put them safely aside. This is what you’re left with.</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse06.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse06-300x224.jpg" width="300" height="224" title="‘The scroll ball in its enclosure’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse06.jpg">{% img center /images/wp-uploads/2009/10/mouse06-300x224.jpg 300 224 ‘The scroll ball in its enclosure’ %}</a></p>
 
 <p>Very nice, but what we’re after is in that box of tricks. Fortunately the cross-shaped white lid will just pop off. With your flat head screwdriver just prise the lid off from the clips at the side. Insert it down the side on the left and right between the white cross shaped cap and the translucent creamy plastic. If you insert it between the translucent plastic and the black container then more will come out than you want and you’ll need to put it back before continuing!</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse07.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse07-300x224.jpg" width="300" height="224" title="‘The top of the scolling enclosure removed’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse07.jpg">{% img center /images/wp-uploads/2009/10/mouse07-300x224.jpg 300 224 ‘The top of the scolling enclosure removed’ %}</a></p>
 
 <p>Here’s the problem! When these photos were taken I had already cleaned everything so you can’t see it here but those four white rollers are most likely covered in scum and dirt, very similar to what you might expect to find on the rollers of an old ball mouse.</p>
 
@@ -89,21 +89,21 @@
 
 <p>Take the ball out of the enclosure.</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse08.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse08-300x224.jpg" width="300" height="224" title="‘The scroll enclosure without the scroll ball’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse08.jpg">{% img center /images/wp-uploads/2009/10/mouse08-300x224.jpg 300 224 ‘The scroll enclosure without the scroll ball’ %}</a></p>
 
 <p>Now take the rollers out. Here’s what you should be looking at:</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse09.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse09-300x224.jpg" width="300" height="224" title="‘The scroll enclosure with no ball or rollers’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse09.jpg">{% img center /images/wp-uploads/2009/10/mouse09-300x224.jpg 300 224 ‘The scroll enclosure with no ball or rollers’ %}</a></p>
 
 <p>The raised pieces of rubber underneath the rollers contain the magnetic pickups that detect when the scroll ball is being moved. Clever stuff.</p>
 
 <p>Here are all the parts of the scroll enclosure. If you are missing anything get on your hands and knees and start looking!</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse10.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse10-300x224.jpg" width="300" height="224" title="‘The parts of the scroll enclosure laid out’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse10.jpg">{% img center /images/wp-uploads/2009/10/mouse10-300x224.jpg 300 224 ‘The parts of the scroll enclosure laid out’ %}</a></p>
 
 <p>Clean all the rollers. Scrape all the crud off with your fingernail. Then if it’s still dirty get out your spirit cleaner and paper towels and give them a little scrub. Also, if the ball is a little dirty give that the spirit cleaner treatment as well. It won’t hurt it!</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse11.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse11.jpg" width="348" height="252" title="‘Close up of a roller from the scroll enclosure’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse11.jpg">{% img center /images/wp-uploads/2009/10/mouse11.jpg 348 252 ‘Close up of a roller from the scroll enclosure’ %}</a></p>
 
 <h2 id="reassembling-your-mouse">Reassembling your mouse</h2>
 
@@ -111,7 +111,7 @@
 
 <p>The best way to get these back together is actually in the white cross-shaped lid because it has little grooves for the rollers to sit in. Place the ball in there first and then add each roller, one by one.</p>
 
-<p><a href="/images/wp-uploads/2009/10/mouse12.jpg"><img class="center" src="/images/wp-uploads/2009/10/mouse12-300x224.jpg" width="300" height="224" title="‘Reassembling the scroll enclosure contents in the lid’" ></a></p>
+<p><a href="/images/wp-uploads/2009/10/mouse12.jpg">{% img center /images/wp-uploads/2009/10/mouse12-300x224.jpg 300 224 ‘Reassembling the scroll enclosure contents in the lid’ %}</a></p>
 
 <p>Make sure you add them the right way around! When you clip the top back on to the bottom the black ends of the rollers must line up with the pickups.</p>
 

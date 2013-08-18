@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 3ds | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/3ds/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:49:41+01:00</updated>
+  <updated>2013-08-18T16:23:16+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -20,7 +20,7 @@
     <id>http://blog.norestfortheweekend.com/blog/2011/06/14/3ds-browser-revisited</id>
     <content type="html"><![CDATA[<p>It’s been a few months since I made <a href="/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser/">the post speculating about the 3DS’ browser capabilities</a>. Since the browser is now available and that post is easily the post that has drawn the most attention to my humble blog I thought it would be worth writing a quick follow-up.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/06/photo.jpg" width="628" height="569" title="‘Brand new Nintendo 3DS’" ></p>
+<p>{% img center /images/wp-uploads/2011/06/photo.jpg 628 569 ‘Brand new Nintendo 3DS’ %}</p>
 
 <h3 id="not-letting-you-down-easily">Not letting you down easily</h3>
 

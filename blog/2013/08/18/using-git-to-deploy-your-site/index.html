@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using git to deploy your site - No Rest For The Weekend</title>
+  <meta name="author" content="Mark Stickley">
+
+  
+  <meta name="description" content="If you’re using git for your source control but still using FTP to publish updates to your website, you’re doing it wrong! TL; DR You can set up git &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.norestfortheweekend.com/blog/2013/08/18/using-git-to-deploy-your-site/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+    document.rssUrl = 'http://feeds.feedburner.com/NoRestForTheWeekend';
+</script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-537105-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup id="banner">
+  <h1><a href="/">No Rest For The Weekend</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.norestfortheweekend.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Using Git to Deploy Your Site</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-18T15:30:00+01:00" pubdate data-updated="true">Aug 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>If you’re using git for your source control but still using FTP to publish updates to your website, you’re <em>doing it wrong</em>!</p>
+
+<h2 id="tl-dr">TL; DR</h2>
+
+<p>You can set up git so that you can use a single command to deploy your code to live. This post takes you through the typical steps to set this up.</p>
+
+<h2 id="about-git">About git</h2>
+
+<p>Git is a distributed version control system. It’s the “distributed” part that makes it useful in this situation. Git allows you to specify multiple remote repositories at addressable locations that it can sync with. To be able to use git to deploy your site, one of those remote repositories must be on the live server.</p>
+
+<h2 id="some-assumptions">Some assumptions</h2>
+
+<p>In order for this to work, you will need:</p>
+
+<ul>
+  <li>Code for a website under version control in git</li>
+  <li>An addressable web server to which you want to deploy the website</li>
+  <li>SSH access to the web server</li>
+  <li>Git available on the web server</li>
+</ul>
+
+<p>I’ll go through some other steps that require you to be working on a *nix computer, but they are not essential and are really for convenience. You should be able to do this from a Windows machine without a problem.</p>
+
+<h2 id="making-life-easier">Making life easier</h2>
+
+<p><em>This section is optional, but it reduces hassle and increases security so why not?</em></p>
+
+<p><strong><a href="https://kb.mediatemple.net/questions/1625/Using+an+SSH+Config+File">Use an SSH config file</a>.</strong> You can set up aliases, default parameters and security options in <code>~/.ssh/config</code>. It’s a real time saver - it basically means you don’t have to provide all the options and switches every time you sign in via SSH to your server. My host provides a jailed shell on port 2222 and for security I like to use a public key for authentication so my config file looks a little like this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Host mydomain.com
+</span><span class="line">  Port 2222
+</span><span class="line">  PreferredAuthentications publickey</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><strong>Set up public key authentication.</strong> This increases security on your server by not allowing password access and by installing a certificate on your local computer means you never have to manually authenticate either (unless you choose to password protect your certificate). I won’t go through it here but if you’re interested you can <a href="http://stackoverflow.com/a/9095">learn how to do it</a>.</p>
+
+<h2 id="server-side">Server-side</h2>
+
+<p>Sign in via SSH to your server. You’ll start in your home directory.</p>
+
+<p>Create a folder and initialise a new git repo inside it. You can call it what you like; I gave mine the same name as the domain. </p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>mkdir mydomain.com
+</span><span class="line"><span class="nv">$ </span><span class="nb">cd </span>mydomain.com/
+</span><span class="line"><span class="nv">$ </span>git init
+</span><span class="line">Initialized empty Git repository in /home/username/mydomain.com/
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>A git repository and the filesystem containing the checked-out files from that repository are two different things in different locations on disk. When you push from your computer to a remote repository you will only alter what’s in the remote repository; the checked out files on the server remain unchanged. This is a problem since you need the checked-out files to be updated as well so they can be read by the web server software and served to people visiting your site. This is where <strong>git hooks</strong> come in handy.</p>
+
+<p>Git hooks are scripts that are automatically run when certain events occur in git. In this case we want a script that checks out the latest version to run after the repo receives an update. The hook’s name is <code>post-receive</code>.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span><span class="nb">cd</span> .git/hooks/
+</span><span class="line"><span class="nv">$ </span>vim post-receive
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>post-receive</code> does not exist by default and so vim should open with a blank file. For the benefit of those not fluent in vim-ese I’ll give blow by blow instructions.</p>
+
+<ul>
+  <li>Type ‘i’ to enter Insert Mode</li>
+  <li>Paste in the following code:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="c">#!/bin/sh</span>
+</span><span class="line"><span class="nv">GIT_WORK_TREE</span><span class="o">=</span>../ git checkout -f
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>Press Escape to exit Insert Mode</li>
+  <li>Type ‘:’ followed by ‘w’, ‘q’, and Enter, which should (w)rite the file and (q)uit.</li>
+</ul>
+
+<p>The script we just created simply performs a <em>forced checkout</em> which makes sure the state of the checked-out files match the latest version of the repository (i.e. The version just received).</p>
+
+<p>Now it needs to be made executable:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>chmod a+x post-receive
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Finally, we need to configure the repository to accept incoming updates without complaining. By default it’s set up to grumble because without the git hook we just set up, the working tree (checked-out files) and the repository would be out of sync. With the git hook in place this becomes a non-issue.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>git config receive.denyCurrentBranch ignore
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="connecting-the-dots">Connecting the dots</h2>
+
+<p>Now the server is ready to receive updates we need to tell the local repository about it.</p>
+
+<p>On your local computer:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>git remote add live username@mydomain.com:mydomain.com
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This sets up the repository you just set up on your server as a ‘remote’. You can now refer to that repository as <code>live</code>.</p>
+
+<h2 id="doing-it-live">Doing it live</h2>
+
+<p>All that remains now is to push your site live. From your local computer:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>git push live master
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>That’s it. Whenever you want to publish, from now on that’s all you need to type.</p>
+
+<h2 id="one-more-thing">One more thing</h2>
+
+<p>You may notice that your site isn’t showing up just yet. Log back on to your server. You can see, if you check, in the <code>mydomain.com</code> folder your latest changes are there, but we need to alter the folder that currently contains your website to point to the <code>mydomain.com</code> folder instead.</p>
+
+<p>There will be a folder in your home directory called <code>htdocs</code>, <code>www</code> or <code>public_html</code> containing all the files that currently form your website. I’ll assume it’s called <code>public_html</code>. Make sure there’s nothing in that folder that you haven’t got backed up or that you want to keep - it’s about to be deleted!</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>rm -rf public_html/
+</span><span class="line"><span class="nv">$ </span>ln -s mydomain.com public_html
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This creates a symbolic link from <code>public_html</code> to your repository. Reload the page in your browser and you should see the version you just pushed from git.</p>
+
+<p>Make a small change and try <code>git push live master</code> again. As soon as it has finished you should see the change on your site. Deployments, no matter how large or small, will never be a hassle again.</p>
+
+<h2 id="a-note-on-security">A note on security</h2>
+
+<p>If you navigate to http://mydomain.com/.git you may notice that the contents of your git repository are available for the world to see. Reasons why you might not want this:</p>
+
+<ul>
+  <li>Your email address is probably associated with all your commits</li>
+  <li>Anyone could download your repository and all of its history</li>
+  <li>Your code will be public and it would be easier to find security holes in it</li>
+</ul>
+
+<p>I get around this by having all the code to be served in a subfolder of the repository, <code>htdocs</code>, and link to that instead of the main repository folder. Alternatively you could use <code>.htaccess</code> (if you’re running Apache) to block access. Just copy these lines into your <code>.htaccess</code> file:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="apache"><span class="line"><span class="nb">RewriteEngine</span> <span class="k">On</span>
+</span><span class="line"><span class="nb">RewriteRule</span> ^(.*/)?\.git+ - [F,L]
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Stickley</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-18T15:30:00+01:00" pubdate data-updated="true">Aug 18<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/development/'>development</a>, <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/howto/'>howto</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.norestfortheweekend.com/blog/2013/08/18/using-git-to-deploy-your-site/" data-via="norestftw" data-counturl="http://blog.norestfortheweekend.com/blog/2013/08/18/using-git-to-deploy-your-site/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/06/in-defence-of-the-bbc-and-its-clock/" title="Previous Post: In Defence Of The BBC And Its Clock">&laquo; In Defence Of The BBC And Its Clock</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/18/using-git-to-deploy-your-site/">Using git to deploy your site</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/06/in-defence-of-the-bbc-and-its-clock/">In Defence Of The BBC And Its Clock</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/22/javascript-named-arguments/">Javascript Named Arguments</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/31/interviewing-for-css/">Interviewing for CSS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/11/zero-image-close-buttons/">Zero image close buttons</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("norestftw", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/norestftw" class="twitter-follow-button" data-show-count="false">Follow @norestftw</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Mark Stickley -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'norestfortheweekend';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.norestfortheweekend.com/blog/2013/08/18/using-git-to-deploy-your-site/';
+        var disqus_url = 'http://blog.norestfortheweekend.com/blog/2013/08/18/using-git-to-deploy-your-site/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<script src="/javascripts/nrftw.js" type="text/javascript"></script>
+
+
+</body>
+</html>

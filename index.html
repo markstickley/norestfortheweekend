@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Stickley">
 
   
-  <meta name="description" content="The BBC has said that due to a single person complaining, they will be removing the clock from the home page. The news has been reported fairly &hellip;">
+  <meta name="description" content="If you’re using git for your source control but still using FTP to publish updates to your website, you’re doing it wrong! TL; DR You can set up git &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,192 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/18/using-git-to-deploy-your-site/">Using Git to Deploy Your Site</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-18T15:30:00+01:00" pubdate data-updated="true">Aug 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you’re using git for your source control but still using FTP to publish updates to your website, you’re <em>doing it wrong</em>!</p>
+
+<h2 id="tl-dr">TL; DR</h2>
+
+<p>You can set up git so that you can use a single command to deploy your code to live. This post takes you through the typical steps to set this up.</p>
+
+<h2 id="about-git">About git</h2>
+
+<p>Git is a distributed version control system. It’s the “distributed” part that makes it useful in this situation. Git allows you to specify multiple remote repositories at addressable locations that it can sync with. To be able to use git to deploy your site, one of those remote repositories must be on the live server.</p>
+
+<h2 id="some-assumptions">Some assumptions</h2>
+
+<p>In order for this to work, you will need:</p>
+
+<ul>
+  <li>Code for a website under version control in git</li>
+  <li>An addressable web server to which you want to deploy the website</li>
+  <li>SSH access to the web server</li>
+  <li>Git available on the web server</li>
+</ul>
+
+<p>I’ll go through some other steps that require you to be working on a *nix computer, but they are not essential and are really for convenience. You should be able to do this from a Windows machine without a problem.</p>
+
+<h2 id="making-life-easier">Making life easier</h2>
+
+<p><em>This section is optional, but it reduces hassle and increases security so why not?</em></p>
+
+<p><strong><a href="https://kb.mediatemple.net/questions/1625/Using+an+SSH+Config+File">Use an SSH config file</a>.</strong> You can set up aliases, default parameters and security options in <code>~/.ssh/config</code>. It’s a real time saver - it basically means you don’t have to provide all the options and switches every time you sign in via SSH to your server. My host provides a jailed shell on port 2222 and for security I like to use a public key for authentication so my config file looks a little like this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Host mydomain.com
+</span><span class="line">  Port 2222
+</span><span class="line">  PreferredAuthentications publickey</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><strong>Set up public key authentication.</strong> This increases security on your server by not allowing password access and by installing a certificate on your local computer means you never have to manually authenticate either (unless you choose to password protect your certificate). I won’t go through it here but if you’re interested you can <a href="http://stackoverflow.com/a/9095">learn how to do it</a>.</p>
+
+<h2 id="server-side">Server-side</h2>
+
+<p>Sign in via SSH to your server. You’ll start in your home directory.</p>
+
+<p>Create a folder and initialise a new git repo inside it. You can call it what you like; I gave mine the same name as the domain. </p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>mkdir mydomain.com
+</span><span class="line"><span class="nv">$ </span><span class="nb">cd </span>mydomain.com/
+</span><span class="line"><span class="nv">$ </span>git init
+</span><span class="line">Initialized empty Git repository in /home/username/mydomain.com/
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>A git repository and the filesystem containing the checked-out files from that repository are two different things in different locations on disk. When you push from your computer to a remote repository you will only alter what’s in the remote repository; the checked out files on the server remain unchanged. This is a problem since you need the checked-out files to be updated as well so they can be read by the web server software and served to people visiting your site. This is where <strong>git hooks</strong> come in handy.</p>
+
+<p>Git hooks are scripts that are automatically run when certain events occur in git. In this case we want a script that checks out the latest version to run after the repo receives an update. The hook’s name is <code>post-receive</code>.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span><span class="nb">cd</span> .git/hooks/
+</span><span class="line"><span class="nv">$ </span>vim post-receive
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>post-receive</code> does not exist by default and so vim should open with a blank file. For the benefit of those not fluent in vim-ese I’ll give blow by blow instructions.</p>
+
+<ul>
+  <li>Type ‘i’ to enter Insert Mode</li>
+  <li>Paste in the following code:</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="c">#!/bin/sh</span>
+</span><span class="line"><span class="nv">GIT_WORK_TREE</span><span class="o">=</span>../ git checkout -f
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>Press Escape to exit Insert Mode</li>
+  <li>Type ‘:’ followed by ‘w’, ‘q’, and Enter, which should (w)rite the file and (q)uit.</li>
+</ul>
+
+<p>The script we just created simply performs a <em>forced checkout</em> which makes sure the state of the checked-out files match the latest version of the repository (i.e. The version just received).</p>
+
+<p>Now it needs to be made executable:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>chmod a+x post-receive
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Finally, we need to configure the repository to accept incoming updates without complaining. By default it’s set up to grumble because without the git hook we just set up, the working tree (checked-out files) and the repository would be out of sync. With the git hook in place this becomes a non-issue.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>git config receive.denyCurrentBranch ignore
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="connecting-the-dots">Connecting the dots</h2>
+
+<p>Now the server is ready to receive updates we need to tell the local repository about it.</p>
+
+<p>On your local computer:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>git remote add live username@mydomain.com:mydomain.com
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This sets up the repository you just set up on your server as a ‘remote’. You can now refer to that repository as <code>live</code>.</p>
+
+<h2 id="doing-it-live">Doing it live</h2>
+
+<p>All that remains now is to push your site live. From your local computer:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>git push live master
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>That’s it. Whenever you want to publish, from now on that’s all you need to type.</p>
+
+<h2 id="one-more-thing">One more thing</h2>
+
+<p>You may notice that your site isn’t showing up just yet. Log back on to your server. You can see, if you check, in the <code>mydomain.com</code> folder your latest changes are there, but we need to alter the folder that currently contains your website to point to the <code>mydomain.com</code> folder instead.</p>
+
+<p>There will be a folder in your home directory called <code>htdocs</code>, <code>www</code> or <code>public_html</code> containing all the files that currently form your website. I’ll assume it’s called <code>public_html</code>. Make sure there’s nothing in that folder that you haven’t got backed up or that you want to keep - it’s about to be deleted!</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nv">$ </span>rm -rf public_html/
+</span><span class="line"><span class="nv">$ </span>ln -s mydomain.com public_html
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>This creates a symbolic link from <code>public_html</code> to your repository. Reload the page in your browser and you should see the version you just pushed from git.</p>
+
+<p>Make a small change and try <code>git push live master</code> again. As soon as it has finished you should see the change on your site. Deployments, no matter how large or small, will never be a hassle again.</p>
+
+<h2 id="a-note-on-security">A note on security</h2>
+
+<p>If you navigate to http://mydomain.com/.git you may notice that the contents of your git repository are available for the world to see. Reasons why you might not want this:</p>
+
+<ul>
+  <li>Your email address is probably associated with all your commits</li>
+  <li>Anyone could download your repository and all of its history</li>
+  <li>Your code will be public and it would be easier to find security holes in it</li>
+</ul>
+
+<p>I get around this by having all the code to be served in a subfolder of the repository, <code>htdocs</code>, and link to that instead of the main repository folder. Alternatively you could use <code>.htaccess</code> (if you’re running Apache) to block access. Just copy these lines into your <code>.htaccess</code> file:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="apache"><span class="line"><span class="nb">RewriteEngine</span> <span class="k">On</span>
+</span><span class="line"><span class="nb">RewriteRule</span> ^(.*/)?\.git+ - [F,L]
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1679,75 +1865,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/16/always-use-www-in-your-urls/">Always Use Www in Your URLs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-16T19:13:03+00:00" pubdate data-updated="true">Jan 16<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>…unless you are specifically on another subdomain. </p>
-
-<p>I’m not kidding! You need to make sure that your sites all redirect from http://yoursite.org to http://www.yoursite.org. If you’re not sure whether your sites do this, try now. Go ahead, I’ll wait.</p>
-
-<p>You can score yourself against this list based on what you see:</p>
-
-<ul>
-  <li>Error page: <strong>NO POINTS!</strong></li>
-  <li>Redirected to www.yoursite.org but to the front page instead of the page you wanted: <strong>Half a point</strong></li>
-  <li>Page served, URL still has no www: <strong>1 point</strong></li>
-  <li>Redirected to www.yoursite.org and to the correct page: <strong>10 points!</strong></li>
-</ul>
-
-<p>On no account should a user see an error page if they don’t type www before your URL. That’s just a horrible experience and most people will think the site is just broken and go somewhere else. No points at all.</p>
-
-<p>It’s almost as bad if the user enters an address to a page within your site and then gets taken to the home page, even if the URL in the address bar says www. I mean at least the site doesn’t look broken but it’s still not a nice welcome. Having the www gets you half a point.</p>
-
-<p>If the page is served irrespective of whether there is a www in the URL thats… OK. But only OK. Aside from the fact that you’ve got the same pages in two locations (not good for Google-juice) it could lead to errors. As yoursite.org and www.yoursite.org are seen as two different domains, if you have any AJAX on your site that refers specifically to www.yoursite.org it’s going to <em>fail hard</em> if the URL in the address bar doesn’t have the www. This is thanks to the cross-domain security model browsers employ. You don’t want that happening.</p>
-
-<p>What you should be doing is simply redirecting all traffic to the root domain to the www subdomain and maintaining the rest of the URL to ensure a good experience. This is actually very easy to do:</p>
-
-<p>Open the <code>.htaccess</code> file in the root of your site’s file structure. If it doesn’t exist, create it! You can create it on the command line, or directly on the server but Windows and OS X will object to the filename if you try and create it using the GUI. Once it’s open, add these lines to it:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="apache"><span class="line"><span class="nb">RewriteCond</span> %{HTTP_HOST} ^yoursite\.org$ [NC]
-</span><span class="line"><span class="nb">RewriteRule</span> ^(.*)$ http://www.yoursite.org/$1 [R=301,L]
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>Note that on the first line when you change the domain you need to add a slash before each dot as it’s part of a regular expression.</p>
-
-<p>It’s that simple!</p>
-
-<p>You have no excuse now.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1763,6 +1880,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/08/18/using-git-to-deploy-your-site/">Using git to deploy your site</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/06/in-defence-of-the-bbc-and-its-clock/">In Defence Of The BBC And Its Clock</a>
       </li>
     
@@ -1776,10 +1897,6 @@
     
       <li class="post">
         <a href="/blog/2012/07/11/zero-image-close-buttons/">Zero image close buttons</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/12/moving-from-wordpress-to-octopress/">Moving from Wordpress to Octopress</a>
       </li>
     
   </ul>

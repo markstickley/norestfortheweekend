@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:49:41+01:00</updated>
+  <updated>2013-08-18T16:23:16+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -299,10 +299,7 @@ loadGalleryCarouselPage(0);
 
 <p>Following a user’s complaint that they could not register with our site with their (perfectly legitimate) address because of our validation, today’s search yielded more success than usual. Near the bottom of the <a href="http://cpansearch.perl.org/src/RJBS/Email-Valid-0.184/lib/Email/Valid.pm">source</a> of the <a href="http://search.cpan.org/~rjbs/Email-Valid-0.184/lib/Email/Valid.pm">Perl Email::Valid module</a> there is a very long regular expression which I have lifted directly and placed in this page.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Email regex (email_regex.pl)</span> <a href='/downloads/code/regex-for-an-email-address/email_regex.pl'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='perl'><span class='line'><span class="sr">/^[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*|(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*(?:(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[^()&lt;&gt;@,;:&quot;.\\\[\]\x80-\xff\000-\010\012-\037]*)*&lt;[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*(?:,[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*)*:[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)?(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|&quot;[^\\\x80-\xff\n\015&quot;]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015&quot;]*)*&quot;)[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*@[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:\.[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*(?:[^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff]+(?![^(\040)&lt;&gt;@,;:&quot;.\\\[\]\000-\037\x80-\xff])|\[(?:[^\\\x80-\xff\n\015\[\]]|\\[^\x80-\xff])*\])[\040\t]*(?:\([^\\\x80-\xff\n\015()]*(?:(?:\\[^\x80-\xff]|\([^\\\x80-\xff\n\015()]*(?:\\[^\x80-\xff][^\\\x80-\xff\n\015()]*)*\))[^\\\x80-\xff\n\015()]*)*\)[\040\t]*)*)*&gt;)$/</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% include_code Email regex regex-for-an-email-address/email_regex.pl %}</p>
 
 <p>I won’t lie to you: I haven’t dissected it to manually confirm that it does what it should, but it has been successful so far in the tests I’ve thrown at it. It also works in Javascript which, for me, is a massive win.</p>
 ]]></content>
@@ -313,7 +310,7 @@ loadGalleryCarouselPage(0);
     <link href="http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all/"/>
     <updated>2009-12-12T20:47:01+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/12/12/console-log-for-all</id>
-    <content type="html"><![CDATA[<p><img class="center" src="/images/wp-uploads/2009/12/console.jpg" width="628" height="187" title="‘Firebug console’" ></p>
+    <content type="html"><![CDATA[<p>{% img center /images/wp-uploads/2009/12/console.jpg 628 187 ‘Firebug console’ %}</p>
 
 <p>If you’re like me then you probably use <code>console.log</code> a lot. It’s such a useful debugging tool! It’s better that alert in so many ways I won’t bother mentioning them all because - oh what the hell, this is my blog I’ll do what I want. Here is why <code>console.log</code> is better than alert:</p>
 
@@ -340,7 +337,7 @@ loadGalleryCarouselPage(0);
 
 <p>Without Firebug installed the <code>console</code> object doesn’t exist. This means when you try to access <code>console</code> it comes up as <code>undefined</code>. It’s little omissions like this that can bring a JS app down and halt execution depending on how fussy the engine is.</p>
 
-<p><img class="center" src="/images/wp-uploads/2009/12/erroronpage.gif" width="109" height="21" title="‘IE’s ‘error on page’ icon’" ></p>
+<p>{% img center /images/wp-uploads/2009/12/erroronpage.gif 109 21 ‘IE’s ‘error on page’ icon’ %}</p>
 
 <p>IE users will see the horrible little yellow exclamation mark in the bottom left of their browser and be informed that there is a problem with one of the scripts on the page. This doesn’t inspire confidence in a site or product.</p>
 
@@ -348,112 +345,7 @@ loadGalleryCarouselPage(0);
 
 <p>It’s fair to say that you don’t want any of this to happen. Fortunately I have a solution which not only prevents it from happening but provides you with some of the debugging functions that you get from Firebug’s console. Have a look at the code:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (console.log.js)</span> <a href='/downloads/code/console-log-for-all/console.log.js'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="s1">&#39;console&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="s1">&#39;log&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">)){</span>
-</span><span class='line'>	<span class="nb">window</span><span class="p">.</span><span class="nx">console</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>		<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="p">{},</span>
-</span><span class='line'>		<span class="nx">glow</span><span class="p">,</span>
-</span><span class='line'>		<span class="nx">$</span><span class="p">,</span>
-</span><span class='line'>		<span class="nx">logpanel</span><span class="p">,</span>
-</span><span class='line'>		<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>			<span class="nx">enabled</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">disable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>			<span class="nx">enabled</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">){</span>
-</span><span class='line'>				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
-</span><span class='line'>			<span class="p">}</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">clear</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>			<span class="nx">logpanel</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
-</span><span class='line'>			<span class="k">if</span><span class="p">(</span><span class="nx">enabled</span><span class="p">){</span>
-</span><span class='line'>				<span class="k">if</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;undefined&#39;</span><span class="p">){</span>
-</span><span class='line'>					<span class="nx">logpanel</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;&lt;p style=&quot;position: fixed; bottom: 0; left: 0; height: 100px; width: 100%; overflow-y: auto; overflow-x: noscroll;background: white;border-top: 1px solid gray;&quot; id=&quot;console-log&quot;&gt;&#39;</span><span class="p">);</span>
-</span><span class='line'>					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">logpanel</span><span class="p">);</span>
-</span><span class='line'>					<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;padding-bottom&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
-</span><span class='line'>					<span class="k">if</span><span class="p">(</span><span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span> <span class="o">&amp;&amp;</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ie</span><span class="o">&lt;=</span><span class="mi">6</span><span class="p">){</span> <span class="c1">//little hack to keep it at the bottom of the IE window</span>
-</span><span class='line'>						<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#console-log&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span><span class="s1">&#39;absolute&#39;</span><span class="p">);</span>
-</span><span class='line'>						<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;99px&#39;</span><span class="p">);</span>
-</span><span class='line'>							<span class="nx">logpanel</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;100px&#39;</span><span class="p">);</span>
-</span><span class='line'>						<span class="p">},</span><span class="mi">250</span><span class="p">);</span>
-</span><span class='line'>					<span class="p">}</span>
-</span><span class='line'>				<span class="p">}</span>
-</span><span class='line'>				<span class="nx">logpanel</span><span class="p">.</span><span class="nx">append</span><span class="p">([</span><span class="nx">msg</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">));</span>
-</span><span class='line'>				<span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">logpanel</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">scrollHeight</span><span class="p">;</span>
-</span><span class='line'>			<span class="p">}</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="nx">r</span><span class="p">.</span><span class="nx">init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">){</span>
-</span><span class='line'>			<span class="nx">glow</span> <span class="o">=</span> <span class="nx">g</span><span class="p">;</span>
-</span><span class='line'>			<span class="nx">$</span> <span class="o">=</span> <span class="nx">glow</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
-</span><span class='line'>		<span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>		<span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
-</span><span class='line'>	<span class="p">}();</span>
-</span><span class='line'>
-</span><span class='line'>	<span class="nx">console</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">glow</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>    </p>
+<p>{% include_code console-log-for-all/console.log.js %}    </p>
 
 <p>I’m using the <a href="http://www.bbc.co.uk/glow">Glow</a> library to do this, go check it out it’s really very good! (<strong>Update:</strong> although, now, sadly discontinued thanks to BBC cutbacks )</p>
 

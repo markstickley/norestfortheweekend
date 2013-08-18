@@ -4,7 +4,7 @@
   <title><![CDATA[Category: conferences | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/conferences/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:49:41+01:00</updated>
+  <updated>2013-08-18T16:23:16+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.norestfortheweekend.com/blog/2010/03/21/why-do-we-need-conferences/"/>
     <updated>2010-03-21T00:58:21+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2010/03/21/why-do-we-need-conferences</id>
-    <content type="html"><![CDATA[<p><a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards"><img class="center" src="/images/wp-uploads/2010/03/hBeer.jpg" width="280" height="420" title="‘hBeer’" ></a></p>
+    <content type="html"><![CDATA[<p><a href="http://www.flickr.com/photos/rugbymadgirl/2528751423/in/pool-pubstandards">{% img center /images/wp-uploads/2010/03/hBeer.jpg 280 420 ‘hBeer’ %}</a></p>
 
 <p>Seriously? Why do we need to spend hundreds of pounds, dollars, euros or whatever to attend these events? They are pretty pricey and more often that not they are nowhere near home so you have the added cost of transport and hotel bills and all those meals you’re going to consume out while you’re away. It’s not cheap, and even if you can afford it, why spend it?</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: html | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/html/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:49:41+01:00</updated>
+  <updated>2013-08-18T16:23:16+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -24,7 +24,7 @@
 
 <p>That’s right. Just when you thought you had a nice system in place IE comes along and stomps all over it. I’m sure more and more people will come up against this as they start using CSS gradients in earnest. I can see it being quite a common situation, too. I have two background images: one, a CSS generated gradient and two, an image to be laid over the top of it. A nice shiny button with an icon, for example.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/button.png" width="142" height="38" title="‘A button that says Register now and has a gradient and a separate icon for the background’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/button.png 142 38 ‘A button that says Register now and has a gradient and a separate icon for the background’ %}</p>
 
 <p>We know that certain browsers can’t render gradients and so we define the background to initially be just a solid colour with the icon image (the users of the older browsers will never miss what they didn’t know was there). Then we go on to define the styles for the modern browsers. These styles use the same selector (<code>background-image</code>) so they will override the initial declaration but according to the rules, browsers that don’t understand the gradient instructions will just ignore the whole declaration leaving us with just the initial icon for the background.</p>
 
@@ -70,17 +70,17 @@ padding-left: 30px; } ```
 
 <p>Here it is in Firefox:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example1-ff.png" width="142" height="38" title="‘Styles are working well in Firefox’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example1-ff.png 142 38 ‘Styles are working well in Firefox’ %}</p>
 
 <p>And in IE7:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example1-ie.png" width="142" height="38" title="‘The icon on the button is missing in IE’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example1-ie.png 142 38 ‘The icon on the button is missing in IE’ %}</p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example1.html">see it for yourself in your browser</a>.</p>
 
 <p>It seems that IE is not behaving as we might expect. It’s not showing the gradient (expected) but it’s not failing back to just showing the icon either. A quick look at the IE developer toolbar (in IE9, IE7 mode; the IE7 dev toolbar would leave you stumped) shows us why:</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example1-ie-inspector.png" width="692" height="100" title="‘Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can’t understand’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example1-ie-inspector.png 692 100 ‘Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can’t understand’ %}</p>
 
 <p>It’s picked up the background image declaration that includes a gradient. In this case it’s the Mozilla-specific gradient and the reason it’s this one and not the Webkit one is that we are defining the Mozilla one last. If they were defined the other way around it would have picked up the Webkit one instead.</p>
 
@@ -135,11 +135,11 @@ padding-left: 30px; } ```
 
 <p>Here it is in Firefox:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example2-ff.png" width="142" height="38" title="‘The styles are working well in Firefox’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example2-ff.png 142 38 ‘The styles are working well in Firefox’ %}</p>
 
 <p>And in IE7:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example2-ie.png" width="142" height="38" title="‘The styles are working well in IE7’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example2-ie.png 142 38 ‘The styles are working well in IE7’ %}</p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example2.html">see it for yourself in your browser</a>.</p>
 
@@ -147,7 +147,7 @@ padding-left: 30px; } ```
 
 <p>You thought this was over? Of course it’s not! IE9 is a heck of a lot better than previous versions but it’s still not perfect. For example, it does support multiple backgrounds but it doesn’t support CSS gradients. This means that it’ll ignore the gradients but it’ll use the <code>background-position</code> multiple background declaration we made, resulting in the icon being positioned <code>left top</code> as opposed to <code>5px center</code>.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example2-ie9.png" width="142" height="38" title="‘The styles have regressed in IE9 and the icon is incorrectly aligned’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example2-ie9.png 142 38 ‘The styles have regressed in IE9 and the icon is incorrectly aligned’ %}</p>
 
 <p>I tried getting around this by inserting another <code>background-image</code> defining three images (two of them transparent spacers) directly after the first <code>background-image</code> and before the first gradient:</p>
 
@@ -208,31 +208,31 @@ padding-left: 30px; } ```
 
 <p>Here it is in Firefox:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ff.png" width="142" height="38" title="‘The styles are working well in Firefox’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ff.png 142 38 ‘The styles are working well in Firefox’ %}</p>
 
 <p>And in Webkit (Chrome):  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ch.png" width="142" height="38" title="‘The styles are working well in Chrome’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ch.png 142 38 ‘The styles are working well in Chrome’ %}</p>
 
 <p>And in Opera:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-op.png" width="142" height="38" title="‘The styles are working well in Opera’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-op.png 142 38 ‘The styles are working well in Opera’ %}</p>
 
 <p>And in IE6:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie6.png" width="142" height="38" title="‘The styles are working well in IE6’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ie6.png 142 38 ‘The styles are working well in IE6’ %}</p>
 
 <p>And in IE7:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie7.png" width="142" height="38" title="‘The styles are working well in IE7’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ie7.png 142 38 ‘The styles are working well in IE7’ %}</p>
 
 <p>And in IE8:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie8.png" width="142" height="38" title="‘The styles are working well in IE8’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ie8.png 142 38 ‘The styles are working well in IE8’ %}</p>
 
 <p>And in IE9:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie9.png" width="142" height="38" title="‘The styles are working well in IE9’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ie9.png 142 38 ‘The styles are working well in IE9’ %}</p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example3.html">see it for yourself in your browser</a>.</p>
 
@@ -254,7 +254,7 @@ padding-left: 30px; } ```
     <link href="http://blog.norestfortheweekend.com/blog/2009/11/28/paypal-for-shame/"/>
     <updated>2009-11-28T12:12:14+00:00</updated>
     <id>http://blog.norestfortheweekend.com/blog/2009/11/28/paypal-for-shame</id>
-    <content type="html"><![CDATA[<p><img class="center" src="/images/wp-uploads/2009/11/shameless.jpg" width="628" height="150" title="‘Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess’" ></p>
+    <content type="html"><![CDATA[<p>{% img center /images/wp-uploads/2009/11/shameless.jpg 628 150 ‘Screengrab of the PayPal homepage header, the word PayPal replaced with the word ShameLess’ %}</p>
 
 <p><a href="http://www.paypal.com">PayPal</a> is, as I’m sure you know, a long-standing staple of online payment technologies. They are now merged with eBay and you pretty much can’t use eBay without a PayPal account which works nicely for eBay as they are now reaping the benefit of not just the eBay selling fees but also the PayPal fees.</p>
 
@@ -548,7 +548,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){ // if a form was submitted
 
 <p>It’s pretty simple really. The basic interface looks like this:</p>
 
-<p><img class="center" src="/images/wp-uploads/2009/08/restclient.gif" width="618" height="603" title="‘The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things.’" ></p>
+<p>{% img center /images/wp-uploads/2009/08/restclient.gif 618 603 ‘The RESTClient interface displays fields for method, url, header and request body along with an area in which to display the response. At the top are controls to open &amp; save your request amongst other things.’ %}</p>
 
 <ol>
   <li>Choose your request method</li>

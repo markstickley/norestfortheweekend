@@ -4,7 +4,7 @@
   <title><![CDATA[Category: css | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/css/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:49:41+01:00</updated>
+  <updated>2013-08-18T16:23:16+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -29,44 +29,38 @@
 <p>Some brilliant people came to my rescue almost immediately and here are their responses:</p>
 
 <!-- "spell 'specificity' (and then explain it...)" -@rich13 -->
-<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> "spell 'specificity' (and then explain it...)"</p>&mdash; Richard Northover (@rich13) <a href="https://twitter.com/rich13/status/200628477991464961">May 10, 2012</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+<p>{% tweet https://twitter.com/rich13/status/200628477991464961 %}</p>
 
 <p>I like this one because it’s really getting back to basics. Not only do you have to know that specificity exists but you have to understand what it does and how it does it. The spelling part is a bit of fun - hopefully the candidate will understand that that’s not the important part! Here’s <a href="http://css-tricks.com/specifics-on-css-specificity/">an article on CSS specificity</a> if you need a refresher.</p>
 
 <!-- I got asked the difference between display:none; and visibility:hidden -@mfujica -->
-<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> I got asked the difference between display:none; and visibility:hidden - but that's years ago...</p>&mdash; Morena Fiore (@mfujica) <a href="https://twitter.com/mfujica/status/200629821737406465">May 10, 2012</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+<p>{% tweet https://twitter.com/mfujica/status/200629821737406465 %}</p>
 
 <p>This is a nice one as well. It checks that they have some understanding about how the document flow works. You could follow this question up by asking if they know any other ways of hiding content and why they might want to do it that way instead.</p>
 
 <p>The answer, of course, is that <code>display: none</code> removes the element from the document flow while <code>visibility: hidden</code> does not. Another way of hiding content (which is good for accessibility as it doesn’t hide it from screen readers) is by using a negative margin. There are various drawbacks and other ways of achieveing this which might also be a good thing to discuss.</p>
 
 <!-- What is the default position of an element? -@mfujica -->
-<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> What is the default position of an element?</p>&mdash; Morena Fiore (@mfujica) <a href="https://twitter.com/mfujica/status/200630440720220160">May 10, 2012</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+<p>{% tweet https://twitter.com/mfujica/status/200630440720220160 %}</p>
 
 <p>It is <code>static</code>. But it’s not the most well-known property as normally we are changing the position <em>from</em> <code>static</code> <em>to</em> something else, like <code>relative</code> or <code>fixed</code>.</p>
 
 <!-- Explaning what inline-block is also should be a good -@mfujica -->
-<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> Explaning what inline-block is also should be a good question...</p>&mdash; Morena Fiore (@mfujica) <a href="https://twitter.com/mfujica/status/200631684956299266">May 10, 2012</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+<p>{% tweet https://twitter.com/mfujica/status/200631684956299266 %}</p>
 
 <p><code>inline-block</code> has only really been useful since IE started supporting it properly (around v8) and so while it’s very handy, not everyone has used it.</p>
 
 <p>An element with <code>display: inline-block</code> flows in the document like an inline element but allows you to apply styles to it that normally only apply to block-level elements such as <code>margin</code>, <code>width</code> and <code>height</code>.</p>
 
 <!-- what is CSS3? Draw an arrow head using borders. -@ralfas -->
-<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> what is CSS3? Draw an arrow head using borders.</p>&mdash; Ralfas Jegorovas (@ralfas) <a href="https://twitter.com/ralfas/status/200843040892518400">May 11, 2012</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+<p>{% tweet https://twitter.com/ralfas/status/200843040892518400 %}</p>
 
 <p>I expect most candidates would ask for clarification or look confused at the first part of that question. That’s fine, seeing their reaction allows you to gauge the way they might react to a poorly defined spec, for example. It’s kind of open ended so they might simply say “It’s the latest version of CSS”. Others may list a few new features. If they’re really smart they’ll tell you that CSS3 hasn’t been formally specified because it’s still in development.</p>
 
 <p>Drawing an arrowhead with borders requires the knowledge that when fat borders meet on adjacent edges they form a diagonal. Check out <a href="http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/">this article</a> for more details. Alternatively you can ask them to <a href="/blog/2012/07/11/zero-image-close-buttons/">create a close button with pure CSS</a> if you’re feeling mean!</p>
 
 <!-- @markstickley @mfujica just make sure you know the answers yourself... -@timblair -->
-<p><div class='embed tweet'><blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/markstickley">markstickley</a> @<a href="https://twitter.com/mfujica">mfujica</a> just make sure you know the answers yourself...</p>&mdash; Tim Blair (@timblair) <a href="https://twitter.com/timblair/status/200633510950748161">May 10, 2012</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></p>
+<p>{% tweet https://twitter.com/timblair/status/200633510950748161 %}</p>
 
 <p>Yep :)</p>
 
@@ -123,7 +117,7 @@
 
 <p>There are two ways of doing this, but I’ll start with the simplest. Let’s deconstruct our button:</p>
 
-<p><img class="center" src="/images/posts/2012/07/11/zero-image-close-buttons/simple-breakdown.png" width="514" height="195" title="‘The X is just two lines’" ></p>
+<p>{% img center /images/posts/2012/07/11/zero-image-close-buttons/simple-breakdown.png 514 195 ‘The X is just two lines’ %}</p>
 
 <p>As a single linear gradient can only make lines parallel to each other, we need to make two lines by using two gradients.</p>
 
@@ -162,7 +156,7 @@ background-color: rgba(0,0,0,0.1); } ``` [See it in action here](/demos/zero-ima
 
 <p>Both these problems can be solved by deconstructing the X a little further:</p>
 
-<p><img class="center" src="/images/posts/2012/07/11/zero-image-close-buttons/advanced-breakdown.png" width="200" height="200" title="‘The X is four lines joining at the centre’" ></p>
+<p>{% img center /images/posts/2012/07/11/zero-image-close-buttons/advanced-breakdown.png 200 200 ‘The X is four lines joining at the centre’ %}</p>
 
 <p>This means as well as creating four gradients we must also give them each different positions within the element they apply to.</p>
 
@@ -256,7 +250,7 @@ background-position: right top, left top, left bottom, right bottom; } ```
 
 <p>That’s right. Just when you thought you had a nice system in place IE comes along and stomps all over it. I’m sure more and more people will come up against this as they start using CSS gradients in earnest. I can see it being quite a common situation, too. I have two background images: one, a CSS generated gradient and two, an image to be laid over the top of it. A nice shiny button with an icon, for example.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/button.png" width="142" height="38" title="‘A button that says Register now and has a gradient and a separate icon for the background’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/button.png 142 38 ‘A button that says Register now and has a gradient and a separate icon for the background’ %}</p>
 
 <p>We know that certain browsers can’t render gradients and so we define the background to initially be just a solid colour with the icon image (the users of the older browsers will never miss what they didn’t know was there). Then we go on to define the styles for the modern browsers. These styles use the same selector (<code>background-image</code>) so they will override the initial declaration but according to the rules, browsers that don’t understand the gradient instructions will just ignore the whole declaration leaving us with just the initial icon for the background.</p>
 
@@ -302,17 +296,17 @@ padding-left: 30px; } ```
 
 <p>Here it is in Firefox:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example1-ff.png" width="142" height="38" title="‘Styles are working well in Firefox’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example1-ff.png 142 38 ‘Styles are working well in Firefox’ %}</p>
 
 <p>And in IE7:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example1-ie.png" width="142" height="38" title="‘The icon on the button is missing in IE’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example1-ie.png 142 38 ‘The icon on the button is missing in IE’ %}</p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example1.html">see it for yourself in your browser</a>.</p>
 
 <p>It seems that IE is not behaving as we might expect. It’s not showing the gradient (expected) but it’s not failing back to just showing the icon either. A quick look at the IE developer toolbar (in IE9, IE7 mode; the IE7 dev toolbar would leave you stumped) shows us why:</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example1-ie-inspector.png" width="692" height="100" title="‘Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can’t understand’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example1-ie-inspector.png 692 100 ‘Screenshot of the IE developer toolbar showing that IE has picked up and is trying to use styles it can’t understand’ %}</p>
 
 <p>It’s picked up the background image declaration that includes a gradient. In this case it’s the Mozilla-specific gradient and the reason it’s this one and not the Webkit one is that we are defining the Mozilla one last. If they were defined the other way around it would have picked up the Webkit one instead.</p>
 
@@ -367,11 +361,11 @@ padding-left: 30px; } ```
 
 <p>Here it is in Firefox:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example2-ff.png" width="142" height="38" title="‘The styles are working well in Firefox’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example2-ff.png 142 38 ‘The styles are working well in Firefox’ %}</p>
 
 <p>And in IE7:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example2-ie.png" width="142" height="38" title="‘The styles are working well in IE7’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example2-ie.png 142 38 ‘The styles are working well in IE7’ %}</p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example2.html">see it for yourself in your browser</a>.</p>
 
@@ -379,7 +373,7 @@ padding-left: 30px; } ```
 
 <p>You thought this was over? Of course it’s not! IE9 is a heck of a lot better than previous versions but it’s still not perfect. For example, it does support multiple backgrounds but it doesn’t support CSS gradients. This means that it’ll ignore the gradients but it’ll use the <code>background-position</code> multiple background declaration we made, resulting in the icon being positioned <code>left top</code> as opposed to <code>5px center</code>.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example2-ie9.png" width="142" height="38" title="‘The styles have regressed in IE9 and the icon is incorrectly aligned’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example2-ie9.png 142 38 ‘The styles have regressed in IE9 and the icon is incorrectly aligned’ %}</p>
 
 <p>I tried getting around this by inserting another <code>background-image</code> defining three images (two of them transparent spacers) directly after the first <code>background-image</code> and before the first gradient:</p>
 
@@ -440,31 +434,31 @@ padding-left: 30px; } ```
 
 <p>Here it is in Firefox:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ff.png" width="142" height="38" title="‘The styles are working well in Firefox’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ff.png 142 38 ‘The styles are working well in Firefox’ %}</p>
 
 <p>And in Webkit (Chrome):  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ch.png" width="142" height="38" title="‘The styles are working well in Chrome’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ch.png 142 38 ‘The styles are working well in Chrome’ %}</p>
 
 <p>And in Opera:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-op.png" width="142" height="38" title="‘The styles are working well in Opera’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-op.png 142 38 ‘The styles are working well in Opera’ %}</p>
 
 <p>And in IE6:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie6.png" width="142" height="38" title="‘The styles are working well in IE6’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ie6.png 142 38 ‘The styles are working well in IE6’ %}</p>
 
 <p>And in IE7:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie7.png" width="142" height="38" title="‘The styles are working well in IE7’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ie7.png 142 38 ‘The styles are working well in IE7’ %}</p>
 
 <p>And in IE8:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie8.png" width="142" height="38" title="‘The styles are working well in IE8’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ie8.png 142 38 ‘The styles are working well in IE8’ %}</p>
 
 <p>And in IE9:  </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/example3-ie9.png" width="142" height="38" title="‘The styles are working well in IE9’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/example3-ie9.png 142 38 ‘The styles are working well in IE9’ %}</p>
 
 <p>Or you can <a href="/demos/css3-gradients-multiple-backgrounds-and-ie7/example3.html">see it for yourself in your browser</a>.</p>
 
@@ -488,7 +482,7 @@ padding-left: 30px; } ```
     <id>http://blog.norestfortheweekend.com/blog/2011/02/14/the-web-in-3d-the-nintendo-3ds-web-browser</id>
     <content type="html"><![CDATA[<p>Last Sunday my wife and I went and had a sneaky preview of the new games console from Nintendo: the <a href="http://www.nintendo.com/3ds">3DS</a>.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/nintendo3dswithpen.png" width="455" height="384" title="‘The Nintendo 3DS’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/nintendo3dswithpen.png 455 384 ‘The Nintendo 3DS’ %}</p>
 
 <p>Let’s not beat around the bush: this is a very impressive device. It’s tricked out with all the latest technologies (or the latest applications of ‘old’ technologies, wherever you choose to draw the line). The thing people are really talking about, of course, is the 3D aspect of it. I’m sure you have read about it - the top screen is a 3D display which importantly doesn’t require glasses. I can’t stress enough how good the 3D effect looked. It felt completely natural and I didn’t find myself getting any kind of a headache or nausea like some people are worried about.</p>
 
@@ -569,7 +563,7 @@ padding-left: 30px; } ```
 
 <p>Imagine a blank page. You make the background a fetching pinkish sort of red colour and set the <code>depth</code> to be way back in the distance. </p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo1.png" width="628" height="312" title="‘3DS Screen showing plain background’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo1.png 628 312 ‘3DS Screen showing plain background’ %}</p>
 
 <p>You then have a look at it and wonder why it doesn’t look like it’s way off in the distance. You check to see that your 3D depth slider is turned all the way up and when you find that it is you’re left feeling a little confused.</p>
 
@@ -579,23 +573,23 @@ padding-left: 30px; } ```
   <li>You could give it a border that makes it look like you’re looking into a box. Of course the edges of the border would need to be firmly in the foreground for it to work.</li>
 </ol>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo2.png" width="628" height="312" title="‘3DS screen showing a background shaded to look like you are looking into a box’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo2.png 628 312 ‘3DS screen showing a background shaded to look like you are looking into a box’ %}</p>
 
 <ol>
   <li>You could give it a pattern or image. Beware with repeating patterns though: looking at 3D images forces your eyes to cross slightly and a repeating pattern could cause you to think it’s not at the depth you intended.</li>
 </ol>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo3.png" width="628" height="312" title="‘3DS screen with a patterned background’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo3.png 628 312 ‘3DS screen with a patterned background’ %}</p>
 
 <ol>
   <li>Lay something else on top of it with a higher <code>depth</code>. For demonstration purposes I’m going to go with this one.</li>
 </ol>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo4.png" width="628" height="312" title="‘3DS screen with a plain background and a green tile overlayed’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo4.png 628 312 ‘3DS screen with a plain background and a green tile overlayed’ %}</p>
 
 <p>But even laying something on top like this isn’t too easy for our brains to process. Have a look what each eye would be seeing.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo5.png" width="628" height="312" title="‘Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo5.png 628 312 ‘Side-by-side 3DS screens showing the difference in location of the overlaid panel for each eye’ %}</p>
 
 <p>There’s not a great deal to differentiate these two images and while your brain knows it’s seeing different things from each eye it is struggling because there are things missing that it’s used to. Usually when you see an object in front of another object it casts a shadow somewhere. Because they are in different locations your eyes will each see that shadow slightly differently. Also the way the object is lit and how it reflects the light could be different in each eye. To make sure we don’t give people headaches we’ll have to sort this out.</p>
 
@@ -607,7 +601,7 @@ padding-left: 30px; } ```
 
 <p>Now the panel has a nice drop shadow which should make it easier on the eyes and easier to see the 3D effect.</p>
 
-<p><img class="center" src="/images/wp-uploads/2011/02/demo6.png" width="628" height="312" title="‘3DS screen with plain background and a green panel overlaid with a drop shadow’" ></p>
+<p>{% img center /images/wp-uploads/2011/02/demo6.png 628 312 ‘3DS screen with plain background and a green panel overlaid with a drop shadow’ %}</p>
 
 <p>But how does it get rendered so that each eye sees the shadow differently?</p>
 

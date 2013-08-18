@@ -4,7 +4,7 @@
   <title><![CDATA[Category: layout | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/layout/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-06-07T08:49:41+01:00</updated>
+  <updated>2013-08-18T16:23:16+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -60,13 +60,13 @@
 
 <p>Look at this page:</p>
 
-<p><a href="/images/wp-uploads/2010/02/ellieconnelly.jpg"><img class="center" src="/images/wp-uploads/2010/02/ellieconnelly-628x402.jpg" width="628" height="402" title="‘Screen grab from the WebComic “Ellie Connelly”’" ></a></p>
+<p><a href="/images/wp-uploads/2010/02/ellieconnelly.jpg">{% img center /images/wp-uploads/2010/02/ellieconnelly-628x402.jpg 628 402 ‘Screen grab from the WebComic “Ellie Connelly”’ %}</a></p>
 
 <p>I have a pretty big screen. With that page from <a href="http://www.ellieconnelly.com/">Ellie Connelly</a> I hit the site and the comic is all there, no need to scroll. When I’ve finished reading the most likely thing I’ll do is close the tab because what I came for was the comic. There’s nothing else visible that makes me encourages to look any further. There are ads on that page but to see them I’d have to scroll… so I won’t see them. There’s also a blog which I’d sadly also miss.</p>
 
 <p>Now have a look at this front page from another WebComic, <a href="http://www.evil-comic.com">Evil, Inc.</a>:</p>
 
-<p><a href="/images/wp-uploads/2010/02/evilinc.jpg"><img class="center" src="/images/wp-uploads/2010/02/evilinc-628x404.jpg" width="628" height="404" title="‘Screen grab from the WebComic “Evil, Inc.”’" ></a></p>
+<p><a href="/images/wp-uploads/2010/02/evilinc.jpg">{% img center /images/wp-uploads/2010/02/evilinc-628x404.jpg 628 404 ‘Screen grab from the WebComic “Evil, Inc.”’ %}</a></p>
 
 <p>There is an advert right at the top of the page! The logo is shrunk and placed in line with the advert. This lets the content that the user is after move higher up the page. This is good for the reader and good for the author as they have a better chance of enticing the reader to scroll down with extra content.</p>
 
@@ -76,7 +76,7 @@
 
 <p>Let’s look at another, <a href="http://www.sheldoncomics.com/">Sheldon</a>:</p>
 
-<p><a href="/images/wp-uploads/2010/02/sheldon.jpg"><img class="center" src="/images/wp-uploads/2010/02/sheldon-628x402.jpg" width="628" height="402" title="‘Screen grab from the WebComic “Sheldon”’" ></a></p>
+<p><a href="/images/wp-uploads/2010/02/sheldon.jpg">{% img center /images/wp-uploads/2010/02/sheldon-628x402.jpg 628 402 ‘Screen grab from the WebComic “Sheldon”’ %}</a></p>
 
 <p>Again, the strip fits nicely on my screen without scrolling but there’s so much else to catch my attention after I’ve read it. There are 3 adverts (4 if you count the peel back flash advert in the top right) and plenty of ways to maintain the reader’s engagement with the strip. One of the adverts is butted right up to the bottom of the strip which means so long as the top of the advert is interesting the user is much more likely to scroll down to see the rest.</p>
 
