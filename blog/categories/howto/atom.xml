@@ -4,7 +4,7 @@
   <title><![CDATA[Category: howto | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/howto/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-08-18T16:23:16+01:00</updated>
+  <updated>2013-08-18T17:07:08+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -147,7 +147,7 @@ $ ln -s mydomain.com public_html
 
 <h2 id="a-note-on-security">A note on security</h2>
 
-<p>If you navigate to http://mydomain.com/.git you may notice that the contents of your git repository are available for the world to see. Reasons why you might not want this:</p>
+<p>If you navigate to http://mydomain.com/.git you may notice that the contents of your git repository are available for the world to see. Some reasons why you might not want this:</p>
 
 <ul>
   <li>Your email address is probably associated with all your commits</li>

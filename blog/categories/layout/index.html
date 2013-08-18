@@ -18,13 +18,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.norestfortheweekend.comblog/categories/layout/">
+  <link rel="canonical" href="http://blog.norestfortheweekend.comblog/categories/layout">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="http://feeds.feedburner.com/NoRestForTheWeekend" rel="alternate" title="No Rest For The Weekend" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -117,11 +118,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/08/18/using-git-to-deploy-your-site/">Using git to deploy your site</a>
+        <a href="/blog/2013/08/18/using-git-to-deploy-your-site/">Using Git to Deploy Your Site</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/06/06/in-defence-of-the-bbc-and-its-clock/">In Defence Of The BBC And Its Clock</a>
+        <a href="/blog/2013/06/06/in-defence-of-the-bbc-and-its-clock/">In Defence of the BBC and Its Clock</a>
       </li>
     
       <li class="post">
@@ -133,27 +134,10 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2012/07/11/zero-image-close-buttons/">Zero image close buttons</a>
+        <a href="/blog/2012/07/11/zero-image-close-buttons/">Zero Image Close Buttons</a>
       </li>
     
   </ul>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("norestftw", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/norestftw" class="twitter-follow-button" data-show-count="false">Follow @norestftw</a>
-  
 </section>
 
 
@@ -198,7 +182,7 @@
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

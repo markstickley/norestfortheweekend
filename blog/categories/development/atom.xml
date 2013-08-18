@@ -4,7 +4,7 @@
   <title><![CDATA[Category: development | No Rest For The Weekend]]></title>
   <link href="http://blog.norestfortheweekend.com/blog/categories/development/atom.xml" rel="self"/>
   <link href="http://blog.norestfortheweekend.com/"/>
-  <updated>2013-08-18T16:23:16+01:00</updated>
+  <updated>2013-08-18T17:07:01+01:00</updated>
   <id>http://blog.norestfortheweekend.com/</id>
   <author>
     <name><![CDATA[Mark Stickley]]></name>
@@ -147,7 +147,7 @@ $ ln -s mydomain.com public_html
 
 <h2 id="a-note-on-security">A note on security</h2>
 
-<p>If you navigate to http://mydomain.com/.git you may notice that the contents of your git repository are available for the world to see. Reasons why you might not want this:</p>
+<p>If you navigate to http://mydomain.com/.git you may notice that the contents of your git repository are available for the world to see. Some reasons why you might not want this:</p>
 
 <ul>
   <li>Your email address is probably associated with all your commits</li>
@@ -179,7 +179,7 @@ RewriteRule ^(.*/)?\.git+ - [F,L]
 
 <h2 id="history">History</h2>
 
-<p>{% img center /images/posts/2013/06/06/in-defence-of-the-bbc-and-its-clock/clocks.jpg 790 592 ‘The <abbr title="British Broadcasting Corporation">BBC</abbr> clock through the ages’ %}</p>
+<p><img class="center /images/posts/2013/06/06/in-defence-of-the-bbc-and-its-clock/clocks.jpg 790 592 ‘The <abbr title=British Broadcasting" src="Corporation">BBC</abbr>" title="clock through the ages’" ></p>
 
 <p>The <a href="https://www.google.co.uk/search?q=bbc+clock&amp;tbm=isch"><abbr title="British Broadcasting Corporation">BBC</abbr> clock</a> has been around for a long time. It has had many incarnations and is an integral part of the <abbr title="British Broadcasting Corporation">BBC</abbr>’s history. It first appeared on BBC1 as an actual clock with a camera pointing at it, and then digital representations in the same style appeared. During a major redesign of the <abbr title="British Broadcasting Corporation">BBC</abbr> home page it was lovingly recreated in Flash as an homage to this iconic timepiece.</p>
 
